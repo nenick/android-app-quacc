@@ -1,0 +1,21 @@
+apply plugin: 'java'
+
+repositories {
+    mavenLocal()
+    jcenter()
+    maven { url = "https://oss.sonatype.org/content/repositories/snapshots" }
+}
+
+configurations {
+    provided
+    compile.extendsFrom provided
+}
+
+sourceSets {
+    main { compileClasspath += [configurations.provided] }
+}
+
+dependencies {
+    compile 'org.robolectric:robolectric:3.0-SNAPSHOT'
+    provided 'org.robolectric:android-all:5.0.0_r2-robolectric-0'
+}
