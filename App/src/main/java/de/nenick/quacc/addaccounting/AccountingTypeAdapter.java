@@ -1,10 +1,10 @@
-package de.nenick.quacc.addaccount;
+package de.nenick.quacc.addaccounting;
 
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
-public class AccountTypeAdapter extends BaseAdapter {
+public class AccountingTypeAdapter extends BaseAdapter {
 
     String[] accountType = new String[]{"Ausgabe, Einnahme"};
 

@@ -8,7 +8,6 @@ import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EFragment;
 
-import de.nenick.quacc.addaccounting.AddAccountActivity_;
 import de.nenick.quacc.addaccounting.AddAccountingDialog;
 import de.nenick.quacc.addaccounting.AddAccountingDialog_;
 

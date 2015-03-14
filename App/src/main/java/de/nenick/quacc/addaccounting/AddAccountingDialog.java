@@ -123,7 +123,7 @@ public class AddAccountingDialog extends DialogFragment {
         }
     }
 
-    public static AddAccountProcessFragment build() {
-        return AddAccountProcessFragment_.builder().build();
+    public static AddAccountingFragment build() {
+        return AddAccountingFragment_.builder().build();
     }
 }

@@ -16,7 +16,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class AddAccountingProcessSpec extends UnitTesting {
 
-    RoboBaseTest<AddAccountActivity_> roboBaseTest = new RoboBaseTest<>();
+    RoboBaseTest<AddAccountingActivity_> roboBaseTest = new RoboBaseTest<>();
     RoboAddAccountingProcessPage addAccountingProcessPage = new RoboAddAccountingProcessPage(roboBaseTest);
     RoboDatePickerDialog datePickerDialog = new RoboDatePickerDialog();
 

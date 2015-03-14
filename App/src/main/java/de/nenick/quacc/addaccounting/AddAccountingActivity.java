@@ -12,9 +12,9 @@ import de.nenick.quacc.R;
 
 @EActivity(R.layout.activity_add_account_process)
 @OptionsMenu(R.menu.menu_add_account_process)
-public class AddAccountActivity extends ActionBarActivity {
+public class AddAccountingActivity extends ActionBarActivity {
 
-    private static final String TAG_FRAGMENT = AddAccountProcessFragment.class.getSimpleName();
+    private static final String TAG_FRAGMENT = AddAccountingFragment.class.getSimpleName();
 
     @AfterViews
     protected void onAfterViews() {
@@ -26,7 +26,7 @@ public class AddAccountActivity extends ActionBarActivity {
         // If the Fragment is non-null, then it is currently being
         // retained across a configuration change.
         if (fragmentManager.findFragmentByTag(TAG_FRAGMENT) == null) {
-            fragmentManager.beginTransaction().add(R.id.container, AddAccountProcessFragment.build(), TAG_FRAGMENT).commit();
+            fragmentManager.beginTransaction().add(R.id.container, AddAccountingFragment.build(), TAG_FRAGMENT).commit();
         }
     }
 

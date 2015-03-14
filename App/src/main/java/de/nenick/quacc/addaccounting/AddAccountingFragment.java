@@ -23,7 +23,7 @@ import de.nenick.quacc.speechrecognition.SpeechRecognitionListener;
 import de.nenick.quacc.speechrecognition.SpeechRecognizerApiIntent;
 
 @EFragment(R.layout.fragment_add_accounting)
-public class AddAccountProcessFragment extends Fragment {
+public class AddAccountingFragment extends Fragment {
 
     public static final int REQUEST_DATE_PICKER = 1;
     private SpeechRecognizer mSpeechRecognizer;
@@ -125,7 +125,7 @@ public class AddAccountProcessFragment extends Fragment {
         }
     }
 
-    public static AddAccountProcessFragment build() {
-        return AddAccountProcessFragment_.builder().build();
+    public static AddAccountingFragment build() {
+        return AddAccountingFragment_.builder().build();
     }
 }

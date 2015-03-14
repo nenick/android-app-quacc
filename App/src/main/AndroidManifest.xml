@@ -20,7 +20,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".addaccounting.AddAccountActivity_"
+            android:name=".addaccounting.AddAccountingActivity_"
             android:label="@string/title_activity_add_account_process" >
         </activity>
     </application>

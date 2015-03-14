@@ -3,11 +3,13 @@ package de.nenick.quacc.speechrecognition;
 import android.os.Bundle;
 import android.speech.RecognitionListener;
 
+/**
+ * Hides not necessary callbacks for more clean code usage.
+ */
 public abstract class SpeechRecognitionListener implements RecognitionListener {
 
     @Override
     public void onBeginningOfSpeech() {
-        //Log.d(TAG, "onBeginingOfSpeech");
     }
 
     @Override
@@ -17,14 +19,10 @@ public abstract class SpeechRecognitionListener implements RecognitionListener {
 
     @Override
     public void onEndOfSpeech() {
-        //Log.d(TAG, "onEndOfSpeech");
     }
 
     @Override
     public void onError(int error) {
-        //mSpeechRecognizer.startListening(mSpeechRecognizerIntent);
-
-        //Log.d(TAG, "error = " + error);
     }
 
     @Override
