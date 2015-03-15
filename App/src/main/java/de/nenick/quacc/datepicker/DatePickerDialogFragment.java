@@ -28,6 +28,6 @@ public class DatePickerDialogFragment extends DialogFragment implements DatePick
     @Override
     public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
         getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK,
-                DatePickerFormatter.createResultIntent(year, monthOfYear, dayOfMonth));
+                DatePickerFormatUtil.createResultIntent(year, monthOfYear, dayOfMonth));
     }
 }

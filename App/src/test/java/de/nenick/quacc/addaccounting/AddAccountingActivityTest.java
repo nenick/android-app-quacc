@@ -14,7 +14,7 @@ import de.nenick.robolectricpages.components.RoboSpinnerEntry;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class AddAccountingProcessSpec extends UnitTesting {
+public class AddAccountingActivityTest extends UnitTesting {
 
     RoboBaseTest<AddAccountingActivity_> roboBaseTest = new RoboBaseTest<>();
     RoboAddAccountingProcessPage addAccountingProcessPage = new RoboAddAccountingProcessPage(roboBaseTest);
@@ -26,6 +26,13 @@ public class AddAccountingProcessSpec extends UnitTesting {
     @Test
     public void shouldHaveCorrectInitialState() {
         addAccountingProcessPage.startRoboPage();
+
+        entries = addAccountingProcessPage.accountSpinner().entries();
+        assertThat(entries).hasSize(3);
+        assertThat(entries.get(0).getText()).isEqualTo("Konto");
+        assertThat(entries.get(1).getText()).isEqualTo("Sparkonto");
+        assertThat(entries.get(2).getText()).isEqualTo("Bar");
+        assertThat(addAccountingProcessPage.accountSpinner().selectedEntry().getText()).isEqualTo("Konto");
 
         entries = addAccountingProcessPage.typeSpinner().entries();
         assertThat(entries).hasSize(2);
@@ -66,6 +73,7 @@ public class AddAccountingProcessSpec extends UnitTesting {
     public void shouldSaveStateForConfigChanges() {
         addAccountingProcessPage.startRoboPage();
 
+        addAccountingProcessPage.accountSpinner().entries().get(2).select();
         addAccountingProcessPage.typeSpinner().entries().get(1).select();
         addAccountingProcessPage.intervalSpinner().entries().get(2).select();
         addAccountingProcessPage.categorySpinner().entries().get(3).select();
@@ -76,6 +84,7 @@ public class AddAccountingProcessSpec extends UnitTesting {
 
         roboBaseTest.activityController.restart();
 
+        assertThat(addAccountingProcessPage.accountSpinner().selectedEntry().getText()).isEqualTo("Bar");
         assertThat(addAccountingProcessPage.typeSpinner().selectedEntry().getText()).isEqualTo("Einnahme");
         assertThat(addAccountingProcessPage.intervalSpinner().selectedEntry().getText()).isEqualTo("Monatlich");
         assertThat(addAccountingProcessPage.categorySpinner().selectedEntry().getText()).isEqualTo("Miete");

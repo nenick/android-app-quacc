@@ -28,4 +28,8 @@ public class RoboAddAccountingProcessPage extends RoboBasePage<AddAccountingActi
     public RoboSpinner categorySpinner() {
         return new RoboSpinner(roboBaseTest, R.id.category);
     }
+
+    public RoboSpinner accountSpinner() {
+        return new RoboSpinner(roboBaseTest, R.id.account);
+    }
 }

@@ -2,9 +2,6 @@ package de.nenick.robolectric;
 
 import org.junit.runners.model.InitializationError;
 import org.robolectric.RobolectricTestRunner;
-
-import java.io.File;
-
 import de.nenick.quacc.BuildConfig;
 
 public class AndroidStudioAwareRobolectricTestRunner extends RobolectricTestRunner {
@@ -12,7 +9,8 @@ public class AndroidStudioAwareRobolectricTestRunner extends RobolectricTestRunn
     public AndroidStudioAwareRobolectricTestRunner(Class<?> testClass) throws InitializationError {
         super(testClass);
         String buildVariant = (BuildConfig.FLAVOR.isEmpty() ? "" : BuildConfig.FLAVOR+ "/") + BuildConfig.BUILD_TYPE;
-        String intermediatesPath = BuildConfig.class.getResource("").toString().replace("file:", "");
+        String intermediatesPath = getClass().getResource("").toString().replace("file:", "");
+        System.out.println(intermediatesPath);
         intermediatesPath = intermediatesPath.substring(0, intermediatesPath.indexOf("/classes"));
 
         System.setProperty("android.package", BuildConfig.APPLICATION_ID);

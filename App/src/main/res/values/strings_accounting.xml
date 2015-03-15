@@ -19,4 +19,10 @@
         <item>Miete</item>
     </string-array>
 
+    <string-array name="accounts">
+        <item>Konto</item>
+        <item>Sparkonto</item>
+        <item>Bar</item>
+    </string-array>
+
 </resources>

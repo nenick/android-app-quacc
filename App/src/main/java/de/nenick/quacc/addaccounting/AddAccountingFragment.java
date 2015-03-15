@@ -10,6 +10,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.ViewById;
@@ -18,7 +19,7 @@ import java.util.ArrayList;
 
 import de.nenick.quacc.R;
 import de.nenick.quacc.datepicker.DatePickerDialogFragment;
-import de.nenick.quacc.datepicker.DatePickerFormatter;
+import de.nenick.quacc.datepicker.DatePickerFormatUtil;
 import de.nenick.quacc.speechrecognition.SpeechRecognitionListener;
 import de.nenick.quacc.speechrecognition.SpeechRecognizerApiIntent;
 
@@ -29,6 +30,9 @@ public class AddAccountingFragment extends Fragment {
     private SpeechRecognizer mSpeechRecognizer;
     private Intent mSpeechRecognizerIntent;
     private boolean mIslistening;
+
+    @ViewById(R.id.account)
+    Spinner accountSpinner;
 
     @ViewById(R.id.accountingType)
     Spinner accountingTypeSpinner;
@@ -42,21 +46,27 @@ public class AddAccountingFragment extends Fragment {
     @ViewById(R.id.date)
     TextView date;
 
+    @Bean
+    AddAccountingPresenter presenter;
+
     @AfterViews
     protected void onAfterViews() {
+        presenter.view = this;
         mSpeechRecognizer = SpeechRecognizer.createSpeechRecognizer(getActivity());
         mSpeechRecognizerIntent = SpeechRecognizerApiIntent.create(getActivity());
         mSpeechRecognizer.setRecognitionListener(new SpeechRecognitionListener() {
             @Override
             public void onResults(Bundle results) {
-                //Log.d(TAG, "onResults"); //$NON-NLS-1$
                 ArrayList<String> matches = results.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION);
-                ((TextView) getActivity().findViewById(R.id.text1)).setText(matches.get(0));
-                // matches are the return values of speech recognition engine
-                // Use these values for whatever you wish to do
+                // every time I got only one entry
+                if(matches.size() != 1) {
+                    throw new UnsupportedOperationException("More than one match is not tested");
+                }
+                presenter.onViewSpeechResult(matches.get(0));
             }
         });
 
+        initAccountSelection();
         initAccountingTypeSelection();
         initAccountingIntervalSelection();
         initAccountingCategorySelection();
@@ -65,10 +75,10 @@ public class AddAccountingFragment extends Fragment {
     }
 
     private void initDateInformation() {
-        date.setText(DatePickerFormatter.currentDate());
+        date.setText(DatePickerFormatUtil.currentDate());
     }
 
-    @Click(R.id.button1)
+    @Click(R.id.speechRecognitionBtn)
     protected void onButton() {
         if (!mIslistening) {
             mIslistening = true;
@@ -91,12 +101,18 @@ public class AddAccountingFragment extends Fragment {
         switch (requestCode) {
             case REQUEST_DATE_PICKER:
                 if (resultCode == Activity.RESULT_OK) {
-                    date.setText(DatePickerFormatter.fromResultIntent(data));
+                    date.setText(DatePickerFormatUtil.fromResultIntent(data));
                 }
                 break;
             default:
                 throw new IllegalStateException("Not handled activity result request.");
         }
+    }
+
+    private void initAccountSelection() {
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity(), R.array.accounts, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        accountSpinner.setAdapter(adapter);
     }
 
     private void initAccountingTypeSelection() {
@@ -127,5 +143,9 @@ public class AddAccountingFragment extends Fragment {
 
     public static AddAccountingFragment build() {
         return AddAccountingFragment_.builder().build();
+    }
+
+    public void showRecognizedText(String recognizedText) {
+        ((TextView) getActivity().findViewById(R.id.speechResult)).setText(recognizedText);
     }
 }

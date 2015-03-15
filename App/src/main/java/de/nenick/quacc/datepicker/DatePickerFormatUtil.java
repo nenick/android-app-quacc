@@ -7,11 +7,14 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
 
-public class DatePickerFormatter {
+public class DatePickerFormatUtil {
 
     public static final String EXTRA_YEAR = "year";
     public static final String EXTRA_MONTH = "month";
     public static final String EXTRA_DAY = "day";
+
+    public static final int DATE_FORMAT = SimpleDateFormat.MEDIUM;
+    public static final Locale DATE_LOCAL = Locale.GERMAN;
 
     public static Intent createResultIntent(int year, int month, int day) {
         Intent intent = new Intent();
@@ -28,13 +31,13 @@ public class DatePickerFormatter {
 
         Calendar calendar = Calendar.getInstance();
         calendar.set(year, month, day);
-        DateFormat df = SimpleDateFormat.getDateInstance(SimpleDateFormat.MEDIUM, Locale.GERMAN);
+        DateFormat df = SimpleDateFormat.getDateInstance(DATE_FORMAT, DATE_LOCAL);
         return df.format(calendar.getTime());
     }
 
     public static String currentDate() {
         Calendar calendar = Calendar.getInstance();
-        DateFormat df = SimpleDateFormat.getDateInstance(SimpleDateFormat.MEDIUM, Locale.GERMAN);
+        DateFormat df = SimpleDateFormat.getDateInstance(DATE_FORMAT, DATE_LOCAL);
         return df.format(calendar.getTime());
     }
 }
