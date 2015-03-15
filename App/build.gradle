@@ -9,7 +9,6 @@ buildscript {
 }
 
 apply plugin: 'com.android.application'
-apply plugin: 'android-apt'
 
 android {
     compileSdkVersion 21
@@ -36,32 +35,17 @@ repositories {
     maven { url = "https://oss.sonatype.org/content/repositories/snapshots" }
 }
 
+apply from: "gradle/apt.gradle"
+apply from: "../gradle/androidannotations.gradle"
+apply from: "../gradle/dagger.gradle"
+apply from: "../gradle/robolectric.gradle"
+
 dependencies {
     releaseCompile project(path: ':Core', configuration: 'release')
     debugCompile project(path: ':Core', configuration: 'debug')
 
     compile 'com.android.support:appcompat-v7:21.0.3'
 
-    // android annotations code generation
-    apt "org.androidannotations:androidannotations:3.2"
-    compile "org.androidannotations:androidannotations-api:3.2"
-
-    testCompile 'junit:junit:4.12'
-    testCompile 'org.robolectric:robolectric:3.0-SNAPSHOT'
-    testCompile 'org.mockito:mockito-core:2.0.5-beta'
-    testCompile ('com.squareup.assertj:assertj-android:1.0.1-SNAPSHOT') {
-        exclude module: "support-annotations"
-    }
     testCompile project(':RobolectricPages')
 
 }
-
-// android annotations code generation
-apt {
-    arguments {
-        ext.MyVariant = variant.outputs[0].processResources.manifestFile
-        androidManifestFile variant.outputs[0].processResources.manifestFile
-        resourcePackageName android.defaultConfig.applicationId
-    }
-}
-

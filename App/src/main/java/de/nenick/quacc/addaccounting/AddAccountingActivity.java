@@ -14,7 +14,7 @@ import de.nenick.quacc.R;
 @OptionsMenu(R.menu.menu_add_account_process)
 public class AddAccountingActivity extends ActionBarActivity {
 
-    private static final String TAG_FRAGMENT = AddAccountingFragment.class.getSimpleName();
+    public static final String TAG_FRAGMENT = AddAccountingFragment.class.getSimpleName();
 
     @AfterViews
     protected void onAfterViews() {
@@ -28,10 +28,5 @@ public class AddAccountingActivity extends ActionBarActivity {
         if (fragmentManager.findFragmentByTag(TAG_FRAGMENT) == null) {
             fragmentManager.beginTransaction().add(R.id.container, AddAccountingFragment.build(), TAG_FRAGMENT).commit();
         }
-    }
-
-    @OptionsItem(R.id.action_settings)
-    void settingsNotImplemented() {
-
     }
 }

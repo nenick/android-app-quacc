@@ -4,22 +4,27 @@ import android.app.Activity;
 
 import org.robolectric.Robolectric;
 
-import de.nenick.robolectricpages.RoboBaseTest;
-
-public class RoboBasePage<T extends Activity> {
+public class RoboBasePage<T extends Activity, B extends RoboBaseTest<T>> {
 
     private Class<T> clazz;
-    protected RoboBaseTest<T> roboBaseTest;
+    protected B robo;
 
-    public RoboBasePage(Class<T> clazz, RoboBaseTest<T> roboBaseTest) {
+    public RoboBasePage(Class<T> clazz, B robo) {
         this.clazz = clazz;
-        this.roboBaseTest = roboBaseTest;
+        this.robo = robo;
     }
 
-    public void startRoboPage() {
-        roboBaseTest.activityController = Robolectric.buildActivity(clazz);
-        roboBaseTest.activity = roboBaseTest.activityController.setup().get();
+    public void startPage() {
+        robo.activityController = Robolectric.buildActivity(clazz);
+        robo.activity = robo.activityController.setup().get();
     }
 
+    protected void createPage() {
+        robo.activityController = Robolectric.buildActivity(clazz);
+        robo.activity = robo.activityController.create().get();
+    }
 
+    protected void startCreatedPage() {
+        robo.activityController.start().postCreate(null).resume().visible();
+    }
 }

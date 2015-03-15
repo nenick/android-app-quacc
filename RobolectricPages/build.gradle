@@ -1,8 +1,6 @@
 apply plugin: 'java'
 
 repositories {
-    mavenLocal()
-    jcenter()
     maven { url = "https://oss.sonatype.org/content/repositories/snapshots" }
 }
 

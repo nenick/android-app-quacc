@@ -1,3 +1,13 @@
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        // support code generation (android annotaions, dagger, ...)
+        classpath 'com.neenbedankt.gradle.plugins:android-apt:1.4'
+    }
+}
+
 apply plugin: 'com.android.library'
 
 android {
@@ -23,11 +33,7 @@ repositories {
     maven { url = "https://oss.sonatype.org/content/repositories/snapshots" }
 }
 
-dependencies {
-    testCompile 'junit:junit:4.12'
-    testCompile 'org.robolectric:robolectric:3.0-SNAPSHOT'
-    testCompile 'org.mockito:mockito-core:2.0.5-beta'
-    testCompile ('com.squareup.assertj:assertj-android:1.0.1-SNAPSHOT') {
-        exclude module: "support-annotations"
-    }
-}
+apply from: "gradle/apt.gradle"
+apply from: "../gradle/androidannotations.gradle"
+apply from: "../gradle/dagger.gradle"
+apply from: "../gradle/robolectric.gradle"

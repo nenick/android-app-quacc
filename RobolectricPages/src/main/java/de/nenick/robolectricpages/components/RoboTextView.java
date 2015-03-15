@@ -3,6 +3,7 @@ package de.nenick.robolectricpages.components;
 import android.widget.TextView;
 
 import de.nenick.robolectricpages.RoboBaseTest;
+import de.nenick.robolectricpages.utils.RoboClickUtil;
 
 public class RoboTextView extends RoboBaseComponent {
 
@@ -22,8 +23,6 @@ public class RoboTextView extends RoboBaseComponent {
     }
 
     public void click() {
-        if(!textView.performClick()) {
-            throw new IllegalStateException("TextView has no click listener.");
-        }
+        RoboClickUtil.click(textView);
     }
 }

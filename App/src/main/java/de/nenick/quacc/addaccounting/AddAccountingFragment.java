@@ -21,15 +21,17 @@ import de.nenick.quacc.R;
 import de.nenick.quacc.datepicker.DatePickerDialogFragment;
 import de.nenick.quacc.datepicker.DatePickerFormatUtil;
 import de.nenick.quacc.speechrecognition.SpeechRecognitionListener;
+import de.nenick.quacc.speechrecognition.SpeechRecognitionWrapper;
 import de.nenick.quacc.speechrecognition.SpeechRecognizerApiIntent;
 
 @EFragment(R.layout.fragment_add_accounting)
 public class AddAccountingFragment extends Fragment {
 
+    public static AddAccountingFragment build() {
+        return AddAccountingFragment_.builder().build();
+    }
+
     public static final int REQUEST_DATE_PICKER = 1;
-    private SpeechRecognizer mSpeechRecognizer;
-    private Intent mSpeechRecognizerIntent;
-    private boolean mIslistening;
 
     @ViewById(R.id.account)
     Spinner accountSpinner;
@@ -49,48 +51,44 @@ public class AddAccountingFragment extends Fragment {
     @Bean
     AddAccountingPresenter presenter;
 
+    @Bean
+    SpeechRecognitionWrapper speechRecognition;
+
     @AfterViews
     protected void onAfterViews() {
-        presenter.view = this;
-        mSpeechRecognizer = SpeechRecognizer.createSpeechRecognizer(getActivity());
-        mSpeechRecognizerIntent = SpeechRecognizerApiIntent.create(getActivity());
-        mSpeechRecognizer.setRecognitionListener(new SpeechRecognitionListener() {
-            @Override
-            public void onResults(Bundle results) {
-                ArrayList<String> matches = results.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION);
-                // every time I got only one entry
-                if(matches.size() != 1) {
-                    throw new UnsupportedOperationException("More than one match is not tested");
-                }
-                presenter.onViewSpeechResult(matches.get(0));
-            }
-        });
-
-        initAccountSelection();
-        initAccountingTypeSelection();
-        initAccountingIntervalSelection();
-        initAccountingCategorySelection();
-        initDateInformation();
-
+        presenter.onViewCreated(this);
     }
 
-    private void initDateInformation() {
-        date.setText(DatePickerFormatUtil.currentDate());
+    @Override
+    public void onStart() {
+        super.onStart();
+        speechRecognition.setRecognitionListener(new SpeechRecognitionListener() {
+            @Override
+            public void onResults(Bundle results) {
+                onSpeechResult(results.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION));
+            }
+        });
+    }
+
+    private void onSpeechResult(ArrayList<String> matches) {
+        // every time I got only one entry
+        if (matches.size() != 1) {
+            throw new UnsupportedOperationException("More than one match is not tested");
+        }
+        presenter.onViewSpeechResult(matches.get(0));
+    }
+
+    public void showDate(String dateString) {
+        date.setText(dateString);
     }
 
     @Click(R.id.speechRecognitionBtn)
-    protected void onButton() {
-        if (!mIslistening) {
-            mIslistening = true;
-            mSpeechRecognizer.startListening(mSpeechRecognizerIntent);
-        } else {
-            mIslistening = false;
-            mSpeechRecognizer.stopListening();
-        }
+    protected void onToggleSpeechRecognition() {
+        speechRecognition.toggle();
     }
 
     @Click(R.id.date)
-    public void onShowDatePicker() {
+    protected void onShowDatePicker() {
         DatePickerDialogFragment datePickerDialogFragment = new DatePickerDialogFragment();
         datePickerDialogFragment.setTargetFragment(this, REQUEST_DATE_PICKER);
         datePickerDialogFragment.show(getActivity().getSupportFragmentManager(), "Date Picker");
@@ -109,43 +107,37 @@ public class AddAccountingFragment extends Fragment {
         }
     }
 
-    private void initAccountSelection() {
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity(), R.array.accounts, android.R.layout.simple_spinner_item);
+    public void showAccounts(int stringArray) {
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity(), stringArray, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         accountSpinner.setAdapter(adapter);
     }
 
-    private void initAccountingTypeSelection() {
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity(), R.array.accounting_types, android.R.layout.simple_spinner_item);
+    public void showAccountingTypes(int stringArray) {
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity(), stringArray, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         accountingTypeSpinner.setAdapter(adapter);
     }
 
-    private void initAccountingIntervalSelection() {
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity(), R.array.accounting_intervals, android.R.layout.simple_spinner_item);
+    public void showAccountingIntervals(int stringArray) {
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity(), stringArray, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         accountingIntervalSpinner.setAdapter(adapter);
     }
 
-    private void initAccountingCategorySelection() {
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity(), R.array.accounting_categories, android.R.layout.simple_spinner_item);
+    public void showAccountingCategorys(int stringArray) {
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity(), stringArray, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         accountingCategorySpinner.setAdapter(adapter);
+    }
+
+    public void showRecognizedText(String recognizedText) {
+        ((TextView) getActivity().findViewById(R.id.speechResult)).setText(recognizedText);
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        if (mSpeechRecognizer != null) {
-            mSpeechRecognizer.destroy();
-        }
-    }
-
-    public static AddAccountingFragment build() {
-        return AddAccountingFragment_.builder().build();
-    }
-
-    public void showRecognizedText(String recognizedText) {
-        ((TextView) getActivity().findViewById(R.id.speechResult)).setText(recognizedText);
+        speechRecognition.destroy();
     }
 }
