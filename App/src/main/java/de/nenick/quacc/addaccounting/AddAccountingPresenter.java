@@ -5,7 +5,10 @@ import org.androidannotations.annotations.EBean;
 
 import javax.inject.Inject;
 
-import de.nenick.quacc.R;
+import de.nenick.quacc.core.accounting.GetAccountingCategoriesUc;
+import de.nenick.quacc.core.accounting.GetAccountingIntervalsUc;
+import de.nenick.quacc.core.accounting.GetAccountingTypesUc;
+import de.nenick.quacc.core.accounting.GetAccountsUc;
 import de.nenick.quacc.core.speechinterpretation.RecognizeAccountingTypeUc;
 import de.nenick.quacc.daggersupport.DaggerSupport;
 import de.nenick.quacc.datepicker.DatePickerFormatUtil;
@@ -13,10 +16,22 @@ import de.nenick.quacc.datepicker.DatePickerFormatUtil;
 @EBean
 public class AddAccountingPresenter {
 
+    AddAccountingFragment view;
+
     @Inject
     RecognizeAccountingTypeUc recognizeAccountingTypeUc;
 
-    AddAccountingFragment view;
+    @Inject
+    GetAccountingCategoriesUc getAccountingCategoriesUc;
+
+    @Inject
+    GetAccountingIntervalsUc getAccountingIntervalsUc;
+
+    @Inject
+    GetAccountingTypesUc getAccountingTypesUc;
+
+    @Inject
+    GetAccountsUc getAccountsUc;
 
     @AfterInject
     protected void afterInject() {
@@ -31,10 +46,10 @@ public class AddAccountingPresenter {
 
     public void onViewCreated(AddAccountingFragment view) {
         this.view = view;
-        view.showAccounts(R.array.accounts);
-        view.showAccountingTypes(R.array.accounting_types);
-        view.showAccountingIntervals(R.array.accounting_intervals);
-        view.showAccountingCategorys(R.array.accounting_categories);
+        view.showAccounts(getAccountsUc.apply());
+        view.showAccountingTypes(getAccountingTypesUc.apply());
+        view.showAccountingIntervals(getAccountingIntervalsUc.apply());
+        view.showAccountingCategories(getAccountingCategoriesUc.apply());
         view.showDate(DatePickerFormatUtil.currentDate());
     }
 }

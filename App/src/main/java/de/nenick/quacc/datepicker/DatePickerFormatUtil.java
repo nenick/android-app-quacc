@@ -7,7 +7,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
 
-public class DatePickerFormatUtil {
+public abstract class DatePickerFormatUtil {
 
     public static final String EXTRA_YEAR = "year";
     public static final String EXTRA_MONTH = "month";

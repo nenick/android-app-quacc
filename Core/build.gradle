@@ -29,10 +29,6 @@ android {
     }
 }
 
-repositories {
-    maven { url = "https://oss.sonatype.org/content/repositories/snapshots" }
-}
-
 apply from: "gradle/apt.gradle"
 apply from: "../gradle/androidannotations.gradle"
 apply from: "../gradle/dagger.gradle"

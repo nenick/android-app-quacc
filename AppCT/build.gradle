@@ -1,0 +1,19 @@
+buildscript {
+    repositories {
+        mavenLocal()
+    }
+
+    dependencies {
+        classpath "com.novoda:gradle-android-test-plugin:0.10.4"
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'android-test'
+apply from: '../gradle/robolectric.gradle'
+
+android {
+    projectUnderTest ':App'
+}
+
+apply from: 'build.novoda-android-studio.gradle'

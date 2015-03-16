@@ -22,7 +22,6 @@ import de.nenick.quacc.datepicker.DatePickerDialogFragment;
 import de.nenick.quacc.datepicker.DatePickerFormatUtil;
 import de.nenick.quacc.speechrecognition.SpeechRecognitionListener;
 import de.nenick.quacc.speechrecognition.SpeechRecognitionWrapper;
-import de.nenick.quacc.speechrecognition.SpeechRecognizerApiIntent;
 
 @EFragment(R.layout.fragment_add_accounting)
 public class AddAccountingFragment extends Fragment {
@@ -107,26 +106,26 @@ public class AddAccountingFragment extends Fragment {
         }
     }
 
-    public void showAccounts(int stringArray) {
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity(), stringArray, android.R.layout.simple_spinner_item);
+    public void showAccounts(CharSequence[] stringArray) {
+        ArrayAdapter<CharSequence> adapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_item, stringArray);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         accountSpinner.setAdapter(adapter);
     }
 
-    public void showAccountingTypes(int stringArray) {
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity(), stringArray, android.R.layout.simple_spinner_item);
+    public void showAccountingTypes(CharSequence[] stringArray) {
+        ArrayAdapter<CharSequence> adapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_item, stringArray);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         accountingTypeSpinner.setAdapter(adapter);
     }
 
-    public void showAccountingIntervals(int stringArray) {
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity(), stringArray, android.R.layout.simple_spinner_item);
+    public void showAccountingIntervals(CharSequence[] stringArray) {
+        ArrayAdapter<CharSequence> adapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_item, stringArray);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         accountingIntervalSpinner.setAdapter(adapter);
     }
 
-    public void showAccountingCategorys(int stringArray) {
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity(), stringArray, android.R.layout.simple_spinner_item);
+    public void showAccountingCategories(CharSequence[] stringArray) {
+        ArrayAdapter<CharSequence> adapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_item, stringArray);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         accountingCategorySpinner.setAdapter(adapter);
     }
