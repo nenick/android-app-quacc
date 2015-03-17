@@ -26,6 +26,9 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+        debug {
+            buildConfigField "String", "MODULE_PATH", "\"$projectDir\""
+        }
     }
 }
 
@@ -42,4 +45,18 @@ dependencies {
 
     testCompile project(':RobolectricPages')
 
+}
+
+task myTestsJar(type: Jar) {
+    //classifier = 'tests'
+    println android.sourceSets.testDebug.dump()
+    from "src/test/java"
+}
+
+configurations {
+    testArtifacts
+}
+
+artifacts {
+    testArtifacts myTestsJar
 }

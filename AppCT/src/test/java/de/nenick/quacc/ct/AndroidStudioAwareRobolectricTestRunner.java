@@ -11,9 +11,7 @@ public class AndroidStudioAwareRobolectricTestRunner extends RobolectricTestRunn
     public AndroidStudioAwareRobolectricTestRunner(Class<?> testClass) throws InitializationError {
         super(testClass);
         String buildVariant = (BuildConfig.FLAVOR.isEmpty() ? "" : BuildConfig.FLAVOR+ "/") + BuildConfig.BUILD_TYPE;
-        String intermediatesPath = AddAccountingActivity.class.getResource("").toString().replace("file:", "");
-        System.out.println(intermediatesPath);
-        intermediatesPath = intermediatesPath.substring(0, intermediatesPath.indexOf("/classes"));
+        String intermediatesPath = BuildConfig.MODULE_PATH + "/build//intermediates";
 
         System.setProperty("android.package", BuildConfig.APPLICATION_ID);
         System.setProperty("android.manifest", intermediatesPath + "/manifests/full/" + buildVariant + "/AndroidManifest.xml");
