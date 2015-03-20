@@ -4,7 +4,7 @@ import android.app.Activity;
 
 import org.robolectric.util.ActivityController;
 
-public class RoboBaseTest<T extends Activity> {
+public class Robo<T extends Activity> {
 
     public T activity;
     public ActivityController<T> activityController;

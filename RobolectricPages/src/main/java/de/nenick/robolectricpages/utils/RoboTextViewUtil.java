@@ -3,11 +3,11 @@ package de.nenick.robolectricpages.utils;
 import android.view.View;
 import android.widget.TextView;
 
-import de.nenick.robolectricpages.RoboBaseTest;
+import de.nenick.robolectricpages.Robo;
 
 public class RoboTextViewUtil {
-    public static String getTextFromView(RoboBaseTest roboBaseTest, int resourceId) {
-        View view = roboBaseTest.activity.findViewById(resourceId);
+    public static String getTextFromView(Robo robo, int resourceId) {
+        View view = robo.activity.findViewById(resourceId);
         if(view instanceof TextView) {
             return ((TextView)view).getText().toString();
         }

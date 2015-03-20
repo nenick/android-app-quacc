@@ -18,7 +18,7 @@ import java.util.Locale;
 import de.nenick.quacc.TestQuAccApplication;
 import de.nenick.quacc.speechrecognition.SpeechRecognitionListener;
 import de.nenick.quacc.speechrecognition.SpeechRecognitionWrapper;
-import de.nenick.robolectric.RoboSupTest;
+import de.nenick.robolectric.RoboSup;
 import de.nenick.robolectric.RobolectricSupportedTest;
 import de.nenick.robolectricpages.components.RoboSpinnerEntry;
 import de.nenick.robolectricpages.dialogs.RoboDatePickerDialog;
@@ -30,8 +30,7 @@ import static org.mockito.Mockito.verify;
 
 public class AddAccountingFragmentTest extends RobolectricSupportedTest {
 
-    RoboSupTest<AddAccountingActivity_, AddAccountingFragment> robo = new RoboSupTest<AddAccountingActivity_, AddAccountingFragment>() {
-    };
+    RoboSup<AddAccountingActivity_, AddAccountingFragment> robo = new RoboSup<>();
 
     RoboAddAccountingPage addAccountingPage = new RoboAddAccountingPage(robo);
     RoboDatePickerDialog datePickerDialog = new RoboDatePickerDialog();

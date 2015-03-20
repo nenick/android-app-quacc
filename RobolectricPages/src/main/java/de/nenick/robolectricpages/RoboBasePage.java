@@ -4,7 +4,7 @@ import android.app.Activity;
 
 import org.robolectric.Robolectric;
 
-public class RoboBasePage<T extends Activity, B extends RoboBaseTest<T>> {
+public class RoboBasePage<T extends Activity, B extends Robo<T>> {
 
     private Class<T> clazz;
     protected B robo;

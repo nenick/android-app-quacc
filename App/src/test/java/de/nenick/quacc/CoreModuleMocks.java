@@ -12,6 +12,7 @@ import de.nenick.quacc.core.accounting.GetAccountingCategoriesUc;
 import de.nenick.quacc.core.accounting.GetAccountingCategoriesUc_;
 import de.nenick.quacc.core.accounting.GetAccountingIntervalsUc;
 import de.nenick.quacc.core.accounting.GetAccountingIntervalsUc_;
+import de.nenick.quacc.core.accounting.GetAccountingListUc;
 import de.nenick.quacc.core.accounting.GetAccountingTypesUc;
 import de.nenick.quacc.core.accounting.GetAccountingTypesUc_;
 import de.nenick.quacc.core.accounting.GetAccountsUc;
@@ -38,6 +39,8 @@ public class CoreModuleMocks implements CoreModuleBase {
     public GetAccountingTypesUc getAccountingTypesUc;
     @Mock
     public GetAccountsUc getAccountsUc;
+    @Mock
+    public GetAccountingListUc getAccountingListUc;
 
     public CoreModuleMocks() {
         MockitoAnnotations.initMocks(this);

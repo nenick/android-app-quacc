@@ -4,7 +4,7 @@ import android.view.View;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import de.nenick.robolectricpages.RoboBaseTest;
+import de.nenick.robolectricpages.Robo;
 import de.nenick.robolectricpages.utils.RoboTextViewUtil;
 
 public class RoboSpinnerEntry extends RoboBaseComponent {
@@ -13,8 +13,8 @@ public class RoboSpinnerEntry extends RoboBaseComponent {
     private final int position;
     private View spinnerChildView;
 
-    public RoboSpinnerEntry(RoboBaseTest roboBaseTest, Spinner spinner, int position) {
-        super(roboBaseTest);
+    public RoboSpinnerEntry(Robo robo, Spinner spinner, int position) {
+        super(robo);
         this.spinner = spinner;
         this.position = position;
         this.spinnerChildView = spinner.getAdapter().getView(position, null, spinner);
@@ -29,7 +29,7 @@ public class RoboSpinnerEntry extends RoboBaseComponent {
     }
 
     public CharSequence getText(int resourceId) {
-        return RoboTextViewUtil.getTextFromView(roboBaseTest, resourceId);
+        return RoboTextViewUtil.getTextFromView(robo, resourceId);
     }
 
     private boolean isSimpleTextView() {

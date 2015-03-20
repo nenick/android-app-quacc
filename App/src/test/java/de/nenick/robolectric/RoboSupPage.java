@@ -5,12 +5,12 @@ import android.support.v4.app.FragmentActivity;
 
 import de.nenick.robolectricpages.RoboBasePage;
 
-public class RoboSupPage<A extends FragmentActivity, F extends Fragment> extends RoboBasePage<A, RoboSupTest<A, F>> {
+public class RoboSupPage<A extends FragmentActivity, F extends Fragment> extends RoboBasePage<A, RoboSup<A, F>> {
 
     private String fragmentTag;
 
-    public RoboSupPage(Class<A> clazz, RoboSupTest<A, F> roboSupTest, String fragmentTag) {
-        super(clazz, roboSupTest);
+    public RoboSupPage(Class<A> clazz, RoboSup<A, F> robo, String fragmentTag) {
+        super(clazz, robo);
         this.fragmentTag = fragmentTag;
     }
 

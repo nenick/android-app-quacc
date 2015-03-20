@@ -2,16 +2,16 @@ package de.nenick.robolectricpages.components;
 
 import android.widget.TextView;
 
-import de.nenick.robolectricpages.RoboBaseTest;
+import de.nenick.robolectricpages.Robo;
 import de.nenick.robolectricpages.utils.RoboClickUtil;
 
 public class RoboTextView extends RoboBaseComponent {
 
     protected TextView textView;
 
-    public RoboTextView(RoboBaseTest roboBaseTest, int resourceId) {
-        super(roboBaseTest);
-        textView = (TextView) roboBaseTest.activity.findViewById(resourceId);
+    public RoboTextView(Robo robo, int resourceId) {
+        super(robo);
+        textView = (TextView) robo.activity.findViewById(resourceId);
     }
 
     public String getText() {

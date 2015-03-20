@@ -3,14 +3,14 @@ package de.nenick.quacc.addaccounting;
 import de.nenick.quacc.R;
 import de.nenick.quacc.speechrecognition.SpeechRecognitionWrapper;
 import de.nenick.robolectric.RoboSupPage;
-import de.nenick.robolectric.RoboSupTest;
+import de.nenick.robolectric.RoboSup;
 import de.nenick.robolectricpages.components.RoboImageButton;
 import de.nenick.robolectricpages.components.RoboSpinner;
 import de.nenick.robolectricpages.components.RoboTextView;
 
 public class RoboAddAccountingPage extends RoboSupPage<AddAccountingActivity_, AddAccountingFragment> {
 
-    public RoboAddAccountingPage(RoboSupTest<AddAccountingActivity_, AddAccountingFragment> robo) {
+    public RoboAddAccountingPage(RoboSup<AddAccountingActivity_, AddAccountingFragment> robo) {
         super(AddAccountingActivity_.class, robo, AddAccountingActivity.TAG_FRAGMENT);
     }
 

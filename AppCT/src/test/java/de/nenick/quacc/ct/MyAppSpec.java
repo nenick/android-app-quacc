@@ -2,42 +2,29 @@ package de.nenick.quacc.ct;
 
 import android.os.Bundle;
 import android.speech.SpeechRecognizer;
-import android.widget.Spinner;
 
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.ArgumentCaptor;
-import org.mockito.Captor;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
-import org.robolectric.Robolectric;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 
-import de.nenick.quacc.R;
-import de.nenick.quacc.TestQuAccApplication;
 import de.nenick.quacc.addaccounting.AddAccountingActivity_;
 import de.nenick.quacc.addaccounting.AddAccountingFragment;
 import de.nenick.quacc.addaccounting.RoboAddAccountingPage;
-import de.nenick.quacc.speechrecognition.SpeechRecognitionListener;
-import de.nenick.quacc.speechrecognition.SpeechRecognitionWrapper;
-import de.nenick.robolectric.RoboSupTest;
+import de.nenick.robolectric.RoboSup;
 import de.nenick.robolectricpages.components.RoboSpinnerEntry;
 import de.nenick.robolectricpages.dialogs.RoboDatePickerDialog;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.BDDMockito.given;
-import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.verify;
 
 @RunWith(AndroidStudioAwareRobolectricTestRunner.class)
 public class MyAppSpec {
 
-    RoboSupTest<AddAccountingActivity_, AddAccountingFragment> robo = new RoboSupTest<AddAccountingActivity_, AddAccountingFragment>() {};
+    RoboSup<AddAccountingActivity_, AddAccountingFragment> robo = new RoboSup<>();
 
     RoboAddAccountingPage addAccountingPage = new RoboAddAccountingPage(robo);
     RoboDatePickerDialog datePickerDialog = new RoboDatePickerDialog();

@@ -1,13 +1,13 @@
 package de.nenick.robolectricpages.components;
 
-import de.nenick.robolectricpages.RoboBaseTest;
+import de.nenick.robolectricpages.Robo;
 
 public class RoboBaseComponent {
 
-    protected RoboBaseTest roboBaseTest;
+    protected Robo robo;
 
-    public RoboBaseComponent(RoboBaseTest roboBaseTest) {
-        this.roboBaseTest = roboBaseTest;
+    public RoboBaseComponent(Robo robo) {
+        this.robo = robo;
     }
 
 }
