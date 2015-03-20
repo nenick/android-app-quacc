@@ -2,6 +2,9 @@ package de.nenick.quacc;
 
 import android.content.Context;
 
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
+
 import dagger.Module;
 import dagger.Provides;
 import de.nenick.quacc.addaccounting.AddAccountingPresenter_;
@@ -25,34 +28,43 @@ import static org.mockito.Mockito.mock;
 )
 public class CoreModuleMocks implements CoreModuleBase {
 
+    @Mock
     public RecognizeAccountingTypeUc recognizeAccountingTypeUc;
+    @Mock
     public GetAccountingCategoriesUc getAccountingCategoriesUc;
+    @Mock
     public GetAccountingIntervalsUc getAccountingIntervalsUc;
+    @Mock
     public GetAccountingTypesUc getAccountingTypesUc;
+    @Mock
     public GetAccountsUc getAccountsUc;
+
+    public CoreModuleMocks() {
+        MockitoAnnotations.initMocks(this);
+    }
 
     @Provides
     public RecognizeAccountingTypeUc provideRecognizeAccountingTypeUc(@ForApplication Context context) {
-        return recognizeAccountingTypeUc = mock(RecognizeAccountingTypeUc.class);
+        return recognizeAccountingTypeUc;
     }
 
     @Provides
     public GetAccountsUc provideGetAccountsUc(@ForApplication Context context) {
-        return getAccountsUc = mock(GetAccountsUc.class);
+        return getAccountsUc;
     }
 
     @Provides
     public GetAccountingTypesUc provideGetAccountingTypesUc(@ForApplication Context context) {
-        return getAccountingTypesUc = mock(GetAccountingTypesUc.class);
+        return getAccountingTypesUc;
     }
 
     @Provides
     public GetAccountingIntervalsUc provideGetAccountingIntervalsUc(@ForApplication Context context) {
-        return getAccountingIntervalsUc = mock(GetAccountingIntervalsUc.class);
+        return getAccountingIntervalsUc;
     }
 
     @Provides
     public GetAccountingCategoriesUc provideGetAccountingCategoriesUc(@ForApplication Context context) {
-        return getAccountingCategoriesUc = mock(GetAccountingCategoriesUc.class);
+        return getAccountingCategoriesUc;
     }
 }

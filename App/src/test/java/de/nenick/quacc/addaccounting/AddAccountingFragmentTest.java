@@ -15,19 +15,23 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 
-import de.nenick.robolectric.RoboSupTest;
-import de.nenick.robolectric.RobolectricSupportedTest;
+import de.nenick.quacc.TestQuAccApplication;
 import de.nenick.quacc.speechrecognition.SpeechRecognitionListener;
 import de.nenick.quacc.speechrecognition.SpeechRecognitionWrapper;
+import de.nenick.robolectric.RoboSupTest;
+import de.nenick.robolectric.RobolectricSupportedTest;
 import de.nenick.robolectricpages.components.RoboSpinnerEntry;
 import de.nenick.robolectricpages.dialogs.RoboDatePickerDialog;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.BDDMockito.given;
+import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.verify;
 
 public class AddAccountingFragmentTest extends RobolectricSupportedTest {
 
-    RoboSupTest<AddAccountingActivity_, AddAccountingFragment> robo = new RoboSupTest<>();
+    RoboSupTest<AddAccountingActivity_, AddAccountingFragment> robo = new RoboSupTest<AddAccountingActivity_, AddAccountingFragment>() {
+    };
 
     RoboAddAccountingPage addAccountingPage = new RoboAddAccountingPage(robo);
     RoboDatePickerDialog datePickerDialog = new RoboDatePickerDialog();
@@ -44,6 +48,11 @@ public class AddAccountingFragmentTest extends RobolectricSupportedTest {
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
+        given(TestQuAccApplication.coreModuleMocks.recognizeAccountingTypeUc.apply(anyString())).willReturn("");
+        given(TestQuAccApplication.coreModuleMocks.getAccountingCategoriesUc.apply()).willReturn(new CharSequence[]{"Beruf", "Essen", "Freizeit", "Miete"});
+        given(TestQuAccApplication.coreModuleMocks.getAccountingIntervalsUc.apply()).willReturn(new CharSequence[]{"Einmahlig", "Wöchentlich", "Monatlich", "Alle 3 Monate"});
+        given(TestQuAccApplication.coreModuleMocks.getAccountingTypesUc.apply()).willReturn(new CharSequence[]{"Ausgabe", "Einnahme"});
+        given(TestQuAccApplication.coreModuleMocks.getAccountsUc.apply()).willReturn(new CharSequence[]{"Konto", "Sparkonto", "Bar"});
     }
 
     @Test

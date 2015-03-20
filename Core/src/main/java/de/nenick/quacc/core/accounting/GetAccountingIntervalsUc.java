@@ -14,6 +14,6 @@ public class GetAccountingIntervalsUc {
     Context context;
 
     public CharSequence[] apply() {
-        return context.getResources().getTextArray(R.array.accounting_categories);
+        return context.getResources().getTextArray(R.array.accounting_intervals);
     }
 }

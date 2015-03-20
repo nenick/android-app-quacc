@@ -12,7 +12,7 @@ import org.androidannotations.annotations.OptionsMenu;
 @OptionsMenu(R.menu.menu_add_account_process)
 public class MainActivity extends ActionBarActivity {
 
-    private static final String TAG_FRAGMENT = MainFragment.class.getSimpleName();
+    public static final String TAG_FRAGMENT = MainFragment.class.getSimpleName();
 
     @AfterViews
     protected void onAfterViews() {

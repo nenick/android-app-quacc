@@ -19,12 +19,12 @@ public class RoboSpinner extends RoboBaseComponent {
     public List<RoboSpinnerEntry> entries() {
         List<RoboSpinnerEntry> spinnerEntries = new ArrayList<>();
         for (int position = 0; position < spinner.getCount(); position++) {
-            spinnerEntries.add(new RoboSpinnerEntry(roboBaseTest, spinner, position, spinner.getAdapter().getView(position, null, spinner)));
+            spinnerEntries.add(new RoboSpinnerEntry(roboBaseTest, spinner, position));
         }
         return spinnerEntries;
     }
 
     public RoboSpinnerEntry selectedEntry() {
-        return new RoboSpinnerEntry(roboBaseTest, spinner, spinner.getSelectedItemPosition(), spinner.getSelectedView());
+        return new RoboSpinnerEntry(roboBaseTest, spinner, spinner.getSelectedItemPosition());
     }
 }

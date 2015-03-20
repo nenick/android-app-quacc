@@ -1,29 +1,29 @@
 package de.nenick.robolectricpages.components;
 
 import android.view.View;
-import android.widget.Spinner;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import de.nenick.robolectricpages.RoboBaseTest;
 import de.nenick.robolectricpages.utils.RoboTextViewUtil;
 
-public class RoboSpinnerEntry extends RoboBaseComponent {
+public class RoboListViewEntry extends RoboBaseComponent {
 
-    private final Spinner spinner;
+    private final ListView listView;
     private final int position;
     private View spinnerChildView;
 
-    public RoboSpinnerEntry(RoboBaseTest roboBaseTest, Spinner spinner, int position) {
+    public RoboListViewEntry(RoboBaseTest roboBaseTest, ListView listView, int position) {
         super(roboBaseTest);
-        this.spinner = spinner;
+        this.listView = listView;
         this.position = position;
-        this.spinnerChildView = spinner.getAdapter().getView(position, null, spinner);
-        if(spinnerChildView == null) throw new IllegalArgumentException("spinner entry is null");
+        this.spinnerChildView = listView.getChildAt(position);
+        if(spinnerChildView == null) throw new IllegalArgumentException("listView entry is null");
     }
 
     public String getText() {
         if(!isSimpleTextView()) {
-            throw new IllegalStateException("The spinner entry is not a simple textView. You should use getText(int resourceId) instead.");
+            throw new IllegalStateException("The listView entry is not a simple textView. You should use getText(int resourceId) instead.");
         }
         return ((TextView) spinnerChildView).getText().toString();
     }
@@ -37,6 +37,6 @@ public class RoboSpinnerEntry extends RoboBaseComponent {
     }
 
     public void select() {
-        spinner.setSelection(position);
+        listView.setSelection(position);
     }
 }

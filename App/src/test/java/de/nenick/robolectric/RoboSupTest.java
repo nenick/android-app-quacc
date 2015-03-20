@@ -5,7 +5,7 @@ import android.support.v4.app.FragmentActivity;
 
 import de.nenick.robolectricpages.RoboBaseTest;
 
-public class RoboSupTest<A extends FragmentActivity, F extends Fragment> extends RoboBaseTest<A> {
+public abstract class RoboSupTest<A extends FragmentActivity, F extends Fragment> extends RoboBaseTest<A> {
 
     public F fragment;
 

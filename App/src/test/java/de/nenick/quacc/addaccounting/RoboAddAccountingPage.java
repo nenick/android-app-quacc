@@ -1,13 +1,9 @@
 package de.nenick.quacc.addaccounting;
 
 import de.nenick.quacc.R;
-import de.nenick.quacc.addaccounting.AddAccountingActivity;
-import de.nenick.quacc.addaccounting.AddAccountingActivity_;
-import de.nenick.quacc.addaccounting.AddAccountingFragment_;
 import de.nenick.quacc.speechrecognition.SpeechRecognitionWrapper;
 import de.nenick.robolectric.RoboSupPage;
 import de.nenick.robolectric.RoboSupTest;
-import de.nenick.robolectricpages.components.RoboButton;
 import de.nenick.robolectricpages.components.RoboImageButton;
 import de.nenick.robolectricpages.components.RoboSpinner;
 import de.nenick.robolectricpages.components.RoboTextView;
