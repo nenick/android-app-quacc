@@ -81,7 +81,7 @@ public class AddAccountingFragment extends Fragment {
         date.setText(dateString);
     }
 
-    @Click(R.id.speechRecognitionBtn)
+    @Click(R.id.btn_speech_recognition)
     protected void onToggleSpeechRecognition() {
         speechRecognition.toggle();
     }

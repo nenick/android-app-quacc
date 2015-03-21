@@ -98,7 +98,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="..."
-        android:layout_above="@+id/speechRecognitionBtn"
+        android:layout_above="@+id/btn_speech_recognition"
         android:layout_centerHorizontal="true" />
 
     <ImageButton

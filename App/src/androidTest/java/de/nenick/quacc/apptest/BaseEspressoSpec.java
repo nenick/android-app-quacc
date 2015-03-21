@@ -3,6 +3,7 @@ package de.nenick.quacc.apptest;
 import android.test.ActivityInstrumentationTestCase2;
 
 import de.nenick.quacc.R;
+import de.nenick.quacc.apptest.pages.EspressoDummyLauncherPage;
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
@@ -13,8 +14,10 @@ public class BaseEspressoSpec extends ActivityInstrumentationTestCase2<DummyLaun
         super(DummyLauncherActivity_.class);
     }
 
+    EspressoDummyLauncherPage launcherPage = new EspressoDummyLauncherPage();
+
     public void startApp() {
         getActivity();
-        onView(withId(R.id.btn_start_app)).perform(click());
+        launcherPage.clickStartApp();
     }
 }

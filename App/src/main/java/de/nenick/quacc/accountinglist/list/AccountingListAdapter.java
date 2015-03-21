@@ -17,7 +17,11 @@ public class AccountingListAdapter extends BaseAdapter {
     private CharSequence[] accountings = new CharSequence[]{};
 
     public void swapAccountings(CharSequence[] accountings) {
-        this.accountings = accountings;
+        if (accountings == null) {
+            this.accountings = new CharSequence[]{};
+        } else {
+            this.accountings = accountings;
+        }
     }
 
     @Override

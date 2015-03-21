@@ -1,4 +1,4 @@
-package de.nenick.quacc.componenttest;
+package de.nenick.quacc.componenttest.addaccounting;
 
 import android.os.Bundle;
 import android.speech.SpeechRecognizer;
@@ -14,15 +14,15 @@ import java.util.Locale;
 import de.nenick.quacc.addaccounting.AddAccountingActivity_;
 import de.nenick.quacc.addaccounting.AddAccountingFragment;
 import de.nenick.quacc.addaccounting.RoboAddAccountingPage;
+import de.nenick.quacc.componenttest.AndroidStudioAwareRobolectricTestRunner;
 import de.nenick.robolectric.RoboSup;
 import de.nenick.robolectricpages.components.RoboSpinnerEntry;
 import de.nenick.robolectricpages.dialogs.RoboDatePickerDialog;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.verify;
 
 @RunWith(AndroidStudioAwareRobolectricTestRunner.class)
-public class MyAppSpec {
+public class IntitialSpec {
 
     RoboSup<AddAccountingActivity_, AddAccountingFragment> robo = new RoboSup<>();
 

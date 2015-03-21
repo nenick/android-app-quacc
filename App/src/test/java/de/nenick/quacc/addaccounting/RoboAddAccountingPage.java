@@ -1,9 +1,13 @@
 package de.nenick.quacc.addaccounting;
 
+import android.content.Intent;
+
+import org.robolectric.RuntimeEnvironment;
+
 import de.nenick.quacc.R;
 import de.nenick.quacc.speechrecognition.SpeechRecognitionWrapper;
-import de.nenick.robolectric.RoboSupPage;
 import de.nenick.robolectric.RoboSup;
+import de.nenick.robolectric.RoboSupPage;
 import de.nenick.robolectricpages.components.RoboImageButton;
 import de.nenick.robolectricpages.components.RoboSpinner;
 import de.nenick.robolectricpages.components.RoboTextView;
@@ -12,6 +16,10 @@ public class RoboAddAccountingPage extends RoboSupPage<AddAccountingActivity_, A
 
     public RoboAddAccountingPage(RoboSup<AddAccountingActivity_, AddAccountingFragment> robo) {
         super(robo, AddAccountingActivity.TAG_FRAGMENT);
+    }
+
+    public static Intent Intent() {
+        return AddAccountingActivity_.intent(RuntimeEnvironment.application).get();
     }
 
     public void startPageWithMocks(SpeechRecognitionWrapper mockSpeechRecognition) {
@@ -45,6 +53,6 @@ public class RoboAddAccountingPage extends RoboSupPage<AddAccountingActivity_, A
     }
 
     public RoboImageButton speechButton() {
-        return new RoboImageButton(robo, R.id.speechRecognitionBtn);
+        return new RoboImageButton(robo, R.id.btn_speech_recognition);
     }
 }
