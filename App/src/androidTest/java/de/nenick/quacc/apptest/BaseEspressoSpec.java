@@ -23,8 +23,8 @@ public class BaseEspressoSpec extends ActivityInstrumentationTestCase2<DummyLaun
 
     @Override
     protected void tearDown() throws Exception {
+        // avoid the "Could not launch intent Intent within 45 seconds" error
         getInstrumentation().waitForIdleSync();
         super.tearDown();
-        getInstrumentation().waitForIdleSync();
     }
 }
