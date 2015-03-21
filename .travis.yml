@@ -30,8 +30,6 @@ before_script:
   # Emulator Management: Create, Start and Wait
   - echo no | android create avd --force -n test -t android-21 --abi armeabi-v7a
   - emulator -avd test -no-skin -no-audio -no-window &
-  - adb wait-for-device
-  - adb shell input keyevent 82 &
 
 install:
   # install custom novoda plugin version
@@ -41,8 +39,13 @@ install:
   - Scripts/install-custom-gradle-test-plugin.sh
 
 script:
-  # Execute Unit and Component Test
-  - ./gradlew test -i -s
+  # Execute Unit Tests
+  - ./gradlew App:test
+  - ./gradlew Core:test
+
+  ä Execute Component Tests
+  - ./gradlew AppCT:test
   
   # Execute Tests on Emulator
+  - ./android-wait-for-emulator
   - ./gradlew connectedAndroidTest
