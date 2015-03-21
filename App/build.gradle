@@ -42,6 +42,7 @@ dependencies {
     debugCompile project(path: ':Core', configuration: 'debug')
 
     compile 'com.android.support:appcompat-v7:21.0.3'
+    compile 'com.melnykov:floatingactionbutton:1.2.0'
 
     testCompile project(':RobolectricPages')
 
