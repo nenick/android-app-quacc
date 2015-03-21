@@ -12,18 +12,22 @@ android:
     # Additional components
     - extra-android-m2repository
 
-# Emulator Management: Create, Start and Wait
 before_script:
-    - echo no | android create avd --force -n test -t android-21 --abi armeabi-v7a
-    - emulator -avd test -no-skin -no-audio -no-window &
-    - android-wait-for-emulator
-    - adb shell input keyevent 82 &
+  # Emulator Management: Create, Start and Wait
+  - echo no | android create avd --force -n test -t android-21 --abi armeabi-v7a
+  - emulator -avd test -no-skin -no-audio -no-window &
+  - android-wait-for-emulator
+  - adb shell input keyevent 82 &
 
 install:
+  # install custom novoda plugin version
   - wget https://github.com/nenick/android-gradle-template/blob/master/Scripts/install-custom-gradle-test-plugin.sh
   - chmod +x install-custom-gradle-test-plugin.sh
   - ./install-custom-gradle-test-plugin.sh
 
 script:
+  # Execute Unit and Component Test
   - gradle test
+  
+  # Execute Tests on Emulator
   - gradle connectedAndroidTest
