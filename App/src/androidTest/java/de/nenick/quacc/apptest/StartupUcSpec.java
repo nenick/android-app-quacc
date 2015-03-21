@@ -2,7 +2,7 @@ package de.nenick.quacc.apptest;
 
 import android.support.test.espresso.Espresso;
 
-import de.nenick.quacc.apptest.BaseEspressoSpec;
+import de.nenick.quacc.apptest.espresso.BaseEspressoSpec;
 import de.nenick.quacc.apptest.pages.EspressoAccountingListPage;
 import de.nenick.quacc.apptest.pages.EspressoDummyLauncherPage;
 

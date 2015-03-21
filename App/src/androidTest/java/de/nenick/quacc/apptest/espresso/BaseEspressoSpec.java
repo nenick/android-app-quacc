@@ -1,8 +1,9 @@
-package de.nenick.quacc.apptest;
+package de.nenick.quacc.apptest.espresso;
 
 import android.test.ActivityInstrumentationTestCase2;
 
 import de.nenick.quacc.R;
+import de.nenick.quacc.apptest.DummyLauncherActivity_;
 import de.nenick.quacc.apptest.pages.EspressoDummyLauncherPage;
 
 import static android.support.test.espresso.Espresso.onView;
@@ -23,8 +24,7 @@ public class BaseEspressoSpec extends ActivityInstrumentationTestCase2<DummyLaun
 
     @Override
     protected void tearDown() throws Exception {
-        // avoid the "Could not launch intent Intent within 45 seconds" error
-        getInstrumentation().waitForIdleSync();
+        CloseAllActivitiesFunction.apply(getInstrumentation());
         super.tearDown();
     }
 }

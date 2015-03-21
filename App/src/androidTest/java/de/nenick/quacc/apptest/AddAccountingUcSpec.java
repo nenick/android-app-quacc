@@ -1,5 +1,6 @@
 package de.nenick.quacc.apptest;
 
+import de.nenick.quacc.apptest.espresso.BaseEspressoSpec;
 import de.nenick.quacc.apptest.pages.EspressoAccountingListPage;
 import de.nenick.quacc.apptest.pages.EspressoAddAccountingPage;
 
