@@ -1,4 +1,4 @@
-package de.nenick.quacc.accountinglist;
+package de.nenick.quacc.accountinglist.list;
 
 import android.content.Context;
 import android.view.View;
@@ -8,25 +8,26 @@ import android.widget.BaseAdapter;
 import org.androidannotations.annotations.EBean;
 import org.androidannotations.annotations.RootContext;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @EBean
 public class AccountingListAdapter extends BaseAdapter {
 
     @RootContext
     protected Context context;
 
-    private List<String> accountings = new ArrayList<>();
+    private CharSequence[] accountings = new CharSequence[]{};
+
+    public void swapAccountings(CharSequence[] accountings) {
+        this.accountings = accountings;
+    }
 
     @Override
     public int getCount() {
-        return accountings.size();
+        return accountings.length;
     }
 
     @Override
     public String getItem(int position) {
-        return accountings.get(position);
+        return accountings[position].toString();
     }
 
     @Override

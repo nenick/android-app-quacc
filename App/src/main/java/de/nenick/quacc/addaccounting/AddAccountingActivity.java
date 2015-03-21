@@ -5,13 +5,10 @@ import android.support.v7.app.ActionBarActivity;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EActivity;
-import org.androidannotations.annotations.OptionsItem;
-import org.androidannotations.annotations.OptionsMenu;
 
 import de.nenick.quacc.R;
 
-@EActivity(R.layout.activity_add_account_process)
-@OptionsMenu(R.menu.menu_add_account_process)
+@EActivity(R.layout.activity)
 public class AddAccountingActivity extends ActionBarActivity {
 
     public static final String TAG_FRAGMENT = AddAccountingFragment.class.getSimpleName();

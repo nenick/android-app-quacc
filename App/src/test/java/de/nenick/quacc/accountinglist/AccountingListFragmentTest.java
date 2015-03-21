@@ -13,7 +13,7 @@ import static org.mockito.BDDMockito.given;
 
 public class AccountingListFragmentTest extends RobolectricSupportedTest {
 
-    RoboSup<MainActivity_, MainFragment_> robo = new RoboSup<>();
+    RoboSup<AccountingListActivity_, AccountingListFragment_> robo = new RoboSup<>();
     RoboAccountingListPage accountingListPage = new RoboAccountingListPage(robo);
 
     @Test

@@ -9,8 +9,8 @@ public class RoboSupPage<A extends FragmentActivity, F extends Fragment> extends
 
     private String fragmentTag;
 
-    public RoboSupPage(Class<A> clazz, RoboSup<A, F> robo, String fragmentTag) {
-        super(clazz, robo);
+    public RoboSupPage(RoboSup<A, F> robo, String fragmentTag) {
+        super(robo);
         this.fragmentTag = fragmentTag;
     }
 

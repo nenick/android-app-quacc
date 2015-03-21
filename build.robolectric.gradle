@@ -15,5 +15,17 @@ dependencies {
 }
 
 afterEvaluate {
-    tasks.findByPath("testRelease").enabled = false
+    def isTestRun = false
+    tasks.each {
+        if(it.name.contains("test")) {
+            isTestRun = true
+        }
+    }
+    if(isTestRun) {
+        tasks.each {
+            if(it.name.contains("Release")) {
+                it.enabled = false
+            }
+        }
+    }
 }

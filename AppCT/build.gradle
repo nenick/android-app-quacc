@@ -10,7 +10,7 @@ buildscript {
 
 apply plugin: 'java'
 apply plugin: 'android-test'
-apply from: '../gradle/robolectric.gradle'
+apply from: '../build.robolectric.gradle'
 
 android {
     projectUnderTest ':App'

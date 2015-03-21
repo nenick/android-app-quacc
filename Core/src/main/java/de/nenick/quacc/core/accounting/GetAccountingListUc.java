@@ -14,6 +14,6 @@ public class GetAccountingListUc {
     Context context;
 
     public CharSequence[] apply() {
-        return context.getResources().getTextArray(R.array.accountings);
+        return context.getResources().getTextArray(R.array.accountingList);
     }
 }

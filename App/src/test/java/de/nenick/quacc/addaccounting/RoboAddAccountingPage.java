@@ -11,7 +11,7 @@ import de.nenick.robolectricpages.components.RoboTextView;
 public class RoboAddAccountingPage extends RoboSupPage<AddAccountingActivity_, AddAccountingFragment> {
 
     public RoboAddAccountingPage(RoboSup<AddAccountingActivity_, AddAccountingFragment> robo) {
-        super(AddAccountingActivity_.class, robo, AddAccountingActivity.TAG_FRAGMENT);
+        super(robo, AddAccountingActivity.TAG_FRAGMENT);
     }
 
     public void startPageWithMocks(SpeechRecognitionWrapper mockSpeechRecognition) {

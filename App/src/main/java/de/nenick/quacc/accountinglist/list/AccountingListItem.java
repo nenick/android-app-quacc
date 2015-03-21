@@ -1,6 +1,7 @@
-package de.nenick.quacc.accountinglist;
+package de.nenick.quacc.accountinglist.list;
 
 import android.content.Context;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.TwoLineListItem;
 
@@ -8,7 +9,7 @@ import org.androidannotations.annotations.EViewGroup;
 import org.androidannotations.annotations.ViewById;
 
 @EViewGroup(android.R.layout.simple_list_item_2)
-public class AccountingListItem extends TwoLineListItem {
+public class AccountingListItem extends RelativeLayout {
 
     @ViewById(android.R.id.text1)
     TextView description;

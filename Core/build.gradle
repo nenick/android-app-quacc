@@ -29,7 +29,7 @@ android {
     }
 }
 
-apply from: "gradle/apt.gradle"
-apply from: "../gradle/androidannotations.gradle"
-apply from: "../gradle/dagger.gradle"
-apply from: "../gradle/robolectric.gradle"
+apply from: "build.apt.gradle"
+apply from: "../build.androidannotations.gradle"
+apply from: "../build.dagger.gradle"
+apply from: "../build.robolectric.gradle"

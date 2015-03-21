@@ -25,7 +25,7 @@
         <item>Bar</item>
     </string-array>
 
-    <string-array name="accountings" >
+    <string-array name="accountingList" >
         <item>Eintrag 1</item>
         <item>Eintrag 2</item>
         <item>Eintrag 3</item>

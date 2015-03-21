@@ -1,17 +1,15 @@
 package de.nenick.quacc.accountinglist;
 
 import de.nenick.quacc.MainActivity;
-import de.nenick.quacc.MainActivity_;
-import de.nenick.quacc.MainFragment_;
 import de.nenick.quacc.R;
-import de.nenick.robolectric.RoboSupPage;
 import de.nenick.robolectric.RoboSup;
+import de.nenick.robolectric.RoboSupPage;
 import de.nenick.robolectricpages.components.RoboListView;
 
-public class RoboAccountingListPage extends RoboSupPage<MainActivity_, MainFragment_> {
+public class RoboAccountingListPage extends RoboSupPage<AccountingListActivity_, AccountingListFragment_> {
 
-    public RoboAccountingListPage(RoboSup<MainActivity_, MainFragment_> robo) {
-        super(MainActivity_.class, robo, MainActivity.TAG_FRAGMENT);
+    public RoboAccountingListPage(RoboSup<AccountingListActivity_, AccountingListFragment_> robo) {
+        super(robo, MainActivity.TAG_FRAGMENT);
     }
 
     public RoboListView list() {

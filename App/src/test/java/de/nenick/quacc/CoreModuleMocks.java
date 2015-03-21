@@ -7,16 +7,14 @@ import org.mockito.MockitoAnnotations;
 
 import dagger.Module;
 import dagger.Provides;
+import de.nenick.quacc.accountinglist.AccountingListPresenter;
+import de.nenick.quacc.accountinglist.AccountingListPresenter_;
 import de.nenick.quacc.addaccounting.AddAccountingPresenter_;
 import de.nenick.quacc.core.accounting.GetAccountingCategoriesUc;
-import de.nenick.quacc.core.accounting.GetAccountingCategoriesUc_;
 import de.nenick.quacc.core.accounting.GetAccountingIntervalsUc;
-import de.nenick.quacc.core.accounting.GetAccountingIntervalsUc_;
 import de.nenick.quacc.core.accounting.GetAccountingListUc;
 import de.nenick.quacc.core.accounting.GetAccountingTypesUc;
-import de.nenick.quacc.core.accounting.GetAccountingTypesUc_;
 import de.nenick.quacc.core.accounting.GetAccountsUc;
-import de.nenick.quacc.core.accounting.GetAccountsUc_;
 import de.nenick.quacc.core.speechinterpretation.RecognizeAccountingTypeUc;
 import de.nenick.quacc.daggersupport.CoreModuleBase;
 import de.nenick.quacc.daggersupport.ForApplication;
@@ -24,7 +22,7 @@ import de.nenick.quacc.daggersupport.ForApplication;
 import static org.mockito.Mockito.mock;
 
 @Module(
-        injects = {AddAccountingPresenter_.class},
+        injects = {AddAccountingPresenter_.class, AccountingListPresenter_.class},
         complete = false
 )
 public class CoreModuleMocks implements CoreModuleBase {
@@ -47,16 +45,19 @@ public class CoreModuleMocks implements CoreModuleBase {
     }
 
     @Provides
+    @Override
     public RecognizeAccountingTypeUc provideRecognizeAccountingTypeUc(@ForApplication Context context) {
         return recognizeAccountingTypeUc;
     }
 
     @Provides
+    @Override
     public GetAccountsUc provideGetAccountsUc(@ForApplication Context context) {
         return getAccountsUc;
     }
 
     @Provides
+    @Override
     public GetAccountingTypesUc provideGetAccountingTypesUc(@ForApplication Context context) {
         return getAccountingTypesUc;
     }
@@ -67,7 +68,14 @@ public class CoreModuleMocks implements CoreModuleBase {
     }
 
     @Provides
+    @Override
     public GetAccountingCategoriesUc provideGetAccountingCategoriesUc(@ForApplication Context context) {
         return getAccountingCategoriesUc;
+    }
+
+    @Provides
+    @Override
+    public GetAccountingListUc provideGetAccountingListUc(@ForApplication Context context) {
+        return getAccountingListUc;
     }
 }
