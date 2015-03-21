@@ -50,8 +50,10 @@ script:
   - ./gradlew App:assembleDebug App:assembleDebugAndroidTest
   - ./android-wait-for-emulator
   - ./gradlew App:connectedCheck
-  - cat /home/travis/build/nenick/QuAcc/App/build/outputs/reports/androidTests/connected/index.html
 
   # Create and Report code coverage
   - ./gradlew jacocoTestReport
   - ./gradlew coveralls
+  
+after_failure:
+  - cat App/build/outputs/androidTest-results/connected/**/*.xml
