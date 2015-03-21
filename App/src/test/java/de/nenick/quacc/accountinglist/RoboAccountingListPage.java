@@ -1,6 +1,6 @@
 package de.nenick.quacc.accountinglist;
 
-import de.nenick.quacc.MainActivity;
+import de.nenick.quacc.main.MainActivity;
 import de.nenick.quacc.R;
 import de.nenick.robolectric.RoboSup;
 import de.nenick.robolectric.RoboSupPage;

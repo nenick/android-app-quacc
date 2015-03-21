@@ -1,19 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="de.nenick.quacc" >
+    package="de.nenick.quacc">
 
     <!-- Use audio record for speech recognition -->
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
 
     <application
+        android:name=".QuAccApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:name=".QuAccApplication"
-        android:theme="@style/AppTheme" >
+        android:theme="@style/AppTheme">
         <activity
-            android:name=".MainActivity_"
-            android:label="@string/app_name" >
+            android:name=".main.MainActivity_"
+            android:label="@string/app_name"
+            android:finishOnTaskLaunch="true"
+            android:noHistory="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -21,12 +23,10 @@
         </activity>
         <activity
             android:name=".addaccounting.AddAccountingActivity_"
-            android:label="@string/title_activity_add_account_process" >
-        </activity>
+            android:label="@string/title_activity_add_account_process" />
         <activity
             android:name=".accountinglist.AccountingListActivity_"
-            android:label="@string/title_activity_add_account_process" >
-        </activity>
+            android:label="@string/title_activity_add_account_process" />
     </application>
 
 </manifest>

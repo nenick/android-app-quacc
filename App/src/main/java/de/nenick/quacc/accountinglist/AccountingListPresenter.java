@@ -6,7 +6,7 @@ import org.androidannotations.annotations.EBean;
 import javax.inject.Inject;
 
 import de.nenick.quacc.core.accounting.GetAccountingListUc;
-import de.nenick.quacc.daggersupport.DaggerSupport;
+import de.nenick.quacc.dagger.DaggerSupport;
 
 @EBean
 public class AccountingListPresenter {

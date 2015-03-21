@@ -1,4 +1,4 @@
-package de.nenick.quacc.daggersupport;
+package de.nenick.quacc.dagger;
 
 import android.content.Context;
 

@@ -1,10 +1,13 @@
-package de.nenick.quacc;
+package de.nenick.quacc.main;
 
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.ActionBarActivity;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EActivity;
+
+import de.nenick.quacc.main.MainFragment_;
+import de.nenick.quacc.R;
 
 @EActivity(R.layout.activity)
 public class MainActivity extends ActionBarActivity {

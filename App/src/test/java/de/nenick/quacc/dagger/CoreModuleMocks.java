@@ -7,7 +7,6 @@ import org.mockito.MockitoAnnotations;
 
 import dagger.Module;
 import dagger.Provides;
-import de.nenick.quacc.accountinglist.AccountingListPresenter;
 import de.nenick.quacc.accountinglist.AccountingListPresenter_;
 import de.nenick.quacc.addaccounting.AddAccountingPresenter_;
 import de.nenick.quacc.core.accounting.GetAccountingCategoriesUc;
@@ -16,8 +15,8 @@ import de.nenick.quacc.core.accounting.GetAccountingListUc;
 import de.nenick.quacc.core.accounting.GetAccountingTypesUc;
 import de.nenick.quacc.core.accounting.GetAccountsUc;
 import de.nenick.quacc.core.speechinterpretation.RecognizeAccountingTypeUc;
-import de.nenick.quacc.daggersupport.CoreModuleBase;
-import de.nenick.quacc.daggersupport.ForApplication;
+import de.nenick.quacc.dagger.CoreModuleBase;
+import de.nenick.quacc.dagger.ForApplication;
 
 import static org.mockito.Mockito.mock;
 

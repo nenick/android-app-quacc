@@ -20,7 +20,9 @@ android {
         targetSdkVersion 21
         versionCode 1
         versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
+
     buildTypes {
         release {
             minifyEnabled false
@@ -28,6 +30,12 @@ android {
         }
         debug {
             buildConfigField "String", "MODULE_PATH", "\"$projectDir\""
+        }
+    }
+
+    android {
+        packagingOptions {
+            exclude 'LICENSE.txt'
         }
     }
 }
@@ -45,6 +53,9 @@ dependencies {
     compile 'com.melnykov:floatingactionbutton:1.2.0'
 
     testCompile project(':RobolectricPages')
+
+    androidTestCompile 'com.android.support.test.espresso:espresso-core:2.0'
+    androidTestCompile 'com.android.support.test:testing-support-lib:0.1'
 
 }
 

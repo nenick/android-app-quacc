@@ -1,9 +1,8 @@
-package de.nenick.quacc.daggersupport;
+package de.nenick.quacc.dagger;
 
 
 import android.content.Context;
 
-import dagger.Provides;
 import de.nenick.quacc.core.accounting.GetAccountingCategoriesUc;
 import de.nenick.quacc.core.accounting.GetAccountingIntervalsUc;
 import de.nenick.quacc.core.accounting.GetAccountingListUc;

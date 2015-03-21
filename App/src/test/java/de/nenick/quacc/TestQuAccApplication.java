@@ -3,7 +3,7 @@ package de.nenick.quacc;
 import java.util.Arrays;
 import java.util.List;
 
-import de.nenick.quacc.daggersupport.AndroidModule;
+import de.nenick.quacc.dagger.AndroidModule;
 
 public class TestQuAccApplication extends QuAccApplication {
 

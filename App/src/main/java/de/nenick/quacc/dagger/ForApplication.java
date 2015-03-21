@@ -1,4 +1,4 @@
-package de.nenick.quacc.daggersupport;
+package de.nenick.quacc.dagger;
 
 import java.lang.annotation.Retention;
 import javax.inject.Qualifier;
