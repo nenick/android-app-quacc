@@ -22,7 +22,7 @@ android:
 
 cache:
   directories:
-    # caching depemdencies for faster builds
+    # Caching depemdencies for faster builds
     - $HOME/.m2
     - $HOME/.gradle
 
@@ -32,7 +32,7 @@ before_script:
   - emulator -avd test -no-skin -no-audio -no-window &
 
 install:
-  # install custom novoda plugin version
+  # Install custom novoda plugin version
   - wget https://raw.githubusercontent.com/nenick/android-gradle-template/master/Scripts/install-custom-gradle-test-plugin.sh -P Scripts
   - wget https://raw.githubusercontent.com/nenick/android-gradle-template/master/Scripts/novoda-deploy.gradle -P Scripts
   - chmod +x Scripts/install-custom-gradle-test-plugin.sh
@@ -43,7 +43,7 @@ script:
   - ./gradlew App:test
   - ./gradlew Core:test
 
-  ä Execute Component Tests
+  # Execute Component Tests
   - ./gradlew AppCT:test
   
   # Execute Tests on Emulator
