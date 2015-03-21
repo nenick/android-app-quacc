@@ -35,6 +35,7 @@ public class RoboBasePage<T extends Activity, B extends Robo<T>> {
     }
 
 
+    @SuppressWarnings("unchecked")
     private Class<T> getActivityClass() {
         ParameterizedType genericSuperclass = (ParameterizedType) this.getClass().getGenericSuperclass();
         return (Class<T>) genericSuperclass.getActualTypeArguments()[0];
