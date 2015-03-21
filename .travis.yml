@@ -1,7 +1,14 @@
-sudo: false
 language: android
 jdk: oraclejdk7
 
+# Use the Travis Container-Based Infrastructure
+sudo: false
+
+env:
+  global:
+    # More time to install apks to avoid ShellCommandUnresponsiveException
+    - ADB_INSTALL_TIMEOUT=8 # minutes
+    
 android:
   components:
     # The BuildTools version used by your project
@@ -35,7 +42,7 @@ install:
 
 script:
   # Execute Unit and Component Test
-  - ./gradlew test
+  - ./gradlew test -i -s
   
   # Execute Tests on Emulator
   - ./gradlew connectedAndroidTest
