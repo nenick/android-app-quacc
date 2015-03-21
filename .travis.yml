@@ -1,0 +1,28 @@
+language: android
+jdk: oraclejdk7
+
+android:
+  components:
+    # The BuildTools version used by your project
+    - build-tools-21.1.2
+
+    # The SDK version used to compile your project
+    - android-21
+
+    # Additional components
+    - extra-android-m2repository
+
+# Emulator Management: Create, Start and Wait
+before_script:
+    - echo no | android create avd --force -n test -t android-21 --abi armeabi-v7a
+    - emulator -avd test -no-skin -no-audio -no-window &
+    - android-wait-for-emulator
+    - adb shell input keyevent 82 &
+
+install:
+  - wget https://github.com/nenick/android-gradle-template/blob/master/Scripts/install-custom-gradle-test-plugin.sh
+  - sh install-custom-gradle-test-plugin.sh
+
+script:
+  - gradle test
+  - gradle connectedAndroidTest
