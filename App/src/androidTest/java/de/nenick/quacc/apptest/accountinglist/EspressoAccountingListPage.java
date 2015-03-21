@@ -1,4 +1,4 @@
-package de.nenick.quacc.accountinglist;
+package de.nenick.quacc.apptest.accountinglist;
 
 import de.nenick.quacc.R;
 

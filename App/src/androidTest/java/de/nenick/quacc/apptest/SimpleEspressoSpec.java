@@ -1,6 +1,9 @@
-package de.nenick.quacc;
+package de.nenick.quacc.apptest;
 
 import android.support.test.espresso.Espresso;
+import android.support.test.espresso.matcher.ViewMatchers;
+
+import de.nenick.quacc.R;
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
@@ -11,7 +14,7 @@ public class SimpleEspressoSpec extends BaseEspressoSpec {
 
     public void testSomething() {
         startApp();
-        onView(withId(R.id.listView)).check(matches(isDisplayed()));
+        onView(ViewMatchers.withId(R.id.listView)).check(matches(isDisplayed()));
     }
 
     public void testBackPress() {

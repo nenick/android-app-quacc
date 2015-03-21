@@ -1,9 +1,9 @@
-package de.nenick.quacc.main;
+package de.nenick.quacc.apptest.main;
 
 import android.support.test.espresso.Espresso;
 
-import de.nenick.quacc.BaseEspressoSpec;
-import de.nenick.quacc.accountinglist.EspressoAccountingListPage;
+import de.nenick.quacc.apptest.BaseEspressoSpec;
+import de.nenick.quacc.apptest.accountinglist.EspressoAccountingListPage;
 
 public class StartupSpec extends BaseEspressoSpec {
 

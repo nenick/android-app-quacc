@@ -1,4 +1,4 @@
-package de.nenick.quacc;
+package de.nenick.quacc.main;
 
 import android.content.Intent;
 
@@ -16,7 +16,7 @@ public class MainFragmentTest extends RobolectricSupportedTest {
     RoboMainPage mainPage = new RoboMainPage(robo);
 
     @Test
-    public void shouldStartNextPage(){
+    public void shouldStartNextPage() {
         mainPage.startPage();
         Intent intent = mainPage.nextStartedPage();
 

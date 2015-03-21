@@ -1,9 +1,8 @@
-package de.nenick.quacc;
+package de.nenick.quacc.apptest;
 
 import android.test.ActivityInstrumentationTestCase2;
 
 import de.nenick.quacc.R;
-import de.nenick.quacc.at.DummyLauncherActivity_;
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;

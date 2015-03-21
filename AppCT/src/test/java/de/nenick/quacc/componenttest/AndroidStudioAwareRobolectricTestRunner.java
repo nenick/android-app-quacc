@@ -1,10 +1,9 @@
-package de.nenick.quacc.ct;
+package de.nenick.quacc.componenttest;
 
 import org.junit.runners.model.InitializationError;
 import org.robolectric.RobolectricTestRunner;
 
 import de.nenick.quacc.BuildConfig;
-import de.nenick.quacc.addaccounting.AddAccountingActivity;
 
 public class AndroidStudioAwareRobolectricTestRunner extends RobolectricTestRunner {
 

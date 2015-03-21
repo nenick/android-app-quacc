@@ -1,4 +1,4 @@
-package de.nenick.quacc.main;
+package de.nenick.quacc.apptest.main;
 
 import de.nenick.quacc.R;
 

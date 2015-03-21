@@ -2,8 +2,6 @@ package de.nenick.quacc.accountinglist;
 
 import org.junit.Test;
 
-import de.nenick.quacc.MainActivity_;
-import de.nenick.quacc.MainFragment_;
 import de.nenick.quacc.TestQuAccApplication;
 import de.nenick.robolectric.RoboSup;
 import de.nenick.robolectric.RobolectricSupportedTest;
@@ -17,7 +15,7 @@ public class AccountingListFragmentTest extends RobolectricSupportedTest {
     RoboAccountingListPage accountingListPage = new RoboAccountingListPage(robo);
 
     @Test
-    public void checkList(){
+    public void checkList() {
         given(TestQuAccApplication.coreModuleMocks.getAccountingListUc.apply()).willReturn(new CharSequence[]{"Eintrag 1", "Eintrag 2", "Eintrag 3"});
         accountingListPage.startPage();
 
