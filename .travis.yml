@@ -35,7 +35,7 @@ install:
 
 script:
   # Execute Unit and Component Test
-  - gradle test
+  - ./gradlew test
   
   # Execute Tests on Emulator
-  - gradle connectedAndroidTest
+  - ./gradlew connectedAndroidTest
