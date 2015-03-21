@@ -27,7 +27,7 @@ cache:
     - $HOME/.gradle
 
 before_script:
-  # Emulator Management: Create, Start and Wait
+  # Emulator Management: Create, Start
   - echo no | android create avd --force -n test -t android-21 --abi armeabi-v7a
   - emulator -avd test -no-skin -no-audio -no-window &
 
@@ -46,6 +46,7 @@ script:
   # Execute Component Tests
   - ./gradlew AppCT:test
   
-  # Execute Tests on Emulator
+  # Execute Tests on Emulator: Build, Wait, Start
+  - ./gradlew App:assembleDebugAndroidTest
   - ./android-wait-for-emulator
-  - ./gradlew connectedAndroidTest
+  - ./gradlew App:connectedAndroidTest
