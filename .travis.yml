@@ -47,7 +47,7 @@ script:
   - ./gradlew AppCT:test
   
   # Execute Tests on Emulator: Build, Wait, Start
-  - ./gradlew App:assembleDebugAndroidTest
+  - ./gradlew App:assembleDebug App:assembleDebugAndroidTest
   - ./android-wait-for-emulator
   - ./gradlew App:connectedCheck
 
