@@ -1,0 +1,51 @@
+apply plugin: "jacoco"
+
+def coverageSourceDirs = [
+        'App/src/main/java',
+        'App/build/source/apt/debug',
+        'App/build/generated/source/db',
+        'App/build/generated/source/buildConfig/debug',
+        'App/build/generated/source/r/debug']
+
+jacocoTestReport {
+    reports {
+        xml.enabled = false
+        html.enabled = true
+    }
+    // class R is used, but usage will not be covered, so ignore this class from report
+    classDirectories = fileTree(dir: 'App/build/intermediates/classes/debug', exclude: 'de/nenick/quacc/R*.class')
+    additionalSourceDirs = files(coverageSourceDirs)
+    executionData = files('App/build/jacoco/testDebug.exec')
+
+    // fix issue with double $$ at generate report task
+    doFirst {
+        applyDaggerWorkaround('App/build/intermediates/classes/')
+        applyDaggerWorkaround('Core/build/intermediates/classes/')
+    }
+    // avoid some side effects through revert renaming
+    doLast {
+        revertDaggerWorkaround('App/build/intermediates/classes/')
+        revertDaggerWorkaround('Core/build/intermediates/classes/')
+    }
+}
+
+def applyDaggerWorkaround(String pathWithDaggerClasses) {
+    def filePath = new File(pathWithDaggerClasses)
+    if (filePath.exists()) {
+        filePath.eachFileRecurse { file ->
+            if (file.name.contains('$$')) {
+                file.renameTo(file.path.replace('$$', '$'))
+            }
+        }
+    }
+}
+def revertDaggerWorkaround(String pathWithDaggerClasses) {
+    def filePath = new File(pathWithDaggerClasses)
+    if (filePath.exists()) {
+        filePath.eachFileRecurse { file ->
+            if (file.name.contains('$ModuleAdapter')) {
+                file.renameTo(file.path.replace('$ModuleAdapter', '$$ModuleAdapter'))
+            }
+        }
+    }
+}

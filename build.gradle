@@ -16,4 +16,8 @@ allprojects {
     repositories {
         jcenter()
     }
+    apply plugin: "jacoco"
 }
+
+apply plugin: "java"
+apply from: "build.jacoco-coveralls.gradle"
