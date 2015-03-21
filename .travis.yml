@@ -12,6 +12,12 @@ android:
     # Additional components
     - extra-android-m2repository
 
+cache:
+  directories:
+    # caching depemdencies for faster builds
+    - $HOME/.m2
+    - $HOME/.gradle
+
 before_script:
   # Emulator Management: Create, Start and Wait
   - echo no | android create avd --force -n test -t android-21 --abi armeabi-v7a
