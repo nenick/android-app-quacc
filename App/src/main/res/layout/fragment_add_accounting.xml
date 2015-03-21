@@ -102,7 +102,7 @@
         android:layout_centerHorizontal="true" />
 
     <ImageButton
-        android:id="@+id/speechRecognitionBtn"
+        android:id="@+id/btn_speech_recognition"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@android:drawable/ic_btn_speak_now"
