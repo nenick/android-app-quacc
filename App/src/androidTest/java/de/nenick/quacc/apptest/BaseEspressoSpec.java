@@ -20,4 +20,11 @@ public class BaseEspressoSpec extends ActivityInstrumentationTestCase2<DummyLaun
         getActivity();
         launcherPage.clickStartApp();
     }
+
+    @Override
+    protected void tearDown() throws Exception {
+        getInstrumentation().waitForIdleSync();
+        super.tearDown();
+        getInstrumentation().waitForIdleSync();
+    }
 }
