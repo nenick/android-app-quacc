@@ -21,7 +21,7 @@ before_script:
 
 install:
   - wget https://github.com/nenick/android-gradle-template/blob/master/Scripts/install-custom-gradle-test-plugin.sh
-  - sh install-custom-gradle-test-plugin.sh
+  - ./install-custom-gradle-test-plugin.sh
 
 script:
   - gradle test
