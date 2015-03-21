@@ -33,7 +33,7 @@ def revertDaggerWorkaround(String pathWithDaggerClasses) {
 
 jacocoTestReport {
     reports {
-        xml.enabled = false
+        xml.enabled = true
         html.enabled = true
     }
     // exclude generated classes from code coverage report because not all generated methods will be used
