@@ -1,6 +1,10 @@
 package de.nenick.quacc.addaccounting;
 
+import android.app.Activity;
+import android.content.Intent;
+
 import org.androidannotations.annotations.AfterInject;
+import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EBean;
 
 import javax.inject.Inject;
@@ -33,9 +37,15 @@ public class AddAccountingPresenter {
     @Inject
     GetAccountsUc getAccountsUc;
 
+    @Bean
+    DatePickerFormatUtil datePickerFormatUtil;
+
+    @Bean
+    DaggerSupport daggerSupport;
+
     @AfterInject
     protected void afterInject() {
-        DaggerSupport.inject(this);
+        daggerSupport.inject(this);
     }
 
     public void onViewSpeechResult(String recognizedText) {
@@ -50,6 +60,12 @@ public class AddAccountingPresenter {
         view.showAccountingTypes(getAccountingTypesUc.apply());
         view.showAccountingIntervals(getAccountingIntervalsUc.apply());
         view.showAccountingCategories(getAccountingCategoriesUc.apply());
-        view.showDate(DatePickerFormatUtil.currentDate());
+        view.showDate(datePickerFormatUtil.currentDate());
+    }
+
+    public void onPicketDate(int resultCode, Intent data) {
+        if (resultCode == Activity.RESULT_OK) {
+            view.setDate(datePickerFormatUtil.fromResultIntent(data));
+        }
     }
 }

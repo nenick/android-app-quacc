@@ -1,33 +1,10 @@
 apply plugin: "jacoco"
+apply plugin: 'com.github.kt3k.coveralls'
 
 def coverageSourceDirs = [
         'App/src/main/java',
-        'App/build/source/apt/debug',
-        'App/build/generated/source/db',
-        'App/build/generated/source/buildConfig/debug',
-        'App/build/generated/source/r/debug']
+        'Core/src/main/java']
 
-jacocoTestReport {
-    reports {
-        xml.enabled = false
-        html.enabled = true
-    }
-    // class R is used, but usage will not be covered, so ignore this class from report
-    classDirectories = fileTree(dir: 'App/build/intermediates/classes/debug', exclude: 'de/nenick/quacc/R*.class')
-    additionalSourceDirs = files(coverageSourceDirs)
-    executionData = files('App/build/jacoco/testDebug.exec')
-
-    // fix issue with double $$ at generate report task
-    doFirst {
-        applyDaggerWorkaround('App/build/intermediates/classes/')
-        applyDaggerWorkaround('Core/build/intermediates/classes/')
-    }
-    // avoid some side effects through revert renaming
-    doLast {
-        revertDaggerWorkaround('App/build/intermediates/classes/')
-        revertDaggerWorkaround('Core/build/intermediates/classes/')
-    }
-}
 
 def applyDaggerWorkaround(String pathWithDaggerClasses) {
     def filePath = new File(pathWithDaggerClasses)
@@ -39,6 +16,7 @@ def applyDaggerWorkaround(String pathWithDaggerClasses) {
         }
     }
 }
+
 def revertDaggerWorkaround(String pathWithDaggerClasses) {
     def filePath = new File(pathWithDaggerClasses)
     if (filePath.exists()) {
@@ -46,6 +24,39 @@ def revertDaggerWorkaround(String pathWithDaggerClasses) {
             if (file.name.contains('$ModuleAdapter')) {
                 file.renameTo(file.path.replace('$ModuleAdapter', '$$ModuleAdapter'))
             }
+            if (file.name.contains('$InjectAdapter')) {
+                file.renameTo(file.path.replace('$InjectAdapter', '$$InjectAdapter'))
+            }
         }
+    }
+}
+
+jacocoTestReport {
+    reports {
+        xml.enabled = false
+        html.enabled = true
+    }
+    // exclude generated classes from code coverage report because not all generated methods will be used
+    def defaultExcludes = ['**/R.class', '**/R$*.class', '**/*_*', '**/Buildconfig.class', '**/*InjectAdapter.class', '**/*ModuleAdapter*.class', '**/BuildConfig.class']
+
+    classDirectories = fileTree(dir: 'App/build/intermediates/classes/debug', excludes: defaultExcludes)
+    classDirectories + fileTree(dir: 'AppCT/build/intermediates/classes/debug', exclude: defaultExcludes)
+    classDirectories + fileTree(dir: 'Core/build/intermediates/classes/debug', exclude: defaultExcludes)
+
+    additionalSourceDirs = files(coverageSourceDirs)
+    executionData = files(
+            'App/build/outputs/code-coverage/connected/coverage.ec',
+            'App/build/jacoco/testDebug.exec',
+            'Core/build/jacoco/testDebug.exec')
+
+    // fix issue with double $$ at generate report task
+    doFirst {
+        applyDaggerWorkaround('App/build/intermediates/classes/')
+        applyDaggerWorkaround('Core/build/intermediates/classes/')
+    }
+    // avoid some side effects through revert renaming
+    doLast {
+        revertDaggerWorkaround('App/build/intermediates/classes/')
+        revertDaggerWorkaround('Core/build/intermediates/classes/')
     }
 }

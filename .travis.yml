@@ -49,4 +49,8 @@ script:
   # Execute Tests on Emulator: Build, Wait, Start
   - ./gradlew App:assembleDebugAndroidTest
   - ./android-wait-for-emulator
-  - ./gradlew App:connectedAndroidTest
+  - ./gradlew App:connectedCheck
+
+  # Create and Report code coverage
+  - ./gradlew jacocoTestReport
+  - ./gradlew coveralls

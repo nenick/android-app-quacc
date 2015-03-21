@@ -21,11 +21,6 @@ import de.nenick.quacc.main.MainActivity_;
 @EActivity(R.layout.activity_dummy_launcher)
 public class DummyLauncherActivity extends Activity {
 
-    @Override
-    public void onCreate(Bundle savedInstanceState, PersistableBundle persistentState) {
-        super.onCreate(savedInstanceState, persistentState);
-    }
-
     @Click(R.id.btn_start_app)
     protected void onClick() {
         MainActivity_.intent(this).start();

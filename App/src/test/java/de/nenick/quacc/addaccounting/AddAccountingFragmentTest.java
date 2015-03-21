@@ -130,20 +130,29 @@ public class AddAccountingFragmentTest extends RobolectricSupportedTest {
     }
 
     @Test
+    public void shouldShowSpeechResult() {
+        addAccountingPage.startPage();
+        addAccountingPage.speechResult("tell me something");
+        assertThat(addAccountingPage.speechResultField().getText()).isEqualTo("tell me something");
+    }
+
+    @Test
     public void shouldDestroySpeechRecognition() {
         addAccountingPage.startPageWithMocks(mockSpeechRecognition);
         robo.activityController.destroy();
         verify(mockSpeechRecognition).destroy();
     }
 
-    @Test
-    public void shouldShowSpeechResult() {
-        addAccountingPage.startPageWithMocks(mockSpeechRecognition);
+    @Test(expected = IllegalStateException.class)
+    public void shouldFailAtUnknownActivityResult() {
+        AddAccountingFragment addAccountingFragment = new AddAccountingFragment();
+        addAccountingFragment.onActivityResult(123456, 0, null);
+    }
 
-        verify(mockSpeechRecognition).setRecognitionListener(speechRecognitionListenerArgumentCaptor.capture());
-        speechRecognitionListenerArgumentCaptor.getValue().onResults(speechResultBundle("That the recognized speech"));
-
-        assertThat(addAccountingPage.speechResultField().getText()).isEqualTo("That the recognized speech");
+    @Test(expected = UnsupportedOperationException.class)
+    public void shouldFailAtUnknownMultipleSpeechResult() {
+        addAccountingPage.startPage();
+        addAccountingPage.speechResult("tell me something", "more than expected");
     }
 
     public Bundle speechResultBundle(String text) {

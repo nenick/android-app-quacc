@@ -8,9 +8,16 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 import android.widget.DatePicker;
 
+import org.androidannotations.annotations.Bean;
+import org.androidannotations.annotations.EFragment;
+
 import java.util.Calendar;
 
+@EFragment
 public class DatePickerDialogFragment extends DialogFragment implements DatePickerDialog.OnDateSetListener {
+
+    @Bean
+    DatePickerFormatUtil datePickerFormatUtil;
 
     @NonNull
     @Override
@@ -28,6 +35,6 @@ public class DatePickerDialogFragment extends DialogFragment implements DatePick
     @Override
     public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
         getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK,
-                DatePickerFormatUtil.createResultIntent(year, monthOfYear, dayOfMonth));
+                datePickerFormatUtil.createResultIntent(year, monthOfYear, dayOfMonth));
     }
 }

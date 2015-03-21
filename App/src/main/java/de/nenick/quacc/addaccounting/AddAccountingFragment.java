@@ -1,6 +1,5 @@
 package de.nenick.quacc.addaccounting;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.speech.SpeechRecognizer;
@@ -19,39 +18,32 @@ import java.util.ArrayList;
 
 import de.nenick.quacc.R;
 import de.nenick.quacc.datepicker.DatePickerDialogFragment;
-import de.nenick.quacc.datepicker.DatePickerFormatUtil;
+import de.nenick.quacc.datepicker.DatePickerDialogFragment_;
 import de.nenick.quacc.speechrecognition.SpeechRecognitionListener;
 import de.nenick.quacc.speechrecognition.SpeechRecognitionWrapper;
 
 @EFragment(R.layout.fragment_add_accounting)
 public class AddAccountingFragment extends Fragment {
 
+    public static final int REQUEST_DATE_PICKER = 1;
+    @ViewById(R.id.account)
+    Spinner accountSpinner;
+    @ViewById(R.id.accountingType)
+    Spinner accountingTypeSpinner;
+    @ViewById(R.id.interval)
+    Spinner accountingIntervalSpinner;
+    @ViewById(R.id.category)
+    Spinner accountingCategorySpinner;
+    @ViewById(R.id.date)
+    TextView date;
+    @Bean
+    AddAccountingPresenter presenter;
+    @Bean
+    SpeechRecognitionWrapper speechRecognition;
+
     public static AddAccountingFragment build() {
         return AddAccountingFragment_.builder().build();
     }
-
-    public static final int REQUEST_DATE_PICKER = 1;
-
-    @ViewById(R.id.account)
-    Spinner accountSpinner;
-
-    @ViewById(R.id.accountingType)
-    Spinner accountingTypeSpinner;
-
-    @ViewById(R.id.interval)
-    Spinner accountingIntervalSpinner;
-
-    @ViewById(R.id.category)
-    Spinner accountingCategorySpinner;
-
-    @ViewById(R.id.date)
-    TextView date;
-
-    @Bean
-    AddAccountingPresenter presenter;
-
-    @Bean
-    SpeechRecognitionWrapper speechRecognition;
 
     @AfterViews
     protected void onAfterViews() {
@@ -88,7 +80,7 @@ public class AddAccountingFragment extends Fragment {
 
     @Click(R.id.date)
     protected void onShowDatePicker() {
-        DatePickerDialogFragment datePickerDialogFragment = new DatePickerDialogFragment();
+        DatePickerDialogFragment datePickerDialogFragment = DatePickerDialogFragment_.builder().build();
         datePickerDialogFragment.setTargetFragment(this, REQUEST_DATE_PICKER);
         datePickerDialogFragment.show(getActivity().getSupportFragmentManager(), "Date Picker");
     }
@@ -97,9 +89,7 @@ public class AddAccountingFragment extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         switch (requestCode) {
             case REQUEST_DATE_PICKER:
-                if (resultCode == Activity.RESULT_OK) {
-                    date.setText(DatePickerFormatUtil.fromResultIntent(data));
-                }
+                presenter.onPicketDate(resultCode, data);
                 break;
             default:
                 throw new IllegalStateException("Not handled activity result request.");
@@ -138,5 +128,9 @@ public class AddAccountingFragment extends Fragment {
     public void onDestroy() {
         super.onDestroy();
         speechRecognition.destroy();
+    }
+
+    public void setDate(String date) {
+        this.date.setText(date);
     }
 }

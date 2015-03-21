@@ -1,6 +1,7 @@
 package de.nenick.quacc.accountinglist;
 
 import org.androidannotations.annotations.AfterInject;
+import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EBean;
 
 import javax.inject.Inject;
@@ -14,9 +15,12 @@ public class AccountingListPresenter {
     @Inject
     GetAccountingListUc getAccountingListUc;
 
+    @Bean
+    DaggerSupport daggerSupport;
+
     @AfterInject
     protected void afterInject() {
-        DaggerSupport.inject(this);
+        daggerSupport.inject(this);
     }
 
     AccountingListFragment view;

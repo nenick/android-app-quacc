@@ -1,8 +1,14 @@
 package de.nenick.quacc.addaccounting;
 
 import android.content.Intent;
+import android.os.Bundle;
+import android.speech.SpeechRecognizer;
 
 import org.robolectric.RuntimeEnvironment;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 import de.nenick.quacc.R;
 import de.nenick.quacc.speechrecognition.SpeechRecognitionWrapper;
@@ -54,5 +60,17 @@ public class RoboAddAccountingPage extends RoboSupPage<AddAccountingActivity_, A
 
     public RoboImageButton speechButton() {
         return new RoboImageButton(robo, R.id.btn_speech_recognition);
+    }
+
+    public void speechResult(String text) {
+        speechResult(new String[] {text});
+    }
+
+    public void speechResult(String ... texts) {
+        Bundle bundle = new Bundle();
+        ArrayList<String> strings = new ArrayList<>();
+        Collections.addAll(strings, texts);
+        bundle.putStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION, strings);
+        robo.fragment.speechRecognition.getRecognitionListener().onResults(bundle);
     }
 }

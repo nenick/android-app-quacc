@@ -13,4 +13,8 @@ public class EspressoAddAccountingPage {
     public void isActivePage() {
         onView(withId(R.id.btn_speech_recognition)).check(matches(isDisplayed()));
     }
+
+    public void clickSpeechRecogniction() {
+        onView(withId(R.id.btn_speech_recognition)).perform(click());
+    }
 }

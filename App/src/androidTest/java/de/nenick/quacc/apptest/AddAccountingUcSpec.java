@@ -13,5 +13,8 @@ public class AddAccountingUcSpec extends BaseEspressoSpec {
         startApp();
         accountingListPage.clickAddButton();
         addAccountingPage.isActivePage();
+
+        addAccountingPage.clickSpeechRecogniction();
+        addAccountingPage.clickSpeechRecogniction();
     }
 }
