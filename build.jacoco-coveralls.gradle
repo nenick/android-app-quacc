@@ -60,3 +60,11 @@ jacocoTestReport {
         revertDaggerWorkaround('Core/build/intermediates/classes/')
     }
 }
+
+def isTravis = "true".equals(System.getenv("TRAVIS"))
+
+coveralls {
+    if(isTravis) { // avoid android studio source root conflicts
+        sourceSets.main.java.srcDirs += coverageSourceDirs
+    }
+}
