@@ -1,7 +1,9 @@
 package de.nenick.quacc.addaccounting;
 
 import android.content.Intent;
+import android.content.pm.ResolveInfo;
 import android.os.Bundle;
+import android.speech.RecognizerIntent;
 import android.speech.SpeechRecognizer;
 
 import org.junit.Before;
@@ -10,6 +12,8 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.Captor;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.robolectric.RuntimeEnvironment;
+import org.robolectric.Shadows;
 
 import java.util.ArrayList;
 
@@ -34,6 +38,7 @@ public class AddAccountingFragmentSpeechTest extends RobolectricSupportedTest {
     public void setUp() {
         MockitoAnnotations.initMocks(this);
         RoboAddAccountingUcDefaultResults.apply();
+        RuntimeEnvironment.getRobolectricPackageManager().addResolveInfoForIntent(new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH), new ResolveInfo());
     }
 
     @Test
