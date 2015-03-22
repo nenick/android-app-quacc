@@ -14,7 +14,7 @@ public class StartupUcSpec extends BaseEspressoSpec {
     EspressoAccountingListPage accountingListPage = new EspressoAccountingListPage();
 
     @Test
-    public void testStartup() {
+    public void shouldCloseAppOnBackPressFromAccountingList() {
         startApp();
         accountingListPage.isActivePage();
         Espresso.pressBack();
