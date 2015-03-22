@@ -14,11 +14,11 @@ import org.androidannotations.annotations.RootContext;
 public class SpeechRecognitionWrapper {
 
     @RootContext
-    protected Context context;
-    private SpeechRecognizer speechRecognizer;
-    private Intent speechRecognizerIntent;
-    private boolean isListening;
-    private SpeechRecognitionListener recognitionListener;
+    Context context;
+    SpeechRecognizer speechRecognizer;
+    Intent speechRecognizerIntent;
+    boolean isListening;
+    SpeechListener recognitionListener;
 
     @AfterInject
     protected void afterInject() {
@@ -36,15 +36,12 @@ public class SpeechRecognitionWrapper {
         }
     }
 
-    public SpeechRecognitionListener getRecognitionListener() {
-        return recognitionListener;
-    }
-
-    public void setRecognitionListener(final SpeechRecognitionListener recognitionListener) {
-        this.recognitionListener = new SpeechRecognitionListener() {
+    public void setSpeechListener(final SpeechListener recognitionListener) {
+        this.recognitionListener = new SpeechListener() {
             @Override
             public void onError(int error) {
                 isListening = false;
+                recognitionListener.onError(error);
             }
 
             @Override
@@ -73,4 +70,5 @@ public class SpeechRecognitionWrapper {
         mSpeechRecognizerIntent.putExtra(RecognizerIntent.EXTRA_CALLING_PACKAGE, context.getPackageName());
         return mSpeechRecognizerIntent;
     }
+
 }

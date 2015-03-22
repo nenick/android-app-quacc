@@ -53,6 +53,12 @@ public class AddAccountingFragment extends Fragment {
         ((SpeechRecognitionFeature_) speechRecognitionFeature).rebind(getActivity());
     }
 
+    @Override
+    public void onPause() {
+        super.onPause();
+        speechRecognitionFeature.onPause();
+    }
+
     public void showDate(String dateString) {
         date.setText(dateString);
     }

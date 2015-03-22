@@ -4,12 +4,17 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.speech.SpeechRecognizer;
 
+import org.mockito.ArgumentCaptor;
+import org.mockito.Captor;
+import org.mockito.MockitoAnnotations;
 import org.robolectric.RuntimeEnvironment;
 
 import java.util.ArrayList;
 import java.util.Collections;
 
 import de.nenick.quacc.R;
+import de.nenick.quacc.speechrecognition.RoboSpeechRegonitionWrapperHelper;
+import de.nenick.quacc.speechrecognition.SpeechListener;
 import de.nenick.quacc.speechrecognition.SpeechRecognitionWrapper;
 import de.nenick.robolectric.RoboSup;
 import de.nenick.robolectric.RoboSupPage;
@@ -19,18 +24,24 @@ import de.nenick.robolectricpages.components.RoboTextView;
 
 public class RoboAddAccountingPage extends RoboSupPage<AddAccountingActivity_, AddAccountingFragment> {
 
+    @Captor
+    ArgumentCaptor<SpeechListener> speechRecognitionListenerArgumentCaptor;
+
     public RoboAddAccountingPage(RoboSup<AddAccountingActivity_, AddAccountingFragment> robo) {
         super(robo, AddAccountingActivity.TAG_FRAGMENT);
+        MockitoAnnotations.initMocks(this);
     }
 
     public static Intent Intent() {
         return AddAccountingActivity_.intent(RuntimeEnvironment.application).get();
     }
 
-    public void startPageWithMocks(SpeechRecognitionWrapper mockSpeechRecognition) {
+    public void startPageWithSpeechMock(SpeechRecognizer mockSpeechRecognizer) {
         createPage();
-        robo.fragment.speechRecognitionFeature.speechRecognition = mockSpeechRecognition;
+        RoboSpeechRegonitionWrapperHelper.setMock(robo.fragment.speechRecognitionFeature.speechRecognitionWrapper, mockSpeechRecognizer);
+        robo.fragment.speechRecognitionFeature.onAfterInject();
         startCreatedPage();
+
     }
 
     public RoboSpinner typeSpinner() {
@@ -61,19 +72,19 @@ public class RoboAddAccountingPage extends RoboSupPage<AddAccountingActivity_, A
         return new RoboImageButton(robo, R.id.btn_speech_recognition);
     }
 
-    public void speechResult(String text) {
-        speechResult(new String[] {text});
-    }
-
     public void speechResult(String ... texts) {
         Bundle bundle = new Bundle();
         ArrayList<String> strings = new ArrayList<>();
         Collections.addAll(strings, texts);
         bundle.putStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION, strings);
-        robo.fragment.speechRecognitionFeature.speechRecognition.getRecognitionListener().onResults(bundle);
+        speechRecognitionListenerArgumentCaptor.getValue().onResults(bundle);
     }
 
     public RoboAddAccountingDialogs dialog() {
         return new RoboAddAccountingDialogs();
+    }
+
+    public void speechError(int error) {
+        speechRecognitionListenerArgumentCaptor.getValue().onError(error);
     }
 }

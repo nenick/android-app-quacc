@@ -1,5 +1,6 @@
 package de.nenick.quacc.addaccounting;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.speech.SpeechRecognizer;
 
@@ -11,21 +12,14 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
-import java.util.Locale;
 
-import de.nenick.quacc.TestQuAccApplication;
-import de.nenick.quacc.speechrecognition.SpeechRecognitionListener;
-import de.nenick.quacc.speechrecognition.SpeechRecognitionWrapper;
+import de.nenick.quacc.R;
+import de.nenick.quacc.speechrecognition.SpeechListener;
 import de.nenick.robolectric.RoboSup;
 import de.nenick.robolectric.RobolectricSupportedTest;
-import de.nenick.robolectricpages.components.RoboSpinnerEntry;
-import de.nenick.robolectricpages.dialogs.RoboDatePickerDialog;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.BDDMockito.given;
-import static org.mockito.Matchers.anyString;
+import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.verify;
 
 public class AddAccountingFragmentSpeechTest extends RobolectricSupportedTest {
@@ -34,10 +28,7 @@ public class AddAccountingFragmentSpeechTest extends RobolectricSupportedTest {
     RoboAddAccountingPage addAccountingPage = new RoboAddAccountingPage(robo);
 
     @Mock
-    SpeechRecognitionWrapper mockSpeechRecognition;
-
-    @Captor
-    ArgumentCaptor<SpeechRecognitionListener> speechRecognitionListenerArgumentCaptor;
+    SpeechRecognizer mockSpeechRecognizer;
 
     @Before
     public void setUp() {
@@ -46,37 +37,71 @@ public class AddAccountingFragmentSpeechTest extends RobolectricSupportedTest {
     }
 
     @Test
-    public void shouldToggleSpeechRecognition() {
-        addAccountingPage.startPageWithMocks(mockSpeechRecognition);
+    public void shouldStartSpeechRecognitionOnClick() {
+        givenStartedListening();
+        thenSpeechButtonShowMicIsOn();
+    }
+
+    @Test
+    public void shouldStopSpeechRecognitionOnClickAgain() {
+        givenStartedListening();
         addAccountingPage.speechButton().click();
-        verify(mockSpeechRecognition).toggle();
+        verify(mockSpeechRecognizer).stopListening();
+        thenSpeechButtonShowMicIsOff();
     }
 
     @Test
     public void shouldShowSingleMatch() {
-        addAccountingPage.startPage();
+        givenStartedListening();
         addAccountingPage.speechResult("tell me something");
         assertThat(addAccountingPage.speechResultField().getText()).isEqualTo("[tell me something] ");
     }
 
     @Test
     public void shouldShowMultipleMatches() {
-        addAccountingPage.startPage();
+        givenStartedListening();
         addAccountingPage.speechResult("1 2 3", "one two three");
         assertThat(addAccountingPage.speechResultField().getText()).isEqualTo("[1 2 3] [one two three] ");
     }
 
     @Test
+    public void shouldStopSpeechRecognition() {
+        givenStartedListening();
+        robo.activityController.pause();
+        verify(mockSpeechRecognizer).stopListening();
+    }
+
+    @Test
     public void shouldDestroySpeechRecognition() {
-        addAccountingPage.startPageWithMocks(mockSpeechRecognition);
+        givenStartedListening();
         robo.activityController.destroy();
-        verify(mockSpeechRecognition).destroy();
+        verify(mockSpeechRecognizer).destroy();
     }
 
     @Test(expected = UnsupportedOperationException.class)
     public void shouldFailWithoutMatches() {
-        addAccountingPage.startPage();
+        givenStartedListening();
         addAccountingPage.speechResult();
+    }
+
+    @Test
+    public void shouldShowMicIsOffOnError() {
+        givenStartedListening();
+        addAccountingPage.speechError(0);
+        thenSpeechButtonShowMicIsOff();
+    }
+
+    @Test
+    public void shouldShowMicIsOffOnResult() {
+        givenStartedListening();
+        addAccountingPage.speechResult("tell me something");
+        thenSpeechButtonShowMicIsOff();
+    }
+
+    private void givenStartedListening() {
+        addAccountingPage.startPageWithSpeechMock(mockSpeechRecognizer);
+        addAccountingPage.speechButton().click();
+        verify(mockSpeechRecognizer).startListening(any(Intent.class));
     }
 
     public Bundle speechResultBundle(String text) {
@@ -85,5 +110,13 @@ public class AddAccountingFragmentSpeechTest extends RobolectricSupportedTest {
         Bundle speechResultBundle = new Bundle();
         speechResultBundle.putStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION, speechResultText);
         return speechResultBundle;
+    }
+
+    private void thenSpeechButtonShowMicIsOff() {
+        assertThat(addAccountingPage.speechButton().getDrawableResId()).isEqualTo(R.drawable.ic_action_micoff);
+    }
+
+    private void thenSpeechButtonShowMicIsOn() {
+        assertThat(addAccountingPage.speechButton().getDrawableResId()).isEqualTo(R.drawable.ic_action_mic);
     }
 }

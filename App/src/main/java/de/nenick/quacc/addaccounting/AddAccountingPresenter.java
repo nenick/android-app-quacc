@@ -51,8 +51,8 @@ public class AddAccountingPresenter {
     }
 
     public void onViewSpeechResult(ArrayList<String> matches) {
-        if (matches.size() < 1) {
-            throw new UnsupportedOperationException("No match was never tested");
+        if (matches == null || matches.size() < 1) {
+            throw new UnsupportedOperationException("Getting no match was never tested");
         }
 
         String accountingType = recognizeAccountingTypeUc.apply(matches);

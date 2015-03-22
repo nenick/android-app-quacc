@@ -4,9 +4,9 @@ import android.os.Bundle;
 
 import org.junit.Test;
 
-public class SpeechRecognitionListenerTest {
+public class SpeechListenerTest {
 
-    SpeechRecognitionListener listener = new SpeechRecognitionListener() {
+    SpeechListener listener = new SpeechListener() {
         @Override
         public void onError(int error) {
         }

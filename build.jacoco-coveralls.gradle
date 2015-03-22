@@ -8,6 +8,9 @@ task configureCoverageReport {
         def coverageFiles = []
         def coverageSourceDirs = []
 
+        // exclude generated classes from code coverage report because not all generated methods will be used
+        def defaultExcludes = ['**/R.class', '**/R$*.class', '**/*_*', '**/BuildConfig.class', '**/*InjectAdapter.class', '**/*ModuleAdapter*.class', '**/apptest/*']
+
         // Don't take not existing coverage report files or the report will be empty
         def currentCoverageFile = 'App/build/outputs/code-coverage/connected/coverage.ec'
         if (file(currentCoverageFile).exists()) {
@@ -32,17 +35,12 @@ task configureCoverageReport {
             coverageFiles += currentCoverageFile
         }
 
-        // exclude generated classes from code coverage report because not all generated methods will be used
-        def defaultExcludes = ['**/R.class', '**/R$*.class', '**/*_*', '**/BuildConfig.class', '**/*InjectAdapter.class', '**/*ModuleAdapter*.class', '**/apptest/*']
-
         // Don't include classes from modules we haven't executed
         if (includeAppSrc) {
             coverageSourceDirs += 'App/src/main/java'
             tasks.jacocoTestReport.classDirectories += fileTree(dir: 'App/build/intermediates/classes/debug', excludes: defaultExcludes)
         }
-        println "gleich core"
         if (includeCoreSrc) {
-            println "in core"
             coverageSourceDirs += 'Core/src/main/java'
             tasks.jacocoTestReport.classDirectories += fileTree(dir: 'Core/build/intermediates/classes/debug', exclude: defaultExcludes)
         }
@@ -55,10 +53,14 @@ task configureCoverageReport {
         // studio and also with jacocoTestReport task.
         def isTravis = "true".equals(System.getenv("TRAVIS"))
         if (isTravis) { // avoid android studio source root conflicts
-            coveralls.sourceSets.main.java.srcDirs += coverageSourceDirs
+            coveralls {
+                sourceSets.main.java.srcDirs += coverageSourceDirs
+            }
         }
     }
 }
+
+compileJava.enabled = false
 
 tasks.jacocoTestReport.dependsOn tasks.configureCoverageReport
 jacocoTestReport {
@@ -78,8 +80,6 @@ jacocoTestReport {
         revertDaggerWorkaround('Core/build/intermediates/classes/')
     }
 }
-
-compileJava.enabled = false
 
 def applyDaggerWorkaround(String pathWithDaggerClasses) {
     def filePath = new File(pathWithDaggerClasses)

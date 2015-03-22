@@ -15,7 +15,7 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 
-import de.nenick.quacc.speechrecognition.SpeechRecognitionListener;
+import de.nenick.quacc.speechrecognition.SpeechListener;
 import de.nenick.quacc.speechrecognition.SpeechRecognitionWrapper;
 import de.nenick.robolectric.RoboSup;
 import de.nenick.robolectric.RobolectricSupportedTest;
@@ -35,7 +35,7 @@ public class AddAccountingFragmentTest extends RobolectricSupportedTest {
     SpeechRecognitionWrapper mockSpeechRecognition;
 
     @Captor
-    ArgumentCaptor<SpeechRecognitionListener> speechRecognitionListenerArgumentCaptor;
+    ArgumentCaptor<SpeechListener> speechRecognitionListenerArgumentCaptor;
 
     @Before
     public void setUp() {

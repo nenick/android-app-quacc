@@ -1,28 +1,34 @@
 package de.nenick.quacc.addaccounting;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.speech.SpeechRecognizer;
 
 import com.melnykov.fab.FloatingActionButton;
 
 import org.androidannotations.annotations.AfterInject;
+import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EBean;
+import org.androidannotations.annotations.RootContext;
 import org.androidannotations.annotations.ViewById;
 
 import de.nenick.quacc.R;
-import de.nenick.quacc.speechrecognition.SpeechRecognitionListener;
+import de.nenick.quacc.speechrecognition.SpeechListener;
 import de.nenick.quacc.speechrecognition.SpeechRecognitionWrapper;
 
 @EBean
 public class SpeechRecognitionFeature {
 
+    @RootContext
+    Context context;
+
     @ViewById(R.id.btn_speech_recognition)
     FloatingActionButton speechButton;
 
     @Bean
-    SpeechRecognitionWrapper speechRecognition;
+    SpeechRecognitionWrapper speechRecognitionWrapper;
 
     AddAccountingFragment view;
     AddAccountingPresenter presenter;
@@ -33,12 +39,12 @@ public class SpeechRecognitionFeature {
     }
 
     public void destroy() {
-        speechRecognition.destroy();
+        speechRecognitionWrapper.destroy();
     }
 
     @AfterInject
-    protected void onAfterInject() {
-        speechRecognition.setRecognitionListener(new SpeechRecognitionListener() {
+    void onAfterInject() {
+        speechRecognitionWrapper.setSpeechListener(new SpeechListener() {
             @Override
             public void onError(int error) {
                 toggleIsListeningMarker();
@@ -54,16 +60,23 @@ public class SpeechRecognitionFeature {
 
     @Click(R.id.btn_speech_recognition)
     protected void onToggleSpeechRecognition() {
-        speechRecognition.toggle();
+        speechRecognitionWrapper.toggle();
         toggleIsListeningMarker();
     }
 
     private void toggleIsListeningMarker() {
-        boolean isListening = speechRecognition.isListening();
+        boolean isListening = speechRecognitionWrapper.isListening();
         if(isListening) {
-            speechButton.setImageDrawable(view.getResources().getDrawable(R.drawable.ic_action_mic));
+            speechButton.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_action_mic));
         } else {
-            speechButton.setImageDrawable(view.getResources().getDrawable(R.drawable.ic_action_micoff));
+            speechButton.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_action_micoff));
+        }
+    }
+
+    public void onPause() {
+        boolean isListening = speechRecognitionWrapper.isListening();
+        if(isListening) {
+            onToggleSpeechRecognition();
         }
     }
 }

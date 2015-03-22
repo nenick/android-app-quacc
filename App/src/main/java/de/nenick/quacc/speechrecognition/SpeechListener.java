@@ -6,7 +6,7 @@ import android.speech.RecognitionListener;
 /**
  * Hides not necessary callbacks for more clean code usage.
  */
-public abstract class SpeechRecognitionListener implements RecognitionListener {
+public abstract class SpeechListener implements RecognitionListener {
 
     @Override
     public void onBeginningOfSpeech() {

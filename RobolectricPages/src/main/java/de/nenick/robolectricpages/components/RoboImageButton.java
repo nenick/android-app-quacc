@@ -2,6 +2,8 @@ package de.nenick.robolectricpages.components;
 
 import android.widget.ImageButton;
 
+import org.robolectric.Shadows;
+
 import de.nenick.robolectricpages.Robo;
 import de.nenick.robolectricpages.utils.RoboClickUtil;
 
@@ -16,5 +18,9 @@ public class RoboImageButton extends RoboBaseComponent {
 
     public void click() {
         RoboClickUtil.click(button);
+    }
+
+    public int getDrawableResId() {
+        return Shadows.shadowOf(button.getDrawable()).getCreatedFromResId();
     }
 }
