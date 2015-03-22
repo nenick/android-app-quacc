@@ -53,7 +53,7 @@ task configureCoverageReport {
         // studio and also with jacocoTestReport task.
         def isTravis = "true".equals(System.getenv("TRAVIS"))
         if (isTravis) { // avoid android studio source root conflicts
-            coveralls {
+            project.coveralls {
                 sourceSets.main.java.srcDirs += coverageSourceDirs
             }
         }
