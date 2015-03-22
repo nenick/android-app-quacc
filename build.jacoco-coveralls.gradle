@@ -81,6 +81,16 @@ jacocoTestReport {
     }
 }
 
+// Send code coverage report to coveralls with coveralls-gradle-plugin. To get the plugin working
+// we need to include the coverageSourceDirs as main sources. But this conflicts with android
+// studio and also with jacocoTestReport task.
+compileJava.enabled = false
+coveralls {
+    if(isTravis) { // avoid android studio source root conflicts
+        sourceSets.main.java.srcDirs += ['App/src/main/java', 'Core/src/main/java']
+    }
+}
+
 def applyDaggerWorkaround(String pathWithDaggerClasses) {
     def filePath = new File(pathWithDaggerClasses)
     if (filePath.exists()) {
