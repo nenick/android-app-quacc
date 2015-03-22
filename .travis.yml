@@ -19,17 +19,17 @@ android:
     # Additional components
     - extra-android-m2repository
 
-cache:
-  directories:
+#cache:
+#  directories:
     # Caching depemdencies for faster builds
-    - $HOME/.m2
-    - $HOME/.gradle
+#    - $HOME/.m2
+#    - $HOME/.gradle
 
 before_script:
   # Emulator Management: Create, Start
   - echo no | android create avd --force -n test -t android-21 --abi armeabi-v7a
   - emulator -avd test -no-skin -no-audio -no-window &
-  - ./android-wait-for-emulator
+  - ./android-wait-for-emulator &
 
 install:
   # Install custom novoda plugin version
@@ -48,6 +48,7 @@ script:
   
   # Execute Tests on Emulator: Build, Wait, Start
   - ./gradlew App:assembleDebug App:assembleDebugAndroidTest
+  - ./android-wait-for-emulator
   - ./gradlew App:connectedCheck
 
   # Create and Report code coverage

@@ -92,7 +92,7 @@
         android:id="@+id/category"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:spinnerMode="dropdown"
+        android:spinnerMode="dialog"
         tools:listitem="@layout/listsview_item_simple"
         android:layout_below="@+id/categoryLabel"
         android:layout_alignEnd="@+id/interval"
