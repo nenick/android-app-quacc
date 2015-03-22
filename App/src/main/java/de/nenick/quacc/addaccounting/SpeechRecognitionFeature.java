@@ -1,7 +1,10 @@
 package de.nenick.quacc.addaccounting;
 
 import android.content.Context;
+import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.speech.RecognizerIntent;
 import android.speech.SpeechRecognizer;
 
 import com.melnykov.fab.FloatingActionButton;
@@ -12,6 +15,8 @@ import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EBean;
 import org.androidannotations.annotations.RootContext;
 import org.androidannotations.annotations.ViewById;
+
+import java.util.List;
 
 import de.nenick.quacc.R;
 import de.nenick.quacc.speechrecognition.SpeechListener;
@@ -59,10 +64,8 @@ public class SpeechRecognitionFeature {
 
     @Click(R.id.btn_speech_recognition)
     protected void onToggleSpeechRecognition() {
-        try {
+        if(isSpeechRecognitionAvailable()) {
             speechRecognitionWrapper.toggle();
-        } catch (IllegalArgumentException e) {
-            //TODO show message that speech recognition is not supported
         }
         toggleIsListeningMarker();
     }
@@ -81,5 +84,14 @@ public class SpeechRecognitionFeature {
         if (isListening) {
             onToggleSpeechRecognition();
         }
+    }
+
+    /**
+     * http://stackoverflow.com/questions/4770835/how-to-detect-if-speech-to-text-is-available-on-android
+     */
+    private boolean isSpeechRecognitionAvailable() {
+        PackageManager pm = context.getPackageManager();
+        List activities = pm.queryIntentActivities(new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH), 0);
+        return activities.size() != 0;
     }
 }
