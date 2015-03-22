@@ -37,16 +37,16 @@ jacocoTestReport {
         html.enabled = true
     }
     // exclude generated classes from code coverage report because not all generated methods will be used
-    def defaultExcludes = ['**/R.class', '**/R$*.class', '**/*_*', '**/Buildconfig.class', '**/*InjectAdapter.class', '**/*ModuleAdapter*.class', '**/BuildConfig.class']
+    def defaultExcludes = ['**/R.class', '**/R$*.class', '**/*_*', '**/BuildConfig.class', '**/*InjectAdapter.class', '**/*ModuleAdapter*.class']
 
     classDirectories = fileTree(dir: 'App/build/intermediates/classes/debug', excludes: defaultExcludes)
-    classDirectories + fileTree(dir: 'AppCT/build/intermediates/classes/debug', exclude: defaultExcludes)
-    classDirectories + fileTree(dir: 'Core/build/intermediates/classes/debug', exclude: defaultExcludes)
+    classDirectories += fileTree(dir: 'Core/build/intermediates/classes/debug', exclude: defaultExcludes)
 
     additionalSourceDirs = files(coverageSourceDirs)
     executionData = files(
             'App/build/outputs/code-coverage/connected/coverage.ec',
             'App/build/jacoco/testDebug.exec',
+            'AppCT/build/jacoco/testDebug.exec',
             'Core/build/jacoco/testDebug.exec')
 
     // fix issue with double $$ at generate report task

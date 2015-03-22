@@ -14,7 +14,17 @@ public class BaseEspressoSpec extends ActivityInstrumentationTestCase2<DummyLaun
     }
 
     public void startApp() {
-        getActivity().getWindow().addFlags(WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD);
+        getActivity();
+
+        // sometimes tests failed on emulator, following approach should avoid it
+        // http://stackoverflow.com/questions/22737476/false-positives-junit-framework-assertionfailederror-edittext-is-not-found
+        getInstrumentation().runOnMainSync(new Runnable() {
+            @Override
+            public void run() {
+                getActivity().getWindow().addFlags(WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD);
+            }
+        });
+
         launcherPage.clickStartApp();
     }
 

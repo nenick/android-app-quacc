@@ -54,6 +54,3 @@ script:
   # Create and Report code coverage
   - ./gradlew jacocoTestReport
   - ./gradlew coveralls
-  
-after_failure:
-  - cat App/build/outputs/androidTest-results/connected/**/*.xml
