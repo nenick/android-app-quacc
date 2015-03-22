@@ -1,8 +1,6 @@
 package de.nenick.quacc.addaccounting;
 
 import android.content.Intent;
-import android.os.Bundle;
-import android.speech.SpeechRecognizer;
 import android.support.v4.app.Fragment;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
@@ -14,32 +12,35 @@ import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.ViewById;
 
-import java.util.ArrayList;
-
 import de.nenick.quacc.R;
 import de.nenick.quacc.datepicker.DatePickerDialogFragment;
 import de.nenick.quacc.datepicker.DatePickerDialogFragment_;
-import de.nenick.quacc.speechrecognition.SpeechRecognitionListener;
-import de.nenick.quacc.speechrecognition.SpeechRecognitionWrapper;
 
 @EFragment(R.layout.fragment_add_accounting)
 public class AddAccountingFragment extends Fragment {
 
     public static final int REQUEST_DATE_PICKER = 1;
+
     @ViewById(R.id.account)
     Spinner accountSpinner;
+
     @ViewById(R.id.accountingType)
     Spinner accountingTypeSpinner;
+
     @ViewById(R.id.interval)
     Spinner accountingIntervalSpinner;
+
     @ViewById(R.id.category)
     Spinner accountingCategorySpinner;
+
     @ViewById(R.id.date)
     TextView date;
+
     @Bean
     AddAccountingPresenter presenter;
+
     @Bean
-    SpeechRecognitionWrapper speechRecognition;
+    SpeechRecognitionFeature speechRecognitionFeature;
 
     public static AddAccountingFragment build() {
         return AddAccountingFragment_.builder().build();
@@ -48,34 +49,12 @@ public class AddAccountingFragment extends Fragment {
     @AfterViews
     protected void onAfterViews() {
         presenter.onViewCreated(this);
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        speechRecognition.setRecognitionListener(new SpeechRecognitionListener() {
-            @Override
-            public void onResults(Bundle results) {
-                onSpeechResult(results.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION));
-            }
-        });
-    }
-
-    private void onSpeechResult(ArrayList<String> matches) {
-        // every time I got only one entry
-        if (matches.size() != 1) {
-            throw new UnsupportedOperationException("More than one match is not tested");
-        }
-        presenter.onViewSpeechResult(matches.get(0));
+        speechRecognitionFeature.setHandler(this, presenter);
+        ((SpeechRecognitionFeature_) speechRecognitionFeature).rebind(getActivity());
     }
 
     public void showDate(String dateString) {
         date.setText(dateString);
-    }
-
-    @Click(R.id.btn_speech_recognition)
-    protected void onToggleSpeechRecognition() {
-        speechRecognition.toggle();
     }
 
     @Click(R.id.date)
@@ -127,7 +106,7 @@ public class AddAccountingFragment extends Fragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        speechRecognition.destroy();
+        speechRecognitionFeature.destroy();
     }
 
     public void setDate(String date) {

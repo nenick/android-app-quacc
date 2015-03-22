@@ -15,25 +15,18 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 
-import de.nenick.quacc.TestQuAccApplication;
 import de.nenick.quacc.speechrecognition.SpeechRecognitionListener;
 import de.nenick.quacc.speechrecognition.SpeechRecognitionWrapper;
 import de.nenick.robolectric.RoboSup;
 import de.nenick.robolectric.RobolectricSupportedTest;
 import de.nenick.robolectricpages.components.RoboSpinnerEntry;
-import de.nenick.robolectricpages.dialogs.RoboDatePickerDialog;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.BDDMockito.given;
-import static org.mockito.Matchers.anyString;
-import static org.mockito.Mockito.verify;
 
 public class AddAccountingFragmentTest extends RobolectricSupportedTest {
 
     RoboSup<AddAccountingActivity_, AddAccountingFragment> robo = new RoboSup<>();
-
     RoboAddAccountingPage addAccountingPage = new RoboAddAccountingPage(robo);
-    RoboDatePickerDialog datePickerDialog = new RoboDatePickerDialog();
 
     List<RoboSpinnerEntry> entries;
     Calendar calendar = Calendar.getInstance(Locale.GERMAN);
@@ -47,11 +40,7 @@ public class AddAccountingFragmentTest extends RobolectricSupportedTest {
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
-        given(TestQuAccApplication.coreModuleMocks.recognizeAccountingTypeUc.apply(anyString())).willReturn("");
-        given(TestQuAccApplication.coreModuleMocks.getAccountingCategoriesUc.apply()).willReturn(new CharSequence[]{"Beruf", "Essen", "Freizeit", "Miete"});
-        given(TestQuAccApplication.coreModuleMocks.getAccountingIntervalsUc.apply()).willReturn(new CharSequence[]{"Einmahlig", "Wöchentlich", "Monatlich", "Alle 3 Monate"});
-        given(TestQuAccApplication.coreModuleMocks.getAccountingTypesUc.apply()).willReturn(new CharSequence[]{"Ausgabe", "Einnahme"});
-        given(TestQuAccApplication.coreModuleMocks.getAccountsUc.apply()).willReturn(new CharSequence[]{"Konto", "Sparkonto", "Bar"});
+        RoboAddAccountingUcDefaultResults.apply();
     }
 
     @Test
@@ -94,9 +83,9 @@ public class AddAccountingFragmentTest extends RobolectricSupportedTest {
     public void shouldShowValueFromDatePicker() {
         addAccountingPage.startPage();
         addAccountingPage.dateField().click();
-        assertThat(datePickerDialog.isShowing()).isTrue();
-        datePickerDialog.pickDate(21, 12, 2012);
-        datePickerDialog.clickOk();
+        assertThat(addAccountingPage.dialog().datePicker().isShowing()).isTrue();
+        addAccountingPage.dialog().datePicker().pickDate(21, 12, 2012);
+        addAccountingPage.dialog().datePicker().clickOk();
         assertThat(addAccountingPage.dateField().getText()).isEqualTo(String.format("%s.%s.%s", day(21), month(12), year(2012)));
     }
 
@@ -110,8 +99,8 @@ public class AddAccountingFragmentTest extends RobolectricSupportedTest {
         addAccountingPage.categorySpinner().entries().get(3).select();
 
         addAccountingPage.dateField().click();
-        datePickerDialog.pickDate(21, 12, 2012);
-        datePickerDialog.clickOk();
+        addAccountingPage.dialog().datePicker().pickDate(21, 12, 2012);
+        addAccountingPage.dialog().datePicker().clickOk();
 
         robo.activityController.restart();
 
@@ -122,37 +111,10 @@ public class AddAccountingFragmentTest extends RobolectricSupportedTest {
         assertThat(addAccountingPage.dateField().getText()).isEqualTo(String.format("%s.%s.%s", day(21), month(12), year(2012)));
     }
 
-    @Test
-    public void shouldToggleSpeechRecognition() {
-        addAccountingPage.startPageWithMocks(mockSpeechRecognition);
-        addAccountingPage.speechButton().click();
-        verify(mockSpeechRecognition).toggle();
-    }
-
-    @Test
-    public void shouldShowSpeechResult() {
-        addAccountingPage.startPage();
-        addAccountingPage.speechResult("tell me something");
-        assertThat(addAccountingPage.speechResultField().getText()).isEqualTo("tell me something");
-    }
-
-    @Test
-    public void shouldDestroySpeechRecognition() {
-        addAccountingPage.startPageWithMocks(mockSpeechRecognition);
-        robo.activityController.destroy();
-        verify(mockSpeechRecognition).destroy();
-    }
-
     @Test(expected = IllegalStateException.class)
     public void shouldFailAtUnknownActivityResult() {
         AddAccountingFragment addAccountingFragment = new AddAccountingFragment();
         addAccountingFragment.onActivityResult(123456, 0, null);
-    }
-
-    @Test(expected = UnsupportedOperationException.class)
-    public void shouldFailAtUnknownMultipleSpeechResult() {
-        addAccountingPage.startPage();
-        addAccountingPage.speechResult("tell me something", "more than expected");
     }
 
     public Bundle speechResultBundle(String text) {

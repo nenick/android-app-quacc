@@ -7,6 +7,8 @@ import org.androidannotations.annotations.AfterInject;
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EBean;
 
+import java.util.ArrayList;
+
 import javax.inject.Inject;
 
 import de.nenick.quacc.core.accounting.GetAccountingCategoriesUc;
@@ -48,9 +50,17 @@ public class AddAccountingPresenter {
         daggerSupport.inject(this);
     }
 
-    public void onViewSpeechResult(String recognizedText) {
-        String accountingType = recognizeAccountingTypeUc.apply(recognizedText);
+    public void onViewSpeechResult(ArrayList<String> matches) {
+        if (matches.size() < 1) {
+            throw new UnsupportedOperationException("No match was never tested");
+        }
 
+        String accountingType = recognizeAccountingTypeUc.apply(matches);
+
+        String recognizedText = "";
+        for (String match : matches) {
+            recognizedText += "[" + match + "] ";
+        }
         view.showRecognizedText(recognizedText);
     }
 

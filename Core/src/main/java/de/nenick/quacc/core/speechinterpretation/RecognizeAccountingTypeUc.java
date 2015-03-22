@@ -2,11 +2,14 @@ package de.nenick.quacc.core.speechinterpretation;
 
 import org.androidannotations.annotations.EBean;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @EBean
 public class RecognizeAccountingTypeUc {
 
-    public String apply(String recognizedText) {
-        return recognizedText;
+    public String apply(List<String> recognizedText) {
+        return recognizedText.get(0);
     }
 
 }

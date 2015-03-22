@@ -8,7 +8,6 @@ import org.robolectric.RuntimeEnvironment;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.List;
 
 import de.nenick.quacc.R;
 import de.nenick.quacc.speechrecognition.SpeechRecognitionWrapper;
@@ -30,7 +29,7 @@ public class RoboAddAccountingPage extends RoboSupPage<AddAccountingActivity_, A
 
     public void startPageWithMocks(SpeechRecognitionWrapper mockSpeechRecognition) {
         createPage();
-        robo.fragment.speechRecognition = mockSpeechRecognition;
+        robo.fragment.speechRecognitionFeature.speechRecognition = mockSpeechRecognition;
         startCreatedPage();
     }
 
@@ -71,6 +70,10 @@ public class RoboAddAccountingPage extends RoboSupPage<AddAccountingActivity_, A
         ArrayList<String> strings = new ArrayList<>();
         Collections.addAll(strings, texts);
         bundle.putStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION, strings);
-        robo.fragment.speechRecognition.getRecognitionListener().onResults(bundle);
+        robo.fragment.speechRecognitionFeature.speechRecognition.getRecognitionListener().onResults(bundle);
+    }
+
+    public RoboAddAccountingDialogs dialog() {
+        return new RoboAddAccountingDialogs();
     }
 }

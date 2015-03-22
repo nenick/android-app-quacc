@@ -12,6 +12,13 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:id="@+id/layout_center_ancor"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:text="Buchungsart"
         android:id="@+id/accountingTypeLable"
         android:layout_marginTop="26dp"
@@ -27,7 +34,7 @@
         android:layout_below="@+id/accountingTypeLable"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_toStartOf="@+id/speechResult" />
+        tools:listitem="@layout/listsview_item_simple"/>
 
 
     <TextView
@@ -58,10 +65,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Interval"
-        android:layout_alignParentTop="true"
-        android:layout_toRightOf="@+id/accountingType"
-        android:layout_toEndOf="@+id/accountingType"
-        android:layout_marginTop="20dp" />
+        android:layout_alignParentTop="false"
+        android:layout_alignLeft="@+id/layout_center_ancor"
+        android:layout_alignTop="@+id/accountLable" />
 
 
     <Spinner
@@ -71,7 +77,8 @@
         android:spinnerMode="dialog"
         android:layout_below="@+id/intervalLabel"
         android:layout_alignLeft="@+id/intervalLabel"
-        android:layout_alignStart="@+id/intervalLabel" />
+        android:layout_alignStart="@+id/intervalLabel"
+        tools:listitem="@layout/listsview_item_simple"/>
 
     <TextView
         android:id="@+id/categoryLabel"
@@ -79,8 +86,8 @@
         android:layout_height="wrap_content"
         android:text="Kategorie"
         android:layout_alignTop="@+id/accountingTypeLable"
-        android:layout_toRightOf="@+id/accountingType"
-        android:layout_toEndOf="@+id/accountingType" />
+        android:layout_toEndOf="@+id/accountingType"
+        android:layout_alignLeft="@+id/layout_center_ancor" />
 
 
     <Spinner
@@ -88,27 +95,21 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:spinnerMode="dropdown"
-        android:layout_alignTop="@+id/accountingType"
-        android:layout_toRightOf="@+id/accountingType"
-        android:layout_toEndOf="@+id/accountingType" />
+        tools:listitem="@layout/listsview_item_simple"
+        android:layout_below="@+id/categoryLabel"
+        android:layout_alignEnd="@+id/interval"
+        android:layout_alignStart="@+id/categoryLabel" />
 
 
     <TextView
         android:id="@+id/speechResult"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="..."
-        android:layout_above="@+id/btn_speech_recognition"
-        android:layout_centerHorizontal="true" />
-
-    <ImageButton
-        android:id="@+id/btn_speech_recognition"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@android:drawable/ic_btn_speak_now"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignTop="@+id/btn_speech_recognition"
+        android:layout_centerHorizontal="true"
+        android:layout_toLeftOf="@+id/btn_speech_recognition"
+        android:textAlignment="center" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -151,6 +152,19 @@
         android:id="@+id/account"
         android:layout_below="@+id/accountLable"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:spinnerMode="dialog"
+        tools:listitem="@layout/listsview_item_simple"/>
+
+
+    <com.melnykov.fab.FloatingActionButton
+        android:id="@+id/btn_speech_recognition"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_margin="16dp"
+        android:src="@drawable/ic_action_micoff"
+        />
 
 </RelativeLayout>

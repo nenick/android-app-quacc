@@ -35,12 +35,18 @@ public class SpeechRecognitionWrapper {
             speechRecognizer.stopListening();
         }
     }
+
     public SpeechRecognitionListener getRecognitionListener() {
         return recognitionListener;
     }
 
     public void setRecognitionListener(final SpeechRecognitionListener recognitionListener) {
         this.recognitionListener = new SpeechRecognitionListener() {
+            @Override
+            public void onError(int error) {
+                isListening = false;
+            }
+
             @Override
             public void onResults(Bundle results) {
                 isListening = false;
@@ -57,7 +63,11 @@ public class SpeechRecognitionWrapper {
         recognitionListener = null;
     }
 
-    public Intent createSpeechIntent() {
+    public boolean isListening() {
+        return isListening;
+    }
+
+    private Intent createSpeechIntent() {
         Intent mSpeechRecognizerIntent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
         mSpeechRecognizerIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
         mSpeechRecognizerIntent.putExtra(RecognizerIntent.EXTRA_CALLING_PACKAGE, context.getPackageName());

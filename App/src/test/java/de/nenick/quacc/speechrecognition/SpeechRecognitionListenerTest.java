@@ -8,8 +8,11 @@ public class SpeechRecognitionListenerTest {
 
     SpeechRecognitionListener listener = new SpeechRecognitionListener() {
         @Override
-        public void onResults(Bundle results) {
+        public void onError(int error) {
+        }
 
+        @Override
+        public void onResults(Bundle results) {
         }
     };
 
