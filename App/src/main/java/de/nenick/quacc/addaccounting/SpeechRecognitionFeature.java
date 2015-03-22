@@ -59,7 +59,11 @@ public class SpeechRecognitionFeature {
 
     @Click(R.id.btn_speech_recognition)
     protected void onToggleSpeechRecognition() {
-        speechRecognitionWrapper.toggle();
+        try {
+            speechRecognitionWrapper.toggle();
+        } catch (IllegalArgumentException e) {
+            //TODO show message that speech recognition is not supported
+        }
         toggleIsListeningMarker();
     }
 

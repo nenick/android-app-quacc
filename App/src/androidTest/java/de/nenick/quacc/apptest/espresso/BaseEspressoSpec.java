@@ -2,6 +2,7 @@ package de.nenick.quacc.apptest.espresso;
 
 import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.AndroidJUnit4;
+import android.view.WindowManager;
 
 import com.jakewharton.test.ActivityRule;
 
@@ -21,11 +22,18 @@ public abstract class BaseEspressoSpec {
     EspressoDummyLauncherPage launcherPage = new EspressoDummyLauncherPage();
 
     public void startApp() {
+        main.instrumentation().runOnMainSync(new Runnable() {
+            @Override
+            public void run() {
+                main.get().getWindow().addFlags(WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD);
+            }
+        });
+
         launcherPage.clickStartApp();
     }
 
     @After
     public void tearDown() throws Exception {
-        CloseAllActivitiesFunction.apply(InstrumentationRegistry.getInstrumentation());
+        CloseAllActivitiesFunction.apply(main.instrumentation());
     }
 }
