@@ -40,7 +40,9 @@ task configureCoverageReport {
             coverageSourceDirs += 'App/src/main/java'
             tasks.jacocoTestReport.classDirectories += fileTree(dir: 'App/build/intermediates/classes/debug', excludes: defaultExcludes)
         }
+        println "gleich core"
         if (includeCoreSrc) {
+            println "in core"
             coverageSourceDirs += 'Core/src/main/java'
             tasks.jacocoTestReport.classDirectories += fileTree(dir: 'Core/build/intermediates/classes/debug', exclude: defaultExcludes)
         }
@@ -53,7 +55,7 @@ task configureCoverageReport {
         // studio and also with jacocoTestReport task.
         def isTravis = "true".equals(System.getenv("TRAVIS"))
         if (isTravis) { // avoid android studio source root conflicts
-            tasks.coveralls.sourceSets.main.java.srcDirs += coverageSourceDirs
+            coveralls.sourceSets.main.java.srcDirs += coverageSourceDirs
         }
     }
 }
