@@ -6,7 +6,7 @@ sudo: false
 
 env:
   global:
-    - ADB_INSTALL_TIMEOUT= 10 # minutes (2 minutes by default)
+    - ADB_INSTALL_TIMEOUT=8 # minutes (2 minutes by default)
     
 android:
   components:
@@ -48,8 +48,7 @@ script:
   # Execute Tests on Emulator: Build, Wait, Start
   - ./gradlew App:assembleDebug App:assembleDebugAndroidTest
   - ./android-wait-for-emulator
-  - adb kill-server
-  - adb start-server
+  - export ADB_INSTALL_TIMEOUT=200
   - ./gradlew App:connectedCheck
 
   # Create and Report code coverage
