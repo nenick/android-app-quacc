@@ -38,7 +38,8 @@ android {
 
     dexOptions {
         // speed up build on Travis CI
-        preDexLibraries = !isTravis
+        // since adding coverage to core module this produce java.lang.IllegalArgumentException: already added: Lcom/vladium/emma/rt/RT;
+        // preDexLibraries = !isTravis
     }
 
     packagingOptions {
