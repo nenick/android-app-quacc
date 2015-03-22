@@ -7,7 +7,6 @@ import android.speech.SpeechRecognizer;
 import com.melnykov.fab.FloatingActionButton;
 
 import org.androidannotations.annotations.AfterInject;
-import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EBean;
@@ -66,16 +65,16 @@ public class SpeechRecognitionFeature {
 
     private void toggleIsListeningMarker() {
         boolean isListening = speechRecognitionWrapper.isListening();
-        if(isListening) {
-            speechButton.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_action_mic));
-        } else {
+        if (isListening) {
             speechButton.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_action_micoff));
+        } else {
+            speechButton.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_action_mic));
         }
     }
 
     public void onPause() {
         boolean isListening = speechRecognitionWrapper.isListening();
-        if(isListening) {
+        if (isListening) {
             onToggleSpeechRecognition();
         }
     }

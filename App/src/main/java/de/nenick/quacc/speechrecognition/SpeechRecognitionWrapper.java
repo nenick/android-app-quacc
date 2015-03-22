@@ -28,8 +28,8 @@ public class SpeechRecognitionWrapper {
 
     public void toggle() {
         if (!isListening) {
-            isListening = true;
             speechRecognizer.startListening(speechRecognizerIntent);
+            isListening = true;
         } else {
             isListening = false;
             speechRecognizer.stopListening();

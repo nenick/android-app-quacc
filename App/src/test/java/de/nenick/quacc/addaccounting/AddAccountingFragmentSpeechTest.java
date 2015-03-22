@@ -38,7 +38,9 @@ public class AddAccountingFragmentSpeechTest extends RobolectricSupportedTest {
 
     @Test
     public void shouldStartSpeechRecognitionOnClick() {
-        givenStartedListening();
+        addAccountingPage.startPageWithSpeechMock(mockSpeechRecognizer);
+        thenSpeechButtonShowMicIsOff();
+        addAccountingPage.speechButton().click();
         thenSpeechButtonShowMicIsOn();
     }
 
@@ -113,10 +115,10 @@ public class AddAccountingFragmentSpeechTest extends RobolectricSupportedTest {
     }
 
     private void thenSpeechButtonShowMicIsOff() {
-        assertThat(addAccountingPage.speechButton().getDrawableResId()).isEqualTo(R.drawable.ic_action_micoff);
+        assertThat(addAccountingPage.speechButton().getDrawableResId()).isEqualTo(R.drawable.ic_action_mic);
     }
 
     private void thenSpeechButtonShowMicIsOn() {
-        assertThat(addAccountingPage.speechButton().getDrawableResId()).isEqualTo(R.drawable.ic_action_mic);
+        assertThat(addAccountingPage.speechButton().getDrawableResId()).isEqualTo(R.drawable.ic_action_micoff);
     }
 }

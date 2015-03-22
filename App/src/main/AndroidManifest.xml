@@ -23,10 +23,10 @@
         </activity>
         <activity
             android:name=".addaccounting.AddAccountingActivity_"
-            android:label="@string/title_activity_add_account_process" />
+            android:label="@string/title_activity_add_accounting" />
         <activity
             android:name=".accountinglist.AccountingListActivity_"
-            android:label="@string/title_activity_add_account_process" />
+            android:label="@string/title_activity_accounting_list" />
     </application>
 
 </manifest>

@@ -1,8 +1,5 @@
 package de.nenick.quacc.apptest;
 
-import android.support.test.filters.RequiresDevice;
-import android.test.suitebuilder.annotation.Suppress;
-
 import org.junit.Test;
 
 import de.nenick.quacc.apptest.espresso.BaseEspressoSpec;
@@ -15,20 +12,27 @@ public class AddAccountingUcSpec extends BaseEspressoSpec {
     EspressoAddAccountingPage addAccountingPage = new EspressoAddAccountingPage();
 
     @Test
-    public void testStartup() {
+    public void shouldAddNewAccounting() {
         startApp();
+        // TODO check first expected list count
         accountingListPage.clickAddButton();
         addAccountingPage.isActivePage();
-
+        addAccountingPage.chooseAccount("Bar");
+        addAccountingPage.chooseAccountingInterval("Monatlich");
+        addAccountingPage.chooseAccountingType("Einnahme");
+        addAccountingPage.chooseAccountingCategory("Miete");
+        addAccountingPage.chooseAccountingDate("10.11.2012");
+        addAccountingPage.chooseAccountingValue("3,50");
+        // TODO need a confirm button ...
+        // TODO check new expected list count
     }
 
     @Test
-    @RequiresDevice
-    public void testSpeechRecognition() throws InterruptedException {
+    public void shouldToggleSpeechRecognition() throws InterruptedException {
         startApp();
         accountingListPage.clickAddButton();
+        // check toggle speech recognition on and off
         addAccountingPage.clickSpeechRecogniction();
-        Thread.sleep(1000);
         addAccountingPage.clickSpeechRecogniction();
     }
 }

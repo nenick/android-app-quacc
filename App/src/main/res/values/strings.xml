@@ -2,5 +2,6 @@
     <string name="app_name">QuAcc</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
-    <string name="title_activity_add_account_process">AddAccountProcess</string>
+    <string name="title_activity_accounting_list">Buchungen</string>
+    <string name="title_activity_add_accounting">Neuer Buchungseintrag</string>
 </resources>

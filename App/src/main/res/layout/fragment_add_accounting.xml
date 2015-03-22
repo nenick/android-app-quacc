@@ -129,8 +129,7 @@
         android:layout_below="@+id/valueLable"
         android:layout_alignLeft="@+id/valueLable"
         android:layout_alignStart="@+id/valueLable"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignEnd="@+id/category" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -162,7 +161,7 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
         android:layout_margin="16dp"
-        android:src="@drawable/ic_action_micoff"
+        android:src="@drawable/ic_action_mic"
         />
 
 </RelativeLayout>
