@@ -1,10 +1,83 @@
 apply plugin: "jacoco"
 apply plugin: 'com.github.kt3k.coveralls'
 
-def coverageSourceDirs = [
-        'App/src/main/java',
-        'Core/src/main/java']
+task configureCoverageReport {
+    doFirst {
+        def includeAppSrc = false;
+        def includeCoreSrc = false;
+        def coverageFiles = []
+        def coverageSourceDirs = []
 
+        // Don't take not existing coverage report files or the report will be empty
+        def currentCoverageFile = 'App/build/outputs/code-coverage/connected/coverage.ec'
+        if (file(currentCoverageFile).exists()) {
+            includeAppSrc = true;
+            includeCoreSrc = true;
+            coverageFiles += currentCoverageFile
+        }
+        currentCoverageFile = 'App/build/jacoco/testDebug.exec'
+        if (file(currentCoverageFile).exists()) {
+            includeAppSrc = true;
+            coverageFiles += currentCoverageFile
+        }
+        currentCoverageFile = 'AppCT/build/jacoco/testDebug.exec'
+        if (file(currentCoverageFile).exists()) {
+            includeAppSrc = true;
+            includeCoreSrc = true;
+            coverageFiles += currentCoverageFile
+        }
+        currentCoverageFile = 'Core/build/jacoco/testDebug.exec'
+        if (file(currentCoverageFile).exists()) {
+            includeCoreSrc = true;
+            coverageFiles += currentCoverageFile
+        }
+
+        // exclude generated classes from code coverage report because not all generated methods will be used
+        def defaultExcludes = ['**/R.class', '**/R$*.class', '**/*_*', '**/BuildConfig.class', '**/*InjectAdapter.class', '**/*ModuleAdapter*.class', '**/apptest/*']
+
+        // Don't include classes from modules we haven't executed
+        if (includeAppSrc) {
+            coverageSourceDirs += 'App/src/main/java'
+            tasks.jacocoTestReport.classDirectories += fileTree(dir: 'App/build/intermediates/classes/debug', excludes: defaultExcludes)
+        }
+        if (includeCoreSrc) {
+            coverageSourceDirs += 'Core/src/main/java'
+            tasks.jacocoTestReport.classDirectories += fileTree(dir: 'Core/build/intermediates/classes/debug', exclude: defaultExcludes)
+        }
+
+        tasks.jacocoTestReport.additionalSourceDirs = files(coverageSourceDirs)
+        tasks.jacocoTestReport.executionData = files(coverageFiles)
+
+        // Send code coverage report to coveralls with coveralls-gradle-plugin. To get the plugin working
+        // we need to include the coverageSourceDirs as main sources. But this conflicts with android
+        // studio and also with jacocoTestReport task.
+        def isTravis = "true".equals(System.getenv("TRAVIS"))
+        if (isTravis) { // avoid android studio source root conflicts
+            tasks.coveralls.sourceSets.main.java.srcDirs += coverageSourceDirs
+        }
+    }
+}
+
+tasks.jacocoTestReport.dependsOn tasks.configureCoverageReport
+jacocoTestReport {
+    reports {
+        xml.enabled = true
+        html.enabled = true
+    }
+
+    // fix issue with double $$ at generate report task
+    doFirst {
+        applyDaggerWorkaround('App/build/intermediates/classes/')
+        applyDaggerWorkaround('Core/build/intermediates/classes/')
+    }
+    // avoid some side effects through revert renaming
+    doLast {
+        revertDaggerWorkaround('App/build/intermediates/classes/')
+        revertDaggerWorkaround('Core/build/intermediates/classes/')
+    }
+}
+
+compileJava.enabled = false
 
 def applyDaggerWorkaround(String pathWithDaggerClasses) {
     def filePath = new File(pathWithDaggerClasses)
@@ -28,47 +101,5 @@ def revertDaggerWorkaround(String pathWithDaggerClasses) {
                 file.renameTo(file.path.replace('$InjectAdapter', '$$InjectAdapter'))
             }
         }
-    }
-}
-
-jacocoTestReport {
-    reports {
-        xml.enabled = true
-        html.enabled = true
-    }
-    // exclude generated classes from code coverage report because not all generated methods will be used
-    def defaultExcludes = ['**/R.class', '**/R$*.class', '**/*_*', '**/BuildConfig.class', '**/*InjectAdapter.class', '**/*ModuleAdapter*.class']
-
-    classDirectories = fileTree(dir: 'App/build/intermediates/classes/debug', excludes: defaultExcludes)
-    classDirectories += fileTree(dir: 'Core/build/intermediates/classes/debug', exclude: defaultExcludes)
-
-    additionalSourceDirs = files(coverageSourceDirs)
-    executionData = files(
-            'App/build/outputs/code-coverage/connected/coverage.ec',
-            'App/build/jacoco/testDebug.exec',
-            'AppCT/build/jacoco/testDebug.exec',
-            'Core/build/jacoco/testDebug.exec')
-
-    // fix issue with double $$ at generate report task
-    doFirst {
-        applyDaggerWorkaround('App/build/intermediates/classes/')
-        applyDaggerWorkaround('Core/build/intermediates/classes/')
-    }
-    // avoid some side effects through revert renaming
-    doLast {
-        revertDaggerWorkaround('App/build/intermediates/classes/')
-        revertDaggerWorkaround('Core/build/intermediates/classes/')
-    }
-}
-
-def isTravis = "true".equals(System.getenv("TRAVIS"))
-
-// Send code coverage report to coveralls with coveralls-gradle-plugin. To get the plugin working
-// we need to include the coverageSourceDirs as main sources. But this conflicts with android
-// studio and also with jacocoTestReport task.
-compileJava.enabled = false
-coveralls {
-    if(isTravis) { // avoid android studio source root conflicts
-        sourceSets.main.java.srcDirs += coverageSourceDirs
     }
 }
