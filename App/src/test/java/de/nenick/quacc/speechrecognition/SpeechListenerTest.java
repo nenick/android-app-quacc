@@ -21,10 +21,9 @@ public class SpeechListenerTest {
         listener.onBeginningOfSpeech();
         listener.onBufferReceived(null);
         listener.onEndOfSpeech();
-        //listener.onError(0);
         listener.onEvent(0, null);
         listener.onPartialResults(null);
         listener.onReadyForSpeech(null);
-        //listener.onRmsChanged(0f);
+        listener.onRmsChanged(0f);
     }
 }

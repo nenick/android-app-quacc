@@ -6,8 +6,7 @@ sudo: false
 
 env:
   global:
-    # More time to install apks to avoid ShellCommandUnresponsiveException
-    - ADB_INSTALL_TIMEOUT=8 # minutes
+    - ADB_INSTALL_TIMEOUT= 10 # minutes (2 minutes by default)
     
 android:
   components:
@@ -49,6 +48,8 @@ script:
   # Execute Tests on Emulator: Build, Wait, Start
   - ./gradlew App:assembleDebug App:assembleDebugAndroidTest
   - ./android-wait-for-emulator
+  - adb kill-server
+  - adb start-server
   - ./gradlew App:connectedCheck
 
   # Create and Report code coverage
