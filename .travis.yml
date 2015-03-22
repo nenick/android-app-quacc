@@ -19,11 +19,11 @@ android:
     # Additional components
     - extra-android-m2repository
 
-#cache:
-#  directories:
+cache:
+  directories:
     # Caching depemdencies for faster builds
-#    - $HOME/.m2
-#    - $HOME/.gradle
+    - $HOME/.m2
+    - $HOME/.gradle
 
 before_script:
   # Emulator Management: Create, Start
