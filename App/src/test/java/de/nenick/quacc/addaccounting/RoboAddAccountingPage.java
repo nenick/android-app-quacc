@@ -22,6 +22,8 @@ import de.nenick.robolectricpages.components.RoboImageButton;
 import de.nenick.robolectricpages.components.RoboSpinner;
 import de.nenick.robolectricpages.components.RoboTextView;
 
+import static org.mockito.Mockito.verify;
+
 public class RoboAddAccountingPage extends RoboSupPage<AddAccountingActivity_, AddAccountingFragment> {
 
     @Captor
@@ -40,8 +42,8 @@ public class RoboAddAccountingPage extends RoboSupPage<AddAccountingActivity_, A
         createPage();
         RoboSpeechRegonitionWrapperHelper.setMock(robo.fragment.speechRecognitionFeature.speechRecognitionWrapper, mockSpeechRecognizer);
         robo.fragment.speechRecognitionFeature.onAfterInject();
+        verify(mockSpeechRecognizer).setRecognitionListener(speechRecognitionListenerArgumentCaptor.capture());
         startCreatedPage();
-
     }
 
     public RoboSpinner typeSpinner() {
