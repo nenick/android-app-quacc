@@ -31,9 +31,15 @@ dependencies {
 }
 
 afterEvaluate {
+    def isLintRun = false
     def isTestRun = false
     tasks.each {
-        if (it.path.contains(":test")) {
+        // you can only run lint or tests or it will fail
+        if(it.path.contains(":lint")) {
+            isLintRun = false
+            isTestRun = false
+        }
+        if (!isLintRun && it.path.contains(":test")) {
             isTestRun = true
         }
     }
