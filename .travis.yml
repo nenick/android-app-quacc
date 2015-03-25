@@ -40,7 +40,7 @@ install:
 
 script:
   # Execute Unit Tests
-  - ./gradlew App:test -i -s
+  - ./gradlew App:test
   - ./gradlew Core:test
 
   # Execute Component Tests
