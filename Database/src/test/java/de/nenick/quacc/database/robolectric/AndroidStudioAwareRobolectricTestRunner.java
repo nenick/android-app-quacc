@@ -1,4 +1,4 @@
-package de.nenick.robolectric;
+package de.nenick.quacc.database.robolectric;
 
 import org.junit.runners.model.InitializationError;
 import org.robolectric.RobolectricGradleTestRunner;
@@ -8,8 +8,7 @@ import org.robolectric.manifest.AndroidManifest;
 import org.robolectric.res.FileFsFile;
 import org.robolectric.res.FsFile;
 
-import de.nenick.quacc.BuildConfig;
-
+import de.nenick.quacc.database.BuildConfig;
 /**
  * More dynamic path resolution.
  *
