@@ -42,6 +42,11 @@ android {
         // preDexLibraries = !isTravis
     }
 
+    lintOptions {
+        // robolectric does only support sdk v21 current
+        disable 'OldTargetApi'
+    }
+
     packagingOptions {
         exclude 'LICENSE.txt'
     }

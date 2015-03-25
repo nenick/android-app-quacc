@@ -1,0 +1,18 @@
+{
+  "documentation": "Consolidate accounting with a categorization.",
+  "fields": [
+    {
+      "documentation": "Name",
+      "name": "name",
+      "type": "String",
+      "nullable": false
+    }
+  ],
+
+  "constraints": [
+    {
+      "name": "unique_name",
+      "definition": "UNIQUE (accounting_category__name) ON CONFLICT FAIL"
+    }
+  ]
+}

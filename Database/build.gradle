@@ -8,6 +8,10 @@ buildscript {
     }
 }
 
+plugins {
+    id "de.undercouch.download" version "1.2"
+}
+
 apply plugin: 'com.android.library'
 
 android {
@@ -21,6 +25,9 @@ android {
         versionCode 1
         versionName "1.0"
     }
+
+    sourceSets.main.java.srcDirs += "src/gen/java"
+    sourceSets.main.java.srcDirs += "src/json/schema"
 
     buildTypes {
         release {
@@ -38,6 +45,7 @@ android {
     }
 }
 
+
 apply from: "build.apt.gradle"
 apply from: "../build.androidannotations.gradle"
 apply from: "../build.dagger.gradle"
@@ -49,5 +57,28 @@ afterEvaluate { project ->
         tasks.getByName("test${ variant.name.capitalize()}") {
             dependsOn "assemble${ variant.name.capitalize()}"
         }
+    }
+}
+
+dependencies {
+    compile 'com.android.support:support-annotations:21.0.3'
+    compile 'com.getbase.android.forger:forger:0.1'
+    //testCompile 'org.chalup.microorm:microorm:0.5'
+    //testCompile 'org.chalup.thneed:thneed:0.7'
+}
+
+task generateDatabaseFiles << {
+    if(!file("$buildDir/android_contentprovider_generator-1.9.2-bundle.jar").exists()) {
+        download {
+            src 'https://github.com/BoD/android-contentprovider-generator/releases/download/v1.9.2/android_contentprovider_generator-1.9.2-bundle.jar'
+            dest buildDir
+        }
+    }
+
+    file("src/gen").deleteDir()
+
+    exec {
+        executable "java"
+        args "-jar", "$buildDir/android_contentprovider_generator-1.9.2-bundle.jar", "-i", "src/json/schema", "-o", "src/gen/java"
     }
 }

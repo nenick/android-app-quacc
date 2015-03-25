@@ -54,3 +54,6 @@ script:
   # Create and Report code coverage
   - ./gradlew jacocoTestReport
   - ./gradlew coveralls
+
+  # Check lint hints
+  - ./gradlew lint

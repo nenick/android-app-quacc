@@ -155,6 +155,16 @@
 
 
     <com.melnykov.fab.FloatingActionButton
+        android:id="@+id/btn_speech_recognition2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/btn_speech_recognition"
+        android:layout_alignParentEnd="true"
+        android:layout_margin="16dp"
+        android:src="@drawable/ic_action_mic"
+        />
+
+    <com.melnykov.fab.FloatingActionButton
         android:id="@+id/btn_speech_recognition"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

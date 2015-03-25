@@ -1,0 +1,18 @@
+{
+  "documentation": "Available intervals for an accounting",
+  "fields": [
+    {
+      "documentation": "Name",
+      "name": "name",
+      "type": "String",
+      "nullable": false
+    }
+  ],
+
+  "constraints": [
+    {
+      "name": "unique_name",
+      "definition": "UNIQUE (accounting_interval__name) ON CONFLICT FAIL"
+    }
+  ]
+}

@@ -1,0 +1,66 @@
+{
+  "documentation": "Accounting",
+  "fields": [
+    {
+      "name": "account_id",
+      "type": "Long",
+      "nullable": false,
+      "foreignKey": {
+        "table": "account",
+        "onDelete": "CASCADE"
+      }
+    },
+    {
+      "documentation": "Short description of the accounting.",
+      "name": "name",
+      "type": "String",
+      "nullable": false
+    },
+    {
+      "documentation": "Extra description of the accounting.",
+      "name": "description",
+      "type": "String",
+      "nullable": false
+    },
+    {
+      "name": "accounting_interval_id",
+      "type": "Long",
+      "nullable": false,
+      "foreignKey": {
+        "table": "accounting_interval",
+        "onDelete": "CASCADE"
+      }
+    },
+    {
+      "name": "accounting_category_id",
+      "type": "Long",
+      "nullable": false,
+      "foreignKey": {
+        "table": "accounting_category",
+        "onDelete": "CASCADE"
+      }
+    },
+    {
+      "name": "accounting_date",
+      "type": "Date",
+      "nullable": false
+    },
+    {
+      "name": "accounting_type",
+      "type": "enum",
+      "enumName": "AccountingType",
+      "enumValues": [
+        "Einnahme",
+        "Aussgabe",
+        "Übertrag"
+      ],
+      "nullable": false
+    },
+    {
+      "documentation": "Values are stored with two decimals (1 Euro = 100)",
+      "name": "value",
+      "type": "Integer",
+      "nullable": false
+    }
+  ]
+}

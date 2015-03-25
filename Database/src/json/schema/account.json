@@ -1,0 +1,24 @@
+{
+  "documentation": "Consolidate the accounting.",
+  "fields": [
+    {
+      "documentation": "Name",
+      "name": "name",
+      "type": "String",
+      "nullable": false
+    },
+    {
+      "documentation": "Short description",
+      "name": "description",
+      "type": "String",
+      "nullable": true
+    }
+  ],
+
+  "constraints": [
+    {
+      "name": "unique_name",
+      "definition": "UNIQUE (account__name) ON CONFLICT FAIL"
+    }
+  ]
+}

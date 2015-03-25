@@ -1,0 +1,13 @@
+{
+  "syntaxVersion": 3,
+  "projectPackageId": "de.nenick.quacc.database",
+  "authority": "de.nenick.quacc.database.provider",
+  "providerJavaPackage": "de.nenick.quacc.database.provider",
+  "providerClassName": "QuAccProvider",
+  "sqliteOpenHelperClassName": "QuAccSQLiteOpenHelper",
+  "sqliteOpenHelperCallbacksClassName": "QuAccSQLiteOpenHelperCallbacks",
+  "databaseFileName": "quacc.db",
+  "databaseVersion": 1,
+  "enableForeignKeys": true,
+  "useAnnotations": true
+}
