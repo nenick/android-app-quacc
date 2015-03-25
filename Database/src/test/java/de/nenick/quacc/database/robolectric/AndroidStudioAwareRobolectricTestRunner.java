@@ -27,7 +27,7 @@ public class AndroidStudioAwareRobolectricTestRunner extends RobolectricGradleTe
             return appManifest;
         } else {
             String moduleRoot = getModuleRootPath(config);
-            androidManifestFile = FileFsFile.from(moduleRoot, appManifest.getAndroidManifestFile().getPath().replace("bundles", "manifests/full"));
+            androidManifestFile = FileFsFile.from(moduleRoot, appManifest.getAndroidManifestFile().getPath());
             FsFile resDirectory = FileFsFile.from(moduleRoot, appManifest.getResDirectory().getPath());
             FsFile assetsDirectory = FileFsFile.from(moduleRoot, appManifest.getAssetsDirectory().getPath());
             return new AndroidManifest(androidManifestFile, resDirectory, assetsDirectory);
