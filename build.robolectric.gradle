@@ -33,7 +33,7 @@ dependencies {
 afterEvaluate {
     def isTestRun = false
     tasks.each {
-        if (it.name.contains("test")) {
+        if (it.path.contains(":test")) {
             isTestRun = true
         }
     }

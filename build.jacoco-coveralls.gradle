@@ -1,6 +1,10 @@
 apply plugin: "jacoco"
 apply plugin: 'com.github.kt3k.coveralls'
 
+jacoco {
+    toolVersion = "0.7.4.201502262128"
+}
+
 def isTravis = "true".equals(System.getenv("TRAVIS"))
 
 task configureCoverageReport {
