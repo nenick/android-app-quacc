@@ -31,9 +31,17 @@ dependencies {
 }
 
 afterEvaluate {
+    def isTestRun = false
     tasks.each {
-        if (it.name.toLowerCase().contains("testrelease")) {
-            it.enabled = false
+        if (it.name.contains("test")) {
+            isTestRun = true
+        }
+    }
+    if (isTestRun) {
+        tasks.each {
+            if (it.name.contains("Release")) {
+                it.enabled = false
+            }
         }
     }
 }
