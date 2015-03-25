@@ -36,7 +36,7 @@ afterEvaluate {
     tasks.each {
         // you can only run lint or tests or it will fail
         if(it.path.contains(":lint")) {
-            isLintRun = false
+            isLintRun = true
             isTestRun = false
         }
         if (!isLintRun && it.path.contains(":test")) {
