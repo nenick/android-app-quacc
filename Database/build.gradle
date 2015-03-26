@@ -14,6 +14,9 @@ plugins {
 
 apply plugin: 'com.android.library'
 
+def dbSchemaPath = "src/schema/json"
+def dbClassesPath = "src/gen/java"
+
 android {
     compileSdkVersion 21
     buildToolsVersion "21.1.2"
@@ -26,8 +29,8 @@ android {
         versionName "1.0"
     }
 
-    sourceSets.main.java.srcDirs += "src/gen/java"
-    sourceSets.main.java.srcDirs += "src/json/schema"
+    sourceSets.main.java.srcDirs += dbClassesPath
+    sourceSets.main.java.srcDirs += dbSchemaPath
 
     buildTypes {
         release {
@@ -79,6 +82,6 @@ task generateDatabaseFiles << {
 
     exec {
         executable "java"
-        args "-jar", "$buildDir/android_contentprovider_generator-1.9.2-bundle.jar", "-i", "src/json/schema", "-o", "src/gen/java"
+        args "-jar", "$buildDir/android_contentprovider_generator-1.9.2-bundle.jar", "-i", dbSchemaPath, "-o", dbClassesPath
     }
 }
