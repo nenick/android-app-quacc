@@ -51,7 +51,7 @@
       "enumName": "AccountingType",
       "enumValues": [
         "Einnahme",
-        "Aussgabe",
+        "Ausgabe",
         "Übertrag"
       ],
       "nullable": false

@@ -12,7 +12,7 @@ public enum AccountingType {
     /**
      * 
      */
-    Aussgabe,
+    Ausgabe,
 
     /**
      * 
