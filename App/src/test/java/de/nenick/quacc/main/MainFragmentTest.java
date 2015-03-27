@@ -3,8 +3,8 @@ package de.nenick.quacc.main;
 import org.junit.Test;
 
 import de.nenick.quacc.accountinglist.RoboAccountingListPage;
-import de.nenick.robolectric.RoboSup;
-import de.nenick.robolectric.RobolectricSupportedTest;
+import de.nenick.quacc.robolectric.RoboSup;
+import de.nenick.quacc.robolectric.RobolectricSupportedTest;
 
 import static org.assertj.core.api.Assertions.assertThat;
 

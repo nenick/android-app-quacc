@@ -1,4 +1,4 @@
-package de.nenick.robolectric;
+package de.nenick.quacc.robolectric;
 
 import org.junit.runner.RunWith;
 import org.robolectric.annotation.Config;

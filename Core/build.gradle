@@ -51,3 +51,8 @@ afterEvaluate { project ->
         }
     }
 }
+
+dependencies {
+    releaseCompile project(path: ':Database', configuration: 'release')
+    debugCompile project(path: ':Database', configuration: 'debug')
+}

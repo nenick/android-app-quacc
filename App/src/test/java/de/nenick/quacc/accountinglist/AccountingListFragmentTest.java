@@ -4,8 +4,8 @@ import org.junit.Test;
 
 import de.nenick.quacc.TestQuAccApplication;
 import de.nenick.quacc.addaccounting.RoboAddAccountingPage;
-import de.nenick.robolectric.RoboSup;
-import de.nenick.robolectric.RobolectricSupportedTest;
+import de.nenick.quacc.robolectric.RoboSup;
+import de.nenick.quacc.robolectric.RobolectricSupportedTest;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.BDDMockito.given;

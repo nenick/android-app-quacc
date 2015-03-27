@@ -17,8 +17,8 @@ import java.util.Locale;
 
 import de.nenick.quacc.speechrecognition.SpeechListener;
 import de.nenick.quacc.speechrecognition.SpeechRecognitionWrapper;
-import de.nenick.robolectric.RoboSup;
-import de.nenick.robolectric.RobolectricSupportedTest;
+import de.nenick.quacc.robolectric.RoboSup;
+import de.nenick.quacc.robolectric.RobolectricSupportedTest;
 import de.nenick.robolectricpages.components.RoboSpinnerEntry;
 
 import static org.assertj.core.api.Assertions.assertThat;

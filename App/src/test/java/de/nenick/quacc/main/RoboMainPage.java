@@ -1,7 +1,7 @@
 package de.nenick.quacc.main;
 
-import de.nenick.robolectric.RoboSup;
-import de.nenick.robolectric.RoboSupPage;
+import de.nenick.quacc.robolectric.RoboSup;
+import de.nenick.quacc.robolectric.RoboSupPage;
 
 public class RoboMainPage extends RoboSupPage<MainActivity_, MainFragment_> {
 

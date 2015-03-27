@@ -8,19 +8,15 @@ import android.speech.SpeechRecognizer;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.ArgumentCaptor;
-import org.mockito.Captor;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.robolectric.RuntimeEnvironment;
-import org.robolectric.Shadows;
 
 import java.util.ArrayList;
 
 import de.nenick.quacc.R;
-import de.nenick.quacc.speechrecognition.SpeechListener;
-import de.nenick.robolectric.RoboSup;
-import de.nenick.robolectric.RobolectricSupportedTest;
+import de.nenick.quacc.robolectric.RoboSup;
+import de.nenick.quacc.robolectric.RobolectricSupportedTest;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Matchers.any;

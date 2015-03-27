@@ -14,7 +14,7 @@ plugins {
 
 apply plugin: 'com.android.library'
 
-def dbSchemaPath = "src/schema/json"
+def dbSchemaPath = "src/main/json/schema"
 def dbClassesPath = "src/gen/java"
 
 android {
@@ -30,7 +30,7 @@ android {
     }
 
     sourceSets.main.java.srcDirs += dbClassesPath
-    sourceSets.main.java.srcDirs += dbSchemaPath
+    sourceSets.main.java.srcDirs += "src/main/json"
 
     buildTypes {
         release {

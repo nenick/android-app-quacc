@@ -6,9 +6,8 @@ import org.robolectric.RuntimeEnvironment;
 
 import de.nenick.quacc.R;
 import de.nenick.quacc.main.MainActivity;
-import de.nenick.robolectric.RoboSup;
-import de.nenick.robolectric.RoboSupPage;
-import de.nenick.robolectricpages.components.RoboButton;
+import de.nenick.quacc.robolectric.RoboSup;
+import de.nenick.quacc.robolectric.RoboSupPage;
 import de.nenick.robolectricpages.components.RoboImageButton;
 import de.nenick.robolectricpages.components.RoboListView;
 

@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.speech.SpeechRecognizer;
 
 import org.junit.Test;
-import org.junit.runner.RunWith;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -14,9 +13,8 @@ import java.util.Locale;
 import de.nenick.quacc.addaccounting.AddAccountingActivity_;
 import de.nenick.quacc.addaccounting.AddAccountingFragment;
 import de.nenick.quacc.addaccounting.RoboAddAccountingPage;
-import de.nenick.quacc.componenttest.AndroidStudioAwareRobolectricTestRunner;
 import de.nenick.quacc.componenttest.BaseCT;
-import de.nenick.robolectric.RoboSup;
+import de.nenick.quacc.robolectric.RoboSup;
 import de.nenick.robolectricpages.components.RoboSpinnerEntry;
 import de.nenick.robolectricpages.dialogs.RoboDatePickerDialog;
 
