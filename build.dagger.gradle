@@ -4,4 +4,7 @@ dependencies {
         exclude module: 'guava'
     }
     compile 'com.google.guava:guava:16.0'
+    testCompile('com.squareup.dagger:dagger-compiler:1.2.2') {
+        exclude module: 'guava'
+    }
 }
