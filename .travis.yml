@@ -33,9 +33,7 @@ before_script:
 
 script:
   # Execute Unit Tests
-  travis_fold:start:AppUnitTests
-  - ./gradlew App:test
-  travis_fold:end:AppUnitTests
+  - travis_fold:start:AppUnitTests && ./gradlew App:test && travis_fold:end:AppUnitTests
   - ./gradlew Core:test
   - ./gradlew Database:test
 
