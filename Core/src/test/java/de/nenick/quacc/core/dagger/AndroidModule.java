@@ -6,7 +6,7 @@ import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
-import de.nenick.quacc.core.QuAccCoreApplication;
+import de.nenick.quacc.core.TestApplication;
 import de.nenick.quacc.dagger.ForApplication;
 
 /**
@@ -16,9 +16,9 @@ import de.nenick.quacc.dagger.ForApplication;
 @Module(library = true)
 public class AndroidModule {
 
-    private final QuAccCoreApplication application;
+    private final TestApplication application;
 
-    public AndroidModule(QuAccCoreApplication application) {
+    public AndroidModule(TestApplication application) {
         this.application = application;
     }
 

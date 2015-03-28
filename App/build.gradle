@@ -9,6 +9,7 @@ buildscript {
 }
 
 apply plugin: 'com.android.application'
+apply from: "../build.jacoco-already-instrumented-workaround.gradle"
 
 android {
     compileSdkVersion 21
@@ -30,7 +31,7 @@ android {
         }
         debug {
             versionNameSuffix "-dev"
-            testCoverageEnabled = true
+            testCoverageEnabled = project.ext.isInstrumentedTestRun
             buildConfigField "String", "MODULE_PATH", "\"$projectDir\""
         }
     }

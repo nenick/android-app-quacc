@@ -9,6 +9,7 @@ buildscript {
 }
 
 apply plugin: 'com.android.library'
+apply from: "../build.jacoco-already-instrumented-workaround.gradle"
 
 android {
     compileSdkVersion 21
@@ -28,7 +29,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
         debug {
-            testCoverageEnabled = true
+            testCoverageEnabled = project.ext.isInstrumentedTestRun
         }
     }
 

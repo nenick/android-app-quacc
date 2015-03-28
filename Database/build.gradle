@@ -17,6 +17,8 @@ apply plugin: 'com.android.library'
 def dbSchemaPath = "src/main/json/schema"
 def dbClassesPath = "src/gen/java"
 
+apply from: "../build.jacoco-already-instrumented-workaround.gradle"
+
 android {
     compileSdkVersion 21
     buildToolsVersion "21.1.2"
@@ -38,7 +40,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
         debug {
-            testCoverageEnabled = true
+            testCoverageEnabled = project.ext.isInstrumentedTestRun
         }
     }
 
