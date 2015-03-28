@@ -33,18 +33,16 @@ before_script:
 
 script:
   # Execute Unit Tests
-  - travis_fold:start:AppUnitTests
+  travis_fold:start:AppUnitTests
   - ./gradlew App:test
-  - travis_fold:end:AppUnitTests
+  travis_fold:end:AppUnitTests
   - ./gradlew Core:test
   - ./gradlew Database:test
 
   # Execute Component Tests
   - ./gradlew AppCT:test
   
-  # Execute Tests on Emulator: Build, Wait, Start
-  # - ./gradlew App:assembleDebug App:assembleDebugAndroidTest
-  # - ./android-wait-for-emulator
+  # Execute Tests on Emulator
   - ./gradlew App:connectedCheck
 
   # Create coverage report
