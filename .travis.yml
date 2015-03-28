@@ -29,7 +29,7 @@ before_script:
   # Emulator Management: Create, Start
   - echo no | android create avd --force -n test -t android-21 --abi armeabi-v7a
   - emulator -avd test -no-skin -no-audio -no-window &
-  - ./android-wait-for-emulator
+  #- ./android-wait-for-emulator
 
 install:
   # Install custom novoda plugin version
@@ -40,7 +40,7 @@ install:
 
 script:
   # Execute Unit Tests
-  - ./gradlew App:test -s
+  - ./gradlew App:test -i -s
   - ./gradlew Core:test
   - ./gradlew Database:test
 
