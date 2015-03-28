@@ -31,18 +31,11 @@ before_script:
   - emulator -avd test -no-skin -no-audio -no-window &
   - ./android-wait-for-emulator
 
-install:
-  # Install custom novoda plugin version
-  #- wget https://raw.githubusercontent.com/nenick/android-gradle-template/master/Scripts/install-custom-gradle-test-plugin.sh -P Scripts
-  #- wget https://raw.githubusercontent.com/nenick/android-gradle-template/master/Scripts/novoda-deploy.gradle -P Scripts
-  #- chmod +x Scripts/install-custom-gradle-test-plugin.sh
-  #- Scripts/install-custom-gradle-test-plugin.sh
-
 script:
   # Execute Unit Tests
-  - travis_fold:start:'App Unit Tests'
+  - travis_fold:start:AppUnitTests
   - ./gradlew App:test
-  - travis_fold:end:'App Unit Tests'
+  - travis_fold:end:AppUnitTests
   - ./gradlew Core:test
   - ./gradlew Database:test
 
@@ -54,9 +47,12 @@ script:
   # - ./android-wait-for-emulator
   - ./gradlew App:connectedCheck
 
-  # Create and Report code coverage
+  # Create coverage report
   - ./gradlew jacocoTestReport
-  - ./gradlew coveralls
 
   # Check lint hints
   - ./gradlew lint
+
+after_script:
+  # Report code coverage
+  - ./gradlew coveralls
