@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import de.nenick.quacc.dagger.AndroidModule;
+import de.nenick.quacc.dagger.CoreModuleMocks;
 
 public class TestQuAccApplication extends QuAccApplication {
 

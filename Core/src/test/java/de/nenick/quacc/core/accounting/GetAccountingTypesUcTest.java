@@ -17,6 +17,7 @@ public class GetAccountingTypesUcTest extends RobolectricSupportedTest {
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
+        getAccountingTypesUc.afterInject();
     }
 
     @Test

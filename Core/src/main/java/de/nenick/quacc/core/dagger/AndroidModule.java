@@ -7,6 +7,7 @@ import javax.inject.Singleton;
 import dagger.Module;
 import dagger.Provides;
 import de.nenick.quacc.core.QuAccCoreApplication;
+import de.nenick.quacc.dagger.ForApplication;
 
 /**
  * A module for Android-specific dependencies which require a {@link Context} or

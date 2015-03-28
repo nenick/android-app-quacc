@@ -6,8 +6,8 @@ import java.util.Arrays;
 import java.util.List;
 
 import de.nenick.quacc.core.dagger.AndroidModule;
-import de.nenick.quacc.core.dagger.DaggerSupport;
 import de.nenick.quacc.core.dagger.DatabaseModule;
+import de.nenick.quacc.dagger.DaggerSupport;
 
 public class QuAccCoreApplication extends Application {
 

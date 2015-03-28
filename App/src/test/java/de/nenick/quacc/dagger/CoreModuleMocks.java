@@ -1,4 +1,4 @@
-package de.nenick.quacc;
+package de.nenick.quacc.dagger;
 
 import android.content.Context;
 
@@ -62,6 +62,7 @@ public class CoreModuleMocks implements CoreModuleBase {
     }
 
     @Provides
+    @Override
     public GetAccountingIntervalsUc provideGetAccountingIntervalsUc(@ForApplication Context context) {
         return getAccountingIntervalsUc;
     }

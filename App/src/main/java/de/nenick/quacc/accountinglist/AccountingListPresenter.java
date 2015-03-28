@@ -15,12 +15,9 @@ public class AccountingListPresenter {
     @Inject
     GetAccountingListUc getAccountingListUc;
 
-    @Bean
-    DaggerSupport daggerSupport;
-
     @AfterInject
     protected void afterInject() {
-        daggerSupport.inject(this);
+        DaggerSupport.inject(this);
     }
 
     AccountingListFragment view;

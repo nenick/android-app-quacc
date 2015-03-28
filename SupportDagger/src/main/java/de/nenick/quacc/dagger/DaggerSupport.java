@@ -1,10 +1,7 @@
-package de.nenick.quacc.core.dagger;
-
-import org.androidannotations.annotations.EBean;
+package de.nenick.quacc.dagger;
 
 import dagger.ObjectGraph;
 
-@EBean
 public class DaggerSupport {
 
     private static ObjectGraph graph;
@@ -13,7 +10,7 @@ public class DaggerSupport {
         graph = ObjectGraph.create(modules);
     }
 
-    public void inject(Object object) {
+    public static void inject(Object object) {
         graph.inject(object);
     }
 }

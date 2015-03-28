@@ -42,12 +42,9 @@ public class AddAccountingPresenter {
     @Bean
     DatePickerFormatUtil datePickerFormatUtil;
 
-    @Bean
-    DaggerSupport daggerSupport;
-
     @AfterInject
     protected void afterInject() {
-        daggerSupport.inject(this);
+        DaggerSupport.inject(this);
     }
 
     public void onViewSpeechResult(ArrayList<String> matches) {
