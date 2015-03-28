@@ -50,8 +50,8 @@
       "type": "enum",
       "enumName": "AccountingType",
       "enumValues": [
-        "Einnahme",
         "Ausgabe",
+        "Einnahme",
         "Übertrag"
       ],
       "nullable": false

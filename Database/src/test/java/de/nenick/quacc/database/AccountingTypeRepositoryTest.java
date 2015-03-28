@@ -13,7 +13,7 @@ public class AccountingTypeRepositoryTest extends RobolectricSupportedTest {
 
     @Test
     public void testGetAccountingTypes() throws Exception {
-        String[] accountingTypes = repository.getAccountingTypes();
+        CharSequence[] accountingTypes = repository.getAccountingTypes();
         assertThat(accountingTypes).hasSize(3);
         assertThat(accountingTypes).contains("Einnahme");
         assertThat(accountingTypes).contains("Ausgabe");

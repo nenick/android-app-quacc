@@ -4,10 +4,10 @@ import de.nenick.quacc.database.provider.accounting.AccountingType;
 
 public class AccountingTypeRepository {
 
-    public String[] getAccountingTypes() {
+    public CharSequence[] getAccountingTypes() {
         AccountingType[] values = AccountingType.values();
-        String[] types = new String[values.length];
-        for(int i = 0; i < values.length; i++) {
+        CharSequence[] types = new CharSequence[values.length];
+        for (int i = 0; i < values.length; i++) {
             types[i] = values[i].name();
         }
         return types;

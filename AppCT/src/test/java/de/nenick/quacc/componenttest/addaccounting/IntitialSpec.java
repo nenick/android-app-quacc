@@ -42,9 +42,10 @@ public class IntitialSpec extends BaseCT {
         assertThat(addAccountingPage.accountSpinner().selectedEntry().getText()).isEqualTo("Konto");
 
         entries = addAccountingPage.typeSpinner().entries();
-        assertThat(entries).hasSize(2);
+        assertThat(entries).hasSize(3);
         assertThat(entries.get(0).getText()).isEqualTo("Ausgabe");
         assertThat(entries.get(1).getText()).isEqualTo("Einnahme");
+        assertThat(entries.get(2).getText()).isEqualTo("Übertrag");
         assertThat(addAccountingPage.typeSpinner().selectedEntry().getText()).isEqualTo("Ausgabe");
 
         entries = addAccountingPage.intervalSpinner().entries();

@@ -8,7 +8,6 @@ import org.androidannotations.annotations.RootContext;
 
 import javax.inject.Inject;
 
-import de.nenick.quacc.core.R;
 import de.nenick.quacc.dagger.DaggerSupport;
 import de.nenick.quacc.database.AccountingTypeRepository;
 
@@ -27,7 +26,6 @@ public class GetAccountingTypesUc {
     }
 
     public CharSequence[] apply() {
-        accountingTypeRepository.getAccountingTypes();
-        return context.getResources().getTextArray(R.array.accounting_types);
+        return accountingTypeRepository.getAccountingTypes();
     }
 }

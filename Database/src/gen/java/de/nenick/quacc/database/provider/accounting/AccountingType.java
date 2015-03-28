@@ -7,12 +7,12 @@ public enum AccountingType {
     /**
      * 
      */
-    Einnahme,
+    Ausgabe,
 
     /**
      * 
      */
-    Ausgabe,
+    Einnahme,
 
     /**
      * 
