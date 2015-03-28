@@ -9,9 +9,10 @@ import org.robolectric.RuntimeEnvironment;
 import org.robolectric.annotation.Config;
 
 import de.nenick.quacc.core.BuildConfig;
+import de.nenick.quacc.core.TestApplication;
 
 @RunWith(AndroidStudioAwareRobolectricTestRunner.class)
-@Config(constants = BuildConfig.class)
+@Config(constants = BuildConfig.class, application = TestApplication.class)
 public abstract class RobolectricSupportedTest {
 
     @Spy
