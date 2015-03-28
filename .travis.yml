@@ -33,15 +33,9 @@ before_script:
 
 script:
   # Execute Unit Tests
-  - travis_fold:start:AppUnitTests
   - ./gradlew App:test
-  - travis_fold:end:AppUnitTests
-  - travis_fold:start:CoreUnitTests
   - ./gradlew Core:test
-  - travis_fold:end:CoreUnitTests
-  - travis_fold:start:DatabaseUnitTests
   - ./gradlew Database:test
-  - travis_fold:end:DatabaseUnitTests
 
   # Execute Component Tests
   - ./gradlew AppCT:test
