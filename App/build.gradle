@@ -70,6 +70,12 @@ dependencies {
 
 }
 
+afterEvaluate {
+    tasks.testDebug {
+        jvmArgs "-XX:MaxPermSize=256m"
+    }
+}
+
 task myTestsJar(type: Jar) {
     from "src/test/java"
 }
