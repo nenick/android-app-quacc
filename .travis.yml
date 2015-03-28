@@ -40,9 +40,9 @@ install:
 
 script:
   # Execute Unit Tests
-  travis_fold:start:App Unit Tests
+  - travis_fold:start:'App Unit Tests'
   - ./gradlew App:test
-  travis_fold:end:App Unit Tests
+  - travis_fold:end:'App Unit Tests'
   - ./gradlew Core:test
   - ./gradlew Database:test
 
