@@ -31,18 +31,25 @@ dependencies {
 }
 
 afterEvaluate {
+
     def isLintRun = false
     def isTestRun = false
-    tasks.each {
-        // you can only run lint or tests or it will fail
-        if(it.path.contains(":lint")) {
+
+    gradle.startParameter.taskNames.each {
+        if(it.contains("lint")) {
             isLintRun = true
-            isTestRun = false
         }
-        if (!isLintRun && it.path.contains(":test")) {
+        if(it.contains("test")) {
             isTestRun = true
         }
     }
+
+    if(isLintRun && isTestRun) {
+        println "WARNING: tests for release type are disabled for supporting jacoco"
+        println "WARNING: run test and lint at same time is not supported"
+        exit 1
+    }
+
     if (isTestRun) {
         tasks.each {
             if (it.name.contains("Release")) {

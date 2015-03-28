@@ -36,6 +36,8 @@ android {
         // robolectric does only support sdk v21 current
         disable 'OldTargetApi'
     }
+
+    sourceSets.test.java.srcDirs += "build/generated/source/r/debug"
 }
 
 apply from: "build.apt.gradle"
