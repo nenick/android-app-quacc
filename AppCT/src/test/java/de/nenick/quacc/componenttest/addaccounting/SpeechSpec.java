@@ -8,13 +8,13 @@ import org.junit.Test;
 import de.nenick.quacc.addaccounting.AddAccountingActivity_;
 import de.nenick.quacc.addaccounting.AddAccountingFragment;
 import de.nenick.quacc.addaccounting.RoboAddAccountingPage;
-import de.nenick.quacc.componenttest.RoboComponentTest;
+import de.nenick.quacc.componenttest.RoboComponentTestBase;
 import de.nenick.quacc.robolectric.RoboSup;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
 
-public class SpeechSpec extends RoboComponentTest {
+public class SpeechSpec extends RoboComponentTestBase {
 
     RoboSup<AddAccountingActivity_, AddAccountingFragment> robo = new RoboSup<>();
     RoboAddAccountingPage addAccountingPage = new RoboAddAccountingPage(robo);

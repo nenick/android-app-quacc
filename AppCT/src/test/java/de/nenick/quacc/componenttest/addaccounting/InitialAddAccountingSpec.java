@@ -13,14 +13,14 @@ import java.util.Locale;
 import de.nenick.quacc.addaccounting.AddAccountingActivity_;
 import de.nenick.quacc.addaccounting.AddAccountingFragment;
 import de.nenick.quacc.addaccounting.RoboAddAccountingPage;
-import de.nenick.quacc.componenttest.RoboComponentTest;
+import de.nenick.quacc.componenttest.RoboComponentTestBase;
 import de.nenick.quacc.robolectric.RoboSup;
 import de.nenick.robolectricpages.components.RoboSpinnerEntry;
 import de.nenick.robolectricpages.dialogs.RoboDatePickerDialog;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class InitialAddAccountingSpec extends RoboComponentTest {
+public class InitialAddAccountingSpec extends RoboComponentTestBase {
 
     RoboSup<AddAccountingActivity_, AddAccountingFragment> robo = new RoboSup<>();
 

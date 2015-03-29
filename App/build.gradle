@@ -73,7 +73,7 @@ dependencies {
 
 afterEvaluate {
     tasks.testDebug {
-        jvmArgs "-XX:MaxPermSize=256m"
+        jvmArgs "-XX:MaxPermSize=512m"
     }
 }
 
