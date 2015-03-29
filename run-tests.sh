@@ -1,2 +1,2 @@
 ./gradlew clean test
-./gradlew connectedAndroidTest lint
+./gradlew connectedAndroidTest lint jacocoTestReport

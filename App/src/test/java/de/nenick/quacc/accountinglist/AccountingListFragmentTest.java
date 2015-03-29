@@ -2,13 +2,24 @@ package de.nenick.quacc.accountinglist;
 
 import org.junit.Test;
 
+import java.util.Date;
+import java.util.List;
+
+import de.nenick.quacc.R;
 import de.nenick.quacc.TestQuAccApplication;
 import de.nenick.quacc.addaccounting.RoboAddAccountingPage;
+import de.nenick.quacc.database.provider.accounting.AccountingCursor;
+import de.nenick.quacc.database.provider.accounting.AccountingInterval;
+import de.nenick.quacc.database.provider.accounting.AccountingType;
+import de.nenick.quacc.datepicker.DatePickerFormatUtil;
 import de.nenick.quacc.robolectric.RoboSup;
 import de.nenick.quacc.robolectric.RoboAppTest;
+import de.nenick.robolectricpages.components.RoboListViewEntry;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.BDDMockito.given;
+import static org.mockito.Matchers.anyInt;
+import static org.mockito.Mockito.mock;
 
 public class AccountingListFragmentTest extends RoboAppTest {
 
@@ -17,9 +28,32 @@ public class AccountingListFragmentTest extends RoboAppTest {
 
     @Test
     public void shoudlShowAccountings() {
-        given(TestQuAccApplication.coreModuleMocks.getAccountingListUc.apply()).willReturn(new CharSequence[]{"Eintrag 1", "Eintrag 2", "Eintrag 3"});
+        Date date = new Date();
+        AccountingCursor accountingCursor = mock(AccountingCursor.class);
+        given(accountingCursor.getCount()).willReturn(3);
+        given(accountingCursor.moveToPosition(anyInt())).willReturn(true, true, true);
+        given(accountingCursor.getAccountingDate()).willReturn(date);
+        given(accountingCursor.getAccountingType()).willReturn(AccountingType.Ausgabe);
+        given(accountingCursor.getAccountingInterval()).willReturn(AccountingInterval.Einmahlig);
+        given(accountingCursor.getComment()).willReturn("", "Eintrag 1", "Eintrag 2", "Eintrag 3");
+        given(accountingCursor.getValue()).willReturn(0, 0, 10, 230);
+        given(TestQuAccApplication.coreModuleMocks.getAccountingListUc.apply()).willReturn(accountingCursor);
         accountingListPage.startPage();
         assertThat(accountingListPage.list().count()).isEqualTo(3);
+
+        List<RoboListViewEntry> entries = accountingListPage.list().entries();
+        assertThat(entries.get(0).getText(R.id.date)).isEqualTo(DatePickerFormatUtil.getDefaultDateFormat().format(date));
+        assertThat(entries.get(0).getText(R.id.type)).isEqualTo("Ausgabe");
+        assertThat(entries.get(0).getText(R.id.interval)).isEqualTo("Einmahlig");
+        assertThat(entries.get(0).getText(R.id.category)).isEqualTo("");
+        assertThat(entries.get(0).getText(R.id.comment)).isEqualTo("Eintrag 1");
+        assertThat(entries.get(0).getText(R.id.value)).isEqualTo("0,00");
+
+        assertThat(entries.get(1).getText(R.id.comment)).isEqualTo("Eintrag 2");
+        assertThat(entries.get(1).getText(R.id.value)).isEqualTo("0,10");
+
+        assertThat(entries.get(2).getText(R.id.comment)).isEqualTo("Eintrag 3");
+        assertThat(entries.get(2).getText(R.id.value)).isEqualTo("2,30");
     }
 
     @Test

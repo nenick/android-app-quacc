@@ -15,14 +15,8 @@ public class GetAccountingListUc {
     @Inject
     AccountingRepository accountingRepository;
 
-    public CharSequence[] apply() {
-        AccountingCursor accountingCategories = accountingRepository.getAccountings();
-        String[] values = new String[accountingCategories.getCount()];
-        for (int i = 0; i < accountingCategories.getCount(); i++) {
-            accountingCategories.moveToNext();
-            values[i] = accountingCategories.getAccountingInterval().name();
-        }
-        return values;
+    public AccountingCursor apply() {
+        return accountingRepository.getAccountings();
     }
 
     @AfterInject

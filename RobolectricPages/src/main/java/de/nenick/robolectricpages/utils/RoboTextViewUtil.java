@@ -8,8 +8,13 @@ import de.nenick.robolectricpages.Robo;
 public class RoboTextViewUtil {
     public static String getTextFromView(Robo robo, int resourceId) {
         View view = robo.activity.findViewById(resourceId);
-        if(view instanceof TextView) {
-            return ((TextView)view).getText().toString();
+        return getTextFromView(view, resourceId);
+    }
+
+    public static String getTextFromView(View rootView, int resourceId) {
+        View view = rootView.findViewById(resourceId);
+        if (view instanceof TextView) {
+            return ((TextView) view).getText().toString();
         }
         throw new IllegalStateException(view.getClass() + " is not handled yet.");
     }

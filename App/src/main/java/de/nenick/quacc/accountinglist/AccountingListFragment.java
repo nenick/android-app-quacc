@@ -12,6 +12,7 @@ import org.androidannotations.annotations.ViewById;
 import de.nenick.quacc.R;
 import de.nenick.quacc.accountinglist.list.AccountingListAdapter;
 import de.nenick.quacc.addaccounting.AddAccountingActivity_;
+import de.nenick.quacc.database.provider.accounting.AccountingCursor;
 
 @EFragment(R.layout.fragment_accounting_list)
 public class AccountingListFragment extends Fragment {
@@ -31,8 +32,8 @@ public class AccountingListFragment extends Fragment {
         presenter.onViewCreated(this);
     }
 
-    public void showAccountingList(CharSequence[] stringArray) {
-        accountingListAdapter.swapAccountings(stringArray);
+    public void showAccountingList(AccountingCursor accountingCursor) {
+        accountingListAdapter.swapCursor(accountingCursor);
     }
 
     @Click(R.id.btn_add_accounting)

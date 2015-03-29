@@ -10,10 +10,13 @@ import org.mockito.Captor;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import java.text.DateFormat;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
 import de.nenick.quacc.TestQuAccApplication;
+import de.nenick.quacc.datepicker.DatePickerFormatUtil;
 import de.nenick.quacc.robolectric.RoboAppTest;
 import de.nenick.quacc.robolectric.RoboSup;
 import de.nenick.quacc.speechrecognition.SpeechListener;
@@ -98,7 +101,7 @@ public class AddAccountingFragmentTest extends RoboAppTest {
     }
 
     @Test
-    public void shouldAddAccounting() {
+    public void shouldAddAccounting() throws ParseException {
         addAccountingPage.startPage();
 
         addAccountingPage.accountSpinner().entries().get(2).select();
@@ -112,7 +115,8 @@ public class AddAccountingFragmentTest extends RoboAppTest {
 
         addAccountingPage.actionbar().cofirmMenuItem().click();
 
-        verify(TestQuAccApplication.coreModuleMocks.addNewAccountingUc).apply("Bar", "Einnahme", "Monatlich", "Miete", "21.12.2012", 6000);
+        DateFormat df = DatePickerFormatUtil.getDefaultDateFormat();
+        verify(TestQuAccApplication.coreModuleMocks.addNewAccountingUc).apply("Bar", "Einnahme", "Monatlich", "Miete", df.parse("21.12.2012"), 6000);
     }
 
     @Test(expected = IllegalStateException.class)

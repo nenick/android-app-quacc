@@ -27,20 +27,12 @@ public class GetAccountingListUcTest extends RoboCoreTest {
     public void setUp() {
         MockitoAnnotations.initMocks(this);
         getAccountingListUc.afterInject();
-        given(TestApplication.databaseModuleMocks.accountingRepository.getAccountings()).willReturn(accountingCursor);
-
     }
 
     @Test
     public void shouldDeliverAccountingTypes() {
-        given(accountingCursor.getCount()).willReturn(2);
-        given(accountingCursor.getComment()).willReturn("TypeA").willReturn("TypeB");
-
-        CharSequence[] apply = getAccountingListUc.apply();
-        assertThat(apply).hasSize(2);
-        verify(accountingCursor, times(2)).moveToNext();
-        assertThat(apply[0]).isEqualTo("TypeA");
-        assertThat(apply[1]).isEqualTo("TypeB");
+        given(TestApplication.databaseModuleMocks.accountingRepository.getAccountings()).willReturn(accountingCursor);
+        assertThat(getAccountingListUc.apply()).isEqualTo(accountingCursor) ;
     }
 
 }
