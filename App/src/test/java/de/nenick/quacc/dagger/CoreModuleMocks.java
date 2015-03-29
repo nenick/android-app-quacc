@@ -9,6 +9,7 @@ import dagger.Module;
 import dagger.Provides;
 import de.nenick.quacc.accountinglist.AccountingListPresenter_;
 import de.nenick.quacc.addaccounting.AddAccountingPresenter_;
+import de.nenick.quacc.core.accounting.AddNewAccountingUc;
 import de.nenick.quacc.core.accounting.GetAccountingCategoriesUc;
 import de.nenick.quacc.core.accounting.GetAccountingIntervalsUc;
 import de.nenick.quacc.core.accounting.GetAccountingListUc;
@@ -38,6 +39,8 @@ public class CoreModuleMocks implements CoreModuleBase {
     public GetAccountsUc getAccountsUc;
     @Mock
     public GetAccountingListUc getAccountingListUc;
+    @Mock
+    public AddNewAccountingUc addNewAccountingUc;
 
     public CoreModuleMocks() {
         MockitoAnnotations.initMocks(this);
@@ -77,5 +80,11 @@ public class CoreModuleMocks implements CoreModuleBase {
     @Override
     public GetAccountingListUc provideGetAccountingListUc(@ForApplication Context context) {
         return getAccountingListUc;
+    }
+
+    @Override
+    @Provides
+    public AddNewAccountingUc provideAddNewAccountingUc(@ForApplication Context context) {
+        return addNewAccountingUc;
     }
 }

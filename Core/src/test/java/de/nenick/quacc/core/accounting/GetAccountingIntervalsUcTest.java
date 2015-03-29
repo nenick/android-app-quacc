@@ -14,9 +14,9 @@ import static org.mockito.BDDMockito.given;
 public class GetAccountingIntervalsUcTest extends RoboCoreTest {
 
     @InjectMocks
-    GetAccountingIntervalsUc getAccountingIntervalsUc;
+    GetAccountingIntervalsUc_ getAccountingIntervalsUc;
 
-    String[] accountingIntervals = new String[] {"TypeA", "TypeB"};
+    String[] accountingIntervals = new String[]{"TypeA", "TypeB"};
 
     @Before
     public void setUp() {

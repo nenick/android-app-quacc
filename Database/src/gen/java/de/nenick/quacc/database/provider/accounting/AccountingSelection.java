@@ -144,63 +144,33 @@ public class AccountingSelection extends AbstractSelection<AccountingSelection> 
         return this;
     }
 
-    public AccountingSelection name(String... value) {
-        addEquals(AccountingColumns.NAME, value);
+    public AccountingSelection comment(String... value) {
+        addEquals(AccountingColumns.COMMENT, value);
         return this;
     }
 
-    public AccountingSelection nameNot(String... value) {
-        addNotEquals(AccountingColumns.NAME, value);
+    public AccountingSelection commentNot(String... value) {
+        addNotEquals(AccountingColumns.COMMENT, value);
         return this;
     }
 
-    public AccountingSelection nameLike(String... value) {
-        addLike(AccountingColumns.NAME, value);
+    public AccountingSelection commentLike(String... value) {
+        addLike(AccountingColumns.COMMENT, value);
         return this;
     }
 
-    public AccountingSelection nameContains(String... value) {
-        addContains(AccountingColumns.NAME, value);
+    public AccountingSelection commentContains(String... value) {
+        addContains(AccountingColumns.COMMENT, value);
         return this;
     }
 
-    public AccountingSelection nameStartsWith(String... value) {
-        addStartsWith(AccountingColumns.NAME, value);
+    public AccountingSelection commentStartsWith(String... value) {
+        addStartsWith(AccountingColumns.COMMENT, value);
         return this;
     }
 
-    public AccountingSelection nameEndsWith(String... value) {
-        addEndsWith(AccountingColumns.NAME, value);
-        return this;
-    }
-
-    public AccountingSelection description(String... value) {
-        addEquals(AccountingColumns.DESCRIPTION, value);
-        return this;
-    }
-
-    public AccountingSelection descriptionNot(String... value) {
-        addNotEquals(AccountingColumns.DESCRIPTION, value);
-        return this;
-    }
-
-    public AccountingSelection descriptionLike(String... value) {
-        addLike(AccountingColumns.DESCRIPTION, value);
-        return this;
-    }
-
-    public AccountingSelection descriptionContains(String... value) {
-        addContains(AccountingColumns.DESCRIPTION, value);
-        return this;
-    }
-
-    public AccountingSelection descriptionStartsWith(String... value) {
-        addStartsWith(AccountingColumns.DESCRIPTION, value);
-        return this;
-    }
-
-    public AccountingSelection descriptionEndsWith(String... value) {
-        addEndsWith(AccountingColumns.DESCRIPTION, value);
+    public AccountingSelection commentEndsWith(String... value) {
+        addEndsWith(AccountingColumns.COMMENT, value);
         return this;
     }
 

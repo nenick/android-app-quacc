@@ -1,24 +1,16 @@
 package de.nenick.quacc.core.accounting;
 
-import android.content.Context;
-
 import org.androidannotations.annotations.AfterInject;
 import org.androidannotations.annotations.EBean;
-import org.androidannotations.annotations.RootContext;
 
 import javax.inject.Inject;
 
-import de.nenick.quacc.core.R;
 import de.nenick.quacc.dagger.DaggerSupport;
 import de.nenick.quacc.database.AccountingCategoryRepository;
-import de.nenick.quacc.database.AccountingTypeRepository;
 import de.nenick.quacc.database.provider.accountingcategory.AccountingCategoryCursor;
 
 @EBean
 public class GetAccountingCategoriesUc {
-
-    @RootContext
-    Context context;
 
     @Inject
     AccountingCategoryRepository accountingCategoryRepository;

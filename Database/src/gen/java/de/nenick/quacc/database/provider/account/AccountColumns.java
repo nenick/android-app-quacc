@@ -28,7 +28,7 @@ public class AccountColumns implements BaseColumns {
     /**
      * Short description
      */
-    public static final String DESCRIPTION = "account__description";
+    public static final String DESCRIPTION = "description";
 
 
     public static final String DEFAULT_ORDER = TABLE_NAME + "." +_ID;

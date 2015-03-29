@@ -7,11 +7,12 @@ import org.mockito.MockitoAnnotations;
 
 import dagger.Module;
 import dagger.Provides;
-import de.nenick.quacc.core.accounting.GetAccountingCategoriesUc;
-import de.nenick.quacc.core.accounting.GetAccountingIntervalsUc;
-import de.nenick.quacc.core.accounting.GetAccountingListUc;
-import de.nenick.quacc.core.accounting.GetAccountingTypesUc;
-import de.nenick.quacc.core.accounting.GetAccountsUc;
+import de.nenick.quacc.core.accounting.AddNewAccountingUc_;
+import de.nenick.quacc.core.accounting.GetAccountingCategoriesUc_;
+import de.nenick.quacc.core.accounting.GetAccountingIntervalsUc_;
+import de.nenick.quacc.core.accounting.GetAccountingListUc_;
+import de.nenick.quacc.core.accounting.GetAccountingTypesUc_;
+import de.nenick.quacc.core.accounting.GetAccountsUc_;
 import de.nenick.quacc.dagger.ForApplication;
 import de.nenick.quacc.database.AccountRepository;
 import de.nenick.quacc.database.AccountingCategoryRepository;
@@ -20,7 +21,13 @@ import de.nenick.quacc.database.AccountingRepository;
 import de.nenick.quacc.database.AccountingTypeRepository;
 
 @Module(
-        injects = {GetAccountingTypesUc.class, GetAccountsUc.class, GetAccountingCategoriesUc.class, GetAccountingIntervalsUc.class, GetAccountingListUc.class},
+        injects = {
+                AddNewAccountingUc_.class,
+                GetAccountingTypesUc_.class,
+                GetAccountsUc_.class,
+                GetAccountingCategoriesUc_.class,
+                GetAccountingIntervalsUc_.class,
+                GetAccountingListUc_.class},
         complete = false
 )
 public class DatabaseModuleMocks implements DatabaseModuleBase {

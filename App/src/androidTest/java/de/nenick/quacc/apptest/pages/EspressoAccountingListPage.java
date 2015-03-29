@@ -17,4 +17,8 @@ public class EspressoAccountingListPage {
     public void clickAddButton() {
         onView(withId(R.id.btn_add_accounting)).perform(click());
     }
+
+    public EspressoAccountingList list() {
+        return new EspressoAccountingList();
+    }
 }

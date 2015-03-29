@@ -34,13 +34,17 @@ public class DatePickerFormatUtil {
 
         Calendar calendar = Calendar.getInstance();
         calendar.set(year, month, day);
-        DateFormat df = SimpleDateFormat.getDateInstance(DATE_FORMAT, DATE_LOCAL);
+        DateFormat df = getDefaultDateFormat();
         return df.format(calendar.getTime());
     }
 
     public String currentDate() {
         Calendar calendar = Calendar.getInstance();
-        DateFormat df = SimpleDateFormat.getDateInstance(DATE_FORMAT, DATE_LOCAL);
+        DateFormat df = getDefaultDateFormat();
         return df.format(calendar.getTime());
+    }
+
+    public static DateFormat getDefaultDateFormat() {
+        return SimpleDateFormat.getDateInstance(DATE_FORMAT, DATE_LOCAL);
     }
 }

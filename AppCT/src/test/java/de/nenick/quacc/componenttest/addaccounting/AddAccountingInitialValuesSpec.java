@@ -6,9 +6,7 @@ import android.speech.SpeechRecognizer;
 import org.junit.Test;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
-import java.util.Locale;
 
 import de.nenick.quacc.addaccounting.AddAccountingActivity_;
 import de.nenick.quacc.addaccounting.AddAccountingFragment;
@@ -16,19 +14,18 @@ import de.nenick.quacc.addaccounting.RoboAddAccountingPage;
 import de.nenick.quacc.componenttest.RoboComponentTestBase;
 import de.nenick.quacc.robolectric.RoboSup;
 import de.nenick.robolectricpages.components.RoboSpinnerEntry;
-import de.nenick.robolectricpages.dialogs.RoboDatePickerDialog;
 
+import static de.nenick.quacc.TestDateUtil.day;
+import static de.nenick.quacc.TestDateUtil.month;
+import static de.nenick.quacc.TestDateUtil.year;
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class InitialAddAccountingSpec extends RoboComponentTestBase {
+public class AddAccountingInitialValuesSpec extends RoboComponentTestBase {
 
     RoboSup<AddAccountingActivity_, AddAccountingFragment> robo = new RoboSup<>();
-
     RoboAddAccountingPage addAccountingPage = new RoboAddAccountingPage(robo);
-    RoboDatePickerDialog datePickerDialog = new RoboDatePickerDialog();
 
     List<RoboSpinnerEntry> entries;
-    Calendar calendar = Calendar.getInstance(Locale.GERMAN);
 
     @Test
     public void shouldHaveCorrectInitialState() {
@@ -75,37 +72,4 @@ public class InitialAddAccountingSpec extends RoboComponentTestBase {
         return speechResultBundle;
     }
 
-    private String year() {
-        return String.valueOf(calendar.get(Calendar.YEAR));
-    }
-
-    private String year(int value) {
-        return String.valueOf(value);
-    }
-
-    private String month() {
-        int value = calendar.get(Calendar.MONTH) + 1;
-        return withLeadingZero(value);
-    }
-
-    private String month(int value) {
-        return withLeadingZero(value);
-    }
-
-    private String day() {
-        int value = calendar.get(Calendar.DAY_OF_MONTH);
-        return withLeadingZero(value);
-    }
-
-    private String day(int value) {
-        return withLeadingZero(value);
-    }
-
-    private String withLeadingZero(int value) {
-        String asString = String.valueOf(value);
-        if (value >= 10) {
-            return asString;
-        }
-        return "0" + asString;
-    }
 }

@@ -62,25 +62,11 @@ public class AccountingCursor extends AbstractCursor implements AccountingModel 
 
     /**
      * Short description of the accounting.
-     * Cannot be {@code null}.
+     * Can be {@code null}.
      */
-    @NonNull
-    public String getName() {
-        String res = getStringOrNull(AccountingColumns.NAME);
-        if (res == null)
-            throw new NullPointerException("The value of 'name' in the database was null, which is not allowed according to the model definition");
-        return res;
-    }
-
-    /**
-     * Extra description of the accounting.
-     * Cannot be {@code null}.
-     */
-    @NonNull
-    public String getDescription() {
-        String res = getStringOrNull(AccountingColumns.DESCRIPTION);
-        if (res == null)
-            throw new NullPointerException("The value of 'description' in the database was null, which is not allowed according to the model definition");
+    @Nullable
+    public String getComment() {
+        String res = getStringOrNull(AccountingColumns.COMMENT);
         return res;
     }
 

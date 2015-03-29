@@ -13,10 +13,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 import de.nenick.quacc.R;
-import de.nenick.quacc.speechrecognition.RoboSpeechRegonitionWrapperHelper;
-import de.nenick.quacc.speechrecognition.SpeechListener;
 import de.nenick.quacc.robolectric.RoboSup;
 import de.nenick.quacc.robolectric.RoboSupPage;
+import de.nenick.quacc.speechrecognition.RoboSpeechRegonitionWrapperHelper;
+import de.nenick.quacc.speechrecognition.SpeechListener;
 import de.nenick.robolectricpages.components.RoboImageButton;
 import de.nenick.robolectricpages.components.RoboSpinner;
 import de.nenick.robolectricpages.components.RoboTextView;
@@ -73,7 +73,7 @@ public class RoboAddAccountingPage extends RoboSupPage<AddAccountingActivity_, A
         return new RoboImageButton(robo, R.id.btn_speech_recognition);
     }
 
-    public void speechResult(String ... texts) {
+    public void speechResult(String... texts) {
         Bundle bundle = new Bundle();
         ArrayList<String> strings = new ArrayList<>();
         Collections.addAll(strings, texts);
@@ -87,5 +87,13 @@ public class RoboAddAccountingPage extends RoboSupPage<AddAccountingActivity_, A
 
     public void speechError(int error) {
         speechRecognitionListenerArgumentCaptor.getValue().onError(error);
+    }
+
+    public RoboAddAccountingActionbar actionbar() {
+        return new RoboAddAccountingActionbar(robo);
+    }
+
+    public RoboTextView valueField() {
+        return new RoboTextView(robo, R.id.value);
     }
 }

@@ -25,12 +25,7 @@ public class AccountingColumns implements BaseColumns {
     /**
      * Short description of the accounting.
      */
-    public static final String NAME = "accounting__name";
-
-    /**
-     * Extra description of the accounting.
-     */
-    public static final String DESCRIPTION = "accounting__description";
+    public static final String COMMENT = "comment";
 
     public static final String ACCOUNTING_INTERVAL = "accounting_interval";
 
@@ -52,8 +47,7 @@ public class AccountingColumns implements BaseColumns {
     public static final String[] ALL_COLUMNS = new String[] {
             _ID,
             ACCOUNT_ID,
-            NAME,
-            DESCRIPTION,
+            COMMENT,
             ACCOUNTING_INTERVAL,
             ACCOUNTING_CATEGORY_ID,
             ACCOUNTING_DATE,
@@ -66,8 +60,7 @@ public class AccountingColumns implements BaseColumns {
         if (projection == null) return true;
         for (String c : projection) {
             if (c.equals(ACCOUNT_ID) || c.contains("." + ACCOUNT_ID)) return true;
-            if (c.equals(NAME) || c.contains("." + NAME)) return true;
-            if (c.equals(DESCRIPTION) || c.contains("." + DESCRIPTION)) return true;
+            if (c.equals(COMMENT) || c.contains("." + COMMENT)) return true;
             if (c.equals(ACCOUNTING_INTERVAL) || c.contains("." + ACCOUNTING_INTERVAL)) return true;
             if (c.equals(ACCOUNTING_CATEGORY_ID) || c.contains("." + ACCOUNTING_CATEGORY_ID)) return true;
             if (c.equals(ACCOUNTING_DATE) || c.contains("." + ACCOUNTING_DATE)) return true;

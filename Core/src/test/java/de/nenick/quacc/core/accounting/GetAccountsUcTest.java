@@ -12,14 +12,13 @@ import de.nenick.quacc.database.provider.account.AccountCursor;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.BDDMockito.given;
-import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
 public class GetAccountsUcTest extends RoboCoreTest {
 
     @InjectMocks
-    GetAccountsUc getAccountsUc;
+    GetAccountsUc_ getAccountsUc;
 
     @Mock
     AccountCursor accounts;

@@ -18,7 +18,7 @@ import static org.mockito.Mockito.verify;
 public class GetAccountingCategoriesUcTest extends RoboCoreTest {
 
     @InjectMocks
-    GetAccountingCategoriesUc getAccountingCategoriesUc;
+    GetAccountingCategoriesUc_ getAccountingCategoriesUc;
 
     @Mock
     AccountingCategoryCursor accountingCategories;

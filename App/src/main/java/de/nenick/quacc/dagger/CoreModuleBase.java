@@ -3,6 +3,7 @@ package de.nenick.quacc.dagger;
 
 import android.content.Context;
 
+import de.nenick.quacc.core.accounting.AddNewAccountingUc;
 import de.nenick.quacc.core.accounting.GetAccountingCategoriesUc;
 import de.nenick.quacc.core.accounting.GetAccountingIntervalsUc;
 import de.nenick.quacc.core.accounting.GetAccountingListUc;
@@ -24,4 +25,6 @@ public interface CoreModuleBase {
     GetAccountingCategoriesUc provideGetAccountingCategoriesUc(Context context);
 
     GetAccountingListUc provideGetAccountingListUc(Context context);
+
+    AddNewAccountingUc provideAddNewAccountingUc(Context context);
 }

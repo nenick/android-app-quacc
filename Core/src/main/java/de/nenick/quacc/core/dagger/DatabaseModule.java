@@ -4,6 +4,8 @@ import android.content.Context;
 
 import dagger.Module;
 import dagger.Provides;
+import de.nenick.quacc.core.accounting.AddNewAccountingUc;
+import de.nenick.quacc.core.accounting.AddNewAccountingUc_;
 import de.nenick.quacc.core.accounting.GetAccountingCategoriesUc_;
 import de.nenick.quacc.core.accounting.GetAccountingIntervalsUc_;
 import de.nenick.quacc.core.accounting.GetAccountingListUc_;
@@ -20,7 +22,13 @@ import de.nenick.quacc.database.AccountingRepository_;
 import de.nenick.quacc.database.AccountingTypeRepository;
 
 @Module(
-        injects = {GetAccountingTypesUc_.class, GetAccountsUc_.class, GetAccountingCategoriesUc_.class, GetAccountingIntervalsUc_.class, GetAccountingListUc_.class},
+        injects = {
+                AddNewAccountingUc_.class,
+                GetAccountingTypesUc_.class,
+                GetAccountsUc_.class,
+                GetAccountingCategoriesUc_.class,
+                GetAccountingIntervalsUc_.class,
+                GetAccountingListUc_.class},
         complete = false,
         library = true
 )

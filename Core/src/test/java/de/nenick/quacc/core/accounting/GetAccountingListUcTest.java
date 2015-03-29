@@ -9,7 +9,6 @@ import org.mockito.MockitoAnnotations;
 import de.nenick.quacc.core.TestApplication;
 import de.nenick.quacc.core.robolectric.RoboCoreTest;
 import de.nenick.quacc.database.provider.accounting.AccountingCursor;
-import de.nenick.quacc.database.provider.accountingcategory.AccountingCategoryCursor;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.BDDMockito.given;
@@ -19,7 +18,7 @@ import static org.mockito.Mockito.verify;
 public class GetAccountingListUcTest extends RoboCoreTest {
 
     @InjectMocks
-    GetAccountingListUc getAccountingListUc;
+    GetAccountingListUc_ getAccountingListUc;
 
     @Mock
     AccountingCursor accountingCursor;
@@ -35,7 +34,7 @@ public class GetAccountingListUcTest extends RoboCoreTest {
     @Test
     public void shouldDeliverAccountingTypes() {
         given(accountingCursor.getCount()).willReturn(2);
-        given(accountingCursor.getName()).willReturn("TypeA").willReturn("TypeB");
+        given(accountingCursor.getComment()).willReturn("TypeA").willReturn("TypeB");
 
         CharSequence[] apply = getAccountingListUc.apply();
         assertThat(apply).hasSize(2);

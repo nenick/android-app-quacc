@@ -11,17 +11,20 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
-import java.util.Locale;
 
+import de.nenick.quacc.TestQuAccApplication;
+import de.nenick.quacc.robolectric.RoboAppTest;
+import de.nenick.quacc.robolectric.RoboSup;
 import de.nenick.quacc.speechrecognition.SpeechListener;
 import de.nenick.quacc.speechrecognition.SpeechRecognitionWrapper;
-import de.nenick.quacc.robolectric.RoboSup;
-import de.nenick.quacc.robolectric.RoboAppTest;
 import de.nenick.robolectricpages.components.RoboSpinnerEntry;
 
+import static de.nenick.quacc.TestDateUtil.day;
+import static de.nenick.quacc.TestDateUtil.month;
+import static de.nenick.quacc.TestDateUtil.year;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.verify;
 
 public class AddAccountingFragmentTest extends RoboAppTest {
 
@@ -29,7 +32,6 @@ public class AddAccountingFragmentTest extends RoboAppTest {
     RoboAddAccountingPage addAccountingPage = new RoboAddAccountingPage(robo);
 
     List<RoboSpinnerEntry> entries;
-    Calendar calendar = Calendar.getInstance(Locale.GERMAN);
 
     @Mock
     SpeechRecognitionWrapper mockSpeechRecognition;
@@ -44,37 +46,20 @@ public class AddAccountingFragmentTest extends RoboAppTest {
     }
 
     @Test
-    public void shouldHaveCorrectInitialState() {
+    public void shouldShowInitialValues() {
         addAccountingPage.startPage();
 
         entries = addAccountingPage.accountSpinner().entries();
         assertThat(entries).hasSize(3);
-        assertThat(entries.get(0).getText()).isEqualTo("Konto");
-        assertThat(entries.get(1).getText()).isEqualTo("Sparkonto");
-        assertThat(entries.get(2).getText()).isEqualTo("Bar");
-        assertThat(addAccountingPage.accountSpinner().selectedEntry().getText()).isEqualTo("Konto");
 
         entries = addAccountingPage.typeSpinner().entries();
         assertThat(entries).hasSize(2);
-        assertThat(entries.get(0).getText()).isEqualTo("Ausgabe");
-        assertThat(entries.get(1).getText()).isEqualTo("Einnahme");
-        assertThat(addAccountingPage.typeSpinner().selectedEntry().getText()).isEqualTo("Ausgabe");
 
         entries = addAccountingPage.intervalSpinner().entries();
         assertThat(entries).hasSize(4);
-        assertThat(entries.get(0).getText()).isEqualTo("Einmahlig");
-        assertThat(entries.get(1).getText()).isEqualTo("Wöchentlich");
-        assertThat(entries.get(2).getText()).isEqualTo("Monatlich");
-        assertThat(entries.get(3).getText()).isEqualTo("Alle 3 Monate");
-        assertThat(addAccountingPage.intervalSpinner().selectedEntry().getText()).isEqualTo("Einmahlig");
 
         entries = addAccountingPage.categorySpinner().entries();
         assertThat(entries).hasSize(4);
-        assertThat(entries.get(0).getText()).isEqualTo("Beruf");
-        assertThat(entries.get(1).getText()).isEqualTo("Essen");
-        assertThat(entries.get(2).getText()).isEqualTo("Freizeit");
-        assertThat(entries.get(3).getText()).isEqualTo("Miete");
-        assertThat(addAccountingPage.intervalSpinner().selectedEntry().getText()).isEqualTo("Einmahlig");
 
         assertThat(addAccountingPage.dateField().getText()).isEqualTo(String.format("%s.%s.%s", day(), month(), year()));
     }
@@ -97,10 +82,10 @@ public class AddAccountingFragmentTest extends RoboAppTest {
         addAccountingPage.typeSpinner().entries().get(1).select();
         addAccountingPage.intervalSpinner().entries().get(2).select();
         addAccountingPage.categorySpinner().entries().get(3).select();
-
         addAccountingPage.dateField().click();
         addAccountingPage.dialog().datePicker().pickDate(21, 12, 2012);
         addAccountingPage.dialog().datePicker().clickOk();
+        addAccountingPage.valueField().setText("60.00");
 
         robo.activityController.restart();
 
@@ -109,6 +94,25 @@ public class AddAccountingFragmentTest extends RoboAppTest {
         assertThat(addAccountingPage.intervalSpinner().selectedEntry().getText()).isEqualTo("Monatlich");
         assertThat(addAccountingPage.categorySpinner().selectedEntry().getText()).isEqualTo("Miete");
         assertThat(addAccountingPage.dateField().getText()).isEqualTo(String.format("%s.%s.%s", day(21), month(12), year(2012)));
+        assertThat(addAccountingPage.valueField().getText()).isEqualTo("60.00");
+    }
+
+    @Test
+    public void shouldAddAccounting() {
+        addAccountingPage.startPage();
+
+        addAccountingPage.accountSpinner().entries().get(2).select();
+        addAccountingPage.typeSpinner().entries().get(1).select();
+        addAccountingPage.intervalSpinner().entries().get(2).select();
+        addAccountingPage.categorySpinner().entries().get(3).select();
+        addAccountingPage.dateField().click();
+        addAccountingPage.dialog().datePicker().pickDate(21, 12, 2012);
+        addAccountingPage.dialog().datePicker().clickOk();
+        addAccountingPage.valueField().setText("60.00");
+
+        addAccountingPage.actionbar().cofirmMenuItem().click();
+
+        verify(TestQuAccApplication.coreModuleMocks.addNewAccountingUc).apply("Bar", "Einnahme", "Monatlich", "Miete", "21.12.2012", 6000);
     }
 
     @Test(expected = IllegalStateException.class)
@@ -123,39 +127,5 @@ public class AddAccountingFragmentTest extends RoboAppTest {
         Bundle speechResultBundle = new Bundle();
         speechResultBundle.putStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION, speechResultText);
         return speechResultBundle;
-    }
-
-    private String year() {
-        return String.valueOf(calendar.get(Calendar.YEAR));
-    }
-
-    private String year(int value) {
-        return String.valueOf(value);
-    }
-
-    private String month() {
-        int value = calendar.get(Calendar.MONTH) + 1;
-        return withLeadingZero(value);
-    }
-
-    private String month(int value) {
-        return withLeadingZero(value);
-    }
-
-    private String day() {
-        int value = calendar.get(Calendar.DAY_OF_MONTH);
-        return withLeadingZero(value);
-    }
-
-    private String day(int value) {
-        return withLeadingZero(value);
-    }
-
-    private String withLeadingZero(int value) {
-        String asString = String.valueOf(value);
-        if (value >= 10) {
-            return asString;
-        }
-        return "0" + asString;
     }
 }

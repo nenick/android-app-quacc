@@ -12,15 +12,9 @@
     },
     {
       "documentation": "Short description of the accounting.",
-      "name": "name",
+      "name": "comment",
       "type": "String",
-      "nullable": false
-    },
-    {
-      "documentation": "Extra description of the accounting.",
-      "name": "description",
-      "type": "String",
-      "nullable": false
+      "nullable": true
     },
     {
       "name": "accounting_interval",

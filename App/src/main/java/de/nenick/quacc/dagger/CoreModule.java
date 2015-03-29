@@ -6,6 +6,8 @@ import dagger.Module;
 import dagger.Provides;
 import de.nenick.quacc.accountinglist.AccountingListPresenter_;
 import de.nenick.quacc.addaccounting.AddAccountingPresenter_;
+import de.nenick.quacc.core.accounting.AddNewAccountingUc;
+import de.nenick.quacc.core.accounting.AddNewAccountingUc_;
 import de.nenick.quacc.core.accounting.GetAccountingCategoriesUc;
 import de.nenick.quacc.core.accounting.GetAccountingCategoriesUc_;
 import de.nenick.quacc.core.accounting.GetAccountingIntervalsUc;
@@ -59,5 +61,11 @@ public class CoreModule implements CoreModuleBase {
     @Override
     public GetAccountingListUc provideGetAccountingListUc(@ForApplication Context context) {
         return GetAccountingListUc_.getInstance_(context);
+    }
+
+    @Override
+    @Provides
+    public AddNewAccountingUc provideAddNewAccountingUc(@ForApplication Context context) {
+        return AddNewAccountingUc_.getInstance_(context);
     }
 }

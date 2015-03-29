@@ -14,9 +14,6 @@ import de.nenick.quacc.database.AccountingIntervalRepository;
 @EBean
 public class GetAccountingIntervalsUc {
 
-    @RootContext
-    Context context;
-
     @Inject
     AccountingIntervalRepository accountingIntervalRepository;
 

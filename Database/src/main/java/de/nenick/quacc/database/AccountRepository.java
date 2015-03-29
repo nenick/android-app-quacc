@@ -17,4 +17,10 @@ public class AccountRepository {
     public AccountCursor getAccounts() {
         return new AccountSelection().query(context.getContentResolver());
     }
+
+    public long getIdFor(String account) {
+        AccountCursor query = new AccountSelection().name(account).query(context.getContentResolver());
+        query.moveToNext();
+        return query.getId();
+    }
 }

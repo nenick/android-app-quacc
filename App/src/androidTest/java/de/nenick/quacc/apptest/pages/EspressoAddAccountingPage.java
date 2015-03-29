@@ -78,4 +78,8 @@ public class EspressoAddAccountingPage {
             }
         };
     }
+
+    public EspressoAddAccountingActionbar actionbar() {
+        return new EspressoAddAccountingActionbar();
+    }
 }

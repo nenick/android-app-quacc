@@ -19,17 +19,10 @@ public interface AccountingModel extends BaseModel {
 
     /**
      * Short description of the accounting.
-     * Cannot be {@code null}.
+     * Can be {@code null}.
      */
-    @NonNull
-    String getName();
-
-    /**
-     * Extra description of the accounting.
-     * Cannot be {@code null}.
-     */
-    @NonNull
-    String getDescription();
+    @Nullable
+    String getComment();
 
     /**
      * Get the {@code accounting_interval} value.

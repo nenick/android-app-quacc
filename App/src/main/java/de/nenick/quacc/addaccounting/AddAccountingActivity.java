@@ -5,6 +5,7 @@ import android.support.v7.app.ActionBarActivity;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EActivity;
+import org.androidannotations.annotations.OptionsMenu;
 
 import de.nenick.quacc.R;
 

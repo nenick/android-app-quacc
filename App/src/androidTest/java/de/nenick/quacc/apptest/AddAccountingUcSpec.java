@@ -14,7 +14,7 @@ public class AddAccountingUcSpec extends BaseEspressoSpec {
     @Test
     public void shouldAddNewAccounting() {
         startApp();
-        // TODO check first expected list count
+        //accountingListPage.list().doNotContain("Monatlich");
         accountingListPage.clickAddButton();
         addAccountingPage.isActivePage();
         addAccountingPage.chooseAccount("Bar");
@@ -23,8 +23,9 @@ public class AddAccountingUcSpec extends BaseEspressoSpec {
         addAccountingPage.chooseAccountingCategory("Miete");
         addAccountingPage.chooseAccountingDate("10.11.2012");
         addAccountingPage.chooseAccountingValue("3,50");
-        // TODO need a confirm button ...
-        // TODO check new expected list count
+        addAccountingPage.actionbar().clickConfirmButton();
+
+        accountingListPage.list().doesContain("Monatlich");
     }
 
     @Test

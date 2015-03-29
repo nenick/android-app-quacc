@@ -37,22 +37,15 @@ public class AccountingContentValues extends AbstractContentValues {
     /**
      * Short description of the accounting.
      */
-    public AccountingContentValues putName(@NonNull String value) {
-        if (value == null) throw new IllegalArgumentException("name must not be null");
-        mContentValues.put(AccountingColumns.NAME, value);
+    public AccountingContentValues putComment(@Nullable String value) {
+        mContentValues.put(AccountingColumns.COMMENT, value);
         return this;
     }
 
-
-    /**
-     * Extra description of the accounting.
-     */
-    public AccountingContentValues putDescription(@NonNull String value) {
-        if (value == null) throw new IllegalArgumentException("description must not be null");
-        mContentValues.put(AccountingColumns.DESCRIPTION, value);
+    public AccountingContentValues putCommentNull() {
+        mContentValues.putNull(AccountingColumns.COMMENT);
         return this;
     }
-
 
     public AccountingContentValues putAccountingInterval(@NonNull AccountingInterval value) {
         if (value == null) throw new IllegalArgumentException("accountingInterval must not be null");

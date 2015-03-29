@@ -14,9 +14,9 @@ import static org.mockito.BDDMockito.given;
 public class GetAccountingTypesUcTest extends RoboCoreTest {
 
     @InjectMocks
-    GetAccountingTypesUc getAccountingTypesUc;
+    GetAccountingTypesUc_ getAccountingTypesUc;
 
-    String[] accountingTypes = new String[] {"TypeA", "TypeB"};
+    String[] accountingTypes = new String[]{"TypeA", "TypeB"};
 
     @Before
     public void setUp() {

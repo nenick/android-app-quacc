@@ -5,7 +5,13 @@ import com.getbase.android.forger.Forger;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import de.nenick.quacc.database.provider.accounting.AccountingCursor;
+import de.nenick.quacc.database.provider.accounting.AccountingInterval;
+import de.nenick.quacc.database.provider.accounting.AccountingType;
 import de.nenick.quacc.database.provider.testdata.Accounting;
 import de.nenick.quacc.database.provider.testdata.TestDataGraph;
 import de.nenick.quacc.database.provider.testdata.base.DataModel;
@@ -24,10 +30,30 @@ public class AccountingRepositoryTest extends RoboDatabaseTest {
     }
 
     @Test
-    public void shouldReturnAccounts() {
+    public void shouldReturnAccountings() {
         forger.iNeed(Accounting.class).in(context.getContentResolver());
 
         AccountingCursor accountings = repository.getAccountings();
         assertThat(accountings.getCount()).isPositive();
+    }
+
+    @Test
+    public void shouldInsertAccounting() throws ParseException {
+        assertThat(repository.getAccountings().getCount()).isEqualTo(0);
+
+        SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
+        Date date = sdf.parse("21.12.2000");
+
+        repository.insertAccounting(1, AccountingType.Ausgabe, AccountingInterval.Alle_3_Monate, 2, date, 4200);
+
+        AccountingCursor accountings = repository.getAccountings();
+        assertThat(accountings.getCount()).isEqualTo(1);
+        accountings.moveToNext();
+        assertThat(accountings.getAccountId()).isEqualTo(1);
+        assertThat(accountings.getAccountingType()).isEqualTo(AccountingType.Ausgabe);
+        assertThat(accountings.getAccountingInterval()).isEqualTo(AccountingInterval.Alle_3_Monate);
+        assertThat(accountings.getAccountingCategoryId()).isEqualTo(2);
+        assertThat(accountings.getAccountingDate()).isEqualTo(date);
+        assertThat(accountings.getValue()).isEqualTo(4200);
     }
 }
