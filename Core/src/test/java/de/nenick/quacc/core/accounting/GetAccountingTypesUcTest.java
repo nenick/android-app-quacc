@@ -6,12 +6,12 @@ import org.mockito.InjectMocks;
 import org.mockito.MockitoAnnotations;
 
 import de.nenick.quacc.core.TestApplication;
-import de.nenick.quacc.core.robolectric.RobolectricSupportedTest;
+import de.nenick.quacc.core.robolectric.RoboCoreTest;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.BDDMockito.given;
 
-public class GetAccountingTypesUcTest extends RobolectricSupportedTest {
+public class GetAccountingTypesUcTest extends RoboCoreTest {
 
     @InjectMocks
     GetAccountingTypesUc getAccountingTypesUc;

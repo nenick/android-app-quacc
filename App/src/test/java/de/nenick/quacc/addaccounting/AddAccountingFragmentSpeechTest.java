@@ -16,13 +16,13 @@ import java.util.ArrayList;
 
 import de.nenick.quacc.R;
 import de.nenick.quacc.robolectric.RoboSup;
-import de.nenick.quacc.robolectric.RobolectricSupportedTest;
+import de.nenick.quacc.robolectric.RoboAppTest;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.verify;
 
-public class AddAccountingFragmentSpeechTest extends RobolectricSupportedTest {
+public class AddAccountingFragmentSpeechTest extends RoboAppTest {
 
     RoboSup<AddAccountingActivity_, AddAccountingFragment> robo = new RoboSup<>();
     RoboAddAccountingPage addAccountingPage = new RoboAddAccountingPage(robo);

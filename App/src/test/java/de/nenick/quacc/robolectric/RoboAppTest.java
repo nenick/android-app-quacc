@@ -7,5 +7,5 @@ import de.nenick.quacc.BuildConfig;
 
 @RunWith(AndroidStudioAwareRobolectricTestRunner.class)
 @Config(constants = BuildConfig.class)
-public abstract class RobolectricSupportedTest {
+public abstract class RoboAppTest {
 }

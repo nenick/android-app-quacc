@@ -5,12 +5,12 @@ import org.junit.Test;
 import de.nenick.quacc.accountinglist.AccountingListActivity_;
 import de.nenick.quacc.accountinglist.AccountingListFragment_;
 import de.nenick.quacc.accountinglist.RoboAccountingListPage;
-import de.nenick.quacc.componenttest.BaseCT;
+import de.nenick.quacc.componenttest.RoboComponentTest;
 import de.nenick.quacc.robolectric.RoboSup;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class IntitialSpec extends BaseCT {
+public class InitialAccountingListSpec extends RoboComponentTest {
 
     RoboSup<AccountingListActivity_, AccountingListFragment_> robo = new RoboSup<>();
 

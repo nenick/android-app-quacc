@@ -18,12 +18,12 @@ import java.util.Locale;
 import de.nenick.quacc.speechrecognition.SpeechListener;
 import de.nenick.quacc.speechrecognition.SpeechRecognitionWrapper;
 import de.nenick.quacc.robolectric.RoboSup;
-import de.nenick.quacc.robolectric.RobolectricSupportedTest;
+import de.nenick.quacc.robolectric.RoboAppTest;
 import de.nenick.robolectricpages.components.RoboSpinnerEntry;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class AddAccountingFragmentTest extends RobolectricSupportedTest {
+public class AddAccountingFragmentTest extends RoboAppTest {
 
     RoboSup<AddAccountingActivity_, AddAccountingFragment> robo = new RoboSup<>();
     RoboAddAccountingPage addAccountingPage = new RoboAddAccountingPage(robo);

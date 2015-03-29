@@ -15,12 +15,6 @@
         <item>Miete</item>
     </string-array>
 
-    <string-array name="accounts">
-        <item>Konto</item>
-        <item>Sparkonto</item>
-        <item>Bar</item>
-    </string-array>
-
     <string-array name="accountingList" >
         <item>Eintrag 1</item>
         <item>Eintrag 2</item>

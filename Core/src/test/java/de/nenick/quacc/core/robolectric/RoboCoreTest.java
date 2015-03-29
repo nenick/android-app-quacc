@@ -13,7 +13,7 @@ import de.nenick.quacc.core.TestApplication;
 
 @RunWith(AndroidStudioAwareRobolectricTestRunner.class)
 @Config(constants = BuildConfig.class, application = TestApplication.class)
-public abstract class RobolectricSupportedTest {
+public abstract class RoboCoreTest {
 
     @Spy
     public Context context;

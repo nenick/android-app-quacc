@@ -15,11 +15,11 @@ import de.nenick.quacc.database.provider.testdata.Accounting_Category;
 import de.nenick.quacc.database.provider.testdata.Accounting_Interval;
 import de.nenick.quacc.database.provider.testdata.base.BaseTestModel;
 import de.nenick.quacc.database.provider.testdata.base.DataModel;
-import de.nenick.quacc.database.robolectric.RobolectricSupportedTest;
+import de.nenick.quacc.database.robolectric.RoboDatabaseTest;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class AccountingDbSpec extends RobolectricSupportedTest {
+public class AccountingDbSpec extends RoboDatabaseTest {
 
     public static BaseTestModel ACCOUNT = new BaseTestModel(Account.class);
     public static BaseTestModel ACCOUNTING = new BaseTestModel(Accounting.class);

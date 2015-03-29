@@ -2,12 +2,12 @@ package de.nenick.quacc.database;
 
 import org.junit.Test;
 
-import de.nenick.quacc.database.robolectric.RobolectricSupportedTest;
+import de.nenick.quacc.database.robolectric.RoboDatabaseTest;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 
-public class AccountingTypeRepositoryTest extends RobolectricSupportedTest {
+public class AccountingTypeRepositoryTest extends RoboDatabaseTest {
 
     AccountingTypeRepository repository = new AccountingTypeRepository();
 

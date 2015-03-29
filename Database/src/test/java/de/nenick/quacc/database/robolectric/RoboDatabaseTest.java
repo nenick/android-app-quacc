@@ -15,7 +15,7 @@ import de.nenick.quacc.database.provider.QuAccSQLiteOpenHelper;
 
 @RunWith(AndroidStudioAwareRobolectricTestRunner.class)
 @Config(constants = BuildConfig.class)
-public abstract class RobolectricSupportedTest {
+public abstract class RoboDatabaseTest {
 
     public Context context;
 

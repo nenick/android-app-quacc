@@ -79,9 +79,7 @@ task generateDatabaseFiles << {
             dest buildDir
         }
     }
-
-    file("src/gen").deleteDir()
-
+    //file("src/gen").deleteDir()
     exec {
         executable "java"
         args "-jar", "$buildDir/android_contentprovider_generator-1.9.2-bundle.jar", "-i", dbSchemaPath, "-o", dbClassesPath

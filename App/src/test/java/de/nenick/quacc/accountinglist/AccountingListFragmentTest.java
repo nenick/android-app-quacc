@@ -5,12 +5,12 @@ import org.junit.Test;
 import de.nenick.quacc.TestQuAccApplication;
 import de.nenick.quacc.addaccounting.RoboAddAccountingPage;
 import de.nenick.quacc.robolectric.RoboSup;
-import de.nenick.quacc.robolectric.RobolectricSupportedTest;
+import de.nenick.quacc.robolectric.RoboAppTest;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.BDDMockito.given;
 
-public class AccountingListFragmentTest extends RobolectricSupportedTest {
+public class AccountingListFragmentTest extends RoboAppTest {
 
     RoboSup<AccountingListActivity_, AccountingListFragment_> robo = new RoboSup<>();
     RoboAccountingListPage accountingListPage = new RoboAccountingListPage(robo);
