@@ -33,7 +33,7 @@ before_script:
 
 script:
   # Execute Unit Tests
-  - ./gradlew App:test -i
+  - ./gradlew App:test
   - ./gradlew Core:test
   - ./gradlew Database:test
 
