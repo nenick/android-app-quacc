@@ -14,11 +14,11 @@ public interface DatabaseModuleBase {
 
     AccountingTypeRepository provideAccountingTypeRepository();
 
-    AccountRepository provideAccountRepository(@ForApplication Context context);
+    AccountRepository provideAccountRepository(Context context);
 
-    AccountingRepository provideAccountingRepository(@ForApplication Context context);
+    AccountingRepository provideAccountingRepository(Context context);
 
-    AccountingCategoryRepository provideAccountingCategoryRepository(@ForApplication Context context);
+    AccountingCategoryRepository provideAccountingCategoryRepository(Context context);
 
     AccountingIntervalRepository provideAccountingIntervalRepository();
 }

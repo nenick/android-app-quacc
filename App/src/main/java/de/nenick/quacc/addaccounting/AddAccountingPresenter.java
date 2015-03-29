@@ -107,7 +107,7 @@ public class AddAccountingPresenter {
             Date date = df.parse(dateString);
             addNewAccountingUc.apply(account, accountingType, accountingInterval, accountingCategory, date, value);
         } catch (ParseException e) {
-            Toast.makeText(view.getActivity(), "Das Datum Format ist unbekannt, normal ist TT.MM.JJJJ", Toast.LENGTH_LONG).show();
+            throw new IllegalStateException("Das Datum Format ist unbekannt, normal ist TT.MM.JJJJ");
         }
     }
 }

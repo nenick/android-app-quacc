@@ -46,7 +46,7 @@ public class RoboAddAccountingPage extends RoboSupPage<AddAccountingActivity_, A
     }
 
     public RoboSpinner typeSpinner() {
-        return new RoboSpinner(robo, R.id.accountingType);
+        return new RoboSpinner(robo, R.id.type);
     }
 
     public RoboTextView dateField() {

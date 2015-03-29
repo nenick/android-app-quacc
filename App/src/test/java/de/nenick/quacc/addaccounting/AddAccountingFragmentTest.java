@@ -125,6 +125,12 @@ public class AddAccountingFragmentTest extends RoboAppTest {
         addAccountingFragment.onActivityResult(123456, 0, null);
     }
 
+    @Test(expected = IllegalStateException.class)
+    public void shouldFailAtUnknownDateFormat() {
+        addAccountingPage.dateField().setText("2000.12.21");
+        addAccountingPage.actionbar().cofirmMenuItem().click();
+    }
+
     public Bundle speechResultBundle(String text) {
         ArrayList<String> speechResultText = new ArrayList<>();
         speechResultText.add(text);

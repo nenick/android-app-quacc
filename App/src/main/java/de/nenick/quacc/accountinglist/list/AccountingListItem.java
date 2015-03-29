@@ -13,7 +13,7 @@ import de.nenick.quacc.R;
 import de.nenick.quacc.database.provider.accounting.AccountingCursor;
 import de.nenick.quacc.datepicker.DatePickerFormatUtil;
 
-@EViewGroup(R.layout.listsview_item_simple)
+@EViewGroup(R.layout.fragment_accounting_list_item)
 public class AccountingListItem extends RelativeLayout {
 
     @ViewById(R.id.date)

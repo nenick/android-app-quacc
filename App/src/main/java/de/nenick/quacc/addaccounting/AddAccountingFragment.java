@@ -31,7 +31,7 @@ public class AddAccountingFragment extends Fragment {
     @ViewById(R.id.account)
     Spinner accountSpinner;
 
-    @ViewById(R.id.accountingType)
+    @ViewById(R.id.type)
     Spinner accountingTypeSpinner;
 
     @ViewById(R.id.interval)

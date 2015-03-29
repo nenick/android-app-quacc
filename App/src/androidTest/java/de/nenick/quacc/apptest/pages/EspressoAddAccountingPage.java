@@ -41,7 +41,7 @@ public class EspressoAddAccountingPage {
     }
 
     public void chooseAccountingType(String text) {
-        onView(withId(R.id.accountingType)).perform(click());
+        onView(withId(R.id.type)).perform(click());
         onView(withText(text)).perform(click());
     }
 
