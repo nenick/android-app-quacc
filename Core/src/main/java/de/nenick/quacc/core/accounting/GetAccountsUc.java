@@ -23,12 +23,12 @@ public class GetAccountsUc {
 
     public CharSequence[] apply() {
         AccountCursor accounts = accountRepository.getAccounts();
-        String[] accountsNames = new String[accounts.getCount()];
+        String[] values = new String[accounts.getCount()];
         for (int i = 0; i < accounts.getCount(); i++) {
             accounts.moveToNext();
-            accountsNames[i] = accounts.getName();
+            values[i] = accounts.getName();
         }
-        return accountsNames;
+        return values;
     }
 
     @AfterInject

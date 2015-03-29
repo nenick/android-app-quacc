@@ -13,7 +13,6 @@ import de.nenick.quacc.database.BuildConfig;
 import de.nenick.quacc.database.provider.account.AccountColumns;
 import de.nenick.quacc.database.provider.accounting.AccountingColumns;
 import de.nenick.quacc.database.provider.accountingcategory.AccountingCategoryColumns;
-import de.nenick.quacc.database.provider.accountinginterval.AccountingIntervalColumns;
 
 public class QuAccSQLiteOpenHelper extends SQLiteOpenHelper {
     private static final String TAG = QuAccSQLiteOpenHelper.class.getSimpleName();
@@ -39,13 +38,12 @@ public class QuAccSQLiteOpenHelper extends SQLiteOpenHelper {
             + AccountingColumns.ACCOUNT_ID + " INTEGER NOT NULL, "
             + AccountingColumns.NAME + " TEXT NOT NULL, "
             + AccountingColumns.DESCRIPTION + " TEXT NOT NULL, "
-            + AccountingColumns.ACCOUNTING_INTERVAL_ID + " INTEGER NOT NULL, "
+            + AccountingColumns.ACCOUNTING_INTERVAL + " INTEGER NOT NULL, "
             + AccountingColumns.ACCOUNTING_CATEGORY_ID + " INTEGER NOT NULL, "
             + AccountingColumns.ACCOUNTING_DATE + " INTEGER NOT NULL, "
             + AccountingColumns.ACCOUNTING_TYPE + " INTEGER NOT NULL, "
             + AccountingColumns.VALUE + " INTEGER NOT NULL "
             + ", CONSTRAINT fk_account_id FOREIGN KEY (" + AccountingColumns.ACCOUNT_ID + ") REFERENCES account (_id) ON DELETE CASCADE"
-            + ", CONSTRAINT fk_accounting_interval_id FOREIGN KEY (" + AccountingColumns.ACCOUNTING_INTERVAL_ID + ") REFERENCES accounting_interval (_id) ON DELETE CASCADE"
             + ", CONSTRAINT fk_accounting_category_id FOREIGN KEY (" + AccountingColumns.ACCOUNTING_CATEGORY_ID + ") REFERENCES accounting_category (_id) ON DELETE CASCADE"
             + " );";
 
@@ -54,13 +52,6 @@ public class QuAccSQLiteOpenHelper extends SQLiteOpenHelper {
             + AccountingCategoryColumns._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
             + AccountingCategoryColumns.NAME + " TEXT NOT NULL "
             + ", CONSTRAINT unique_name UNIQUE (accounting_category__name) ON CONFLICT FAIL"
-            + " );";
-
-    public static final String SQL_CREATE_TABLE_ACCOUNTING_INTERVAL = "CREATE TABLE IF NOT EXISTS "
-            + AccountingIntervalColumns.TABLE_NAME + " ( "
-            + AccountingIntervalColumns._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
-            + AccountingIntervalColumns.NAME + " TEXT NOT NULL "
-            + ", CONSTRAINT unique_name UNIQUE (accounting_interval__name) ON CONFLICT FAIL"
             + " );";
 
     // @formatter:on
@@ -120,7 +111,6 @@ public class QuAccSQLiteOpenHelper extends SQLiteOpenHelper {
         db.execSQL(SQL_CREATE_TABLE_ACCOUNT);
         db.execSQL(SQL_CREATE_TABLE_ACCOUNTING);
         db.execSQL(SQL_CREATE_TABLE_ACCOUNTING_CATEGORY);
-        db.execSQL(SQL_CREATE_TABLE_ACCOUNTING_INTERVAL);
         mOpenHelperCallbacks.onPostCreate(mContext, db);
     }
 

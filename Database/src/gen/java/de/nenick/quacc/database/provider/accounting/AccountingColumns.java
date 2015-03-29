@@ -7,7 +7,6 @@ import de.nenick.quacc.database.provider.QuAccProvider;
 import de.nenick.quacc.database.provider.account.AccountColumns;
 import de.nenick.quacc.database.provider.accounting.AccountingColumns;
 import de.nenick.quacc.database.provider.accountingcategory.AccountingCategoryColumns;
-import de.nenick.quacc.database.provider.accountinginterval.AccountingIntervalColumns;
 
 /**
  * Accounting
@@ -33,7 +32,7 @@ public class AccountingColumns implements BaseColumns {
      */
     public static final String DESCRIPTION = "accounting__description";
 
-    public static final String ACCOUNTING_INTERVAL_ID = "accounting_interval_id";
+    public static final String ACCOUNTING_INTERVAL = "accounting_interval";
 
     public static final String ACCOUNTING_CATEGORY_ID = "accounting_category_id";
 
@@ -55,7 +54,7 @@ public class AccountingColumns implements BaseColumns {
             ACCOUNT_ID,
             NAME,
             DESCRIPTION,
-            ACCOUNTING_INTERVAL_ID,
+            ACCOUNTING_INTERVAL,
             ACCOUNTING_CATEGORY_ID,
             ACCOUNTING_DATE,
             ACCOUNTING_TYPE,
@@ -69,7 +68,7 @@ public class AccountingColumns implements BaseColumns {
             if (c.equals(ACCOUNT_ID) || c.contains("." + ACCOUNT_ID)) return true;
             if (c.equals(NAME) || c.contains("." + NAME)) return true;
             if (c.equals(DESCRIPTION) || c.contains("." + DESCRIPTION)) return true;
-            if (c.equals(ACCOUNTING_INTERVAL_ID) || c.contains("." + ACCOUNTING_INTERVAL_ID)) return true;
+            if (c.equals(ACCOUNTING_INTERVAL) || c.contains("." + ACCOUNTING_INTERVAL)) return true;
             if (c.equals(ACCOUNTING_CATEGORY_ID) || c.contains("." + ACCOUNTING_CATEGORY_ID)) return true;
             if (c.equals(ACCOUNTING_DATE) || c.contains("." + ACCOUNTING_DATE)) return true;
             if (c.equals(ACCOUNTING_TYPE) || c.contains("." + ACCOUNTING_TYPE)) return true;
@@ -79,6 +78,5 @@ public class AccountingColumns implements BaseColumns {
     }
 
     public static final String PREFIX_ACCOUNT = TABLE_NAME + "__" + AccountColumns.TABLE_NAME;
-    public static final String PREFIX_ACCOUNTING_INTERVAL = TABLE_NAME + "__" + AccountingIntervalColumns.TABLE_NAME;
     public static final String PREFIX_ACCOUNTING_CATEGORY = TABLE_NAME + "__" + AccountingCategoryColumns.TABLE_NAME;
 }

@@ -54,8 +54,9 @@ public class AccountingContentValues extends AbstractContentValues {
     }
 
 
-    public AccountingContentValues putAccountingIntervalId(long value) {
-        mContentValues.put(AccountingColumns.ACCOUNTING_INTERVAL_ID, value);
+    public AccountingContentValues putAccountingInterval(@NonNull AccountingInterval value) {
+        if (value == null) throw new IllegalArgumentException("accountingInterval must not be null");
+        mContentValues.put(AccountingColumns.ACCOUNTING_INTERVAL, value.ordinal());
         return this;
     }
 

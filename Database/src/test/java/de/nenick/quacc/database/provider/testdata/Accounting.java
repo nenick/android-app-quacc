@@ -18,7 +18,7 @@ public class Accounting extends BaseModel {
     @Column(AccountingColumns.DESCRIPTION)
     String DESCRIPTION;
 
-    @Column(AccountingColumns.ACCOUNTING_INTERVAL_ID)
+    @Column(AccountingColumns.ACCOUNTING_INTERVAL)
     long ACCOUNTING_INTERVAL_ID;
 
     @Column(AccountingColumns.ACCOUNTING_CATEGORY_ID)

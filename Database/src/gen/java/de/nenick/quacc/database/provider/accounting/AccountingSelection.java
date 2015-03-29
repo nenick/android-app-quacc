@@ -8,7 +8,6 @@ import android.net.Uri;
 
 import de.nenick.quacc.database.provider.base.AbstractSelection;
 import de.nenick.quacc.database.provider.account.*;
-import de.nenick.quacc.database.provider.accountinginterval.*;
 import de.nenick.quacc.database.provider.accountingcategory.*;
 
 /**
@@ -205,65 +204,16 @@ public class AccountingSelection extends AbstractSelection<AccountingSelection> 
         return this;
     }
 
-    public AccountingSelection accountingIntervalId(long... value) {
-        addEquals(AccountingColumns.ACCOUNTING_INTERVAL_ID, toObjectArray(value));
+    public AccountingSelection accountingInterval(AccountingInterval... value) {
+        addEquals(AccountingColumns.ACCOUNTING_INTERVAL, value);
         return this;
     }
 
-    public AccountingSelection accountingIntervalIdNot(long... value) {
-        addNotEquals(AccountingColumns.ACCOUNTING_INTERVAL_ID, toObjectArray(value));
+    public AccountingSelection accountingIntervalNot(AccountingInterval... value) {
+        addNotEquals(AccountingColumns.ACCOUNTING_INTERVAL, value);
         return this;
     }
 
-    public AccountingSelection accountingIntervalIdGt(long value) {
-        addGreaterThan(AccountingColumns.ACCOUNTING_INTERVAL_ID, value);
-        return this;
-    }
-
-    public AccountingSelection accountingIntervalIdGtEq(long value) {
-        addGreaterThanOrEquals(AccountingColumns.ACCOUNTING_INTERVAL_ID, value);
-        return this;
-    }
-
-    public AccountingSelection accountingIntervalIdLt(long value) {
-        addLessThan(AccountingColumns.ACCOUNTING_INTERVAL_ID, value);
-        return this;
-    }
-
-    public AccountingSelection accountingIntervalIdLtEq(long value) {
-        addLessThanOrEquals(AccountingColumns.ACCOUNTING_INTERVAL_ID, value);
-        return this;
-    }
-
-    public AccountingSelection accountingIntervalName(String... value) {
-        addEquals(AccountingIntervalColumns.NAME, value);
-        return this;
-    }
-
-    public AccountingSelection accountingIntervalNameNot(String... value) {
-        addNotEquals(AccountingIntervalColumns.NAME, value);
-        return this;
-    }
-
-    public AccountingSelection accountingIntervalNameLike(String... value) {
-        addLike(AccountingIntervalColumns.NAME, value);
-        return this;
-    }
-
-    public AccountingSelection accountingIntervalNameContains(String... value) {
-        addContains(AccountingIntervalColumns.NAME, value);
-        return this;
-    }
-
-    public AccountingSelection accountingIntervalNameStartsWith(String... value) {
-        addStartsWith(AccountingIntervalColumns.NAME, value);
-        return this;
-    }
-
-    public AccountingSelection accountingIntervalNameEndsWith(String... value) {
-        addEndsWith(AccountingIntervalColumns.NAME, value);
-        return this;
-    }
 
     public AccountingSelection accountingCategoryId(long... value) {
         addEquals(AccountingColumns.ACCOUNTING_CATEGORY_ID, toObjectArray(value));

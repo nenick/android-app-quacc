@@ -23,13 +23,16 @@
       "nullable": false
     },
     {
-      "name": "accounting_interval_id",
-      "type": "Long",
-      "nullable": false,
-      "foreignKey": {
-        "table": "accounting_interval",
-        "onDelete": "CASCADE"
-      }
+      "name": "accounting_interval",
+      "type": "enum",
+      "enumName": "AccountingInterval",
+      "enumValues": [
+        "Einmahlig",
+        "Wöchentlich",
+        "Monatlich",
+        "Alle_3_Monate"
+      ],
+      "nullable": false
     },
     {
       "name": "accounting_category_id",

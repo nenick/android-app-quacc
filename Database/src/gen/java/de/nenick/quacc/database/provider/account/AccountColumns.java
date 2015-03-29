@@ -7,7 +7,6 @@ import de.nenick.quacc.database.provider.QuAccProvider;
 import de.nenick.quacc.database.provider.account.AccountColumns;
 import de.nenick.quacc.database.provider.accounting.AccountingColumns;
 import de.nenick.quacc.database.provider.accountingcategory.AccountingCategoryColumns;
-import de.nenick.quacc.database.provider.accountinginterval.AccountingIntervalColumns;
 
 /**
  * Consolidate the accounting.

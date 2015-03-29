@@ -21,4 +21,5 @@ apply from: 'build.novoda-android-studio.gradle'
 dependencies {
     testCompile project(':RobolectricPages')
     testCompile project(path: ':App', configuration: 'testArtifacts')
+    testCompile project(path: ':Database', configuration: 'testArtifacts')
 }

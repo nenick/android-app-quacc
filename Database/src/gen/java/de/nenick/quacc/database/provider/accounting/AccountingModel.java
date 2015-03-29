@@ -32,9 +32,11 @@ public interface AccountingModel extends BaseModel {
     String getDescription();
 
     /**
-     * Get the {@code accounting_interval_id} value.
+     * Get the {@code accounting_interval} value.
+     * Cannot be {@code null}.
      */
-    long getAccountingIntervalId();
+    @NonNull
+    AccountingInterval getAccountingInterval();
 
     /**
      * Get the {@code accounting_category_id} value.

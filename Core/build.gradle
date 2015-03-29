@@ -30,6 +30,7 @@ android {
         }
         debug {
             testCoverageEnabled = project.ext.isInstrumentedTestRun
+            buildConfigField "String", "MODULE_PATH", "\"$projectDir\""
         }
     }
 

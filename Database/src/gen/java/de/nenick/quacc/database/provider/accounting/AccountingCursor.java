@@ -8,7 +8,6 @@ import android.support.annotation.Nullable;
 
 import de.nenick.quacc.database.provider.base.AbstractCursor;
 import de.nenick.quacc.database.provider.account.*;
-import de.nenick.quacc.database.provider.accountinginterval.*;
 import de.nenick.quacc.database.provider.accountingcategory.*;
 
 /**
@@ -86,25 +85,15 @@ public class AccountingCursor extends AbstractCursor implements AccountingModel 
     }
 
     /**
-     * Get the {@code accounting_interval_id} value.
-     */
-    public long getAccountingIntervalId() {
-        Long res = getLongOrNull(AccountingColumns.ACCOUNTING_INTERVAL_ID);
-        if (res == null)
-            throw new NullPointerException("The value of 'accounting_interval_id' in the database was null, which is not allowed according to the model definition");
-        return res;
-    }
-
-    /**
-     * Name
+     * Get the {@code accounting_interval} value.
      * Cannot be {@code null}.
      */
     @NonNull
-    public String getAccountingIntervalName() {
-        String res = getStringOrNull(AccountingIntervalColumns.NAME);
-        if (res == null)
-            throw new NullPointerException("The value of 'name' in the database was null, which is not allowed according to the model definition");
-        return res;
+    public AccountingInterval getAccountingInterval() {
+        Integer intValue = getIntegerOrNull(AccountingColumns.ACCOUNTING_INTERVAL);
+        if (intValue == null)
+            throw new NullPointerException("The value of 'accounting_interval' in the database was null, which is not allowed according to the model definition");
+        return AccountingInterval.values()[intValue];
     }
 
     /**

@@ -7,6 +7,12 @@ import org.robolectric.manifest.AndroidManifest;
 import org.robolectric.res.FileFsFile;
 import org.robolectric.res.FsFile;
 
+import java.io.File;
+
+import de.nenick.quacc.BuildConfig;
+
+import static org.assertj.core.api.Assertions.assertThat;
+
 /**
  * More dynamic path resolution.
  *
@@ -17,6 +23,16 @@ public class AndroidStudioAwareRobolectricTestRunner extends RobolectricGradleTe
 
     public AndroidStudioAwareRobolectricTestRunner(Class<?> clazz) throws InitializationError {
         super(clazz);
+        String intermediatesPath = BuildConfig.MODULE_PATH + "/build//intermediates";
+        System.setProperty("java.io.tmpdir", intermediatesPath + "/test-data");
+        mkdir(intermediatesPath + "/test-data");
+    }
+
+    private void mkdir(String path) {
+        File file = new File(path);
+        if(!file.exists()) {
+            assertThat(file.mkdir()).isTrue();
+        }
     }
 
     protected AndroidManifest getAppManifest(Config config) {

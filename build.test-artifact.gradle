@@ -1,0 +1,11 @@
+task myTestsJar(type: Jar) {
+    from "src/test/java"
+}
+
+configurations {
+    testArtifacts
+}
+
+artifacts {
+    testArtifacts myTestsJar
+}

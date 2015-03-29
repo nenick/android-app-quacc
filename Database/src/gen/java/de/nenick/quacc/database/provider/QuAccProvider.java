@@ -15,7 +15,6 @@ import de.nenick.quacc.database.provider.base.BaseContentProvider;
 import de.nenick.quacc.database.provider.account.AccountColumns;
 import de.nenick.quacc.database.provider.accounting.AccountingColumns;
 import de.nenick.quacc.database.provider.accountingcategory.AccountingCategoryColumns;
-import de.nenick.quacc.database.provider.accountinginterval.AccountingIntervalColumns;
 
 public class QuAccProvider extends BaseContentProvider {
     private static final String TAG = QuAccProvider.class.getSimpleName();
@@ -37,9 +36,6 @@ public class QuAccProvider extends BaseContentProvider {
     private static final int URI_TYPE_ACCOUNTING_CATEGORY = 4;
     private static final int URI_TYPE_ACCOUNTING_CATEGORY_ID = 5;
 
-    private static final int URI_TYPE_ACCOUNTING_INTERVAL = 6;
-    private static final int URI_TYPE_ACCOUNTING_INTERVAL_ID = 7;
-
 
 
     private static final UriMatcher URI_MATCHER = new UriMatcher(UriMatcher.NO_MATCH);
@@ -51,8 +47,6 @@ public class QuAccProvider extends BaseContentProvider {
         URI_MATCHER.addURI(AUTHORITY, AccountingColumns.TABLE_NAME + "/#", URI_TYPE_ACCOUNTING_ID);
         URI_MATCHER.addURI(AUTHORITY, AccountingCategoryColumns.TABLE_NAME, URI_TYPE_ACCOUNTING_CATEGORY);
         URI_MATCHER.addURI(AUTHORITY, AccountingCategoryColumns.TABLE_NAME + "/#", URI_TYPE_ACCOUNTING_CATEGORY_ID);
-        URI_MATCHER.addURI(AUTHORITY, AccountingIntervalColumns.TABLE_NAME, URI_TYPE_ACCOUNTING_INTERVAL);
-        URI_MATCHER.addURI(AUTHORITY, AccountingIntervalColumns.TABLE_NAME + "/#", URI_TYPE_ACCOUNTING_INTERVAL_ID);
     }
 
     @Override
@@ -83,11 +77,6 @@ public class QuAccProvider extends BaseContentProvider {
                 return TYPE_CURSOR_DIR + AccountingCategoryColumns.TABLE_NAME;
             case URI_TYPE_ACCOUNTING_CATEGORY_ID:
                 return TYPE_CURSOR_ITEM + AccountingCategoryColumns.TABLE_NAME;
-
-            case URI_TYPE_ACCOUNTING_INTERVAL:
-                return TYPE_CURSOR_DIR + AccountingIntervalColumns.TABLE_NAME;
-            case URI_TYPE_ACCOUNTING_INTERVAL_ID:
-                return TYPE_CURSOR_ITEM + AccountingIntervalColumns.TABLE_NAME;
 
         }
         return null;
@@ -147,9 +136,6 @@ public class QuAccProvider extends BaseContentProvider {
                 if (AccountColumns.hasColumns(projection)) {
                     res.tablesWithJoins += " LEFT OUTER JOIN " + AccountColumns.TABLE_NAME + " AS " + AccountingColumns.PREFIX_ACCOUNT + " ON " + AccountingColumns.TABLE_NAME + "." + AccountingColumns.ACCOUNT_ID + "=" + AccountingColumns.PREFIX_ACCOUNT + "." + AccountColumns._ID;
                 }
-                if (AccountingIntervalColumns.hasColumns(projection)) {
-                    res.tablesWithJoins += " LEFT OUTER JOIN " + AccountingIntervalColumns.TABLE_NAME + " AS " + AccountingColumns.PREFIX_ACCOUNTING_INTERVAL + " ON " + AccountingColumns.TABLE_NAME + "." + AccountingColumns.ACCOUNTING_INTERVAL_ID + "=" + AccountingColumns.PREFIX_ACCOUNTING_INTERVAL + "." + AccountingIntervalColumns._ID;
-                }
                 if (AccountingCategoryColumns.hasColumns(projection)) {
                     res.tablesWithJoins += " LEFT OUTER JOIN " + AccountingCategoryColumns.TABLE_NAME + " AS " + AccountingColumns.PREFIX_ACCOUNTING_CATEGORY + " ON " + AccountingColumns.TABLE_NAME + "." + AccountingColumns.ACCOUNTING_CATEGORY_ID + "=" + AccountingColumns.PREFIX_ACCOUNTING_CATEGORY + "." + AccountingCategoryColumns._ID;
                 }
@@ -164,14 +150,6 @@ public class QuAccProvider extends BaseContentProvider {
                 res.orderBy = AccountingCategoryColumns.DEFAULT_ORDER;
                 break;
 
-            case URI_TYPE_ACCOUNTING_INTERVAL:
-            case URI_TYPE_ACCOUNTING_INTERVAL_ID:
-                res.table = AccountingIntervalColumns.TABLE_NAME;
-                res.idColumn = AccountingIntervalColumns._ID;
-                res.tablesWithJoins = AccountingIntervalColumns.TABLE_NAME;
-                res.orderBy = AccountingIntervalColumns.DEFAULT_ORDER;
-                break;
-
             default:
                 throw new IllegalArgumentException("The uri '" + uri + "' is not supported by this ContentProvider");
         }
@@ -180,7 +158,6 @@ public class QuAccProvider extends BaseContentProvider {
             case URI_TYPE_ACCOUNT_ID:
             case URI_TYPE_ACCOUNTING_ID:
             case URI_TYPE_ACCOUNTING_CATEGORY_ID:
-            case URI_TYPE_ACCOUNTING_INTERVAL_ID:
                 id = uri.getLastPathSegment();
         }
         if (id != null) {

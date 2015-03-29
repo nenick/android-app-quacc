@@ -2,18 +2,12 @@ package de.nenick.quacc.database.provider;
 
 import com.getbase.android.forger.Forger;
 
-import org.chalup.microorm.MicroOrm;
-import org.chalup.thneed.ModelGraph;
 import org.junit.Test;
 
-import de.nenick.quacc.database.provider.accounting.AccountingColumns;
 import de.nenick.quacc.database.provider.accounting.AccountingCursor;
 import de.nenick.quacc.database.provider.accounting.AccountingSelection;
-import de.nenick.quacc.database.provider.testdata.Account;
 import de.nenick.quacc.database.provider.testdata.Accounting;
-import de.nenick.quacc.database.provider.testdata.Accounting_Category;
-import de.nenick.quacc.database.provider.testdata.Accounting_Interval;
-import de.nenick.quacc.database.provider.testdata.base.BaseTestModel;
+import de.nenick.quacc.database.provider.testdata.TestDataGraph;
 import de.nenick.quacc.database.provider.testdata.base.DataModel;
 import de.nenick.quacc.database.robolectric.RoboDatabaseTest;
 
@@ -21,20 +15,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class AccountingDbSpec extends RoboDatabaseTest {
 
-    public static BaseTestModel ACCOUNT = new BaseTestModel(Account.class);
-    public static BaseTestModel ACCOUNTING = new BaseTestModel(Accounting.class);
-    public static BaseTestModel ACCOUNTING_INTERVAL = new BaseTestModel(Accounting_Interval.class);
-    public static BaseTestModel ACCOUNTING_CATEGORY = new BaseTestModel(Accounting_Category.class);
-
-    static ModelGraph<DataModel> MODEL_GRAPH = ModelGraph.of(DataModel.class)
-            .identifiedByDefault().by("_id")
-            .where()
-            .the(ACCOUNTING).references(ACCOUNT).by(AccountingColumns.ACCOUNT_ID)
-            .the(ACCOUNTING).references(ACCOUNTING_CATEGORY).by(AccountingColumns.ACCOUNTING_CATEGORY_ID)
-            .the(ACCOUNTING).references(ACCOUNTING_INTERVAL).by(AccountingColumns.ACCOUNTING_INTERVAL_ID)
-            .build();
-
-    Forger<DataModel> forger = new Forger<>(MODEL_GRAPH, new MicroOrm());
+    Forger<DataModel> forger = TestDataGraph.access();
 
     @Test
     public void forger() {
