@@ -127,7 +127,8 @@ public class AddAccountingFragmentTest extends RoboAppTest {
 
     @Test(expected = IllegalStateException.class)
     public void shouldFailAtUnknownDateFormat() {
-        addAccountingPage.dateField().setText("2000.12.21");
+        addAccountingPage.startPage();
+        addAccountingPage.dateField().setText("2000-12-21");
         addAccountingPage.actionbar().cofirmMenuItem().click();
     }
 
