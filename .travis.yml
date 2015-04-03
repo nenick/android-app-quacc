@@ -29,12 +29,13 @@ before_script:
   # Emulator Management: Create, Start
   - echo no | android create avd --force -n test -t android-21 --abi armeabi-v7a
   - emulator -avd test -no-audio -no-window &
-  
 
 script:
   # Execute Unit Tests
-  - ./gradlew App:test -i
+  - ./gradlew App:test
   
+  # don't know why but waiting at this position reduce randomly failing test starts 
+  # for App:test (exit code 137) and App:connectedCheck (ShellCommandUnresponsiveException)
   - ./android-wait-for-emulator
   
   - ./gradlew Core:test
