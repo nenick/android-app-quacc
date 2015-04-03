@@ -29,7 +29,6 @@ before_script:
   # Emulator Management: Create, Start
   - echo no | android create avd --force -n test -t android-21 --abi armeabi-v7a
   - emulator -avd test -no-skin -no-audio -no-window &
-  - ./android-wait-for-emulator
 
 script:
   # Execute Unit Tests
@@ -41,6 +40,7 @@ script:
   - ./gradlew AppCT:test
   
   # Execute Tests on Emulator
+  - ./android-wait-for-emulator
   - ./gradlew App:connectedCheck
 
   # Create coverage report
@@ -49,6 +49,6 @@ script:
   # Check lint hints
   - ./gradlew lint
 
-after_script:
-  # Report code coverage
+after_success:
+  # Only report code coverage if all tasks are successful
   - ./gradlew coveralls
