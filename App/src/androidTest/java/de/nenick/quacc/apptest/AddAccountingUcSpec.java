@@ -20,8 +20,8 @@ public class AddAccountingUcSpec extends BaseEspressoSpec {
 
     @Test
     public void shouldAddNewAccounting() {
-        startApp();
         //accountingListPage.list().doNotContain("Monatlich");
+        startApp();
         accountingListPage.clickAddButton();
         addAccountingPage.isActivePage();
         addAccountingPage.chooseAccount("Bar");
@@ -37,7 +37,7 @@ public class AddAccountingUcSpec extends BaseEspressoSpec {
 
     @Test
     public void testActionBarOverflow() {
-
+        startApp();
         accountingListPage.clickAddButton();
         addAccountingPage.isActivePage();
         addAccountingPage.chooseAccount("Bar");
