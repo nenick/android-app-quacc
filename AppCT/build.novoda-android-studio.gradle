@@ -17,6 +17,7 @@ task addTest {
 
             if(outputNode == null) {
                 new Node(node, 'output', ['url': 'file://$MODULE_DIR$/build/resources/testDebug'])
+                rewrite = true
             } else {
                 if(outputNode.attributes['url'] != 'file://$MODULE_DIR$/build/resources/testDebug') {
                     outputNode.attributes = ['url': 'file://$MODULE_DIR$/build/resources/testDebug']
@@ -26,6 +27,7 @@ task addTest {
 
             if(outputTestNode == null) {
                 new Node(node, 'output-test', ['url': 'file://$MODULE_DIR$/build/test-classes/debug'])
+                rewrite = true
             } else {
                 if(outputTestNode.attributes['url'] != 'file://$MODULE_DIR$/build/test-classes/debug') {
                     outputTestNode.attributes = ['url': 'file://$MODULE_DIR$/build/test-classes/debug']

@@ -21,7 +21,6 @@ android {
         targetSdkVersion 21
         versionCode 1
         versionName "1.0"
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
 
     buildTypes {
@@ -59,14 +58,20 @@ apply from: "../build.robolectric.gradle"
 apply from: "../build.test-artifact.gradle"
 
 dependencies {
+    // project dependencies
     releaseCompile project(path: ':Core', configuration: 'release')
     debugCompile project(path: ':Core', configuration: 'debug')
 
+    // backward compatibility
     compile 'com.android.support:appcompat-v7:21.0.3'
+
+    // style support
     compile 'com.melnykov:floatingactionbutton:1.2.0'
 
+    // unit test support
     testCompile project(':RobolectricPages')
 
+    // instrumented test support
     androidTestCompile 'com.android.support.test.espresso:espresso-core:2.0'
     androidTestCompile 'com.android.support.test:testing-support-lib:0.1'
 
