@@ -33,9 +33,8 @@ before_script:
 
 script:
   # Execute Unit Tests
-  - ./gradlew App:test
+  - ./gradlew App:test -i
   
-  # don't know why but that is the position to have less randomly failing test starts
   - ./android-wait-for-emulator
   
   - ./gradlew Core:test
