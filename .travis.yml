@@ -28,7 +28,8 @@ cache:
 before_script:
   # Emulator Management: Create, Start
   - echo no | android create avd --force -n test -t android-21 --abi armeabi-v7a
-  - emulator -avd test -no-skin -no-audio -no-window &
+  - emulator -avd test -no-audio -no-window
+  #- ./android-wait-for-emulator
 
 script:
   # Execute Unit Tests
@@ -40,7 +41,6 @@ script:
   - ./gradlew AppCT:test
   
   # Execute Tests on Emulator
-  - ./android-wait-for-emulator
   - ./gradlew App:connectedCheck
 
   # Create coverage report
