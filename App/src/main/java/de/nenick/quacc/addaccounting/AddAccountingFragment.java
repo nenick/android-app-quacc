@@ -14,6 +14,7 @@ import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EFragment;
+import org.androidannotations.annotations.FocusChange;
 import org.androidannotations.annotations.OptionsItem;
 import org.androidannotations.annotations.OptionsMenu;
 import org.androidannotations.annotations.ViewById;
@@ -45,6 +46,9 @@ public class AddAccountingFragment extends Fragment {
 
     @ViewById(R.id.value)
     EditText value;
+
+    @ViewById(R.id.comment)
+    EditText comment;
 
     @Bean
     AddAccountingPresenter presenter;
@@ -165,5 +169,9 @@ public class AddAccountingFragment extends Fragment {
     public void onDestroy() {
         super.onDestroy();
         speechRecognitionFeature.destroy();
+    }
+
+    public String getComment() {
+        return comment.getText().toString();
     }
 }

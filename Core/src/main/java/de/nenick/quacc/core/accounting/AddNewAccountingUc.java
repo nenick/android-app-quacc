@@ -26,10 +26,10 @@ public class AddNewAccountingUc {
     @Inject
     AccountingCategoryRepository accountingCategoryRepository;
 
-    public void apply(String account, String accountingType, String accountingInterval, String accountingCategory, Date date, int value) {
+    public void apply(String account, String accountingType, String accountingInterval, String accountingCategory, Date date, int value, String comment) {
         long accountId = accountRepository.getIdFor(account);
         long accountingCategoryId = accountingCategoryRepository.getIdFor(accountingCategory);
-        accountingRepository.insertAccounting(accountId, AccountingType.valueOf(accountingType), AccountingInterval.valueOf(accountingInterval), accountingCategoryId, date, value);
+        accountingRepository.insertAccounting(accountId, AccountingType.valueOf(accountingType), AccountingInterval.valueOf(accountingInterval), accountingCategoryId, date, value, comment);
     }
 
     @AfterInject

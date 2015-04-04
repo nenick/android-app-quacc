@@ -10,7 +10,6 @@ import org.androidannotations.annotations.EBean;
 
 import java.text.DateFormat;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -92,6 +91,7 @@ public class AddAccountingPresenter {
         String accountingCategory = view.getAccountingCategory();
         String dateString = view.getDate();
         int value = view.getValue();
+        String comment = view.getComment();
 
         StringBuilder msg = new StringBuilder(account)
                 .append(accountingType)
@@ -105,7 +105,7 @@ public class AddAccountingPresenter {
         DateFormat df = DatePickerFormatUtil.getDefaultDateFormat();
         try {
             Date date = df.parse(dateString);
-            addNewAccountingUc.apply(account, accountingType, accountingInterval, accountingCategory, date, value);
+            addNewAccountingUc.apply(account, accountingType, accountingInterval, accountingCategory, date, value, comment);
         } catch (ParseException e) {
             throw new IllegalStateException("Das Datum Format ist unbekannt, normal ist TT.MM.JJJJ");
         }

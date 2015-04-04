@@ -112,11 +112,12 @@ public class AddAccountingFragmentTest extends RoboAppTest {
         addAccountingPage.dialog().datePicker().pickDate(21, 12, 2012);
         addAccountingPage.dialog().datePicker().clickOk();
         addAccountingPage.valueField().setText("60.00");
+        addAccountingPage.commentField().setText("money money");
 
         addAccountingPage.actionbar().cofirmMenuItem().click();
 
         DateFormat df = DatePickerFormatUtil.getDefaultDateFormat();
-        verify(TestQuAccApplication.coreModuleMocks.addNewAccountingUc).apply("Bar", "Einnahme", "Monatlich", "Miete", df.parse("21.12.2012"), 6000);
+        verify(TestQuAccApplication.coreModuleMocks.addNewAccountingUc).apply("Bar", "Einnahme", "Monatlich", "Miete", df.parse("21.12.2012"), 6000, "money money");
     }
 
     @Test(expected = IllegalStateException.class)
