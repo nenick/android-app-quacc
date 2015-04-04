@@ -24,6 +24,16 @@ public class RoboSpinner extends RoboBaseComponent {
         return spinnerEntries;
     }
 
+    public RoboSpinnerEntry entry(String text) {
+        for (RoboSpinnerEntry entry : entries()) {
+            if (entry.getText().equals(text)) {
+                return entry;
+            }
+        }
+
+        throw new IllegalStateException("No entry found with text " + text);
+    }
+
     public RoboSpinnerEntry selectedEntry() {
         return new RoboSpinnerEntry(robo, spinner, spinner.getSelectedItemPosition());
     }
