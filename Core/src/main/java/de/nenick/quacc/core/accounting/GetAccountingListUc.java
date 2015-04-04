@@ -1,26 +1,20 @@
 package de.nenick.quacc.core.accounting;
 
-import org.androidannotations.annotations.AfterInject;
+import android.content.Context;
+
 import org.androidannotations.annotations.EBean;
+import org.androidannotations.annotations.RootContext;
 
-import javax.inject.Inject;
-
-import de.nenick.quacc.dagger.DaggerSupport;
-import de.nenick.quacc.database.AccountingRepository;
 import de.nenick.quacc.database.provider.accounting.AccountingCursor;
+import de.nenick.quacc.database.provider.accounting.AccountingSelection;
 
 @EBean
 public class GetAccountingListUc {
 
-    @Inject
-    AccountingRepository accountingRepository;
+    @RootContext
+    Context context;
 
     public AccountingCursor apply() {
-        return accountingRepository.getAccountings();
-    }
-
-    @AfterInject
-    public void afterInject() {
-        DaggerSupport.inject(this);
+        return new AccountingSelection().query(context.getContentResolver());
     }
 }

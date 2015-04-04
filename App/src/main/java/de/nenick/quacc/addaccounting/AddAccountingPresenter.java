@@ -80,7 +80,7 @@ public class AddAccountingPresenter {
 
     public void onPicketDate(int resultCode, Intent data) {
         if (resultCode == Activity.RESULT_OK) {
-            view.setDate(datePickerFormatUtil.fromResultIntent(data));
+            view.showDate(datePickerFormatUtil.fromResultIntent(data));
         }
     }
 

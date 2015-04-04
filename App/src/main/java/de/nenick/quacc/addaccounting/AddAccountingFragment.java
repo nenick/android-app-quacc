@@ -14,7 +14,6 @@ import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EFragment;
-import org.androidannotations.annotations.FocusChange;
 import org.androidannotations.annotations.OptionsItem;
 import org.androidannotations.annotations.OptionsMenu;
 import org.androidannotations.annotations.ViewById;
@@ -56,10 +55,6 @@ public class AddAccountingFragment extends Fragment {
     @Bean
     SpeechRecognitionFeature speechRecognitionFeature;
 
-    public static AddAccountingFragment build() {
-        return AddAccountingFragment_.builder().build();
-    }
-
     @AfterViews
     protected void onAfterViews() {
         presenter.onViewCreated(this);
@@ -73,8 +68,10 @@ public class AddAccountingFragment extends Fragment {
         speechRecognitionFeature.onPause();
     }
 
-    public void showDate(String dateString) {
-        date.setText(dateString);
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        speechRecognitionFeature.destroy();
     }
 
     @Click(R.id.date)
@@ -104,7 +101,7 @@ public class AddAccountingFragment extends Fragment {
     private void closeSoftKeyboard() {
         InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
         View currentFocus = getActivity().getCurrentFocus();
-        if(currentFocus != null) {
+        if (currentFocus != null) {
             imm.hideSoftInputFromWindow(currentFocus.getWindowToken(), 0);
         }
     }
@@ -115,10 +112,18 @@ public class AddAccountingFragment extends Fragment {
         accountSpinner.setAdapter(adapter);
     }
 
+    public String getAccount() {
+        return accountSpinner.getSelectedItem().toString();
+    }
+
     public void showAccountingTypes(CharSequence[] stringArray) {
         ArrayAdapter<CharSequence> adapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_item, stringArray);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         accountingTypeSpinner.setAdapter(adapter);
+    }
+
+    public String getAccountingType() {
+        return accountingTypeSpinner.getSelectedItem().toString();
     }
 
     public void showAccountingIntervals(CharSequence[] stringArray) {
@@ -127,48 +132,34 @@ public class AddAccountingFragment extends Fragment {
         accountingIntervalSpinner.setAdapter(adapter);
     }
 
+    public String getAccountingInterval() {
+        return accountingIntervalSpinner.getSelectedItem().toString();
+    }
+
     public void showAccountingCategories(CharSequence[] stringArray) {
         ArrayAdapter<CharSequence> adapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_item, stringArray);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         accountingCategorySpinner.setAdapter(adapter);
     }
 
-    public void showRecognizedText(String recognizedText) {
-        ((TextView) getActivity().findViewById(R.id.speechResult)).setText(recognizedText);
-    }
-
-    public String getAccount() {
-        return accountSpinner.getSelectedItem().toString();
-    }
-
-    public String getAccountingType() {
-        return accountingTypeSpinner.getSelectedItem().toString();
-    }
-
     public String getAccountingCategory() {
         return accountingCategorySpinner.getSelectedItem().toString();
     }
 
-    public String getAccountingInterval() {
-        return accountingIntervalSpinner.getSelectedItem().toString();
+    public void showRecognizedText(String recognizedText) {
+        ((TextView) getActivity().findViewById(R.id.speechResult)).setText(recognizedText);
+    }
+
+    public void showDate(String dateString) {
+        date.setText(dateString);
     }
 
     public String getDate() {
         return date.getText().toString();
     }
 
-    public void setDate(String date) {
-        this.date.setText(date);
-    }
-
     public int getValue() {
         return Integer.parseInt(value.getText().toString().replace(",", "").replace(".", ""));
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        speechRecognitionFeature.destroy();
     }
 
     public String getComment() {

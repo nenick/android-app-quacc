@@ -44,14 +44,13 @@ android {
 
 apply from: "build.apt.gradle"
 apply from: "../build.androidannotations.gradle"
-apply from: "../build.dagger.gradle"
 apply from: "../build.robolectric.gradle"
 
 // add compile main sources for test runs https://github.com/nenick/AndroidStudioAndRobolectric/issues/7
 afterEvaluate { project ->
     android.libraryVariants.each { variant ->
-        tasks.getByName("test${ variant.name.capitalize()}") {
-            dependsOn "assemble${ variant.name.capitalize()}"
+        tasks.getByName("test${variant.name.capitalize()}") {
+            dependsOn "assemble${variant.name.capitalize()}"
         }
     }
 }
@@ -59,4 +58,5 @@ afterEvaluate { project ->
 dependencies {
     releaseCompile project(path: ':Database', configuration: 'release')
     debugCompile project(path: ':Database', configuration: 'debug')
+    testCompile project(path: ':Database', configuration: 'testArtifacts')
 }

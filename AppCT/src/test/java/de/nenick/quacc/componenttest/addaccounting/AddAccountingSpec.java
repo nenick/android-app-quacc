@@ -8,8 +8,8 @@ import de.nenick.quacc.addaccounting.AddAccountingActivity_;
 import de.nenick.quacc.addaccounting.AddAccountingFragment;
 import de.nenick.quacc.addaccounting.RoboAddAccountingPage;
 import de.nenick.quacc.componenttest.RoboComponentTestBase;
-import de.nenick.quacc.database.AccountingRepository;
-import de.nenick.quacc.database.AccountingRepository_;
+import de.nenick.quacc.core.accounting.GetAccountingListUc;
+import de.nenick.quacc.core.accounting.GetAccountingListUc_;
 import de.nenick.quacc.database.provider.accounting.AccountingCursor;
 import de.nenick.quacc.database.provider.accounting.AccountingInterval;
 import de.nenick.quacc.database.provider.accounting.AccountingType;
@@ -22,17 +22,17 @@ public class AddAccountingSpec extends RoboComponentTestBase {
 
     RoboSup<AddAccountingActivity_, AddAccountingFragment> robo = new RoboSup<>();
     RoboAddAccountingPage addAccountingPage = new RoboAddAccountingPage(robo);
-    AccountingRepository accountingRepository;
+    GetAccountingListUc getAccountingListUc;
 
     @Before
     public void setUp() {
-        accountingRepository = AccountingRepository_.getInstance_(context);
+        getAccountingListUc = GetAccountingListUc_.getInstance_(context);
     }
 
     @Test
     public void shouldAddNewAccountingWithGivenInputValues() {
         addAccountingPage.startPage();
-        assertThat(accountingRepository.getAccountings().getCount()).isZero();
+        assertThat(getAccountingListUc.apply().getCount()).isZero();
 
         addAccountingPage.accountSpinner().entry("Bar").select();
         addAccountingPage.intervalSpinner().entry("Alle_3_Monate").select();
@@ -44,7 +44,7 @@ public class AddAccountingSpec extends RoboComponentTestBase {
 
         addAccountingPage.actionbar().cofirmMenuItem().click();
 
-        AccountingCursor accountings = accountingRepository.getAccountings();
+        AccountingCursor accountings = getAccountingListUc.apply();
         assertThat(accountings.getCount()).isEqualTo(1);
         accountings.moveToFirst();
         assertThat(accountings.getAccountName()).isEqualTo("Bar");
@@ -59,12 +59,12 @@ public class AddAccountingSpec extends RoboComponentTestBase {
     @Test
     public void shouldAcceptEmptyComment() {
         addAccountingPage.startPage();
-        assertThat(accountingRepository.getAccountings().getCount()).isZero();
+        assertThat(getAccountingListUc.apply().getCount()).isZero();
 
         addAccountingPage.commentField().setText("");
         addAccountingPage.actionbar().cofirmMenuItem().click();
 
-        AccountingCursor accountings = accountingRepository.getAccountings();
+        AccountingCursor accountings = getAccountingListUc.apply();
         assertThat(accountings.getCount()).isEqualTo(1);
         accountings.moveToFirst();
         assertThat(accountings.getComment()).isEqualTo("");
@@ -73,24 +73,24 @@ public class AddAccountingSpec extends RoboComponentTestBase {
     @Test
     public void shouldNotAcceptZeroValue() {
         addAccountingPage.startPage();
-        assertThat(accountingRepository.getAccountings().getCount()).isZero();
+        assertThat(getAccountingListUc.apply().getCount()).isZero();
 
         addAccountingPage.valueField().setText("0,00");
         addAccountingPage.actionbar().cofirmMenuItem().click();
-        assertThat(accountingRepository.getAccountings().getCount()).isZero();
+        assertThat(getAccountingListUc.apply().getCount()).isZero();
     }
 
     @Test
     public void shouldOnlyAcceptValidValues() {
         addAccountingPage.startPage();
-        assertThat(accountingRepository.getAccountings().getCount()).isZero();
+        assertThat(getAccountingListUc.apply().getCount()).isZero();
 
         addAccountingPage.valueField().setText("aa");
         addAccountingPage.actionbar().cofirmMenuItem().click();
-        assertThat(accountingRepository.getAccountings().getCount()).isZero();
+        assertThat(getAccountingListUc.apply().getCount()).isZero();
 
         addAccountingPage.valueField().setText("00");
         addAccountingPage.actionbar().cofirmMenuItem().click();
-        assertThat(accountingRepository.getAccountings().getCount()).isZero();
+        assertThat(getAccountingListUc.apply().getCount()).isZero();
     }
 }

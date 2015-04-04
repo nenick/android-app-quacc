@@ -24,7 +24,7 @@ public class AddAccountingActivity extends ActionBarActivity {
         // If the Fragment is non-null, then it is currently being
         // retained across a configuration change.
         if (fragmentManager.findFragmentByTag(TAG_FRAGMENT) == null) {
-            fragmentManager.beginTransaction().add(R.id.container, AddAccountingFragment.build(), TAG_FRAGMENT).commit();
+            fragmentManager.beginTransaction().add(R.id.container, AddAccountingFragment_.builder().build(), TAG_FRAGMENT).commit();
         }
     }
 }

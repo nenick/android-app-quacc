@@ -1,25 +1,18 @@
 package de.nenick.quacc.core.accounting;
 
-import org.androidannotations.annotations.AfterInject;
 import org.androidannotations.annotations.EBean;
 
-import javax.inject.Inject;
-
-import de.nenick.quacc.dagger.DaggerSupport;
-import de.nenick.quacc.database.AccountingTypeRepository;
+import de.nenick.quacc.database.provider.accounting.AccountingType;
 
 @EBean
 public class GetAccountingTypesUc {
 
-    @Inject
-    AccountingTypeRepository accountingTypeRepository;
-
-    @AfterInject
-    protected void afterInject() {
-        DaggerSupport.inject(this);
-    }
-
     public CharSequence[] apply() {
-        return accountingTypeRepository.getAccountingTypes();
+        AccountingType[] values = AccountingType.values();
+        CharSequence[] types = new CharSequence[values.length];
+        for (int i = 0; i < values.length; i++) {
+            types[i] = values[i].name();
+        }
+        return types;
     }
 }

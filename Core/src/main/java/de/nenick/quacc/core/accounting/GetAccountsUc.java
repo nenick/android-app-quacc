@@ -1,32 +1,27 @@
 package de.nenick.quacc.core.accounting;
 
-import org.androidannotations.annotations.AfterInject;
+import android.content.Context;
+
 import org.androidannotations.annotations.EBean;
+import org.androidannotations.annotations.RootContext;
 
-import javax.inject.Inject;
-
-import de.nenick.quacc.dagger.DaggerSupport;
-import de.nenick.quacc.database.AccountRepository;
 import de.nenick.quacc.database.provider.account.AccountCursor;
+import de.nenick.quacc.database.provider.account.AccountSelection;
 
 @EBean
 public class GetAccountsUc {
 
-    @Inject
-    AccountRepository accountRepository;
+    @RootContext
+    Context context;
 
     public CharSequence[] apply() {
-        AccountCursor accounts = accountRepository.getAccounts();
+        AccountCursor accounts = new AccountSelection().query(context.getContentResolver());
+
         String[] values = new String[accounts.getCount()];
         for (int i = 0; i < accounts.getCount(); i++) {
             accounts.moveToNext();
             values[i] = accounts.getName();
         }
         return values;
-    }
-
-    @AfterInject
-    protected void afterInject() {
-        DaggerSupport.inject(this);
     }
 }
