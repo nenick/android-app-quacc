@@ -6,7 +6,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import de.nenick.quacc.database.provider.accounting.AccountingCursor;
@@ -16,6 +15,7 @@ import de.nenick.quacc.database.provider.testdata.Accounting;
 import de.nenick.quacc.database.provider.testdata.TestDataGraph;
 import de.nenick.quacc.database.provider.testdata.base.DataModel;
 import de.nenick.quacc.database.robolectric.RoboDatabaseTest;
+import de.nenick.quacc.database.tools.TestDatabaseDateUtil;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -23,6 +23,8 @@ public class AccountingRepositoryTest extends RoboDatabaseTest {
 
     Forger<DataModel> forger = TestDataGraph.access();
     AccountingRepository repository;
+
+    Date date = TestDatabaseDateUtil.parse("21.12.2000");
 
     @Before
     public void setUp() {
@@ -41,10 +43,7 @@ public class AccountingRepositoryTest extends RoboDatabaseTest {
     public void shouldInsertAccounting() throws ParseException {
         assertThat(repository.getAccountings().getCount()).isEqualTo(0);
 
-        SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
-        Date date = sdf.parse("21.12.2000");
-
-        repository.insertAccounting(1, AccountingType.Ausgabe, AccountingInterval.Alle_3_Monate, 2, date, 4200);
+        repository.insertAccounting(1, AccountingType.Ausgabe, AccountingInterval.Alle_3_Monate, 2, date, 4200, "my comment");
 
         AccountingCursor accountings = repository.getAccountings();
         assertThat(accountings.getCount()).isEqualTo(1);
@@ -55,5 +54,6 @@ public class AccountingRepositoryTest extends RoboDatabaseTest {
         assertThat(accountings.getAccountingCategoryId()).isEqualTo(2);
         assertThat(accountings.getAccountingDate()).isEqualTo(date);
         assertThat(accountings.getValue()).isEqualTo(4200);
+        assertThat(accountings.getComment()).isEqualTo("my comment");
     }
 }

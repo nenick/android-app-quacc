@@ -25,14 +25,14 @@ public class AccountingRepository {
         return new AccountingSelection().query(context.getContentResolver());
     }
 
-    public void insertAccounting(long accountId, AccountingType accountingType, AccountingInterval accountingInterval, long accountingCategoryId, Date date, int value) {
+    public void insertAccounting(long accountId, AccountingType accountingType, AccountingInterval accountingInterval, long accountingCategoryId, Date date, int value, String comment) {
         new AccountingContentValues()
                 .putAccountId(accountId)
                 .putAccountingType(accountingType)
                 .putAccountingInterval(accountingInterval)
                 .putAccountingCategoryId(accountingCategoryId)
                 .putAccountingDate(date)
+                .putComment(comment)
                 .putValue(value).insert(context.getContentResolver());
-
     }
 }
