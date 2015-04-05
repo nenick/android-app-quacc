@@ -80,6 +80,9 @@ dependencies {
 
 afterEvaluate {
     tasks.testDebug {
+        testLogging {
+            events "passed", "skipped", "failed", "standardOut", "standardError"
+        }
         jvmArgs "-XX:MaxPermSize=512m"
     }
 }
