@@ -14,8 +14,8 @@ env:
     # increase timout should avoid ShellCommandUnresponsiveException but looks like value hasn't any effect
     - ADB_INSTALL_TIMEOUT=8 # minutes (2 minutes by default)
     # The encrypted COVERITY_SCAN_TOKEN, created via the "travis encrypt" command using the project repo's public key
-   - secure: "cZvhAS5aQleOOk65Zuz58IEWYAfB7ptx6Mkf1n31Q/Fs3u+qPOA6GIwEFvtKNcHIclAQe8aDZl6fwyRpl/90lPIkgoXCI6A/YV7zMJhXBQOm7Rhe5IPoA+UkwV8Oz4wA/TBhu6qkOqUxDVvL3S+MYAKPVmxHAoCzkGKUAtjEuKk="
-    
+    - secure: "cZvhAS5aQleOOk65Zuz58IEWYAfB7ptx6Mkf1n31Q/Fs3u+qPOA6GIwEFvtKNcHIclAQe8aDZl6fwyRpl/90lPIkgoXCI6A/YV7zMJhXBQOm7Rhe5IPoA+UkwV8Oz4wA/TBhu6qkOqUxDVvL3S+MYAKPVmxHAoCzkGKUAtjEuKk="
+
 android:
   components:
     # The BuildTools version used by your project
