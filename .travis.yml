@@ -6,6 +6,12 @@ sudo: false
 
 env:
   global:
+    # Initiating clean Gradle output (clean the log first when you rebuild)
+    - TERM=dumb
+    # Amount of memory granted to Gradle JVM
+    # should avoid the randomly failing test starts for App:test (exit code 137)
+    - GRADLE_OPTS="-Xmx512m -XX:MaxPermSize=512m"
+    # increase timout should avoid ShellCommandUnresponsiveException but looks like value hasn't any effect
     - ADB_INSTALL_TIMEOUT=8 # minutes (2 minutes by default)
     
 android:
