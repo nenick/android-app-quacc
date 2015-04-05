@@ -73,7 +73,7 @@ addons:
     notification_email: kuchler.nico@gmail.com
     # The command that will be added as an argument to "cov-build" to compile your project for analysis,
     # ** likely specific to your build **
-    build_command: assembleDebug
+    build_command: ./gradlew assembleDebug
     # Selecting branches that will run analysis. We recommend leaving this set to 'coverity_scan'.
     # Take care in resource usage, and consider the build frequency allowances https://scan.coverity.com/faq#frequency
     branch_pattern: master
