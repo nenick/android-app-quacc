@@ -1,7 +1,6 @@
 package de.nenick.quacc.addaccounting;
 
-import android.os.Bundle;
-import android.speech.SpeechRecognizer;
+import android.graphics.Color;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -12,10 +11,10 @@ import org.mockito.MockitoAnnotations;
 
 import java.text.DateFormat;
 import java.text.ParseException;
-import java.util.ArrayList;
 import java.util.List;
 
 import de.nenick.quacc.TestQuAccApplication;
+import de.nenick.quacc.core.accounting.ParseAccountingValueUc;
 import de.nenick.quacc.datepicker.DatePickerFormatUtil;
 import de.nenick.quacc.robolectric.RoboAppTest;
 import de.nenick.quacc.robolectric.RoboSup;
@@ -27,6 +26,8 @@ import static de.nenick.quacc.TestDateUtil.day;
 import static de.nenick.quacc.TestDateUtil.month;
 import static de.nenick.quacc.TestDateUtil.year;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.BDDMockito.given;
+import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.verify;
 
 public class AddAccountingFragmentTest extends RoboAppTest {
@@ -102,6 +103,7 @@ public class AddAccountingFragmentTest extends RoboAppTest {
 
     @Test
     public void shouldAddAccounting() throws ParseException {
+        given(TestQuAccApplication.coreModuleMocks.parseAccountingValueUc.apply(anyString())).willReturn(new ParseAccountingValueUc.Result(ParseAccountingValueUc.ParseResult.Successful));
         addAccountingPage.startPage();
 
         addAccountingPage.accountSpinner().entries().get(2).select();
@@ -117,7 +119,7 @@ public class AddAccountingFragmentTest extends RoboAppTest {
         addAccountingPage.actionbar().cofirmMenuItem().click();
 
         DateFormat df = DatePickerFormatUtil.getDefaultDateFormat();
-        verify(TestQuAccApplication.coreModuleMocks.addNewAccountingUc).apply("Bar", "Einnahme", "Monatlich", "Miete", df.parse("21.12.2012"), 6000, "money money");
+        verify(TestQuAccApplication.coreModuleMocks.addNewAccountingUc).apply("Bar", "Einnahme", "Monatlich", "Miete", df.parse("21.12.2012"), 0, "money money");
     }
 
     @Test(expected = IllegalStateException.class)
@@ -128,16 +130,18 @@ public class AddAccountingFragmentTest extends RoboAppTest {
 
     @Test(expected = IllegalStateException.class)
     public void shouldFailAtUnknownDateFormat() {
+        given(TestQuAccApplication.coreModuleMocks.parseAccountingValueUc.apply(anyString())).willReturn(new ParseAccountingValueUc.Result(ParseAccountingValueUc.ParseResult.Successful));
         addAccountingPage.startPage();
         addAccountingPage.dateField().setText("2000-12-21");
         addAccountingPage.actionbar().cofirmMenuItem().click();
     }
 
-    public Bundle speechResultBundle(String text) {
-        ArrayList<String> speechResultText = new ArrayList<>();
-        speechResultText.add(text);
-        Bundle speechResultBundle = new Bundle();
-        speechResultBundle.putStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION, speechResultText);
-        return speechResultBundle;
+    @Test
+    public void shouldGiveFeedbackForInvalidAccountingValue() {
+        addAccountingPage.startPage();
+        assertThat(addAccountingPage.valueErrorField().getText()).isEmpty();
+        given(TestQuAccApplication.coreModuleMocks.parseAccountingValueUc.apply(anyString())).willReturn(new ParseAccountingValueUc.Result(ParseAccountingValueUc.ParseResult.ZeroValue));
+        addAccountingPage.actionbar().cofirmMenuItem().click();
+        assertThat(addAccountingPage.valueErrorField().getText()).isNotEmpty();
     }
 }

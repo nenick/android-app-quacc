@@ -18,11 +18,11 @@ public class RoboListViewEntry extends RoboBaseComponent {
         this.listView = listView;
         this.position = position;
         this.listChildView = listView.getChildAt(position);
-        if(listChildView == null) throw new IllegalArgumentException("listView entry is null");
+        if (listChildView == null) throw new IllegalArgumentException("listView entry is null");
     }
 
     public String getText() {
-        if(!isSimpleTextView()) {
+        if (!isSimpleTextView()) {
             throw new IllegalStateException("The listView entry is not a simple textView. You should use getText(int resourceId) instead.");
         }
         return ((TextView) listChildView).getText().toString();

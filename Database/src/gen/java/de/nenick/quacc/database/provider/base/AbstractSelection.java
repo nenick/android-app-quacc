@@ -1,11 +1,11 @@
 package de.nenick.quacc.database.provider.base;
 
+import android.content.ContentResolver;
+import android.net.Uri;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
-import android.content.ContentResolver;
-import android.net.Uri;
 
 public abstract class AbstractSelection<T extends AbstractSelection<?>> {
     private static final String EQ = "=?";
@@ -250,7 +250,7 @@ public abstract class AbstractSelection<T extends AbstractSelection<?>> {
     }
 
     protected Object[] toObjectArray(Boolean value) {
-        return new Object[] { value };
+        return new Object[]{value};
     }
 
 

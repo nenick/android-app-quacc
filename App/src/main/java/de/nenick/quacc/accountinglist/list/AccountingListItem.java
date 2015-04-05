@@ -52,9 +52,9 @@ public class AccountingListItem extends RelativeLayout {
     private String createValueString(AccountingCursor accountingCursor) {
         int value = accountingCursor.getValue();
         String valueString = String.valueOf(value);
-        if(value < 10) {
+        if (value < 10) {
             valueString = "0,0" + valueString;
-        } else if(value < 100) {
+        } else if (value < 100) {
             valueString = "0," + valueString;
         } else {
             String decimal = valueString.substring(valueString.length() - 2, valueString.length());

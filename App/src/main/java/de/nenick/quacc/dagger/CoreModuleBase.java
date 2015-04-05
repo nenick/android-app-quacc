@@ -9,6 +9,7 @@ import de.nenick.quacc.core.accounting.GetAccountingIntervalsUc;
 import de.nenick.quacc.core.accounting.GetAccountingListUc;
 import de.nenick.quacc.core.accounting.GetAccountingTypesUc;
 import de.nenick.quacc.core.accounting.GetAccountsUc;
+import de.nenick.quacc.core.accounting.ParseAccountingValueUc;
 import de.nenick.quacc.core.speechinterpretation.RecognizeAccountingTypeUc;
 
 
@@ -27,4 +28,6 @@ public interface CoreModuleBase {
     GetAccountingListUc provideGetAccountingListUc(Context context);
 
     AddNewAccountingUc provideAddNewAccountingUc(Context context);
+
+    ParseAccountingValueUc provideParseAccountingValueUc();
 }

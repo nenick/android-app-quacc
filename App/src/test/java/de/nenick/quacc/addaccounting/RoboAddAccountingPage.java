@@ -100,4 +100,8 @@ public class RoboAddAccountingPage extends RoboSupPage<AddAccountingActivity_, A
     public RoboTextView commentField() {
         return new RoboTextView(robo, R.id.comment);
     }
+
+    public RoboTextView valueErrorField() {
+        return new RoboTextView(robo, R.id.valueError);
+    }
 }

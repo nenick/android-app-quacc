@@ -21,7 +21,7 @@ public abstract class AbstractContentValues {
 
     /**
      * Inserts a row into a table using the values stored by this object.
-     * 
+     *
      * @param contentResolver The content resolver to use.
      */
     public Uri insert(ContentResolver contentResolver) {

@@ -18,6 +18,7 @@ import de.nenick.quacc.core.accounting.GetAccountingTypesUc;
 import de.nenick.quacc.core.accounting.GetAccountingTypesUc_;
 import de.nenick.quacc.core.accounting.GetAccountsUc;
 import de.nenick.quacc.core.accounting.GetAccountsUc_;
+import de.nenick.quacc.core.accounting.ParseAccountingValueUc;
 import de.nenick.quacc.core.speechinterpretation.RecognizeAccountingTypeUc;
 import de.nenick.quacc.core.speechinterpretation.RecognizeAccountingTypeUc_;
 
@@ -67,5 +68,11 @@ public class CoreModule implements CoreModuleBase {
     @Provides
     public AddNewAccountingUc provideAddNewAccountingUc(@ForApplication Context context) {
         return AddNewAccountingUc_.getInstance_(context);
+    }
+
+    @Override
+    @Provides
+    public ParseAccountingValueUc provideParseAccountingValueUc() {
+        return new ParseAccountingValueUc();
     }
 }

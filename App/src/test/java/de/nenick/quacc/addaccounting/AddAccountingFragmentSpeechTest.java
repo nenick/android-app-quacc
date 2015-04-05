@@ -15,8 +15,8 @@ import org.robolectric.RuntimeEnvironment;
 import java.util.ArrayList;
 
 import de.nenick.quacc.R;
-import de.nenick.quacc.robolectric.RoboSup;
 import de.nenick.quacc.robolectric.RoboAppTest;
+import de.nenick.quacc.robolectric.RoboSup;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Matchers.any;

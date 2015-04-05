@@ -57,40 +57,18 @@ public class AddAccountingSpec extends RoboComponentTestBase {
     }
 
     @Test
-    public void shouldAcceptEmptyComment() {
-        addAccountingPage.startPage();
-        assertThat(getAccountingListUc.apply().getCount()).isZero();
-
-        addAccountingPage.commentField().setText("");
-        addAccountingPage.actionbar().cofirmMenuItem().click();
-
-        AccountingCursor accountings = getAccountingListUc.apply();
-        assertThat(accountings.getCount()).isEqualTo(1);
-        accountings.moveToFirst();
-        assertThat(accountings.getComment()).isEqualTo("");
-    }
-
-    @Test
-    public void shouldNotAcceptZeroValue() {
-        addAccountingPage.startPage();
-        assertThat(getAccountingListUc.apply().getCount()).isZero();
-
-        addAccountingPage.valueField().setText("0,00");
-        addAccountingPage.actionbar().cofirmMenuItem().click();
-        assertThat(getAccountingListUc.apply().getCount()).isZero();
-    }
-
-    @Test
-    public void shouldOnlyAcceptValidValues() {
+    public void shouldGiveFeedbackForInvalidValues() {
         addAccountingPage.startPage();
         assertThat(getAccountingListUc.apply().getCount()).isZero();
 
         addAccountingPage.valueField().setText("aa");
         addAccountingPage.actionbar().cofirmMenuItem().click();
         assertThat(getAccountingListUc.apply().getCount()).isZero();
+        assertThat(addAccountingPage.valueErrorField().getText()).contains("NoValidNumber");
 
         addAccountingPage.valueField().setText("00");
         addAccountingPage.actionbar().cofirmMenuItem().click();
         assertThat(getAccountingListUc.apply().getCount()).isZero();
+        assertThat(addAccountingPage.valueErrorField().getText()).contains("ZeroValue");
     }
 }

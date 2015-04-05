@@ -5,17 +5,17 @@ package de.nenick.quacc.database.provider.accounting;
  */
 public enum AccountingType {
     /**
-     * 
+     *
      */
     Ausgabe,
 
     /**
-     * 
+     *
      */
     Einnahme,
 
     /**
-     * 
+     *
      */
     Übertrag,
 

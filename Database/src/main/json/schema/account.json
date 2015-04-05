@@ -14,7 +14,6 @@
       "nullable": true
     }
   ],
-
   "constraints": [
     {
       "name": "unique_name",

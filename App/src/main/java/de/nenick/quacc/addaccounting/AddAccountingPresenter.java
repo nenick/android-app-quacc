@@ -2,7 +2,6 @@ package de.nenick.quacc.addaccounting;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.widget.Toast;
 
 import org.androidannotations.annotations.AfterInject;
 import org.androidannotations.annotations.Bean;
@@ -20,9 +19,12 @@ import de.nenick.quacc.core.accounting.GetAccountingCategoriesUc;
 import de.nenick.quacc.core.accounting.GetAccountingIntervalsUc;
 import de.nenick.quacc.core.accounting.GetAccountingTypesUc;
 import de.nenick.quacc.core.accounting.GetAccountsUc;
+import de.nenick.quacc.core.accounting.ParseAccountingValueUc;
 import de.nenick.quacc.core.speechinterpretation.RecognizeAccountingTypeUc;
 import de.nenick.quacc.dagger.DaggerSupport;
 import de.nenick.quacc.datepicker.DatePickerFormatUtil;
+
+import static de.nenick.quacc.core.accounting.ParseAccountingValueUc.ParseResult.*;
 
 @EBean
 public class AddAccountingPresenter {
@@ -46,6 +48,9 @@ public class AddAccountingPresenter {
 
     @Inject
     AddNewAccountingUc addNewAccountingUc;
+
+    @Inject
+    ParseAccountingValueUc parseAccountingValueUc;
 
     @Bean
     DatePickerFormatUtil datePickerFormatUtil;
@@ -90,24 +95,22 @@ public class AddAccountingPresenter {
         String accountingInterval = view.getAccountingInterval();
         String accountingCategory = view.getAccountingCategory();
         String dateString = view.getDate();
-        int value = view.getValue();
+        String value = view.getValue();
         String comment = view.getComment();
 
-        StringBuilder msg = new StringBuilder(account)
-                .append(accountingType)
-                .append(accountingInterval)
-                .append(accountingCategory)
-                .append(dateString)
-                .append(value);
-        Toast.makeText(view.getActivity(), msg, Toast.LENGTH_LONG).show();
-        view.getActivity().finish();
+        ParseAccountingValueUc.Result valueResult = parseAccountingValueUc.apply(value);
+        if(valueResult.report == Successful) {
+            view.getActivity().finish();
 
-        DateFormat df = DatePickerFormatUtil.getDefaultDateFormat();
-        try {
-            Date date = df.parse(dateString);
-            addNewAccountingUc.apply(account, accountingType, accountingInterval, accountingCategory, date, value, comment);
-        } catch (ParseException e) {
-            throw new IllegalStateException("Das Datum Format ist unbekannt, normal ist TT.MM.JJJJ");
+            DateFormat df = DatePickerFormatUtil.getDefaultDateFormat();
+            try {
+                Date date = df.parse(dateString);
+                addNewAccountingUc.apply(account, accountingType, accountingInterval, accountingCategory, date, valueResult.value, comment);
+            } catch (ParseException e) {
+                throw new IllegalStateException("Das Datum Format ist unbekannt, normal ist TT.MM.JJJJ");
+            }
+        } else {
+            view.showValueParsingError("Der Betrag konnte nicht gelesen werden: " + valueResult.report.name());
         }
     }
 }

@@ -15,11 +15,8 @@ import de.nenick.quacc.core.accounting.GetAccountingIntervalsUc;
 import de.nenick.quacc.core.accounting.GetAccountingListUc;
 import de.nenick.quacc.core.accounting.GetAccountingTypesUc;
 import de.nenick.quacc.core.accounting.GetAccountsUc;
+import de.nenick.quacc.core.accounting.ParseAccountingValueUc;
 import de.nenick.quacc.core.speechinterpretation.RecognizeAccountingTypeUc;
-import de.nenick.quacc.dagger.CoreModuleBase;
-import de.nenick.quacc.dagger.ForApplication;
-
-import static org.mockito.Mockito.mock;
 
 @Module(
         injects = {AddAccountingPresenter_.class, AccountingListPresenter_.class},
@@ -41,6 +38,8 @@ public class CoreModuleMocks implements CoreModuleBase {
     public GetAccountingListUc getAccountingListUc;
     @Mock
     public AddNewAccountingUc addNewAccountingUc;
+    @Mock
+    public ParseAccountingValueUc parseAccountingValueUc;
 
     public CoreModuleMocks() {
         MockitoAnnotations.initMocks(this);
@@ -86,5 +85,11 @@ public class CoreModuleMocks implements CoreModuleBase {
     @Provides
     public AddNewAccountingUc provideAddNewAccountingUc(@ForApplication Context context) {
         return addNewAccountingUc;
+    }
+
+    @Override
+    @Provides
+    public ParseAccountingValueUc provideParseAccountingValueUc() {
+        return parseAccountingValueUc;
     }
 }

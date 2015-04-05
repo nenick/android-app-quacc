@@ -1,14 +1,14 @@
 package de.nenick.quacc.database.provider.accounting;
 
-import java.util.Date;
-
 import android.database.Cursor;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
+import java.util.Date;
+
+import de.nenick.quacc.database.provider.account.AccountColumns;
+import de.nenick.quacc.database.provider.accountingcategory.AccountingCategoryColumns;
 import de.nenick.quacc.database.provider.base.AbstractCursor;
-import de.nenick.quacc.database.provider.account.*;
-import de.nenick.quacc.database.provider.accountingcategory.*;
 
 /**
  * Cursor wrapper for the {@code accounting} table.

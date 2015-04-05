@@ -13,7 +13,7 @@ public class AndroidStudioAwareRobolectricTestRunner extends RobolectricTestRunn
 
     public AndroidStudioAwareRobolectricTestRunner(Class<?> testClass) throws InitializationError {
         super(testClass);
-        String buildVariant = (BuildConfig.FLAVOR.isEmpty() ? "" : BuildConfig.FLAVOR+ "/") + BuildConfig.BUILD_TYPE;
+        String buildVariant = (BuildConfig.FLAVOR.isEmpty() ? "" : BuildConfig.FLAVOR + "/") + BuildConfig.BUILD_TYPE;
         String intermediatesPath = BuildConfig.MODULE_PATH + "/build//intermediates";
 
         System.setProperty("android.package", BuildConfig.APPLICATION_ID);
@@ -26,7 +26,7 @@ public class AndroidStudioAwareRobolectricTestRunner extends RobolectricTestRunn
 
     private void mkdir(String path) {
         File file = new File(path);
-        if(!file.exists()) {
+        if (!file.exists()) {
             assertThat(file.mkdir()).isTrue();
         }
     }

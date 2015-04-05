@@ -24,7 +24,7 @@ public class RoboActionbarMenuItem extends RoboBaseComponent {
         }
         // this does not work for fragments handled by support fragment manager
         Fragment fragmentByTag = robo.activity.getFragmentManager().findFragmentByTag(fragmentTag);
-        if(fragmentByTag != null && fragmentByTag.onOptionsItemSelected(menuItem)) {
+        if (fragmentByTag != null && fragmentByTag.onOptionsItemSelected(menuItem)) {
             return;
         }
         throw new IllegalStateException("Actionbar menu item has no listener.");

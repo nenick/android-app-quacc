@@ -1,4 +1,3 @@
-
 // workaround force compile the test classes in android studio
 tasks.testClasses.dependsOn(tasks.testDebugClasses)
 
@@ -15,27 +14,27 @@ task addTest {
 
             new Node(node, 'sourceFolder', ['url': 'file://$MODULE_DIR$/' + "${it}", 'isTestSource': "true"])
 
-            if(outputNode == null) {
+            if (outputNode == null) {
                 new Node(node, 'output', ['url': 'file://$MODULE_DIR$/build/resources/testDebug'])
                 rewrite = true
             } else {
-                if(outputNode.attributes['url'] != 'file://$MODULE_DIR$/build/resources/testDebug') {
+                if (outputNode.attributes['url'] != 'file://$MODULE_DIR$/build/resources/testDebug') {
                     outputNode.attributes = ['url': 'file://$MODULE_DIR$/build/resources/testDebug']
                     rewrite = true
                 }
             }
 
-            if(outputTestNode == null) {
+            if (outputTestNode == null) {
                 new Node(node, 'output-test', ['url': 'file://$MODULE_DIR$/build/test-classes/debug'])
                 rewrite = true
             } else {
-                if(outputTestNode.attributes['url'] != 'file://$MODULE_DIR$/build/test-classes/debug') {
+                if (outputTestNode.attributes['url'] != 'file://$MODULE_DIR$/build/test-classes/debug') {
                     outputTestNode.attributes = ['url': 'file://$MODULE_DIR$/build/test-classes/debug']
                     rewrite = true
                 }
             }
 
-            if(rewrite) {
+            if (rewrite) {
                 def writer = new StringWriter()
                 new XmlNodePrinter(new PrintWriter(writer)).print(parsedXml)
                 file.text = writer.toString()

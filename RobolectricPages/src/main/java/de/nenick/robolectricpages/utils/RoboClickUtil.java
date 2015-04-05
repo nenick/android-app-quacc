@@ -7,19 +7,19 @@ import android.widget.TextView;
 public class RoboClickUtil {
 
     public static void click(TextView view) {
-        if(!view.performClick()) {
+        if (!view.performClick()) {
             throw new IllegalStateException("View has no click listener.");
         }
     }
 
     public static void click(Button view) {
-        if(!view.performClick()) {
+        if (!view.performClick()) {
             throw new IllegalStateException("View has no click listener.");
         }
     }
 
     public static void click(ImageButton view) {
-        if(!view.performClick()) {
+        if (!view.performClick()) {
             throw new IllegalStateException("View has no click listener.");
         }
     }

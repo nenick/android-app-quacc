@@ -5,22 +5,22 @@ package de.nenick.quacc.database.provider.accounting;
  */
 public enum AccountingInterval {
     /**
-     * 
+     *
      */
     Einmahlig,
 
     /**
-     * 
+     *
      */
     Wöchentlich,
 
     /**
-     * 
+     *
      */
     Monatlich,
 
     /**
-     * 
+     *
      */
     Alle_3_Monate,
 

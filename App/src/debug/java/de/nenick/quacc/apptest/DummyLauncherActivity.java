@@ -1,8 +1,6 @@
 package de.nenick.quacc.apptest;
 
 import android.app.Activity;
-import android.os.Bundle;
-import android.os.PersistableBundle;
 
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;

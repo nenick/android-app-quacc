@@ -43,10 +43,9 @@ public class TestDateUtil {
     /**
      * Create the expected string representation.
      *
-     * @param day values 1 - 31
+     * @param day   values 1 - 31
      * @param month values 1 - 12
-     * @param year values 1000 - 9999
-     *
+     * @param year  values 1000 - 9999
      * @return date as string
      */
     public static String date(int day, int month, int year) {

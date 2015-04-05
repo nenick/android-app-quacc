@@ -64,7 +64,7 @@ public class SpeechRecognitionFeature {
 
     @Click(R.id.btn_speech_recognition)
     protected void onToggleSpeechRecognition() {
-        if(isSpeechRecognitionAvailable()) {
+        if (isSpeechRecognitionAvailable()) {
             speechRecognitionWrapper.toggle();
         }
         toggleIsListeningMarker();

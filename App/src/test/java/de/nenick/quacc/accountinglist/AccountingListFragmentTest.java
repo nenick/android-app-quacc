@@ -12,8 +12,8 @@ import de.nenick.quacc.database.provider.accounting.AccountingCursor;
 import de.nenick.quacc.database.provider.accounting.AccountingInterval;
 import de.nenick.quacc.database.provider.accounting.AccountingType;
 import de.nenick.quacc.datepicker.DatePickerFormatUtil;
-import de.nenick.quacc.robolectric.RoboSup;
 import de.nenick.quacc.robolectric.RoboAppTest;
+import de.nenick.quacc.robolectric.RoboSup;
 import de.nenick.robolectricpages.components.RoboListViewEntry;
 
 import static org.assertj.core.api.Assertions.assertThat;

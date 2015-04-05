@@ -22,6 +22,6 @@ public class TestDataGraph {
             .build();
 
     public static Forger<DataModel> access() {
-         return new Forger<>(MODEL_GRAPH, new MicroOrm());
+        return new Forger<>(MODEL_GRAPH, new MicroOrm());
     }
 }

@@ -1,11 +1,8 @@
 package de.nenick.quacc.database.provider.accountingcategory;
 
-import de.nenick.quacc.database.provider.base.BaseModel;
-
-import java.util.Date;
-
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+
+import de.nenick.quacc.database.provider.base.BaseModel;
 
 /**
  * Consolidate accounting with a categorization.

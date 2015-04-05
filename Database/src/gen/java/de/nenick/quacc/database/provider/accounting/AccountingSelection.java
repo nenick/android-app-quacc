@@ -1,14 +1,14 @@
 package de.nenick.quacc.database.provider.accounting;
 
-import java.util.Date;
-
 import android.content.ContentResolver;
 import android.database.Cursor;
 import android.net.Uri;
 
+import java.util.Date;
+
+import de.nenick.quacc.database.provider.account.AccountColumns;
+import de.nenick.quacc.database.provider.accountingcategory.AccountingCategoryColumns;
 import de.nenick.quacc.database.provider.base.AbstractSelection;
-import de.nenick.quacc.database.provider.account.*;
-import de.nenick.quacc.database.provider.accountingcategory.*;
 
 /**
  * Selection for the {@code accounting} table.
@@ -23,9 +23,9 @@ public class AccountingSelection extends AbstractSelection<AccountingSelection> 
      * Query the given content resolver using this selection.
      *
      * @param contentResolver The content resolver to query.
-     * @param projection A list of which columns to return. Passing null will return all columns, which is inefficient.
-     * @param sortOrder How to order the rows, formatted as an SQL ORDER BY clause (excluding the ORDER BY itself). Passing null will use the default sort
-     *            order, which may be unordered.
+     * @param projection      A list of which columns to return. Passing null will return all columns, which is inefficient.
+     * @param sortOrder       How to order the rows, formatted as an SQL ORDER BY clause (excluding the ORDER BY itself). Passing null will use the default sort
+     *                        order, which may be unordered.
      * @return A {@code AccountingCursor} object, which is positioned before the first entry, or null.
      */
     public AccountingCursor query(ContentResolver contentResolver, String[] projection, String sortOrder) {

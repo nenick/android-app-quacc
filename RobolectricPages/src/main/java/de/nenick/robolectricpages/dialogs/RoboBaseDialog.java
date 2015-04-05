@@ -1,7 +1,6 @@
 package de.nenick.robolectricpages.dialogs;
 
 import android.app.AlertDialog;
-import android.content.DialogInterface;
 
 import org.robolectric.shadows.ShadowAlertDialog;
 
@@ -16,7 +15,7 @@ public class RoboBaseDialog {
 
     protected void clickDialogButton(int choice) {
         AlertDialog latestAlertDialog = ShadowAlertDialog.getLatestAlertDialog();
-        if(!latestAlertDialog.getButton(choice).performClick()) {
+        if (!latestAlertDialog.getButton(choice).performClick()) {
             throw new IllegalStateException("Button has no click listener.");
         }
     }

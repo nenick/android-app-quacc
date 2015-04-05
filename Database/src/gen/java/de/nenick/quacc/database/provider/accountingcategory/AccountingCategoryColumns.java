@@ -4,9 +4,6 @@ import android.net.Uri;
 import android.provider.BaseColumns;
 
 import de.nenick.quacc.database.provider.QuAccProvider;
-import de.nenick.quacc.database.provider.account.AccountColumns;
-import de.nenick.quacc.database.provider.accounting.AccountingColumns;
-import de.nenick.quacc.database.provider.accountingcategory.AccountingCategoryColumns;
 
 /**
  * Consolidate accounting with a categorization.
@@ -26,10 +23,10 @@ public class AccountingCategoryColumns implements BaseColumns {
     public static final String NAME = "accounting_category__name";
 
 
-    public static final String DEFAULT_ORDER = TABLE_NAME + "." +_ID;
+    public static final String DEFAULT_ORDER = TABLE_NAME + "." + _ID;
 
     // @formatter:off
-    public static final String[] ALL_COLUMNS = new String[] {
+    public static final String[] ALL_COLUMNS = new String[]{
             _ID,
             NAME
     };

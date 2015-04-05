@@ -2,7 +2,6 @@ package de.nenick.quacc.core.speechinterpretation;
 
 import org.androidannotations.annotations.EBean;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @EBean

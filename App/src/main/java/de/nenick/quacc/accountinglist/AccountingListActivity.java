@@ -6,8 +6,8 @@ import android.support.v7.app.ActionBarActivity;
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EActivity;
 
-import de.nenick.quacc.main.MainFragment;
 import de.nenick.quacc.R;
+import de.nenick.quacc.main.MainFragment;
 
 @EActivity(R.layout.activity)
 public class AccountingListActivity extends ActionBarActivity {

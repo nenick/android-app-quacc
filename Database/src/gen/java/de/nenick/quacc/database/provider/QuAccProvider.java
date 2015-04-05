@@ -1,20 +1,19 @@
 package de.nenick.quacc.database.provider;
 
-import java.util.Arrays;
-
 import android.content.ContentValues;
 import android.content.UriMatcher;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.net.Uri;
-import android.support.annotation.NonNull;
 import android.util.Log;
 
+import java.util.Arrays;
+
 import de.nenick.quacc.database.BuildConfig;
-import de.nenick.quacc.database.provider.base.BaseContentProvider;
 import de.nenick.quacc.database.provider.account.AccountColumns;
 import de.nenick.quacc.database.provider.accounting.AccountingColumns;
 import de.nenick.quacc.database.provider.accountingcategory.AccountingCategoryColumns;
+import de.nenick.quacc.database.provider.base.BaseContentProvider;
 
 public class QuAccProvider extends BaseContentProvider {
     private static final String TAG = QuAccProvider.class.getSimpleName();
@@ -35,7 +34,6 @@ public class QuAccProvider extends BaseContentProvider {
 
     private static final int URI_TYPE_ACCOUNTING_CATEGORY = 4;
     private static final int URI_TYPE_ACCOUNTING_CATEGORY_ID = 5;
-
 
 
     private static final UriMatcher URI_MATCHER = new UriMatcher(UriMatcher.NO_MATCH);
@@ -96,13 +94,15 @@ public class QuAccProvider extends BaseContentProvider {
 
     @Override
     public int update(Uri uri, ContentValues values, String selection, String[] selectionArgs) {
-        if (DEBUG) Log.d(TAG, "update uri=" + uri + " values=" + values + " selection=" + selection + " selectionArgs=" + Arrays.toString(selectionArgs));
+        if (DEBUG)
+            Log.d(TAG, "update uri=" + uri + " values=" + values + " selection=" + selection + " selectionArgs=" + Arrays.toString(selectionArgs));
         return super.update(uri, values, selection, selectionArgs);
     }
 
     @Override
     public int delete(Uri uri, String selection, String[] selectionArgs) {
-        if (DEBUG) Log.d(TAG, "delete uri=" + uri + " selection=" + selection + " selectionArgs=" + Arrays.toString(selectionArgs));
+        if (DEBUG)
+            Log.d(TAG, "delete uri=" + uri + " selection=" + selection + " selectionArgs=" + Arrays.toString(selectionArgs));
         return super.delete(uri, selection, selectionArgs);
     }
 

@@ -62,8 +62,8 @@ apply from: "../build.test-artifact.gradle"
 // add compile main sources for test runs https://github.com/nenick/AndroidStudioAndRobolectric/issues/7
 afterEvaluate { project ->
     android.libraryVariants.each { variant ->
-        tasks.getByName("test${ variant.name.capitalize()}") {
-            dependsOn "assemble${ variant.name.capitalize()}"
+        tasks.getByName("test${variant.name.capitalize()}") {
+            dependsOn "assemble${variant.name.capitalize()}"
         }
     }
 }
@@ -76,7 +76,7 @@ dependencies {
 }
 
 task generateDatabaseFiles << {
-    if(!file("$buildDir/android_contentprovider_generator-1.9.2-bundle.jar").exists()) {
+    if (!file("$buildDir/android_contentprovider_generator-1.9.2-bundle.jar").exists()) {
         download {
             src 'https://github.com/BoD/android-contentprovider-generator/releases/download/v1.9.2/android_contentprovider_generator-1.9.2-bundle.jar'
             dest buildDir

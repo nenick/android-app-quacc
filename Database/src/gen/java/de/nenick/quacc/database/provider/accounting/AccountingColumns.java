@@ -5,7 +5,6 @@ import android.provider.BaseColumns;
 
 import de.nenick.quacc.database.provider.QuAccProvider;
 import de.nenick.quacc.database.provider.account.AccountColumns;
-import de.nenick.quacc.database.provider.accounting.AccountingColumns;
 import de.nenick.quacc.database.provider.accountingcategory.AccountingCategoryColumns;
 
 /**
@@ -41,10 +40,10 @@ public class AccountingColumns implements BaseColumns {
     public static final String VALUE = "value";
 
 
-    public static final String DEFAULT_ORDER = TABLE_NAME + "." +_ID;
+    public static final String DEFAULT_ORDER = TABLE_NAME + "." + _ID;
 
     // @formatter:off
-    public static final String[] ALL_COLUMNS = new String[] {
+    public static final String[] ALL_COLUMNS = new String[]{
             _ID,
             ACCOUNT_ID,
             COMMENT,
@@ -62,7 +61,8 @@ public class AccountingColumns implements BaseColumns {
             if (c.equals(ACCOUNT_ID) || c.contains("." + ACCOUNT_ID)) return true;
             if (c.equals(COMMENT) || c.contains("." + COMMENT)) return true;
             if (c.equals(ACCOUNTING_INTERVAL) || c.contains("." + ACCOUNTING_INTERVAL)) return true;
-            if (c.equals(ACCOUNTING_CATEGORY_ID) || c.contains("." + ACCOUNTING_CATEGORY_ID)) return true;
+            if (c.equals(ACCOUNTING_CATEGORY_ID) || c.contains("." + ACCOUNTING_CATEGORY_ID))
+                return true;
             if (c.equals(ACCOUNTING_DATE) || c.contains("." + ACCOUNTING_DATE)) return true;
             if (c.equals(ACCOUNTING_TYPE) || c.contains("." + ACCOUNTING_TYPE)) return true;
             if (c.equals(VALUE) || c.contains("." + VALUE)) return true;

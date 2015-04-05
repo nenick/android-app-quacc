@@ -8,7 +8,6 @@ import org.mockito.InjectMocks;
 import org.mockito.MockitoAnnotations;
 
 import de.nenick.quacc.core.robolectric.RoboCoreTest;
-import de.nenick.quacc.database.provider.account.AccountContentValues;
 import de.nenick.quacc.database.provider.accounting.AccountingColumns;
 import de.nenick.quacc.database.provider.accounting.AccountingCursor;
 import de.nenick.quacc.database.provider.testdata.Accounting;
@@ -31,7 +30,7 @@ public class GetAccountingListUcTest extends RoboCoreTest {
 
     @Test
     public void shouldDeliverAccountingCursor() {
-       forger.iNeed(3).of(Accounting.class)
+        forger.iNeed(3).of(Accounting.class)
                 .with(AccountingColumns.ACCOUNTING_INTERVAL, 1)
                 .with(AccountingColumns.ACCOUNTING_TYPE, 1)
                 .in(context.getContentResolver());

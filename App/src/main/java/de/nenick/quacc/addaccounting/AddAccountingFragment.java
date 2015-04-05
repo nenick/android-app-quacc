@@ -46,6 +46,9 @@ public class AddAccountingFragment extends Fragment {
     @ViewById(R.id.value)
     EditText value;
 
+    @ViewById(R.id.valueError)
+    TextView valueError;
+
     @ViewById(R.id.comment)
     EditText comment;
 
@@ -60,6 +63,7 @@ public class AddAccountingFragment extends Fragment {
         presenter.onViewCreated(this);
         speechRecognitionFeature.setHandler(this, presenter);
         ((SpeechRecognitionFeature_) speechRecognitionFeature).rebind(getActivity());
+        valueError.setText("");
     }
 
     @Override
@@ -158,11 +162,15 @@ public class AddAccountingFragment extends Fragment {
         return date.getText().toString();
     }
 
-    public int getValue() {
-        return Integer.parseInt(value.getText().toString().replace(",", "").replace(".", ""));
+    public String getValue() {
+        return value.getText().toString();
     }
 
     public String getComment() {
         return comment.getText().toString();
+    }
+
+    public void showValueParsingError(String message) {
+        valueError.setText(message);
     }
 }

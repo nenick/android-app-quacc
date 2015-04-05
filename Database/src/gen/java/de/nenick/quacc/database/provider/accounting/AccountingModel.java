@@ -1,11 +1,11 @@
 package de.nenick.quacc.database.provider.accounting;
 
-import de.nenick.quacc.database.provider.base.BaseModel;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
 import java.util.Date;
 
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import de.nenick.quacc.database.provider.base.BaseModel;
 
 /**
  * Accounting

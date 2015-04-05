@@ -26,7 +26,6 @@ public class SpeechRecognitionWrapperTest {
     SpeechListener recognitionListener;
 
 
-
     @InjectMocks
     SpeechRecognitionWrapper speechRecognitionWrapper;
 

@@ -18,11 +18,11 @@ public class RoboSpinnerEntry extends RoboBaseComponent {
         this.spinner = spinner;
         this.position = position;
         this.spinnerChildView = spinner.getAdapter().getView(position, null, spinner);
-        if(spinnerChildView == null) throw new IllegalArgumentException("spinner entry is null");
+        if (spinnerChildView == null) throw new IllegalArgumentException("spinner entry is null");
     }
 
     public String getText() {
-        if(!isSimpleTextView()) {
+        if (!isSimpleTextView()) {
             throw new IllegalStateException("The spinner entry is not a simple textView. You should use getText(int resourceId) instead.");
         }
         return ((TextView) spinnerChildView).getText().toString();

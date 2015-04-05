@@ -30,7 +30,7 @@ public class AndroidStudioAwareRobolectricTestRunner extends RobolectricGradleTe
 
     private void mkdir(String path) {
         File file = new File(path);
-        if(!file.exists()) {
+        if (!file.exists()) {
             assertThat(file.mkdir()).isTrue();
         }
     }

@@ -8,16 +8,13 @@ import de.nenick.quacc.accountinglist.AccountingListActivity_;
 import de.nenick.quacc.accountinglist.AccountingListFragment_;
 import de.nenick.quacc.accountinglist.RoboAccountingListPage;
 import de.nenick.quacc.componenttest.RoboComponentTestBase;
-import de.nenick.quacc.database.provider.account.AccountColumns;
 import de.nenick.quacc.database.provider.accounting.AccountingColumns;
-import de.nenick.quacc.database.provider.testdata.Account;
 import de.nenick.quacc.database.provider.testdata.Accounting;
 import de.nenick.quacc.database.provider.testdata.TestDataGraph;
 import de.nenick.quacc.database.provider.testdata.base.DataModel;
 import de.nenick.quacc.robolectric.RoboSup;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.contentOf;
 
 public class InitialAccountingListSpec extends RoboComponentTestBase {
 

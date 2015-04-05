@@ -15,7 +15,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * More dynamic path resolution.
- *
+ * <p/>
  * This workaround is only for Mac Users necessary and only if they don't use the $MODULE_DIR$
  * workaround. Follow this issue at https://code.google.com/p/android/issues/detail?id=158015
  */
@@ -30,7 +30,7 @@ public class AndroidStudioAwareRobolectricTestRunner extends RobolectricGradleTe
 
     private void mkdir(String path) {
         File file = new File(path);
-        if(!file.exists()) {
+        if (!file.exists()) {
             assertThat(file.mkdir()).isTrue();
         }
     }

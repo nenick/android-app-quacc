@@ -1,10 +1,7 @@
 package de.nenick.quacc.database.provider.accountingcategory;
 
-import java.util.Date;
-
 import android.database.Cursor;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 
 import de.nenick.quacc.database.provider.base.AbstractCursor;
 
