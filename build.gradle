@@ -21,4 +21,5 @@ allprojects {
 }
 
 apply plugin: "java"
+apply from: "build.disable-predex.gradle"
 apply from: "build.jacoco-coveralls.gradle"

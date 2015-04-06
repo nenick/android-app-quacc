@@ -38,28 +38,17 @@ test:
     ###-- end part from .travis.yml --###
 
     # copy test results
-    - mkdir $CIRCLE_TEST_REPORTS/AppUnitTests
-    - cp -r App/build/reports/tests/debug $CIRCLE_TEST_REPORTS/AppUnitTests
+    - mv App/build/reports/tests/debug $CIRCLE_TEST_REPORTS/AppUnitTests
+    - mv Core/build/reports/tests/debug $CIRCLE_TEST_REPORTS/CoreUnitTests
+    - mv Database/build/reports/tests/debug $CIRCLE_TEST_REPORTS/DatabaseUnitTests
 
-    - mkdir $CIRCLE_TEST_REPORTS/CoreUnitTests
-    - cp -r Core/build/reports/tests/debug $CIRCLE_TEST_REPORTS/CoreUnitTests
-
-    - mkdir $CIRCLE_TEST_REPORTS/DatabaseUnitTests
-    - cp -r Database/build/reports/tests/debug $CIRCLE_TEST_REPORTS/DatabaseUnitTests
-
-    - mkdir $CIRCLE_TEST_REPORTS/ComponentTests
-    - cp -r AppCT/build/reports/tests/debug $CIRCLE_TEST_REPORTS/ComponentTests
-
-    - mkdir $CIRCLE_TEST_REPORTS/AndroidTests
-    - cp -r App/build/outputs/reports/androidTests $CIRCLE_TEST_REPORTS/AndroidTests
-
-    # copy code coverage
-    - mkdir $CIRCLE_TEST_REPORTS/CodeCoverageReport
-    - cp -r build/reports/jacoco/test/html/* $CIRCLE_TEST_REPORTS/CodeCoverageReport
+    - mv AppCT/build/test-report $CIRCLE_TEST_REPORTS/ComponentTests
+    - mv App/build/outputs/reports/androidTests $CIRCLE_TEST_REPORTS/AndroidTests
+    - mv build/reports/jacoco/test/html $CIRCLE_TEST_REPORTS/CodeCoverageReport
 
     # copy lint report
     - mkdir $CIRCLE_TEST_REPORTS/Lint
-    - cp -r App/build/outputs/reports/lint-results_files $CIRCLE_TEST_REPORTS/Lint
-    - cp -r App/build/outputs/reports/lint-results.html $CIRCLE_TEST_REPORTS/Lint/app-lint-results.html
-    - cp -r Core/build/outputs/reports/lint-results.html $CIRCLE_TEST_REPORTS/Lint/core-lint-results.html
-    - cp -r Database/build/outputs/reports/lint-results.html $CIRCLE_TEST_REPORTS/Lint/database-lint-results.html
+    - mv App/build/outputs/lint-results_files $CIRCLE_TEST_REPORTS/Lint
+    - mv App/build/outputs/lint-results.html $CIRCLE_TEST_REPORTS/Lint/app-lint-results.html
+    - mv Core/build/outputs/lint-results.html $CIRCLE_TEST_REPORTS/Lint/core-lint-results.html
+    - mv Database/build/outputs/lint-results.html $CIRCLE_TEST_REPORTS/Lint/database-lint-results.html
