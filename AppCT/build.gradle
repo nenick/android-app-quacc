@@ -1,8 +1,7 @@
 buildscript {
     repositories {
-        mavenLocal()
+        jcenter()
     }
-
     dependencies {
         classpath "com.novoda:gradle-android-test-plugin:0.10.4"
     }
@@ -17,10 +16,6 @@ android {
 }
 
 apply from: 'build.novoda-android-studio.gradle'
-
-repositories {
-        jcenter()
-    }
 
 dependencies {
     testCompile project(':RobolectricPages')
