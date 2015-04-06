@@ -1,4 +1,4 @@
-project.ext.preDexLibs = "true".equals(System.getenv("TRAVIS")) || "true".equals(System.getenv("CIRCLECI"))
+project.ext.preDexLibs = !("true".equals(System.getenv("TRAVIS")) || "true".equals(System.getenv("CIRCLECI")))
 
 subprojects {
     project.plugins.whenPluginAdded { plugin ->
