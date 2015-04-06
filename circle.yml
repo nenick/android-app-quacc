@@ -41,4 +41,5 @@ test:
     - cp -r App/build/outputs $CIRCLE_ARTIFACTS
 
     # copy the test results to the test results directory.
+    - cp -r App/build/reports/tests/debug/* $CIRCLE_TEST_REPORTS/AppUnitTests
     - cp -r App/build/outputs/androidTest-results/* $CIRCLE_TEST_REPORTS
