@@ -2,6 +2,7 @@ package de.nenick.quacc.addaccounting;
 
 import android.graphics.Color;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
@@ -47,6 +48,13 @@ public class AddAccountingFragmentTest extends RoboAppTest {
     public void setUp() {
         MockitoAnnotations.initMocks(this);
         RoboAddAccountingUcDefaultResults.apply();
+    }
+
+    @After
+    public void finish() {
+        if(robo.activityController != null) {
+            robo.activityController.destroy();
+        }
     }
 
     @Test

@@ -13,14 +13,17 @@ test:
     # wait for it to have booted
     - circle-android wait-for-boot
 
-    ###-- begin part .travis.yml --###
+    ###-- begin part from .travis.yml --###
+
+    # Build the code
+    - ./gradlew App:assembleDebug
 
     # Execute Unit Tests
-    - ./gradlew App:test -i
+    - ./gradlew App:test
     - ./gradlew Core:test
     - ./gradlew Database:test
 
-    # Execute Compofnent Tests
+    # Execute Component Tests
     - ./gradlew AppCT:test
 
     # Execute Tests on Emulator
@@ -32,15 +35,31 @@ test:
     # Check lint hints
     - ./gradlew lint
 
-    ###-- end part .travis.yml --###
+    ###-- end part from .travis.yml --###
 
-    # run tests against the emulator.
-    - ./gradlew connectedAndroidTest
-
-    # copy the build outputs to artifacts
-    - cp -r App/build/outputs $CIRCLE_ARTIFACTS
-
-    # copy the test results to the test results directory.
+    # copy test results
     - mkdir $CIRCLE_TEST_REPORTS/AppUnitTests
-    - cp -r App/build/reports/tests/debug/* $CIRCLE_TEST_REPORTS/AppUnitTests
-    - cp -r App/build/outputs/androidTest-results/* $CIRCLE_TEST_REPORTS
+    - cp -r App/build/reports/tests/debug $CIRCLE_TEST_REPORTS/AppUnitTests
+
+    - mkdir $CIRCLE_TEST_REPORTS/CoreUnitTests
+    - cp -r Core/build/reports/tests/debug $CIRCLE_TEST_REPORTS/CoreUnitTests
+
+    - mkdir $CIRCLE_TEST_REPORTS/DatabaseUnitTests
+    - cp -r Database/build/reports/tests/debug $CIRCLE_TEST_REPORTS/DatabaseUnitTests
+
+    - mkdir $CIRCLE_TEST_REPORTS/ComponentTests
+    - cp -r AppCT/build/reports/tests/debug $CIRCLE_TEST_REPORTS/ComponentTests
+
+    - mkdir $CIRCLE_TEST_REPORTS/AndroidTests
+    - cp -r App/build/outputs/reports/androidTests $CIRCLE_TEST_REPORTS/AndroidTests
+
+    # copy code coverage
+    - mkdir $CIRCLE_TEST_REPORTS/CodeCoverageReport
+    - cp -r build/reports/jacoco/test/html/* $CIRCLE_TEST_REPORTS/CodeCoverageReport
+
+    # copy lint report
+    - mkdir $CIRCLE_TEST_REPORTS/Lint
+    - cp -r App/build/outputs/reports/lint-results_files $CIRCLE_TEST_REPORTS/Lint
+    - cp -r App/build/outputs/reports/lint-results.html $CIRCLE_TEST_REPORTS/Lint/app-lint-results.html
+    - cp -r Core/build/outputs/reports/lint-results.html $CIRCLE_TEST_REPORTS/Lint/core-lint-results.html
+    - cp -r Database/build/outputs/reports/lint-results.html $CIRCLE_TEST_REPORTS/Lint/database-lint-results.html

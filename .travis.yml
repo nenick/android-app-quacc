@@ -6,6 +6,7 @@ sudo: false
 
 env:
   global:
+
     # Initiating clean Gradle output (clean the log first when you rebuild)
     - TERM=dumb
 
@@ -21,6 +22,7 @@ env:
 
 android:
   components:
+
     # The BuildTools version used by your project
     - build-tools-21.1.2
 
@@ -32,23 +34,25 @@ android:
 
 cache:
   directories:
-    # Caching depemdencies for faster builds
+
+    # Caching dependencies for faster builds
     - $HOME/.m2
     - $HOME/.gradle
 
 before_script:
+
   # Emulator Management: Create, Start
   - echo no | android create avd --force -n test -t android-21 --abi armeabi-v7a
   - emulator -avd test -no-audio -no-window &
+  - ./android-wait-for-emulator
 
 script:
+
+  # Build the code
+  - ./gradlew App:assembleDebug
+
   # Execute Unit Tests
-  - ./gradlew App:test -i
-  
-  # don't know why but waiting at this position reduce randomly failing test starts 
-  # for App:test (exit code 137) and App:connectedCheck (ShellCommandUnresponsiveException)
-  - ./android-wait-for-emulator
-  
+  - ./gradlew App:test
   - ./gradlew Core:test
   - ./gradlew Database:test
 
@@ -65,11 +69,13 @@ script:
   - ./gradlew lint
 
 after_success:
+
   # Only report code coverage if all tasks are successful
   - ./gradlew coveralls
   
 addons:
   coverity_scan:
+
     project:
       name: "nenick/QuAcc"
       description: "Build submitted via Travis CI"
