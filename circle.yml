@@ -9,11 +9,32 @@ test:
     # wait for it to have booted
     - circle-android wait-for-boot
 
+    ###-- begin part .travis.yml --###
+
+    # Execute Unit Tests
+    - ./gradlew App:test
+    - ./gradlew Core:test
+    - ./gradlew Database:test
+
+    # Execute Component Tests
+    - ./gradlew AppCT:test
+
+    # Execute Tests on Emulator
+    - ./gradlew App:connectedCheck
+
+    # Create coverage report
+    - ./gradlew jacocoTestReport
+
+    # Check lint hints
+    - ./gradlew lint
+
+    ###-- end part .travis.yml --###
+
     # run tests against the emulator.
     - ./gradlew connectedAndroidTest
 
     # copy the build outputs to artifacts
-    - cp -r QuAcc/build/outputs $CIRCLE_ARTIFACTS
+    - cp -r App/build/outputs $CIRCLE_ARTIFACTS
 
     # copy the test results to the test results directory.
-    - cp -r QuAcc/build/outputs/androidTest-results/* $CIRCLE_TEST_REPORTS
+    - cp -r App/build/outputs/androidTest-results/* $CIRCLE_TEST_REPORTS
