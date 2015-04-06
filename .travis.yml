@@ -43,7 +43,7 @@ before_script:
 
 script:
   # Execute Unit Tests
-  - ./gradlew App:test -s
+  - ./gradlew App:test -i
   
   # don't know why but waiting at this position reduce randomly failing test starts 
   # for App:test (exit code 137) and App:connectedCheck (ShellCommandUnresponsiveException)

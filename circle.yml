@@ -16,11 +16,11 @@ test:
     ###-- begin part .travis.yml --###
 
     # Execute Unit Tests
-    - ./gradlew App:test
+    - ./gradlew App:test -i
     - ./gradlew Core:test
     - ./gradlew Database:test
 
-    # Execute Component Tests
+    # Execute Compofnent Tests
     - ./gradlew AppCT:test
 
     # Execute Tests on Emulator
