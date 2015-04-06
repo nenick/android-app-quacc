@@ -8,11 +8,14 @@ env:
   global:
     # Initiating clean Gradle output (clean the log first when you rebuild)
     - TERM=dumb
+
     # Amount of memory granted to Gradle JVM
     # should avoid the randomly failing test starts for App:test (exit code 137)
     - GRADLE_OPTS="-Xmx512m -XX:MaxPermSize=512m"
+
     # increase timout should avoid ShellCommandUnresponsiveException but looks like value hasn't any effect
     - ADB_INSTALL_TIMEOUT=8 # minutes (2 minutes by default)
+
     # The encrypted COVERITY_SCAN_TOKEN, created via the "travis encrypt" command using the project repo's public key
     - secure: "cZvhAS5aQleOOk65Zuz58IEWYAfB7ptx6Mkf1n31Q/Fs3u+qPOA6GIwEFvtKNcHIclAQe8aDZl6fwyRpl/90lPIkgoXCI6A/YV7zMJhXBQOm7Rhe5IPoA+UkwV8Oz4wA/TBhu6qkOqUxDVvL3S+MYAKPVmxHAoCzkGKUAtjEuKk="
 
@@ -71,9 +74,11 @@ addons:
       name: "nenick/QuAcc"
       description: "Build submitted via Travis CI"
     notification_email: kuchler.nico@gmail.com
+
     # The command that will be added as an argument to "cov-build" to compile your project for analysis,
     # ** likely specific to your build **
     build_command: ./gradlew assembleDebug
+
     # Selecting branches that will run analysis. We recommend leaving this set to 'coverity_scan'.
     # Take care in resource usage, and consider the build frequency allowances https://scan.coverity.com/faq#frequency
-    branch_pattern: master
+    branch_pattern: coverity_scan
