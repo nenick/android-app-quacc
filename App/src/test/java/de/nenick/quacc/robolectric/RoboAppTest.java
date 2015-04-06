@@ -12,8 +12,19 @@ public abstract class RoboAppTest {
 
     @Before
     public void checkMemory() {
-        // Total amount of free memory available to the JVM
-        System.out.println("Free memory (bytes): " +
-                Runtime.getRuntime().freeMemory());
+        int mb = 1024*1024;
+
+        //Getting the runtime reference from system
+        Runtime runtime = Runtime.getRuntime();
+
+        System.out.println("##### Heap utilization statistics [MB] #####");
+
+        //Print used memory
+        System.out.println("Used Memory:"
+                + (runtime.totalMemory() - runtime.freeMemory()) / mb);
+
+        //Print free memory
+        System.out.println("Free Memory:"
+                + runtime.freeMemory() / mb);
     }
 }
