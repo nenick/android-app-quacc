@@ -32,7 +32,7 @@ android {
         debug {
             versionNameSuffix "-dev"
             testCoverageEnabled = project.ext.isInstrumentedTestRun
-            buildConfigField "String", "MODULE_PATH", "\"$projectDir\""
+            buildConfigField "String", "MODULE_PATH", "\"$projectDir\"".replace('\\', '\\\\')
         }
     }
 
