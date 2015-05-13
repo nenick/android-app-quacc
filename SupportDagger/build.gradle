@@ -4,5 +4,5 @@ dependencies {
     compile('com.squareup.dagger:dagger:1.2.2') {
         exclude module: 'guava'
     }
-    compile 'com.google.guava:guava:16.0'
+    compile 'com.google.guava:guava:18.0'
 }

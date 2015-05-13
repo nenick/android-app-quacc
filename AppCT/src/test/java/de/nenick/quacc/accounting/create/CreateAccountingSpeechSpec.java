@@ -1,42 +1,31 @@
-package de.nenick.quacc.addaccounting;
+package de.nenick.quacc.accounting.create;
 
-import android.content.Intent;
-import android.content.pm.ResolveInfo;
-import android.os.Bundle;
-import android.speech.RecognizerIntent;
+
 import android.speech.SpeechRecognizer;
 
-import org.junit.Before;
 import org.junit.Test;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
-import org.robolectric.RuntimeEnvironment;
 
-import java.util.ArrayList;
-
-import de.nenick.quacc.R;
-import de.nenick.quacc.robolectric.RoboAppTest;
+import de.nenick.quacc.RoboComponentTestBase;
 import de.nenick.quacc.robolectric.RoboSup;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Matchers.any;
-import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.mock;
 
-public class AddAccountingFragmentSpeechTest extends RoboAppTest {
+public class CreateAccountingSpeechSpec extends RoboComponentTestBase {
 
-    RoboSup<AddAccountingActivity_, AddAccountingFragment> robo = new RoboSup<>();
-    RoboAddAccountingPage addAccountingPage = new RoboAddAccountingPage(robo);
+    RoboSup<CreateAccountingActivity_, CreateAccountingFragment> robo = new RoboSup<>();
+    RoboCreateAccountingPage addAccountingPage = new RoboCreateAccountingPage(robo);
 
-    @Mock
-    SpeechRecognizer mockSpeechRecognizer;
-
-    @Before
-    public void setUp() {
-        MockitoAnnotations.initMocks(this);
-        RoboAddAccountingUcDefaultResults.apply();
-        RuntimeEnvironment.getRobolectricPackageManager().addResolveInfoForIntent(new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH), new ResolveInfo());
+    @Test
+    public void shouldShowMatches() {
+        addAccountingPage.startPageWithSpeechMock(mock(SpeechRecognizer.class));
+        addAccountingPage.speechResult("1 2 3", "one two three");
+        assertThat(addAccountingPage.speechResultField().getText()).isEqualTo("[1 2 3] [one two three] ");
     }
 
+    // RuntimeEnvironment.getRobolectricPackageManager().addResolveInfoForIntent(new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH), new ResolveInfo());
+
+    /*
     @Test
     public void shouldStartSpeechRecognitionOnClick() {
         addAccountingPage.startPageWithSpeechMock(mockSpeechRecognizer);
@@ -122,4 +111,5 @@ public class AddAccountingFragmentSpeechTest extends RoboAppTest {
     private void thenSpeechButtonShowMicIsOn() {
         assertThat(addAccountingPage.speechButton().getDrawableResId()).isEqualTo(R.drawable.ic_action_micoff);
     }
+     */
 }

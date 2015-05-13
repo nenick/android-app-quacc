@@ -24,7 +24,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".addaccounting.AddAccountingActivity_"
+            android:name=".accounting.create.CreateAccountingActivity_"
             android:label="@string/title_activity_add_accounting" />
         <activity
             android:name=".accountinglist.AccountingListActivity_"

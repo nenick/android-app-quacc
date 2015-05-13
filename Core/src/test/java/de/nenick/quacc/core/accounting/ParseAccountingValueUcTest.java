@@ -72,10 +72,10 @@ public class ParseAccountingValueUcTest {
     @Test
     public void shouldReportErrorMixDotAndComma() {
         result = parseAccountingValueUc.apply("1.000,2");
-        assertThat(result.report).isEqualTo(ParseResult.MixDotAndComma);
+        assertThat(result.report).isEqualTo(ParseResult.DotAndCommaMix);
 
         result = parseAccountingValueUc.apply("1,000.2");
-        assertThat(result.report).isEqualTo(ParseResult.MixDotAndComma);
+        assertThat(result.report).isEqualTo(ParseResult.DotAndCommaMix);
     }
 
     @Test

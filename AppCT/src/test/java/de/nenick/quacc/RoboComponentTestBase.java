@@ -1,4 +1,4 @@
-package de.nenick.quacc.componenttest;
+package de.nenick.quacc;
 
 import android.content.Context;
 

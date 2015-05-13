@@ -1,5 +1,7 @@
 package de.nenick.quacc.core.accounting;
 
+import org.androidannotations.annotations.EBean;
+
 /**
  * Parse different accounting value patterns to a 2 decimal places based integer value (1 = 100).
  * <p/>
@@ -10,6 +12,7 @@ package de.nenick.quacc.core.accounting;
  * - a positive real number with 1 or 2 numbers of digits after the decimal point (e.g. ".34", "42.3", "42.31")
  * - a positive real number with 1 or 2 numbers of digits after the decimal comma (e.g. ",34", "42,3", "42,31")
  */
+@EBean
 public class ParseAccountingValueUc {
 
     public Result apply(String value) {
@@ -40,7 +43,7 @@ public class ParseAccountingValueUc {
 
         // there are to many variations for handle combinations of dot and comma, maybe later
         if (containsDot && containsComma) {
-            return new Result(ParseResult.MixDotAndComma);
+            return new Result(ParseResult.DotAndCommaMix);
         }
 
         boolean isDecimal = containsDot || containsComma;
@@ -109,7 +112,7 @@ public class ParseAccountingValueUc {
 
     public enum ParseResult {
         Successful,
-        NegativeNumber, ZeroValue, MixDotAndComma, NoValidNumber, NullOrEmpty, UnknownError
+        NegativeNumber, ZeroValue, DotAndCommaMix, NoValidNumber, NullOrEmpty, UnknownError
     }
 
     public static class Result {

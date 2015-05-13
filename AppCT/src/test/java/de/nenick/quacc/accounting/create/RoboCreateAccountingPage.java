@@ -1,4 +1,4 @@
-package de.nenick.quacc.addaccounting;
+package de.nenick.quacc.accounting.create;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,32 +15,31 @@ import java.util.Collections;
 import de.nenick.quacc.R;
 import de.nenick.quacc.robolectric.RoboSup;
 import de.nenick.quacc.robolectric.RoboSupPage;
-import de.nenick.quacc.speechrecognition.RoboSpeechRegonitionWrapperHelper;
 import de.nenick.quacc.speechrecognition.SpeechListener;
 import de.nenick.robolectricpages.components.RoboImageButton;
 import de.nenick.robolectricpages.components.RoboSpinner;
 import de.nenick.robolectricpages.components.RoboTextView;
 
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
-public class RoboAddAccountingPage extends RoboSupPage<AddAccountingActivity_, AddAccountingFragment> {
+public class RoboCreateAccountingPage extends RoboSupPage<CreateAccountingActivity_, CreateAccountingFragment> {
 
     @Captor
     ArgumentCaptor<SpeechListener> speechRecognitionListenerArgumentCaptor;
 
-    public RoboAddAccountingPage(RoboSup<AddAccountingActivity_, AddAccountingFragment> robo) {
-        super(robo, AddAccountingActivity.TAG_FRAGMENT);
+    public RoboCreateAccountingPage(RoboSup<CreateAccountingActivity_, CreateAccountingFragment> robo) {
+        super(robo, CreateAccountingActivity.TAG_FRAGMENT);
         MockitoAnnotations.initMocks(this);
     }
 
     public static Intent Intent() {
-        return AddAccountingActivity_.intent(RuntimeEnvironment.application).get();
+        return CreateAccountingActivity_.intent(RuntimeEnvironment.application).get();
     }
 
     public void startPageWithSpeechMock(SpeechRecognizer mockSpeechRecognizer) {
         createPage();
-        RoboSpeechRegonitionWrapperHelper.setMock(robo.fragment.speechRecognitionFeature.speechRecognitionWrapper, mockSpeechRecognizer);
-        robo.fragment.speechRecognitionFeature.onAfterInject();
+        RoboCreateAccountingMocking.setSpeechRecognitionMock(robo.fragment, mockSpeechRecognizer);
         verify(mockSpeechRecognizer).setRecognitionListener(speechRecognitionListenerArgumentCaptor.capture());
         startCreatedPage();
     }
@@ -81,16 +80,16 @@ public class RoboAddAccountingPage extends RoboSupPage<AddAccountingActivity_, A
         speechRecognitionListenerArgumentCaptor.getValue().onResults(bundle);
     }
 
-    public RoboAddAccountingDialogs dialog() {
-        return new RoboAddAccountingDialogs();
+    public RoboCreateAccountingDialogs dialog() {
+        return new RoboCreateAccountingDialogs();
     }
 
     public void speechError(int error) {
         speechRecognitionListenerArgumentCaptor.getValue().onError(error);
     }
 
-    public RoboAddAccountingActionbar actionbar() {
-        return new RoboAddAccountingActionbar(robo);
+    public RoboCreateAccountingActionbar actionbar() {
+        return new RoboCreateAccountingActionbar(robo);
     }
 
     public RoboTextView valueField() {

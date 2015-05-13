@@ -182,10 +182,10 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="New Text"
         android:id="@+id/valueError"
         android:layout_below="@+id/value"
         android:layout_alignStart="@+id/value"
-        android:textColor="#FF0000" />
+        android:textColor="#FF0000"
+        tools:text="New Text" />
 
 </RelativeLayout>

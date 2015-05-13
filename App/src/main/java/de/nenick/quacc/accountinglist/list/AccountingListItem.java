@@ -11,7 +11,7 @@ import java.text.DateFormat;
 
 import de.nenick.quacc.R;
 import de.nenick.quacc.database.provider.accounting.AccountingCursor;
-import de.nenick.quacc.datepicker.DatePickerFormatUtil;
+import de.nenick.quacc.common.util.QuAccDateFormatUtil;
 
 @EViewGroup(R.layout.fragment_accounting_list_item)
 public class AccountingListItem extends RelativeLayout {
@@ -39,7 +39,7 @@ public class AccountingListItem extends RelativeLayout {
     }
 
     public void bind(AccountingCursor accountingCursor) {
-        DateFormat df = DatePickerFormatUtil.getDefaultDateFormat();
+        DateFormat df = QuAccDateFormatUtil.getDefaultDateFormat();
         date.setText(df.format(accountingCursor.getAccountingDate()));
         type.setText(accountingCursor.getAccountingType().name());
         interval.setText(accountingCursor.getAccountingInterval().name());

@@ -1,4 +1,4 @@
-package de.nenick.quacc.addaccounting;
+package de.nenick.quacc.accounting.create;
 
 import android.content.Context;
 import android.content.Intent;
@@ -16,9 +16,11 @@ import org.androidannotations.annotations.EBean;
 import org.androidannotations.annotations.RootContext;
 import org.androidannotations.annotations.ViewById;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import de.nenick.quacc.R;
+import de.nenick.quacc.core.speechinterpretation.RecognizeAccountingTypeUc;
 import de.nenick.quacc.speechrecognition.SpeechListener;
 import de.nenick.quacc.speechrecognition.SpeechRecognitionWrapper;
 
@@ -28,22 +30,27 @@ public class SpeechRecognitionFeature {
     @RootContext
     Context context;
 
-    @ViewById(R.id.btn_speech_recognition)
-    FloatingActionButton speechButton;
-
     @Bean
     SpeechRecognitionWrapper speechRecognitionWrapper;
 
-    AddAccountingFragment view;
-    AddAccountingPresenter presenter;
+    @Bean
+    RecognizeAccountingTypeUc recognizeAccountingTypeUc;
 
-    public void setHandler(AddAccountingFragment view, AddAccountingPresenter presenter) {
+    CreateAccountingView view;
+
+    public void setView(CreateAccountingView view) {
         this.view = view;
-        this.presenter = presenter;
     }
 
     public void destroy() {
         speechRecognitionWrapper.destroy();
+    }
+
+    public void stop() {
+        boolean isListening = speechRecognitionWrapper.isListening();
+        if (isListening) {
+            onToggleSpeechRecognition();
+        }
     }
 
     @AfterInject
@@ -56,14 +63,14 @@ public class SpeechRecognitionFeature {
 
             @Override
             public void onResults(Bundle results) {
-                presenter.onViewSpeechResult(results.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION));
+                onViewSpeechResult(results.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION));
                 toggleIsListeningMarker();
             }
         });
     }
 
     @Click(R.id.btn_speech_recognition)
-    protected void onToggleSpeechRecognition() {
+    void onToggleSpeechRecognition() {
         if (isSpeechRecognitionAvailable()) {
             speechRecognitionWrapper.toggle();
         }
@@ -73,16 +80,9 @@ public class SpeechRecognitionFeature {
     private void toggleIsListeningMarker() {
         boolean isListening = speechRecognitionWrapper.isListening();
         if (isListening) {
-            speechButton.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_action_micoff));
+            view.showSpeechStopButton();
         } else {
-            speechButton.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_action_mic));
-        }
-    }
-
-    public void onPause() {
-        boolean isListening = speechRecognitionWrapper.isListening();
-        if (isListening) {
-            onToggleSpeechRecognition();
+            view.showSpeechStartButton();
         }
     }
 
@@ -93,5 +93,19 @@ public class SpeechRecognitionFeature {
         PackageManager pm = context.getPackageManager();
         List activities = pm.queryIntentActivities(new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH), 0);
         return activities.size() != 0;
+    }
+
+    private void onViewSpeechResult(ArrayList<String> matches) {
+        if (matches == null || matches.size() < 1) {
+            throw new UnsupportedOperationException("Getting no match was never tested");
+        }
+
+        String accountingType = recognizeAccountingTypeUc.apply(matches);
+
+        String recognizedText = "";
+        for (String match : matches) {
+            recognizedText += "[" + match + "] ";
+        }
+        view.showRecognizedText(recognizedText);
     }
 }

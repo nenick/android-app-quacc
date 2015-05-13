@@ -91,17 +91,6 @@ jacocoTestReport {
         xml.enabled = true
         html.enabled = true
     }
-
-    // fix issue with double $$ at generate report task
-    doFirst {
-        applyDaggerWorkaround('App/build/intermediates/classes/')
-        applyDaggerWorkaround('Core/build/intermediates/classes/')
-    }
-    // avoid some side effects through revert renaming
-    doLast {
-        revertDaggerWorkaround('App/build/intermediates/classes/')
-        revertDaggerWorkaround('Core/build/intermediates/classes/')
-    }
 }
 
 // Send code coverage report to coveralls with coveralls-gradle-plugin. To get the plugin working
@@ -111,30 +100,5 @@ compileJava.enabled = false
 coveralls {
     if (isTravis) { // avoid android studio source root conflicts
         sourceSets.main.java.srcDirs += ['App/src/main/java', 'Core/src/main/java']
-    }
-}
-
-def applyDaggerWorkaround(String pathWithDaggerClasses) {
-    def filePath = new File(pathWithDaggerClasses)
-    if (filePath.exists()) {
-        filePath.eachFileRecurse { file ->
-            if (file.name.contains('$$')) {
-                file.renameTo(file.path.replace('$$', '$'))
-            }
-        }
-    }
-}
-
-def revertDaggerWorkaround(String pathWithDaggerClasses) {
-    def filePath = new File(pathWithDaggerClasses)
-    if (filePath.exists()) {
-        filePath.eachFileRecurse { file ->
-            if (file.name.contains('$ModuleAdapter')) {
-                file.renameTo(file.path.replace('$ModuleAdapter', '$$ModuleAdapter'))
-            }
-            if (file.name.contains('$InjectAdapter')) {
-                file.renameTo(file.path.replace('$InjectAdapter', '$$InjectAdapter'))
-            }
-        }
     }
 }

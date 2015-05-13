@@ -1,4 +1,4 @@
-package de.nenick.quacc.componenttest.addaccounting;
+package de.nenick.quacc.accounting.create;
 
 import android.os.Bundle;
 import android.speech.SpeechRecognizer;
@@ -8,10 +8,7 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.List;
 
-import de.nenick.quacc.addaccounting.AddAccountingActivity_;
-import de.nenick.quacc.addaccounting.AddAccountingFragment;
-import de.nenick.quacc.addaccounting.RoboAddAccountingPage;
-import de.nenick.quacc.componenttest.RoboComponentTestBase;
+import de.nenick.quacc.RoboComponentTestBase;
 import de.nenick.quacc.robolectric.RoboSup;
 import de.nenick.robolectricpages.components.RoboSpinnerEntry;
 
@@ -20,10 +17,10 @@ import static de.nenick.quacc.TestDateUtil.month;
 import static de.nenick.quacc.TestDateUtil.year;
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class AddAccountingInitialValuesSpec extends RoboComponentTestBase {
+public class CreateAccountingInitialValuesSpec extends RoboComponentTestBase {
 
-    RoboSup<AddAccountingActivity_, AddAccountingFragment> robo = new RoboSup<>();
-    RoboAddAccountingPage addAccountingPage = new RoboAddAccountingPage(robo);
+    RoboSup<CreateAccountingActivity_, CreateAccountingFragment> robo = new RoboSup<>();
+    RoboCreateAccountingPage addAccountingPage = new RoboCreateAccountingPage(robo);
 
     List<RoboSpinnerEntry> entries;
 
@@ -41,13 +38,13 @@ public class AddAccountingInitialValuesSpec extends RoboComponentTestBase {
         entries = addAccountingPage.typeSpinner().entries();
         assertThat(entries.get(0).getText()).isEqualTo("Ausgabe");
         assertThat(entries.get(1).getText()).isEqualTo("Einnahme");
-        assertThat(entries.get(2).getText()).isEqualTo("Ãœbertrag");
+        assertThat(entries.get(2).getText()).isEqualTo("Übertrag");
         assertThat(entries).hasSize(3);
         assertThat(addAccountingPage.typeSpinner().selectedEntry().getText()).isEqualTo("Ausgabe");
 
         entries = addAccountingPage.intervalSpinner().entries();
         assertThat(entries.get(0).getText()).isEqualTo("Einmahlig");
-        assertThat(entries.get(1).getText()).isEqualTo("WÃ¶chentlich");
+        assertThat(entries.get(1).getText()).isEqualTo("Wöchentlich");
         assertThat(entries.get(2).getText()).isEqualTo("Monatlich");
         assertThat(entries.get(3).getText()).isEqualTo("Alle_3_Monate");
         assertThat(entries).hasSize(4);

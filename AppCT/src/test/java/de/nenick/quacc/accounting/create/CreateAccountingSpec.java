@@ -1,62 +1,32 @@
-package de.nenick.quacc.addaccounting;
+package de.nenick.quacc.accounting.create;
 
-import android.graphics.Color;
-
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.ArgumentCaptor;
-import org.mockito.Captor;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.util.List;
-
-import de.nenick.quacc.TestQuAccApplication;
-import de.nenick.quacc.core.accounting.ParseAccountingValueUc;
-import de.nenick.quacc.datepicker.DatePickerFormatUtil;
-import de.nenick.quacc.robolectric.RoboAppTest;
+import de.nenick.quacc.TestDateUtil;
+import de.nenick.quacc.RoboComponentTestBase;
+import de.nenick.quacc.core.accounting.GetAccountingListUc;
+import de.nenick.quacc.core.accounting.GetAccountingListUc_;
+import de.nenick.quacc.database.provider.accounting.AccountingCursor;
+import de.nenick.quacc.database.provider.accounting.AccountingInterval;
+import de.nenick.quacc.database.provider.accounting.AccountingType;
+import de.nenick.quacc.database.tools.TestDatabaseDateUtil;
 import de.nenick.quacc.robolectric.RoboSup;
-import de.nenick.quacc.speechrecognition.SpeechListener;
-import de.nenick.quacc.speechrecognition.SpeechRecognitionWrapper;
-import de.nenick.robolectricpages.components.RoboSpinnerEntry;
 
-import static de.nenick.quacc.TestDateUtil.day;
-import static de.nenick.quacc.TestDateUtil.month;
-import static de.nenick.quacc.TestDateUtil.year;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.BDDMockito.given;
-import static org.mockito.Matchers.anyString;
-import static org.mockito.Mockito.verify;
 
-public class AddAccountingFragmentTest extends RoboAppTest {
+public class CreateAccountingSpec extends RoboComponentTestBase {
 
-    RoboSup<AddAccountingActivity_, AddAccountingFragment> robo = new RoboSup<>();
-    RoboAddAccountingPage addAccountingPage = new RoboAddAccountingPage(robo);
-
-    List<RoboSpinnerEntry> entries;
-
-    @Mock
-    SpeechRecognitionWrapper mockSpeechRecognition;
-
-    @Captor
-    ArgumentCaptor<SpeechListener> speechRecognitionListenerArgumentCaptor;
+    RoboSup<CreateAccountingActivity_, CreateAccountingFragment> robo = new RoboSup<>();
+    RoboCreateAccountingPage addAccountingPage = new RoboCreateAccountingPage(robo);
+    GetAccountingListUc getAccountingListUc;
 
     @Before
     public void setUp() {
-        MockitoAnnotations.initMocks(this);
-        RoboAddAccountingUcDefaultResults.apply();
+        getAccountingListUc = GetAccountingListUc_.getInstance_(context);
     }
 
-    @After
-    public void finish() {
-        if(robo.activityController != null) {
-            robo.activityController.destroy();
-        }
-    }
-
+    /*
     @Test
     public void shouldShowInitialValues() {
         addAccountingPage.startPage();
@@ -151,5 +121,49 @@ public class AddAccountingFragmentTest extends RoboAppTest {
         given(TestQuAccApplication.coreModuleMocks.parseAccountingValueUc.apply(anyString())).willReturn(new ParseAccountingValueUc.Result(ParseAccountingValueUc.ParseResult.ZeroValue));
         addAccountingPage.actionbar().cofirmMenuItem().click();
         assertThat(addAccountingPage.valueErrorField().getText()).isNotEmpty();
+    }
+     */
+
+    @Test
+    public void shouldAddNewAccountingWithGivenInputValues() {
+        addAccountingPage.startPage();
+        assertThat(getAccountingListUc.apply().getCount()).isZero();
+
+        addAccountingPage.accountSpinner().entry("Bar").select();
+        addAccountingPage.intervalSpinner().entry("Alle_3_Monate").select();
+        addAccountingPage.typeSpinner().entry("Einnahme").select();
+        addAccountingPage.categorySpinner().entry("Miete").select();
+        addAccountingPage.dateField().setText(TestDateUtil.date(21, 12, 2012));
+        addAccountingPage.valueField().setText("5,83");
+        addAccountingPage.commentField().setText("take the money");
+
+        addAccountingPage.actionbar().cofirmMenuItem().click();
+
+        AccountingCursor accountings = getAccountingListUc.apply();
+        assertThat(accountings.getCount()).isEqualTo(1);
+        accountings.moveToFirst();
+        assertThat(accountings.getAccountName()).isEqualTo("Bar");
+        assertThat(accountings.getAccountingInterval()).isEqualTo(AccountingInterval.Alle_3_Monate);
+        assertThat(accountings.getAccountingType()).isEqualTo(AccountingType.Einnahme);
+        assertThat(accountings.getAccountingCategoryName()).isEqualTo("Miete");
+        assertThat(accountings.getAccountingDate()).isEqualTo(TestDatabaseDateUtil.parse(TestDateUtil.date(21, 12, 2012)));
+        assertThat(accountings.getValue()).isEqualTo(583);
+        assertThat(accountings.getComment()).isEqualTo("take the money");
+    }
+
+    @Test
+    public void shouldGiveFeedbackForInvalidValues() {
+        addAccountingPage.startPage();
+        assertThat(getAccountingListUc.apply().getCount()).isZero();
+
+        addAccountingPage.valueField().setText("aa");
+        addAccountingPage.actionbar().cofirmMenuItem().click();
+        assertThat(getAccountingListUc.apply().getCount()).isZero();
+        assertThat(addAccountingPage.valueErrorField().getText()).contains("NoValidNumber");
+
+        addAccountingPage.valueField().setText("00");
+        addAccountingPage.actionbar().cofirmMenuItem().click();
+        assertThat(getAccountingListUc.apply().getCount()).isZero();
+        assertThat(addAccountingPage.valueErrorField().getText()).contains("ZeroValue");
     }
 }
