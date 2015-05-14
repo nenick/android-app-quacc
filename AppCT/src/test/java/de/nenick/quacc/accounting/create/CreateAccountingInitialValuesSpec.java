@@ -38,13 +38,13 @@ public class CreateAccountingInitialValuesSpec extends RoboComponentTestBase {
         entries = addAccountingPage.typeSpinner().entries();
         assertThat(entries.get(0).getText()).isEqualTo("Ausgabe");
         assertThat(entries.get(1).getText()).isEqualTo("Einnahme");
-        assertThat(entries.get(2).getText()).isEqualTo("Übertrag");
+        assertThat(entries.get(2).getText()).isEqualTo("Ãœbertrag");
         assertThat(entries).hasSize(3);
         assertThat(addAccountingPage.typeSpinner().selectedEntry().getText()).isEqualTo("Ausgabe");
 
         entries = addAccountingPage.intervalSpinner().entries();
         assertThat(entries.get(0).getText()).isEqualTo("Einmahlig");
-        assertThat(entries.get(1).getText()).isEqualTo("Wöchentlich");
+        assertThat(entries.get(1).getText()).isEqualTo("WÃ¶chentlich");
         assertThat(entries.get(2).getText()).isEqualTo("Monatlich");
         assertThat(entries.get(3).getText()).isEqualTo("Alle_3_Monate");
         assertThat(entries).hasSize(4);
