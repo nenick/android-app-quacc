@@ -87,3 +87,12 @@ task generateDatabaseFiles << {
         args = ["-jar", "$buildDir/android_contentprovider_generator-1.9.2-bundle.jar", "-i", dbSchemaPath, "-o", dbClassesPath]
     }
 }
+
+afterEvaluate {
+    tasks.testDebug {
+        testLogging {
+            events "passed", "skipped", "failed", "standardOut", "standardError"
+        }
+        jvmArgs "-XX:MaxPermSize=512m"
+    }
+}

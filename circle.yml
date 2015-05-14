@@ -35,7 +35,6 @@ test:
 
     # copy test results
     - mv App/build/reports/tests/debug $CIRCLE_TEST_REPORTS/AppUnitTests
-    - mv Core/build/reports/tests/debug $CIRCLE_TEST_REPORTS/CoreUnitTests
     - mv Database/build/reports/tests/debug $CIRCLE_TEST_REPORTS/DatabaseUnitTests
 
     - mv AppCT/build/test-report $CIRCLE_TEST_REPORTS/ComponentTests
@@ -46,5 +45,4 @@ test:
     - mkdir $CIRCLE_TEST_REPORTS/Lint
     - mv App/build/outputs/lint-results_files $CIRCLE_TEST_REPORTS/Lint
     - mv App/build/outputs/lint-results.html $CIRCLE_TEST_REPORTS/Lint/app-lint-results.html
-    - mv Core/build/outputs/lint-results.html $CIRCLE_TEST_REPORTS/Lint/core-lint-results.html
     - mv Database/build/outputs/lint-results.html $CIRCLE_TEST_REPORTS/Lint/database-lint-results.html

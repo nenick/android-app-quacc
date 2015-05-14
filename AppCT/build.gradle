@@ -22,3 +22,12 @@ dependencies {
     testCompile project(path: ':App', configuration: 'testArtifacts')
     testCompile project(path: ':Database', configuration: 'testArtifacts')
 }
+
+afterEvaluate {
+    tasks.testDebug {
+        testLogging {
+            events "passed", "skipped", "failed", "standardOut", "standardError"
+        }
+        jvmArgs "-XX:MaxPermSize=512m"
+    }
+}
