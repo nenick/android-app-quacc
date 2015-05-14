@@ -9,15 +9,9 @@ import java.util.Date;
 
 import de.nenick.quacc.R;
 import de.nenick.quacc.common.mvp.BasePresenterFragment;
-import de.nenick.quacc.core.accounting.AddNewAccountingUc;
-import de.nenick.quacc.core.accounting.GetAccountingCategoriesUc;
-import de.nenick.quacc.core.accounting.GetAccountingIntervalsUc;
-import de.nenick.quacc.core.accounting.GetAccountingTypesUc;
-import de.nenick.quacc.core.accounting.GetAccountsUc;
-import de.nenick.quacc.core.accounting.ParseAccountingValueUc;
-import de.nenick.quacc.common.util.QuAccDateFormatUtil;
+import de.nenick.quacc.common.util.QuAccDateUtil;
 
-import static de.nenick.quacc.core.accounting.ParseAccountingValueUc.ParseResult.Successful;
+import static de.nenick.quacc.accounting.create.ParseAccountingValueFunction.ParseResult.Successful;
 
 @EFragment(R.layout.fragment_add_accounting)
 @OptionsMenu(R.menu.menu_add_account)
@@ -27,22 +21,22 @@ public class CreateAccountingFragment extends BasePresenterFragment {
     CreateAccountingView view;
 
     @Bean
-    GetAccountingCategoriesUc getAccountingCategoriesUc;
+    GetAccountingCategoriesFunction getAccountingCategoriesFunction;
 
     @Bean
-    GetAccountingIntervalsUc getAccountingIntervalsUc;
+    GetAccountingIntervalsFunction getAccountingIntervalsFunction;
 
     @Bean
-    GetAccountingTypesUc getAccountingTypesUc;
+    GetAccountingTypesFunction getAccountingTypesFunction;
 
     @Bean
-    GetAccountsUc getAccountsUc;
+    GetAccountsFunction getAccountsFunction;
 
     @Bean
-    AddNewAccountingUc addNewAccountingUc;
+    CreateAccountingFunction createAccountingFunction;
 
     @Bean
-    ParseAccountingValueUc parseAccountingValueUc;
+    ParseAccountingValueFunction parseAccountingValueFunction;
 
     @Bean
     SpeechRecognitionFeature speechRecognitionFeature;
@@ -51,48 +45,60 @@ public class CreateAccountingFragment extends BasePresenterFragment {
     protected void onViewStart() {
         speechRecognitionFeature.setView(view);
 
-        view.showAccounts(getAccountsUc.apply());
-        view.showAccountingTypes(getAccountingTypesUc.apply());
-        view.showAccountingIntervals(getAccountingIntervalsUc.apply());
-        view.showAccountingCategories(getAccountingCategoriesUc.apply());
-        view.showDate(QuAccDateFormatUtil.currentDate());
+        view.showAccounts(getAccountsFunction.apply());
+        view.showAccountingTypes(getAccountingTypesFunction.apply());
+        view.showAccountingIntervals(getAccountingIntervalsFunction.apply());
+        view.showAccountingCategories(getAccountingCategoriesFunction.apply());
+        view.showDate(QuAccDateUtil.currentDate());
     }
 
     @Override
     protected void onViewPause() {
-        speechRecognitionFeature.stop();
+        speechRecognitionFeature.onViewPause();
     }
 
     @Override
     protected void onViewFinish() {
-        speechRecognitionFeature.destroy();
+        speechRecognitionFeature.onViewFinish();
     }
 
     @OptionsItem(R.id.confirm)
-    protected void onConfirmButton() {
+    protected void onConfirmNewAccounting() {
         view.closeSoftKeyboard();
-        String account = view.getAccount();
-        String accountingType = view.getAccountingType();
-        String accountingInterval = view.getAccountingInterval();
-        String accountingCategory = view.getAccountingCategory();
-        String dateString = view.getDate();
         String value = view.getValue();
-        String comment = view.getComment();
-
-        ParseAccountingValueUc.Result valueResult = parseAccountingValueUc.apply(value);
+        ParseAccountingValueFunction.Result valueResult = parseAccountingValueFunction.apply(value);
         if (valueResult.report == Successful) {
-            Date date = QuAccDateFormatUtil.parse(dateString);
-            addNewAccountingUc.apply(account, accountingType, accountingInterval, accountingCategory, date, valueResult.value, comment);
+            String account = view.getAccount();
+            String accountingType = view.getAccountingType();
+            String accountingInterval = view.getAccountingInterval();
+            String accountingCategory = view.getAccountingCategory();
+            String dateString = view.getDate();
+            String comment = view.getComment();
             view.finish();
+            Date date = QuAccDateUtil.parse(dateString);
+            createAccountingFunction.apply(account, accountingType, accountingInterval, accountingCategory, date, valueResult.value, comment);
         } else {
-            switch (valueResult.report) {
-                case DotAndCommaMix:
-                    view.showValueParsingError(R.string.parse_error_mix_dot_and_comma);
-                    break;
-                case UnknownError:
-                    view.showValueParsingError(R.string.parse_error_unknown);
-            }
+            showParsingError(valueResult);
+        }
+    }
 
+    private void showParsingError(ParseAccountingValueFunction.Result valueResult) {
+        switch (valueResult.report) {
+            case EmptyInput:
+                view.showValueParsingError(R.string.parse_error_missing_value);
+                break;
+            case ZeroValue:
+                view.showValueParsingError(R.string.parse_error_missing_value);
+                break;
+            case InvalidChar:
+                view.showValueParsingError(R.string.parse_error_invalid_char);
+                break;
+            case InvalidFormat:
+                view.showValueParsingError(R.string.parse_error_invalid_format);
+                break;
+            case UnknownError:
+            default:
+                view.showValueParsingError(R.string.parse_error_unknown);
         }
     }
 }

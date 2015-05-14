@@ -3,16 +3,13 @@ machine:
     GRADLE_OPTS: -Xmx512m
 
 test:
-  override:
-
-    # start the emulator
+  pre:
     - emulator -avd circleci-android21 -no-audio -no-window:
         background: true
         parallel: true
-
-    # wait for it to have booted
     - circle-android wait-for-boot
 
+  override:
     ###-- begin part from .travis.yml --###
 
     # Build the code

@@ -15,8 +15,8 @@ public abstract class BaseView {
     @RootContext
     protected Activity context;
 
-    public void showToast(String message) {
-        Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
+    public void showToast(int resourceId) {
+        Toast.makeText(context, resourceId, Toast.LENGTH_SHORT).show();
     }
 
     public void closeSoftKeyboard() {

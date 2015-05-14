@@ -8,13 +8,13 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.List;
 
-import de.nenick.quacc.RoboComponentTestBase;
-import de.nenick.quacc.robolectric.RoboSup;
+import de.nenick.robolectric.RoboComponentTestBase;
+import de.nenick.robolectric.RoboSup;
 import de.nenick.robolectricpages.components.RoboSpinnerEntry;
 
-import static de.nenick.quacc.TestDateUtil.day;
-import static de.nenick.quacc.TestDateUtil.month;
-import static de.nenick.quacc.TestDateUtil.year;
+import static de.nenick.quacc.test.TestDateUtil.day;
+import static de.nenick.quacc.test.TestDateUtil.month;
+import static de.nenick.quacc.test.TestDateUtil.year;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class CreateAccountingInitialValuesSpec extends RoboComponentTestBase {

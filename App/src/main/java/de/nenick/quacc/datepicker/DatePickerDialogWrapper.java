@@ -13,7 +13,7 @@ import org.androidannotations.annotations.RootContext;
 
 import java.util.Calendar;
 
-import de.nenick.quacc.common.util.QuAccDateFormatUtil;
+import de.nenick.quacc.common.util.QuAccDateUtil;
 
 @EBean
 public class DatePickerDialogWrapper extends DialogFragment implements DatePickerDialog.OnDateSetListener {
@@ -36,7 +36,7 @@ public class DatePickerDialogWrapper extends DialogFragment implements DatePicke
 
     @Override
     public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-        callback.onDatePick(QuAccDateFormatUtil.toString(year, monthOfYear, dayOfMonth));
+        callback.onDatePick(QuAccDateUtil.toString(year, monthOfYear, dayOfMonth));
     }
 
     @NonNull

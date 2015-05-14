@@ -1,27 +1,17 @@
 package de.nenick.quacc.accounting.create;
 
 import android.content.Context;
-import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.os.Bundle;
-import android.speech.RecognizerIntent;
-import android.speech.SpeechRecognizer;
-
-import com.melnykov.fab.FloatingActionButton;
 
 import org.androidannotations.annotations.AfterInject;
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EBean;
 import org.androidannotations.annotations.RootContext;
-import org.androidannotations.annotations.ViewById;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import de.nenick.quacc.R;
-import de.nenick.quacc.core.speechinterpretation.RecognizeAccountingTypeUc;
-import de.nenick.quacc.speechrecognition.SpeechListener;
+import de.nenick.quacc.accounting.create.speechinterpretation.RecognizeAccountingTypeFunction;
 import de.nenick.quacc.speechrecognition.SpeechRecognitionWrapper;
 
 @EBean
@@ -34,7 +24,7 @@ public class SpeechRecognitionFeature {
     SpeechRecognitionWrapper speechRecognitionWrapper;
 
     @Bean
-    RecognizeAccountingTypeUc recognizeAccountingTypeUc;
+    RecognizeAccountingTypeFunction recognizeAccountingTypeFunction;
 
     CreateAccountingView view;
 
@@ -42,65 +32,48 @@ public class SpeechRecognitionFeature {
         this.view = view;
     }
 
-    public void destroy() {
+    public void onViewFinish() {
         speechRecognitionWrapper.destroy();
     }
 
-    public void stop() {
-        boolean isListening = speechRecognitionWrapper.isListening();
-        if (isListening) {
-            onToggleSpeechRecognition();
-        }
+    public void onViewPause() {
+        speechRecognitionWrapper.stopListening();
+        view.showSpeechStartButton();
     }
 
     @AfterInject
     void onAfterInject() {
-        speechRecognitionWrapper.setSpeechListener(new SpeechListener() {
+        speechRecognitionWrapper.setSpeechResultListener(new SpeechRecognitionWrapper.SpeechResultListener() {
             @Override
             public void onError(int error) {
-                toggleIsListeningMarker();
+                view.showSpeechStartButton();
             }
 
             @Override
-            public void onResults(Bundle results) {
-                onViewSpeechResult(results.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION));
-                toggleIsListeningMarker();
+            public void onResults(ArrayList<String> speechResults) {
+                onViewSpeechResult(speechResults);
+                view.showSpeechStartButton();
             }
         });
     }
 
     @Click(R.id.btn_speech_recognition)
-    void onToggleSpeechRecognition() {
-        if (isSpeechRecognitionAvailable()) {
-            speechRecognitionWrapper.toggle();
+    void onToggleSpeechRecognitionClick() {
+        if (!speechRecognitionWrapper.isSpeechRecognitionAvailable()) {
+            view.showToast(R.string.speech_recognition_not_available);
+            return;
         }
-        toggleIsListeningMarker();
-    }
-
-    private void toggleIsListeningMarker() {
-        boolean isListening = speechRecognitionWrapper.isListening();
-        if (isListening) {
-            view.showSpeechStopButton();
-        } else {
+        if (speechRecognitionWrapper.isListening()) {
+            speechRecognitionWrapper.stopListening();
             view.showSpeechStartButton();
+        } else {
+            speechRecognitionWrapper.startListening();
+            view.showSpeechStopButton();
         }
-    }
-
-    /**
-     * http://stackoverflow.com/questions/4770835/how-to-detect-if-speech-to-text-is-available-on-android
-     */
-    private boolean isSpeechRecognitionAvailable() {
-        PackageManager pm = context.getPackageManager();
-        List activities = pm.queryIntentActivities(new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH), 0);
-        return activities.size() != 0;
     }
 
     private void onViewSpeechResult(ArrayList<String> matches) {
-        if (matches == null || matches.size() < 1) {
-            throw new UnsupportedOperationException("Getting no match was never tested");
-        }
-
-        String accountingType = recognizeAccountingTypeUc.apply(matches);
+        String accountingType = recognizeAccountingTypeFunction.apply(matches);
 
         String recognizedText = "";
         for (String match : matches) {

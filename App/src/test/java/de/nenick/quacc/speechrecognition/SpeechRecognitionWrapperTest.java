@@ -23,7 +23,7 @@ public class SpeechRecognitionWrapperTest {
 
 
     @Mock
-    SpeechListener recognitionListener;
+    RecognitionListenerWrapper recognitionListener;
 
 
     @InjectMocks
@@ -41,16 +41,16 @@ public class SpeechRecognitionWrapperTest {
 
     @Test
     public void shouldToggleOnIfNotListening() throws Exception {
-        speechRecognitionWrapper.toggle();
+        speechRecognitionWrapper.startListening();
         assertThat(speechRecognitionWrapper.isListening()).isTrue();
         verify(_speechRecognizer).startListening(speechRecognizerIntent);
     }
 
     @Test
     public void shouldToggleOffIfListening() throws Exception {
-        speechRecognitionWrapper.toggle();
+        speechRecognitionWrapper.startListening();
         assertThat(speechRecognitionWrapper.isListening()).isTrue();
-        speechRecognitionWrapper.toggle();
+        speechRecognitionWrapper.stopListening();
         assertThat(speechRecognitionWrapper.isListening()).isFalse();
         verify(_speechRecognizer).stopListening();
     }

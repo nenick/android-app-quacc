@@ -3,7 +3,4 @@
     <string name="action_confirm">Fertig</string>
     <string name="title_activity_accounting_list">Account Übersicht</string>
     <string name="title_activity_add_accounting">Neue Buchung</string>
-
-    <string name="parse_error_mix_dot_and_comma">Nutze nur Punkte oder Kommas für den Betrag.</string>
-    <string name="parse_error_unknown">Ein noch Unbekannter Fehler im Betrag wurde erkannt.</string>
 </resources>

@@ -10,8 +10,8 @@ import org.androidannotations.annotations.ViewById;
 import java.text.DateFormat;
 
 import de.nenick.quacc.R;
+import de.nenick.quacc.common.util.QuAccDateUtil;
 import de.nenick.quacc.database.provider.accounting.AccountingCursor;
-import de.nenick.quacc.common.util.QuAccDateFormatUtil;
 
 @EViewGroup(R.layout.fragment_accounting_list_item)
 public class AccountingListItem extends RelativeLayout {
@@ -39,7 +39,7 @@ public class AccountingListItem extends RelativeLayout {
     }
 
     public void bind(AccountingCursor accountingCursor) {
-        DateFormat df = QuAccDateFormatUtil.getDefaultDateFormat();
+        DateFormat df = QuAccDateUtil.getDefaultDateFormat();
         date.setText(df.format(accountingCursor.getAccountingDate()));
         type.setText(accountingCursor.getAccountingType().name());
         interval.setText(accountingCursor.getAccountingInterval().name());

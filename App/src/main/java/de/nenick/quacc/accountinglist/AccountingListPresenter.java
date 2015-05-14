@@ -3,18 +3,18 @@ package de.nenick.quacc.accountinglist;
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EBean;
 
-import de.nenick.quacc.core.accounting.GetAccountingListUc;
+import de.nenick.quacc.accounting.list.GetAccountingListFunction;
 
 @EBean
 public class AccountingListPresenter {
 
     @Bean
-    GetAccountingListUc getAccountingListUc;
+    GetAccountingListFunction getAccountingListFunction;
 
     AccountingListFragment view;
 
     public void onViewCreated(AccountingListFragment view) {
         this.view = view;
-        view.showAccountingList(getAccountingListUc.apply());
+        view.showAccountingList(getAccountingListFunction.apply());
     }
 }

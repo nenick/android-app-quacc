@@ -2,6 +2,7 @@ package de.nenick.quacc.speechrecognition;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.speech.RecognizerIntent;
 import android.speech.SpeechRecognizer;
@@ -10,15 +11,25 @@ import org.androidannotations.annotations.AfterInject;
 import org.androidannotations.annotations.EBean;
 import org.androidannotations.annotations.RootContext;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @EBean
 public class SpeechRecognitionWrapper {
 
+    public interface SpeechResultListener {
+
+        void onError(int error);
+
+        void onResults(ArrayList<String> speechResults);
+    }
+
     @RootContext
     Context context;
+
     SpeechRecognizer speechRecognizer;
     Intent speechRecognizerIntent;
     boolean isListening;
-    SpeechListener recognitionListener;
 
     @AfterInject
     protected void afterInject() {
@@ -26,38 +37,47 @@ public class SpeechRecognitionWrapper {
         speechRecognizerIntent = createSpeechIntent();
     }
 
-    public void toggle() {
+    public void startListening() {
         if (!isListening) {
-            speechRecognizer.startListening(speechRecognizerIntent);
             isListening = true;
-        } else {
+            speechRecognizer.startListening(speechRecognizerIntent);
+        }
+    }
+
+    public void stopListening() {
+        if (isListening) {
             isListening = false;
             speechRecognizer.stopListening();
         }
     }
 
-    public void setSpeechListener(final SpeechListener recognitionListener) {
-        this.recognitionListener = new SpeechListener() {
+    public void setSpeechResultListener(final SpeechResultListener speechResultListener) {
+        speechRecognizer.setRecognitionListener(new RecognitionListenerWrapper() {
             @Override
             public void onError(int error) {
                 isListening = false;
-                recognitionListener.onError(error);
+                speechResultListener.onError(error);
             }
 
             @Override
             public void onResults(Bundle results) {
                 isListening = false;
-                recognitionListener.onResults(results);
+                speechResultListener.onResults(results.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION));
             }
-        };
-        speechRecognizer.setRecognitionListener(this.recognitionListener);
+        });
+    }
+
+    /**
+     * http://stackoverflow.com/questions/4770835/how-to-detect-if-speech-to-text-is-available-on-android
+     */
+    public boolean isSpeechRecognitionAvailable() {
+        PackageManager pm = context.getPackageManager();
+        List activities = pm.queryIntentActivities(new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH), 0);
+        return activities.size() != 0;
     }
 
     public void destroy() {
-        if (speechRecognizer != null) {
-            speechRecognizer.destroy();
-        }
-        recognitionListener = null;
+        speechRecognizer.destroy();
     }
 
     public boolean isListening() {
@@ -70,5 +90,4 @@ public class SpeechRecognitionWrapper {
         mSpeechRecognizerIntent.putExtra(RecognizerIntent.EXTRA_CALLING_PACKAGE, context.getPackageName());
         return mSpeechRecognizerIntent;
     }
-
 }

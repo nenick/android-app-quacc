@@ -5,8 +5,8 @@ import android.speech.SpeechRecognizer;
 
 import org.junit.Test;
 
-import de.nenick.quacc.RoboComponentTestBase;
-import de.nenick.quacc.robolectric.RoboSup;
+import de.nenick.robolectric.RoboComponentTestBase;
+import de.nenick.robolectric.RoboSup;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
@@ -28,7 +28,7 @@ public class CreateAccountingSpeechSpec extends RoboComponentTestBase {
     /*
     @Test
     public void shouldStartSpeechRecognitionOnClick() {
-        addAccountingPage.startPageWithSpeechMock(mockSpeechRecognizer);
+        addAccountingPage.startPageWithSpeechMock(speechRecognizer);
         thenSpeechButtonShowMicIsOff();
         addAccountingPage.speechButton().click();
         thenSpeechButtonShowMicIsOn();
@@ -38,7 +38,7 @@ public class CreateAccountingSpeechSpec extends RoboComponentTestBase {
     public void shouldStopSpeechRecognitionOnClickAgain() {
         givenStartedListening();
         addAccountingPage.speechButton().click();
-        verify(mockSpeechRecognizer).stopListening();
+        verify(speechRecognizer).stopListening();
         thenSpeechButtonShowMicIsOff();
     }
 
@@ -60,14 +60,14 @@ public class CreateAccountingSpeechSpec extends RoboComponentTestBase {
     public void shouldStopSpeechRecognition() {
         givenStartedListening();
         robo.activityController.pause();
-        verify(mockSpeechRecognizer).stopListening();
+        verify(speechRecognizer).stopListening();
     }
 
     @Test
     public void shouldDestroySpeechRecognition() {
         givenStartedListening();
-        robo.activityController.destroy();
-        verify(mockSpeechRecognizer).destroy();
+        robo.activityController.onViewFinish();
+        verify(speechRecognizer).onViewFinish();
     }
 
     @Test(expected = UnsupportedOperationException.class)
@@ -91,9 +91,9 @@ public class CreateAccountingSpeechSpec extends RoboComponentTestBase {
     }
 
     private void givenStartedListening() {
-        addAccountingPage.startPageWithSpeechMock(mockSpeechRecognizer);
+        addAccountingPage.startPageWithSpeechMock(speechRecognizer);
         addAccountingPage.speechButton().click();
-        verify(mockSpeechRecognizer).startListening(any(Intent.class));
+        verify(speechRecognizer).startListening(any(Intent.class));
     }
 
     public Bundle speechResultBundle(String text) {
