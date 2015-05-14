@@ -10,7 +10,6 @@ def isTravis = "true".equals(System.getenv("TRAVIS"))
 task configureCoverageReport {
     doFirst {
         def includeAppSrc = false;
-        def includeCoreSrc = false;
         def includeDatabaseSrc = false;
         def coverageFiles = []
         def coverageSourceDirs = []
@@ -27,7 +26,6 @@ task configureCoverageReport {
         def currentCoverageFile = 'App/build/outputs/code-coverage/connected/coverage.ec'
         if (file(currentCoverageFile).exists()) {
             includeAppSrc = true;
-            includeCoreSrc = true;
             includeDatabaseSrc = true;
             coverageFiles += currentCoverageFile
         }
@@ -39,7 +37,6 @@ task configureCoverageReport {
         currentCoverageFile = 'AppCT/build/jacoco/testDebug.exec'
         if (file(currentCoverageFile).exists()) {
             includeAppSrc = true;
-            includeCoreSrc = true;
             includeDatabaseSrc = true;
             coverageFiles += currentCoverageFile
         }
@@ -48,20 +45,11 @@ task configureCoverageReport {
             includeDatabaseSrc = true;
             coverageFiles += currentCoverageFile
         }
-        currentCoverageFile = 'Core/build/jacoco/testDebug.exec'
-        if (file(currentCoverageFile).exists()) {
-            includeCoreSrc = true;
-            coverageFiles += currentCoverageFile
-        }
 
         // Don't include classes from modules we haven't executed
         if (includeAppSrc) {
             coverageSourceDirs += 'App/src/main/java'
             tasks.jacocoTestReport.classDirectories += fileTree(dir: 'App/build/intermediates/classes/debug', excludes: defaultExcludes)
-        }
-        if (includeCoreSrc) {
-            coverageSourceDirs += 'Core/src/main/java'
-            tasks.jacocoTestReport.classDirectories += fileTree(dir: 'Core/build/intermediates/classes/debug', exclude: defaultExcludes)
         }
         if (includeDatabaseSrc) {
             coverageSourceDirs += 'Database/src/gen/java'
@@ -99,6 +87,6 @@ jacocoTestReport {
 compileJava.enabled = false
 coveralls {
     if (isTravis) { // avoid android studio source root conflicts
-        sourceSets.main.java.srcDirs += ['App/src/main/java', 'Core/src/main/java']
+        sourceSets.main.java.srcDirs += ['App/src/main/java']
     }
 }
