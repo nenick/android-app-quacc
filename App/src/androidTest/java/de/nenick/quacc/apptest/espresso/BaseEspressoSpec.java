@@ -32,7 +32,7 @@ public abstract class BaseEspressoSpec {
                 main.get().getWindow().addFlags(WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD);
             }
         });
-
+        main.get(); // just lunch the activity
         launcherPage.clickStartApp();
     }
 

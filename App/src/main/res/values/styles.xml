@@ -1,9 +1,15 @@
 <resources>
 
-    <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat">
+        <!-- for actionbar -->
         <item name="colorPrimary">@color/primary</item>
+        <!-- for fields textView, spinner -->
+        <item name="android:textColor">@color/primaryText</item>
+        <!-- for input fields editText -->
         <item name="android:textColorPrimary">@color/primaryText</item>
+        <!-- for cursor, line, arrow of current active elements -->
+        <item name="colorAccent">@color/primary</item>
+        <!-- for full view background -->
         <item name="android:windowBackground">@color/windowBackground</item>
     </style>
 

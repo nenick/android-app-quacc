@@ -7,152 +7,188 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/layout_center_ancor"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Buchungsart"
-        android:id="@+id/typeLabel"
-        android:layout_marginTop="26dp"
-        android:layout_below="@+id/account"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
-
-    <Spinner
-        android:id="@+id/type"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:spinnerMode="dialog"
-        android:layout_below="@+id/typeLabel"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        tools:listitem="@layout/support_simple_spinner_dropdown_item" />
-
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Datum"
-        android:id="@+id/dateLabel"
-        android:layout_marginTop="35dp"
-        android:layout_below="@+id/type"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
-
-    <EditText
-        android:id="@+id/date"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="02.02.2002"
-        android:editable="false"
-        android:inputType="none"
-        android:elegantTextHeight="true"
-        android:layout_below="@+id/dateLabel"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
-
-
-    <TextView
-        android:id="@+id/intervalLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Interval"
-        android:layout_alignParentTop="false"
-        android:layout_alignLeft="@+id/layout_center_ancor"
-        android:layout_alignTop="@+id/accountLabel" />
-
-
-    <Spinner
-        android:id="@+id/interval"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:spinnerMode="dialog"
-        android:layout_below="@+id/intervalLabel"
-        android:layout_alignLeft="@+id/intervalLabel"
-        android:layout_alignStart="@+id/intervalLabel"
-        tools:listitem="@layout/support_simple_spinner_dropdown_item" />
-
-    <TextView
-        android:id="@+id/categoryLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Kategorie"
-        android:layout_alignTop="@+id/typeLabel"
-        android:layout_toEndOf="@+id/type"
-        android:layout_alignLeft="@+id/layout_center_ancor" />
-
-
-    <Spinner
-        android:id="@+id/category"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:spinnerMode="dialog"
-        tools:listitem="@layout/support_simple_spinner_dropdown_item"
-        android:layout_below="@+id/categoryLabel"
-        android:layout_alignEnd="@+id/interval"
-        android:layout_alignStart="@+id/categoryLabel" />
-
-
-    <TextView
-        android:id="@+id/speechResult"
+    <ScrollView
+        android:id="@android:id/content"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="..."
-        android:layout_alignTop="@+id/btn_speech_recognition"
-        android:layout_centerHorizontal="true"
-        android:layout_toLeftOf="@+id/btn_speech_recognition"
-        android:textAlignment="center" />
+        android:layout_height="match_parent"
+        >
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Betrag"
-        android:id="@+id/valueLabel"
-        android:layout_marginTop="33dp"
-        android:layout_below="@+id/category"
-        android:layout_alignLeft="@+id/category"
-        android:layout_alignStart="@+id/category" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/value"
-        android:text="0,00"
-        android:gravity="end"
-        android:inputType="numberDecimal"
-        android:layout_below="@+id/valueLabel"
-        android:layout_alignLeft="@+id/valueLabel"
-        android:layout_alignStart="@+id/valueLabel"
-        android:layout_alignEnd="@+id/category" />
+            <TextView
+                android:id="@+id/layout_center_ancor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Konto"
-        android:id="@+id/accountLabel"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="20dp"
-        android:layout_alignRight="@+id/type"
-        android:layout_alignEnd="@+id/type" />
+            <TextView
+                android:id="@+id/typeLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/account"
+                android:layout_marginTop="26dp"
+                android:text="Buchungsart" />
 
-    <Spinner
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/account"
-        android:layout_below="@+id/accountLabel"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:spinnerMode="dialog"
-        tools:listitem="@layout/support_simple_spinner_dropdown_item" />
+            <Spinner
+                android:id="@+id/type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/typeLabel"
+                android:spinnerMode="dialog"
+                tools:listitem="@layout/support_simple_spinner_dropdown_item" />
 
+
+            <TextView
+                android:id="@+id/dateLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/type"
+                android:layout_marginTop="35dp"
+                android:text="Datum" />
+
+            <EditText
+                android:id="@+id/date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/dateLabel"
+                android:editable="false"
+                android:elegantTextHeight="true"
+                android:inputType="none"
+                android:text="02.02.2002" />
+
+
+            <TextView
+                android:id="@+id/intervalLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/layout_center_ancor"
+                android:layout_alignParentTop="false"
+                android:layout_alignTop="@+id/accountLabel"
+                android:text="Interval" />
+
+
+            <Spinner
+                android:id="@+id/interval"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/intervalLabel"
+                android:layout_alignStart="@+id/intervalLabel"
+                android:layout_below="@+id/intervalLabel"
+                android:spinnerMode="dialog"
+                tools:listitem="@layout/support_simple_spinner_dropdown_item" />
+
+            <TextView
+                android:id="@+id/categoryLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/layout_center_ancor"
+                android:layout_alignTop="@+id/typeLabel"
+                android:layout_toEndOf="@+id/type"
+                android:text="Kategorie" />
+
+
+            <Spinner
+                android:id="@+id/category"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignEnd="@+id/interval"
+                android:layout_alignStart="@+id/categoryLabel"
+                android:layout_below="@+id/categoryLabel"
+                android:spinnerMode="dialog"
+                tools:listitem="@layout/support_simple_spinner_dropdown_item" />
+
+            <TextView
+                android:id="@+id/valueLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/category"
+                android:layout_alignStart="@+id/category"
+                android:layout_below="@+id/category"
+                android:layout_marginTop="33dp"
+                android:text="Betrag" />
+
+            <EditText
+                android:id="@+id/value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignEnd="@+id/category"
+                android:layout_alignLeft="@+id/valueLabel"
+                android:layout_alignStart="@+id/valueLabel"
+                android:layout_below="@+id/valueLabel"
+                android:gravity="end"
+                android:imeOptions="flagNoExtractUi"
+                android:inputType="numberDecimal"
+                android:text="0,00" />
+
+            <TextView
+                android:id="@+id/accountLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignEnd="@+id/type"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_alignRight="@+id/type"
+                android:layout_marginTop="20dp"
+                android:text="Konto" />
+
+            <Spinner
+                android:id="@+id/account"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/accountLabel"
+                android:spinnerMode="dialog"
+                tools:listitem="@layout/support_simple_spinner_dropdown_item" />
+
+            <TextView
+                android:id="@+id/commentLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/date"
+                android:layout_marginTop="33dp"
+                android:text="Kommantar (Optional)" />
+
+            <EditText
+                android:id="@+id/comment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/commentLabel"
+                android:imeOptions="flagNoExtractUi"
+                android:inputType="numberDecimal" />
+
+            <TextView
+                android:id="@+id/valueError"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/value"
+                android:layout_below="@+id/value"
+                android:textColor="#FF0000"
+                tools:text="New Text" />
+
+            <TextView
+                android:id="@+id/speechResult"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/comment"
+                tools:text="..."/>
+
+        </RelativeLayout>
+    </ScrollView>
 
     <com.melnykov.fab.FloatingActionButton
         android:id="@+id/btn_speech_recognition"
@@ -162,30 +198,5 @@
         android:layout_alignParentEnd="true"
         android:layout_margin="16dp"
         android:src="@drawable/ic_action_mic" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Kommantar (Optional)"
-        android:id="@+id/commentLabel"
-        android:layout_below="@+id/date"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="33dp" />
-
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/comment"
-        android:layout_below="@+id/commentLabel"
-        android:layout_alignParentStart="true" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/valueError"
-        android:layout_below="@+id/value"
-        android:layout_alignStart="@+id/value"
-        android:textColor="#FF0000"
-        tools:text="New Text" />
 
 </RelativeLayout>
