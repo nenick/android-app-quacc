@@ -29,6 +29,7 @@ afterEvaluate {
             events "passed", "skipped", "failed", "standardOut", "standardError"
         }
         jvmArgs "-XX:MaxPermSize=512m"
+        maxHeapSize "1048m"
     }
 }
 
