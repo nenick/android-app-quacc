@@ -36,13 +36,6 @@ android {
         }
     }
 
-    dexOptions {
-        // speed up build on Travis CI
-        // since adding coverage to core module this produce java.lang.IllegalArgumentException: already added: Lcom/vladium/emma/rt/RT;
-        // preDexLibraries = !isTravis
-        preDexLibraries = !"true".equals(System.getenv("CIRCLECI"))
-    }
-
     lintOptions {
         // robolectric does only support sdk v21 current
         disable 'OldTargetApi'

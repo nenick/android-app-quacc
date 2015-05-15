@@ -31,3 +31,8 @@ afterEvaluate {
         jvmArgs "-XX:MaxPermSize=512m"
     }
 }
+
+// force utf-8 is necessary for windows environments or test classes aren't interpreted in utf-8
+tasks.withType(JavaCompile) {
+    options.encoding = "utf-8"
+}

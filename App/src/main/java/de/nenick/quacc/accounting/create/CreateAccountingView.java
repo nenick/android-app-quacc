@@ -7,7 +7,6 @@ import android.widget.TextView;
 
 import com.melnykov.fab.FloatingActionButton;
 
-import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EBean;
 import org.androidannotations.annotations.ViewById;
@@ -15,6 +14,7 @@ import org.androidannotations.annotations.ViewById;
 import de.nenick.quacc.R;
 import de.nenick.quacc.common.mvp.BaseView;
 import de.nenick.quacc.datepicker.DatePickerDialogWrapper;
+import de.nenick.quacc.datepicker.DatePickerDialogWrapper_;
 
 @EBean
 public class CreateAccountingView extends BaseView {
@@ -45,9 +45,6 @@ public class CreateAccountingView extends BaseView {
 
     @ViewById(R.id.btn_speech_recognition)
     FloatingActionButton speechButton;
-
-    @Bean
-    DatePickerDialogWrapper datePickerDialog;
 
     public void showAccounts(CharSequence[] stringArray) {
         ArrayAdapter<CharSequence> adapter = new ArrayAdapter<>(context, android.R.layout.simple_spinner_item, stringArray);
@@ -115,12 +112,12 @@ public class CreateAccountingView extends BaseView {
 
     @Click(R.id.date)
     void onShowDatePicker() {
-        datePickerDialog.start(new DatePickerDialogWrapper.Callback() {
+        DatePickerDialogWrapper_.builder().build().show(new DatePickerDialogWrapper.Callback() {
             @Override
             public void onDatePick(String date) {
                 showDate(date);
             }
-        });
+        }, context.getSupportFragmentManager());
     }
 
     public void showSpeechStartButton() {

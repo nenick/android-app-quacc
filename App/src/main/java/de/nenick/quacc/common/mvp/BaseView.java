@@ -1,7 +1,7 @@
 package de.nenick.quacc.common.mvp;
 
-import android.app.Activity;
 import android.content.Context;
+import android.support.v7.app.ActionBarActivity;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
@@ -13,7 +13,7 @@ import org.androidannotations.annotations.RootContext;
 public abstract class BaseView {
 
     @RootContext
-    protected Activity context;
+    protected ActionBarActivity context;
 
     public void showToast(int resourceId) {
         Toast.makeText(context, resourceId, Toast.LENGTH_SHORT).show();

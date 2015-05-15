@@ -5,17 +5,19 @@ import android.app.Dialog;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.ActionBarActivity;
 import android.widget.DatePicker;
 
 import org.androidannotations.annotations.EBean;
+import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.RootContext;
 
 import java.util.Calendar;
 
 import de.nenick.quacc.common.util.QuAccDateUtil;
 
-@EBean
+@EFragment
 public class DatePickerDialogWrapper extends DialogFragment implements DatePickerDialog.OnDateSetListener {
 
     private static final String TAG = "Date Picker";
@@ -24,14 +26,11 @@ public class DatePickerDialogWrapper extends DialogFragment implements DatePicke
         void onDatePick(String date);
     }
 
-    @RootContext
-    ActionBarActivity activity;
-
     private Callback callback;
 
-    public void start(Callback callback) {
+    public void show(Callback callback, FragmentManager fragmentManager) {
         this.callback = callback;
-        show(activity.getSupportFragmentManager(), TAG);
+        show(fragmentManager, TAG);
     }
 
     @Override
