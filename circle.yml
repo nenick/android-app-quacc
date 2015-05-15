@@ -10,7 +10,6 @@ test:
     - circle-android wait-for-boot
 
   override:
-    ###-- begin part from .travis.yml --###
 
     # Build the code
     - ./gradlew App:assembleDebug
@@ -22,21 +21,20 @@ test:
     # Execute Component Tests
     - ./gradlew AppCT:test
 
-    # Execute Tests on Emulator
+    # Build instrumented test code and execute them on emulator
+    - ./gradlew App:assembleDebugAndroidTest
     - ./gradlew App:connectedCheck
 
     # Create coverage report
     - ./gradlew jacocoTestReport
 
     # Check lint hints
-    - ./gradlew lint
-
-    ###-- end part from .travis.yml --###
+    - ./gradlew App:lint
+    - ./gradlew Database:lint
 
     # copy test results
     - mv App/build/reports/tests/debug $CIRCLE_TEST_REPORTS/AppUnitTests
     - mv Database/build/reports/tests/debug $CIRCLE_TEST_REPORTS/DatabaseUnitTests
-
     - mv AppCT/build/test-report $CIRCLE_TEST_REPORTS/ComponentTests
     - mv App/build/outputs/reports/androidTests $CIRCLE_TEST_REPORTS/AndroidTests
     - mv build/reports/jacoco/test/html $CIRCLE_TEST_REPORTS/CodeCoverageReport
@@ -46,3 +44,6 @@ test:
     - mv App/build/outputs/lint-results_files $CIRCLE_TEST_REPORTS/Lint
     - mv App/build/outputs/lint-results.html $CIRCLE_TEST_REPORTS/Lint/app-lint-results.html
     - mv Database/build/outputs/lint-results.html $CIRCLE_TEST_REPORTS/Lint/database-lint-results.html
+
+    #try circleCi proper test result feature
+    -  find */build/test-results -name "*.xml" -exec cp {} $CIRCLE_TEST_REPORTS/junit/ \;
