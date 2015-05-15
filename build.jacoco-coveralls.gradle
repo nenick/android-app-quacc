@@ -66,6 +66,7 @@ task configureCoverageReport {
         if (isTravis) { // avoid android studio source root conflicts
             tasks.coveralls {
                 sourceSets.main.java.srcDirs += coverageSourceDirs
+                env.CIRCLECI = isTravis
             }
         }
     }
@@ -88,5 +89,6 @@ compileJava.enabled = false
 coveralls {
     if (isTravis) { // avoid android studio source root conflicts
         sourceSets.main.java.srcDirs += ['App/src/main/java']
+
     }
 }
