@@ -63,10 +63,13 @@ task configureCoverageReport {
         // Send code coverage report to coveralls with coveralls-gradle-plugin. To get the plugin working
         // we need to include the coverageSourceDirs as main sources. But this conflicts with android
         // studio and also with jacocoTestReport task.
-        if (isTravis) { // avoid android studio source root conflicts
-            tasks.coveralls {
+
+        tasks.coveralls {
+            if (isTravis) { // avoid android studio source root conflicts
                 sourceSets.main.java.srcDirs += coverageSourceDirs
-                env.CIRCLECI = isTravis
+            }
+            env.each {
+                println it
             }
         }
     }
@@ -80,15 +83,4 @@ jacocoTestReport {
         xml.enabled = true
         html.enabled = true
     }
-}
-
-// Send code coverage report to coveralls with coveralls-gradle-plugin. To get the plugin working
-// we need to include the coverageSourceDirs as main sources. But this conflicts with android
-// studio and also with jacocoTestReport task.
-compileJava.enabled = false
-coveralls {
-    if (isTravis) { // avoid android studio source root conflicts
-        sourceSets.main.java.srcDirs += ['App/src/main/java']
-    }
-    ci_service = circle_ci
 }
