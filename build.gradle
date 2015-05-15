@@ -18,6 +18,9 @@ allprojects {
         jcenter()
     }
     apply plugin: "jacoco"
+    jacoco {
+        toolVersion = "0.7.4.201502262128"
+    }
 }
 
 apply plugin: "java"
