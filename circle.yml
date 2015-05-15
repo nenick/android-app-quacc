@@ -48,9 +48,9 @@ test:
     #try circleCi proper test result feature
     -  find */build/test-results -name "*.xml" -exec cp {} $CIRCLE_TEST_REPORTS/junit/ \;
 
-  deployment:
-    # Only report code coverage if all tasks are successful
-    coverage:
-      branch: [master]
-      commands:
-      - ./gradlew coveralls
+deployment:
+  # Only report code coverage if all tasks are successful
+  coverage:
+    branch: [master]
+    commands:
+    - ./gradlew coveralls
