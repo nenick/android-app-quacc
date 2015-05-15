@@ -3,11 +3,6 @@ machine:
     GRADLE_OPTS: -Xmx512m
 
 test:
-  pre:
-    - emulator -avd circleci-android21 -no-audio -no-window:
-        background: true
-        parallel: true
-    - circle-android wait-for-boot
 
   override:
 
@@ -20,6 +15,11 @@ test:
 
     # Execute Component Tests
     - ./gradlew AppCT:test
+
+    - emulator -avd circleci-android21 -no-audio -no-window:
+        background: true
+        parallel: true
+    - circle-android wait-for-boot
 
     # Build instrumented test code and execute them on emulator
     - ./gradlew App:assembleDebugAndroidTest
