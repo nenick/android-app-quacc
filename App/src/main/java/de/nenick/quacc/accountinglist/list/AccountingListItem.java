@@ -41,7 +41,26 @@ public class AccountingListItem extends RelativeLayout {
     public void bind(AccountingCursor accountingCursor) {
         DateFormat df = QuAccDateUtil.getDefaultDateFormat();
         date.setText(df.format(accountingCursor.getAccountingDate()));
-        type.setText(accountingCursor.getAccountingType().name());
+        String accountingType = accountingCursor.getAccountingType().name();
+        if(accountingType.equals("Ausgabe")) {
+            setBackgroundColor(getResources().getColor(R.color.negativeBackground));
+            date.setTextColor(getResources().getColor(R.color.negativeText));
+            type.setTextColor(getResources().getColor(R.color.negativeText));
+            interval.setTextColor(getResources().getColor(R.color.negativeText));
+            category.setTextColor(getResources().getColor(R.color.negativeText));
+            comment.setTextColor(getResources().getColor(R.color.negativeText));
+            value.setTextColor(getResources().getColor(R.color.negativeText));
+        }
+        if(accountingType.equals("Einnahme")) {
+            setBackgroundColor(getResources().getColor(R.color.positiveBackground));
+            date.setTextColor(getResources().getColor(R.color.positiveText));
+            type.setTextColor(getResources().getColor(R.color.positiveText));
+            interval.setTextColor(getResources().getColor(R.color.positiveText));
+            category.setTextColor(getResources().getColor(R.color.positiveText));
+            comment.setTextColor(getResources().getColor(R.color.positiveText));
+            value.setTextColor(getResources().getColor(R.color.positiveText));
+        }
+        type.setText(accountingType);
         interval.setText(accountingCursor.getAccountingInterval().name());
         category.setText(accountingCursor.getAccountingCategoryName());
         comment.setText(accountingCursor.getComment());

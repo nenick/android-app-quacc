@@ -13,7 +13,7 @@ import de.nenick.quacc.common.util.QuAccDateUtil;
 
 import static de.nenick.quacc.accounting.create.ParseAccountingValueFunction.ParseResult.Successful;
 
-@EFragment(R.layout.fragment_add_accounting)
+@EFragment(R.layout.fragment_create_accounting)
 @OptionsMenu(R.menu.menu_add_account)
 public class CreateAccountingFragment extends BasePresenterFragment {
 
