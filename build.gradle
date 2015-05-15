@@ -23,6 +23,8 @@ allprojects {
     }
 }
 
+project.ext.set("isCircleCi", ("true".equals(System.getenv("TRAVIS")) || "true".equals(System.getenv("CIRCLECI"))))
+
 apply plugin: "java"
 apply from: "build.disable-predex.gradle"
 apply from: "build.jacoco-coveralls.gradle"
