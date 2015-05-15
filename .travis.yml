@@ -70,7 +70,8 @@ script:
 after_success:
 
   # Only report code coverage if all tasks are successful
-  - ./gradlew coveralls
+  # This was switched to circleCI
+  # - ./gradlew coveralls
   
 addons:
   coverity_scan:
