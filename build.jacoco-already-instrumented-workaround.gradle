@@ -2,7 +2,7 @@ project.ext.isInstrumentedTestRun = false
 def isTestRun = false
 
 gradle.startParameter.taskNames.each {
-    if (it.contains("connectedAndroidTest") || it.contains("connectedCheck")) {
+    if (it.contains("connectedCheck")) {
         isInstrumentedTestRun = true
     }
     if (it.contains("test")) {
