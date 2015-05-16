@@ -59,16 +59,6 @@ task configureCoverageReport {
 
         tasks.jacocoTestReport.additionalSourceDirs = files(coverageSourceDirs)
         tasks.jacocoTestReport.executionData = files(coverageFiles)
-
-        // Send code coverage report to coveralls with coveralls-gradle-plugin. To get the plugin working
-        // we need to include the coverageSourceDirs as main sources. But this conflicts with android
-        // studio and also with jacocoTestReport task.
-
-        tasks.coveralls {
-            if (isTravis) { // avoid android studio source root conflicts
-                sourceSets.main.java.srcDirs += coverageSourceDirs
-            }
-        }
     }
 }
 
@@ -79,5 +69,14 @@ jacocoTestReport {
     reports {
         xml.enabled = true
         html.enabled = true
+    }
+}
+
+// Send code coverage report to coveralls with coveralls-gradle-plugin. To get the plugin working
+// we need to include the coverageSourceDirs as main sources. But this conflicts with android
+// studio and also with jacocoTestReport task.
+tasks.coveralls {
+    if (isTravis) { // avoid android studio source root conflicts
+        sourceSets.main.java.srcDirs += coverageSourceDirs
     }
 }
