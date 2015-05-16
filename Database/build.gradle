@@ -41,7 +41,6 @@ android {
             buildConfigField "String", "MODULE_PATH", "\"$projectDir\"".replace('\\', '\\\\')
         }
         debug {
-            testCoverageEnabled = project.isInstrumentedTestRun
             buildConfigField "String", "MODULE_PATH", "\"$projectDir\"".replace('\\', '\\\\')
         }
     }
