@@ -23,7 +23,7 @@ test:
 
     # Build instrumented test code and execute them on emulator
     # Clean should avoid java.lang.IllegalArgumentException: already added: Lorg/jacoco/agent/rt/RT; if it occur
-    - ./gradlew App:assembleDebugAndroidTest
+    - ./gradlew clean App:assembleDebugAndroidTest
     - ./gradlew App:connectedCheck
 
     # Create coverage report
