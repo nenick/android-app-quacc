@@ -68,9 +68,6 @@ task configureCoverageReport {
             if (isTravis) { // avoid android studio source root conflicts
                 sourceSets.main.java.srcDirs += coverageSourceDirs
             }
-            env.each {
-                println it
-            }
         }
     }
 }
