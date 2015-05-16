@@ -1,14 +1,14 @@
-package de.nenick.quacc.accounting.create;
+package de.nenick.quacc.accounting.create.functions;
 
 import org.androidannotations.annotations.EBean;
 
-import de.nenick.quacc.database.provider.accounting.AccountingInterval;
+import de.nenick.quacc.database.provider.accounting.AccountingType;
 
 @EBean
-public class GetAccountingIntervalsFunction {
+public class GetAccountingTypesFunction {
 
     public CharSequence[] apply() {
-        AccountingInterval[] values = AccountingInterval.values();
+        AccountingType[] values = AccountingType.values();
         CharSequence[] types = new CharSequence[values.length];
         for (int i = 0; i < values.length; i++) {
             types[i] = values[i].name();

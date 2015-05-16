@@ -5,9 +5,6 @@ import android.content.Intent;
 import org.robolectric.RuntimeEnvironment;
 
 import de.nenick.quacc.R;
-import de.nenick.quacc.accountinglist.AccountingListActivity_;
-import de.nenick.quacc.accountinglist.AccountingListFragment_;
-import de.nenick.quacc.main.MainActivity;
 import de.nenick.robolectric.RoboSup;
 import de.nenick.robolectric.RoboSupPage;
 import de.nenick.robolectricpages.components.RoboImageButton;
@@ -16,7 +13,7 @@ import de.nenick.robolectricpages.components.RoboListView;
 public class RoboAccountingListPage extends RoboSupPage<AccountingListActivity_, AccountingListFragment_> {
 
     public RoboAccountingListPage(RoboSup<AccountingListActivity_, AccountingListFragment_> robo) {
-        super(robo, MainActivity.TAG_FRAGMENT);
+        super(robo, AccountingListActivity.TAG_FRAGMENT);
     }
 
     public static Intent Intent() {

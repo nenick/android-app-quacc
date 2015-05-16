@@ -1,4 +1,4 @@
-package de.nenick.quacc.accountinglist.list;
+package de.nenick.quacc.accounting.list;
 
 import android.content.Context;
 import android.widget.RelativeLayout;

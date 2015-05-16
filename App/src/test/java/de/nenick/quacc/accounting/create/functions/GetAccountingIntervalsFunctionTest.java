@@ -1,9 +1,11 @@
-package de.nenick.quacc.accounting.create;
+package de.nenick.quacc.accounting.create.functions;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.MockitoAnnotations;
+
+import de.nenick.quacc.accounting.create.functions.GetAccountingIntervalsFunction;
 
 import static org.assertj.core.api.Assertions.assertThat;
 

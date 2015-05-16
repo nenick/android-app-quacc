@@ -8,7 +8,7 @@ import de.nenick.robolectric.RoboSup;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class MainFragmentTest extends RoboComponentTestBase {
+public class MainFragmentSpec extends RoboComponentTestBase {
 
     RoboSup<MainActivity_, MainFragment_> robo = new RoboSup<>();
     RoboMainPage mainPage = new RoboMainPage(robo);

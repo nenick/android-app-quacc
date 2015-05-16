@@ -5,7 +5,8 @@
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin">
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:focusable="false">
 
     <ScrollView
         android:id="@android:id/content"
@@ -15,7 +16,8 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:focusableInTouchMode="true">
 
             <TextView
                 android:id="@+id/layout_center_ancor"
@@ -28,7 +30,6 @@
                 android:id="@+id/typeLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
                 android:layout_below="@+id/account"
                 android:layout_marginTop="26dp"
@@ -44,35 +45,30 @@
                 android:spinnerMode="dialog"
                 tools:listitem="@layout/support_simple_spinner_dropdown_item" />
 
-
             <TextView
                 android:id="@+id/dateLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
                 android:layout_below="@+id/type"
                 android:layout_marginTop="35dp"
                 android:text="Datum" />
 
-            <EditText
+            <TextView
+                style="@android:style/Widget.EditText"
                 android:id="@+id/date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
                 android:layout_below="@+id/dateLabel"
-                android:editable="false"
-                android:elegantTextHeight="true"
-                android:inputType="none"
-                android:text="02.02.2002" />
-
+                tools:text="02.02.2002"
+                android:focusable="false" />
 
             <TextView
                 android:id="@+id/intervalLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignLeft="@+id/layout_center_ancor"
+                android:layout_alignStart="@+id/layout_center_ancor"
                 android:layout_alignParentTop="false"
                 android:layout_alignTop="@+id/accountLabel"
                 android:text="Interval" />
@@ -82,7 +78,6 @@
                 android:id="@+id/interval"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignLeft="@+id/intervalLabel"
                 android:layout_alignStart="@+id/intervalLabel"
                 android:layout_below="@+id/intervalLabel"
                 android:spinnerMode="dialog"
@@ -92,7 +87,7 @@
                 android:id="@+id/categoryLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignLeft="@+id/layout_center_ancor"
+                android:layout_alignStart="@+id/layout_center_ancor"
                 android:layout_alignTop="@+id/typeLabel"
                 android:layout_toEndOf="@+id/type"
                 android:text="Kategorie" />
@@ -112,7 +107,6 @@
                 android:id="@+id/valueLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignLeft="@+id/category"
                 android:layout_alignStart="@+id/category"
                 android:layout_below="@+id/category"
                 android:layout_marginTop="33dp"
@@ -123,23 +117,20 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignEnd="@+id/category"
-                android:layout_alignLeft="@+id/valueLabel"
                 android:layout_alignStart="@+id/valueLabel"
                 android:layout_below="@+id/valueLabel"
                 android:gravity="end"
                 android:imeOptions="flagNoExtractUi"
                 android:inputType="numberDecimal"
-                android:text="0,00" />
+                android:text="@string/initial_value" />
 
             <TextView
                 android:id="@+id/accountLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignEnd="@+id/type"
-                android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentTop="true"
-                android:layout_alignRight="@+id/type"
                 android:layout_marginTop="20dp"
                 android:text="Konto" />
 
@@ -147,7 +138,6 @@
                 android:id="@+id/account"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
                 android:layout_below="@+id/accountLabel"
                 android:spinnerMode="dialog"
@@ -168,8 +158,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
                 android:layout_below="@+id/commentLabel"
-                android:imeOptions="flagNoExtractUi"
-                android:inputType="numberDecimal" />
+                android:imeOptions="flagNoExtractUi" />
 
             <TextView
                 android:id="@+id/valueError"
@@ -178,7 +167,7 @@
                 android:layout_alignStart="@+id/value"
                 android:layout_below="@+id/value"
                 android:textColor="#FF0000"
-                tools:text="New Text" />
+                tools:text="Fehler Text fall der Wert nicht geparst werden kann." />
 
             <TextView
                 android:id="@+id/speechResult"

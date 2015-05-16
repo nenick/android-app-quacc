@@ -1,4 +1,4 @@
-package de.nenick.quacc.accounting.create;
+package de.nenick.quacc.accounting.create.functions;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -8,6 +8,7 @@ import org.mockito.MockitoAnnotations;
 
 import java.util.Date;
 
+import de.nenick.quacc.accounting.create.functions.CreateAccountingFunction;
 import de.nenick.quacc.database.AccountDb;
 import de.nenick.quacc.database.AccountingCategoryDb;
 import de.nenick.quacc.database.AccountingDb;

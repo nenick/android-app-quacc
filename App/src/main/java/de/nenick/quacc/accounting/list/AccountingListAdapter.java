@@ -1,4 +1,4 @@
-package de.nenick.quacc.accountinglist.list;
+package de.nenick.quacc.accounting.list;
 
 import android.content.Context;
 import android.database.Cursor;
@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import org.androidannotations.annotations.AfterInject;
+import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EBean;
 import org.androidannotations.annotations.RootContext;
 
@@ -18,6 +19,9 @@ public class AccountingListAdapter extends CursorAdapter {
     @RootContext
     Context context;
 
+    @Bean
+    GetAccountingListFunction getAccountingListFunction;
+
     public AccountingListAdapter() {
         super(null, null, true);
     }
@@ -25,6 +29,7 @@ public class AccountingListAdapter extends CursorAdapter {
     @AfterInject
     protected void afterInject() {
         mContext = context;
+        swapCursor(getAccountingListFunction.apply());
     }
 
     @Override

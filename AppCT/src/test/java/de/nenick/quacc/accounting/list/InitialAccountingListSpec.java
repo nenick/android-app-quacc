@@ -4,14 +4,11 @@ import com.getbase.android.forger.Forger;
 
 import org.junit.Test;
 
-import de.nenick.quacc.accountinglist.AccountingListActivity_;
-import de.nenick.quacc.accountinglist.AccountingListFragment_;
-import de.nenick.quacc.accounting.list.RoboAccountingListPage;
-import de.nenick.robolectric.RoboComponentTestBase;
 import de.nenick.quacc.database.provider.accounting.AccountingColumns;
 import de.nenick.quacc.database.provider.testdata.Accounting;
 import de.nenick.quacc.database.provider.testdata.TestDataGraph;
 import de.nenick.quacc.database.provider.testdata.base.DataModel;
+import de.nenick.robolectric.RoboComponentTestBase;
 import de.nenick.robolectric.RoboSup;
 
 import static org.assertj.core.api.Assertions.assertThat;

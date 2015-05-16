@@ -1,4 +1,4 @@
-package de.nenick.quacc.accounting.create;
+package de.nenick.quacc.accounting.create.functions;
 
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EBean;

@@ -3,8 +3,6 @@ package de.nenick.quacc.apptest.espresso;
 import android.support.test.runner.AndroidJUnit4;
 import android.view.WindowManager;
 
-import com.jakewharton.test.ActivityRule;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;

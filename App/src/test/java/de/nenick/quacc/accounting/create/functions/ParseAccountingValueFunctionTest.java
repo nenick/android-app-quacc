@@ -1,8 +1,9 @@
-package de.nenick.quacc.accounting.create;
+package de.nenick.quacc.accounting.create.functions;
 
 import org.junit.Test;
 
-import de.nenick.quacc.accounting.create.ParseAccountingValueFunction.ParseResult;
+import de.nenick.quacc.accounting.create.functions.ParseAccountingValueFunction;
+import de.nenick.quacc.accounting.create.functions.ParseAccountingValueFunction.ParseResult;
 
 import static org.assertj.core.api.Assertions.assertThat;
 

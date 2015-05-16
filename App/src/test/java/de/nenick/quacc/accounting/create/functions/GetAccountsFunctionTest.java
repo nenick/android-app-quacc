@@ -1,4 +1,4 @@
-package de.nenick.quacc.accounting.create;
+package de.nenick.quacc.accounting.create.functions;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -6,6 +6,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import de.nenick.quacc.accounting.create.functions.GetAccountsFunction;
 import de.nenick.quacc.database.AccountDb;
 import de.nenick.quacc.database.provider.account.AccountCursor;
 
