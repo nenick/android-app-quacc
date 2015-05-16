@@ -31,7 +31,7 @@ android {
         }
         debug {
             versionNameSuffix "-dev"
-            testCoverageEnabled = project.ext.isInstrumentedTestRun
+            testCoverageEnabled = project.isInstrumentedTestRun
             buildConfigField "String", "MODULE_PATH", "\"$projectDir\"".replace('\\', '\\\\')
         }
     }
