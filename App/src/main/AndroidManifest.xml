@@ -1,34 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="de.nenick.quacc">
+    package="de.nenick.quacc" >
 
     <!-- Use audio record for speech recognition -->
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
 
     <application
-        tools:replace="android:name"
         android:name=".QuAccApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        tools:replace="android:name" >
         <activity
             android:name=".main.MainActivity_"
-            android:label="@string/app_name"
             android:finishOnTaskLaunch="true"
-            android:noHistory="true">
+            android:label="@string/app_name"
+            android:noHistory="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
             android:name=".accounting.create.CreateAccountingActivity_"
-            android:label="@string/title_activity_add_accounting" />
+            android:label="@string/title_activity_add_accounting"
+            android:parentActivityName=".accounting.list.AccountingListActivity_" />
         <activity
             android:name=".accounting.list.AccountingListActivity_"
             android:label="@string/title_activity_accounting_list" />
+        <activity
+            android:name=".categories.CategoriesActivity_"
+            android:label="@string/title_activity_categories"
+            android:parentActivityName=".accounting.list.AccountingListActivity_" >
+        </activity>
     </application>
 
 </manifest>

@@ -7,13 +7,9 @@ import android.widget.TextView;
 import org.androidannotations.annotations.EViewGroup;
 import org.androidannotations.annotations.ViewById;
 
-import java.text.DateFormat;
-
 import de.nenick.quacc.R;
-import de.nenick.quacc.common.util.QuAccDateUtil;
-import de.nenick.quacc.database.provider.accounting.AccountingCursor;
 
-@EViewGroup(R.layout.fragment_accounting_list_item)
+@EViewGroup(R.layout.item_accounting)
 public class AccountingListItem extends RelativeLayout {
 
     @ViewById(R.id.date)
@@ -38,47 +34,47 @@ public class AccountingListItem extends RelativeLayout {
         super(context);
     }
 
-    public void bind(AccountingCursor accountingCursor) {
-        DateFormat df = QuAccDateUtil.getDefaultDateFormat();
-        date.setText(df.format(accountingCursor.getAccountingDate()));
-        String accountingType = accountingCursor.getAccountingType().name();
-        if(accountingType.equals("Ausgabe")) {
-            setBackgroundColor(getResources().getColor(R.color.negativeBackground));
-            date.setTextColor(getResources().getColor(R.color.negativeText));
-            type.setTextColor(getResources().getColor(R.color.negativeText));
-            interval.setTextColor(getResources().getColor(R.color.negativeText));
-            category.setTextColor(getResources().getColor(R.color.negativeText));
-            comment.setTextColor(getResources().getColor(R.color.negativeText));
-            value.setTextColor(getResources().getColor(R.color.negativeText));
-        }
-        if(accountingType.equals("Einnahme")) {
-            setBackgroundColor(getResources().getColor(R.color.positiveBackground));
-            date.setTextColor(getResources().getColor(R.color.positiveText));
-            type.setTextColor(getResources().getColor(R.color.positiveText));
-            interval.setTextColor(getResources().getColor(R.color.positiveText));
-            category.setTextColor(getResources().getColor(R.color.positiveText));
-            comment.setTextColor(getResources().getColor(R.color.positiveText));
-            value.setTextColor(getResources().getColor(R.color.positiveText));
-        }
-        type.setText(accountingType);
-        interval.setText(accountingCursor.getAccountingInterval().name());
-        category.setText(accountingCursor.getAccountingCategoryName());
-        comment.setText(accountingCursor.getComment());
-        String valueString = createValueString(accountingCursor);
-        this.value.setText(valueString);
+    public void setDate(String txt) {
+        date.setText(txt);
     }
 
-    private String createValueString(AccountingCursor accountingCursor) {
-        int value = accountingCursor.getValue();
-        String valueString = String.valueOf(value);
-        if (value < 10) {
-            valueString = "0,0" + valueString;
-        } else if (value < 100) {
-            valueString = "0," + valueString;
-        } else {
-            String decimal = valueString.substring(valueString.length() - 2, valueString.length());
-            valueString = valueString.substring(0, valueString.length() - 2) + "," + decimal;
-        }
-        return valueString;
+    public void setType(String txt) {
+        type.setText(txt);
+    }
+
+    public void setInterval(String txt) {
+        interval.setText(txt);
+    }
+
+    public void setCategory(String txt) {
+        category.setText(txt);
+    }
+
+    public void setComment(String txt) {
+        comment.setText(txt);
+    }
+
+    public void setValue(String txt) {
+        value.setText(txt);
+    }
+
+    public void showAsIncome() {
+        setBackgroundColor(getResources().getColor(R.color.positiveBackground));
+        date.setTextColor(getResources().getColor(R.color.positiveText));
+        type.setTextColor(getResources().getColor(R.color.positiveText));
+        interval.setTextColor(getResources().getColor(R.color.positiveText));
+        category.setTextColor(getResources().getColor(R.color.positiveText));
+        comment.setTextColor(getResources().getColor(R.color.positiveText));
+        value.setTextColor(getResources().getColor(R.color.positiveText));
+    }
+
+    public void showAsOutgoing() {
+        setBackgroundColor(getResources().getColor(R.color.negativeBackground));
+        date.setTextColor(getResources().getColor(R.color.negativeText));
+        type.setTextColor(getResources().getColor(R.color.negativeText));
+        interval.setTextColor(getResources().getColor(R.color.negativeText));
+        category.setTextColor(getResources().getColor(R.color.negativeText));
+        comment.setTextColor(getResources().getColor(R.color.negativeText));
+        value.setTextColor(getResources().getColor(R.color.negativeText));
     }
 }

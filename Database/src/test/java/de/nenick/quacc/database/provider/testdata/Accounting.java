@@ -13,16 +13,16 @@ public class Accounting extends BaseModel {
     @Column(AccountingColumns.COMMENT)
     String COMMENT;
 
-    @Column(AccountingColumns.ACCOUNTING_INTERVAL)
+    @Column(AccountingColumns.INTERVAL)
     long ACCOUNTING_INTERVAL;
 
-    @Column(AccountingColumns.ACCOUNTING_CATEGORY_ID)
+    @Column(AccountingColumns.CATEGORY_ID)
     long ACCOUNTING_CATEGORY_ID;
 
-    @Column(AccountingColumns.ACCOUNTING_DATE)
+    @Column(AccountingColumns.DATE)
     long ACCOUNTING_DATE;
 
-    @Column(AccountingColumns.ACCOUNTING_TYPE)
+    @Column(AccountingColumns.TYPE)
     long ACCOUNTING_TYPE;
 
     @Column(AccountingColumns.VALUE)

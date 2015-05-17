@@ -12,7 +12,7 @@ import android.util.Log;
 import de.nenick.quacc.database.BuildConfig;
 import de.nenick.quacc.database.provider.account.AccountColumns;
 import de.nenick.quacc.database.provider.accounting.AccountingColumns;
-import de.nenick.quacc.database.provider.accountingcategory.AccountingCategoryColumns;
+import de.nenick.quacc.database.provider.category.CategoryColumns;
 
 public class QuAccSQLiteOpenHelper extends SQLiteOpenHelper {
     private static final String TAG = QuAccSQLiteOpenHelper.class.getSimpleName();
@@ -36,21 +36,23 @@ public class QuAccSQLiteOpenHelper extends SQLiteOpenHelper {
             + AccountingColumns.TABLE_NAME + " ( "
             + AccountingColumns._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
             + AccountingColumns.ACCOUNT_ID + " INTEGER NOT NULL, "
+            + AccountingColumns.CATEGORY_ID + " INTEGER NOT NULL, "
             + AccountingColumns.COMMENT + " TEXT, "
-            + AccountingColumns.ACCOUNTING_INTERVAL + " INTEGER NOT NULL, "
-            + AccountingColumns.ACCOUNTING_CATEGORY_ID + " INTEGER NOT NULL, "
-            + AccountingColumns.ACCOUNTING_DATE + " INTEGER NOT NULL, "
-            + AccountingColumns.ACCOUNTING_TYPE + " INTEGER NOT NULL, "
+            + AccountingColumns.INTERVAL + " TEXT NOT NULL, "
+            + AccountingColumns.DATE + " INTEGER NOT NULL, "
+            + AccountingColumns.TYPE + " TEXT NOT NULL, "
             + AccountingColumns.VALUE + " INTEGER NOT NULL "
             + ", CONSTRAINT fk_account_id FOREIGN KEY (" + AccountingColumns.ACCOUNT_ID + ") REFERENCES account (_id) ON DELETE CASCADE"
-            + ", CONSTRAINT fk_accounting_category_id FOREIGN KEY (" + AccountingColumns.ACCOUNTING_CATEGORY_ID + ") REFERENCES accounting_category (_id) ON DELETE CASCADE"
+            + ", CONSTRAINT fk_category_id FOREIGN KEY (" + AccountingColumns.CATEGORY_ID + ") REFERENCES category (_id) ON DELETE CASCADE"
             + " );";
 
-    public static final String SQL_CREATE_TABLE_ACCOUNTING_CATEGORY = "CREATE TABLE IF NOT EXISTS "
-            + AccountingCategoryColumns.TABLE_NAME + " ( "
-            + AccountingCategoryColumns._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
-            + AccountingCategoryColumns.NAME + " TEXT NOT NULL "
-            + ", CONSTRAINT unique_name UNIQUE (accounting_category__name) ON CONFLICT FAIL"
+    public static final String SQL_CREATE_TABLE_CATEGORY = "CREATE TABLE IF NOT EXISTS "
+            + CategoryColumns.TABLE_NAME + " ( "
+            + CategoryColumns._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+            + CategoryColumns.NAME + " TEXT NOT NULL, "
+            + CategoryColumns.SECTION + " TEXT NOT NULL, "
+            + CategoryColumns.INTERVAL + " TEXT NOT NULL, "
+            + CategoryColumns.TYPE + " TEXT NOT NULL "
             + " );";
 
     // @formatter:on
@@ -109,7 +111,7 @@ public class QuAccSQLiteOpenHelper extends SQLiteOpenHelper {
         mOpenHelperCallbacks.onPreCreate(mContext, db);
         db.execSQL(SQL_CREATE_TABLE_ACCOUNT);
         db.execSQL(SQL_CREATE_TABLE_ACCOUNTING);
-        db.execSQL(SQL_CREATE_TABLE_ACCOUNTING_CATEGORY);
+        db.execSQL(SQL_CREATE_TABLE_CATEGORY);
         mOpenHelperCallbacks.onPostCreate(mContext, db);
     }
 

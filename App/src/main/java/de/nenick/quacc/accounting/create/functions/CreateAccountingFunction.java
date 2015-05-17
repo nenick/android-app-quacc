@@ -6,8 +6,10 @@ import org.androidannotations.annotations.EBean;
 import java.util.Date;
 
 import de.nenick.quacc.database.AccountDb;
-import de.nenick.quacc.database.AccountingCategoryDb;
+import de.nenick.quacc.database.CategoryDb;
 import de.nenick.quacc.database.AccountingDb;
+import de.nenick.quacc.i18n.AccountingIntervalTranslator;
+import de.nenick.quacc.i18n.AccountingTypeTranslator;
 
 @EBean
 public class CreateAccountingFunction {
@@ -16,14 +18,23 @@ public class CreateAccountingFunction {
     AccountDb accountDb;
 
     @Bean
-    AccountingCategoryDb accountingCategoryDb;
+    CategoryDb categoryDb;
 
     @Bean
     AccountingDb accountingDb;
 
+    @Bean
+    AccountingIntervalTranslator accountingIntervalTranslator;
+
+    @Bean
+    AccountingTypeTranslator accountingTypeTranslator;
+
     public void apply(String account, String accountingType, String accountingInterval, String accountingCategory, Date date, int value, String comment) {
         long accountId = accountDb.getIdByName(account);
-        long accountingCategoryId = accountingCategoryDb.getIdByName(accountingCategory);
+        long accountingCategoryId = categoryDb.getIdByName(accountingCategory);
+
+        accountingInterval = accountingIntervalTranslator.asEnum(accountingInterval).name();
+        accountingType = accountingTypeTranslator.asEnum(accountingType).name();
 
         accountingDb.insert(accountId, accountingType, accountingInterval, accountingCategoryId, date, comment, value);
     }

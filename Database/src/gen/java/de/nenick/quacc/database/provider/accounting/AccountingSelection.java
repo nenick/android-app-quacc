@@ -1,14 +1,14 @@
 package de.nenick.quacc.database.provider.accounting;
 
+import java.util.Date;
+
 import android.content.ContentResolver;
 import android.database.Cursor;
 import android.net.Uri;
 
-import java.util.Date;
-
-import de.nenick.quacc.database.provider.account.AccountColumns;
-import de.nenick.quacc.database.provider.accountingcategory.AccountingCategoryColumns;
 import de.nenick.quacc.database.provider.base.AbstractSelection;
+import de.nenick.quacc.database.provider.account.*;
+import de.nenick.quacc.database.provider.category.*;
 
 /**
  * Selection for the {@code accounting} table.
@@ -23,9 +23,9 @@ public class AccountingSelection extends AbstractSelection<AccountingSelection> 
      * Query the given content resolver using this selection.
      *
      * @param contentResolver The content resolver to query.
-     * @param projection      A list of which columns to return. Passing null will return all columns, which is inefficient.
-     * @param sortOrder       How to order the rows, formatted as an SQL ORDER BY clause (excluding the ORDER BY itself). Passing null will use the default sort
-     *                        order, which may be unordered.
+     * @param projection A list of which columns to return. Passing null will return all columns, which is inefficient.
+     * @param sortOrder How to order the rows, formatted as an SQL ORDER BY clause (excluding the ORDER BY itself). Passing null will use the default sort
+     *            order, which may be unordered.
      * @return A {@code AccountingCursor} object, which is positioned before the first entry, or null.
      */
     public AccountingCursor query(ContentResolver contentResolver, String[] projection, String sortOrder) {
@@ -144,6 +144,156 @@ public class AccountingSelection extends AbstractSelection<AccountingSelection> 
         return this;
     }
 
+    public AccountingSelection categoryId(long... value) {
+        addEquals(AccountingColumns.CATEGORY_ID, toObjectArray(value));
+        return this;
+    }
+
+    public AccountingSelection categoryIdNot(long... value) {
+        addNotEquals(AccountingColumns.CATEGORY_ID, toObjectArray(value));
+        return this;
+    }
+
+    public AccountingSelection categoryIdGt(long value) {
+        addGreaterThan(AccountingColumns.CATEGORY_ID, value);
+        return this;
+    }
+
+    public AccountingSelection categoryIdGtEq(long value) {
+        addGreaterThanOrEquals(AccountingColumns.CATEGORY_ID, value);
+        return this;
+    }
+
+    public AccountingSelection categoryIdLt(long value) {
+        addLessThan(AccountingColumns.CATEGORY_ID, value);
+        return this;
+    }
+
+    public AccountingSelection categoryIdLtEq(long value) {
+        addLessThanOrEquals(AccountingColumns.CATEGORY_ID, value);
+        return this;
+    }
+
+    public AccountingSelection categoryName(String... value) {
+        addEquals(CategoryColumns.NAME, value);
+        return this;
+    }
+
+    public AccountingSelection categoryNameNot(String... value) {
+        addNotEquals(CategoryColumns.NAME, value);
+        return this;
+    }
+
+    public AccountingSelection categoryNameLike(String... value) {
+        addLike(CategoryColumns.NAME, value);
+        return this;
+    }
+
+    public AccountingSelection categoryNameContains(String... value) {
+        addContains(CategoryColumns.NAME, value);
+        return this;
+    }
+
+    public AccountingSelection categoryNameStartsWith(String... value) {
+        addStartsWith(CategoryColumns.NAME, value);
+        return this;
+    }
+
+    public AccountingSelection categoryNameEndsWith(String... value) {
+        addEndsWith(CategoryColumns.NAME, value);
+        return this;
+    }
+
+    public AccountingSelection categorySection(String... value) {
+        addEquals(CategoryColumns.SECTION, value);
+        return this;
+    }
+
+    public AccountingSelection categorySectionNot(String... value) {
+        addNotEquals(CategoryColumns.SECTION, value);
+        return this;
+    }
+
+    public AccountingSelection categorySectionLike(String... value) {
+        addLike(CategoryColumns.SECTION, value);
+        return this;
+    }
+
+    public AccountingSelection categorySectionContains(String... value) {
+        addContains(CategoryColumns.SECTION, value);
+        return this;
+    }
+
+    public AccountingSelection categorySectionStartsWith(String... value) {
+        addStartsWith(CategoryColumns.SECTION, value);
+        return this;
+    }
+
+    public AccountingSelection categorySectionEndsWith(String... value) {
+        addEndsWith(CategoryColumns.SECTION, value);
+        return this;
+    }
+
+    public AccountingSelection categoryInterval(String... value) {
+        addEquals(CategoryColumns.INTERVAL, value);
+        return this;
+    }
+
+    public AccountingSelection categoryIntervalNot(String... value) {
+        addNotEquals(CategoryColumns.INTERVAL, value);
+        return this;
+    }
+
+    public AccountingSelection categoryIntervalLike(String... value) {
+        addLike(CategoryColumns.INTERVAL, value);
+        return this;
+    }
+
+    public AccountingSelection categoryIntervalContains(String... value) {
+        addContains(CategoryColumns.INTERVAL, value);
+        return this;
+    }
+
+    public AccountingSelection categoryIntervalStartsWith(String... value) {
+        addStartsWith(CategoryColumns.INTERVAL, value);
+        return this;
+    }
+
+    public AccountingSelection categoryIntervalEndsWith(String... value) {
+        addEndsWith(CategoryColumns.INTERVAL, value);
+        return this;
+    }
+
+    public AccountingSelection categoryType(String... value) {
+        addEquals(CategoryColumns.TYPE, value);
+        return this;
+    }
+
+    public AccountingSelection categoryTypeNot(String... value) {
+        addNotEquals(CategoryColumns.TYPE, value);
+        return this;
+    }
+
+    public AccountingSelection categoryTypeLike(String... value) {
+        addLike(CategoryColumns.TYPE, value);
+        return this;
+    }
+
+    public AccountingSelection categoryTypeContains(String... value) {
+        addContains(CategoryColumns.TYPE, value);
+        return this;
+    }
+
+    public AccountingSelection categoryTypeStartsWith(String... value) {
+        addStartsWith(CategoryColumns.TYPE, value);
+        return this;
+    }
+
+    public AccountingSelection categoryTypeEndsWith(String... value) {
+        addEndsWith(CategoryColumns.TYPE, value);
+        return this;
+    }
+
     public AccountingSelection comment(String... value) {
         addEquals(AccountingColumns.COMMENT, value);
         return this;
@@ -174,122 +324,100 @@ public class AccountingSelection extends AbstractSelection<AccountingSelection> 
         return this;
     }
 
-    public AccountingSelection accountingInterval(AccountingInterval... value) {
-        addEquals(AccountingColumns.ACCOUNTING_INTERVAL, value);
+    public AccountingSelection interval(String... value) {
+        addEquals(AccountingColumns.INTERVAL, value);
         return this;
     }
 
-    public AccountingSelection accountingIntervalNot(AccountingInterval... value) {
-        addNotEquals(AccountingColumns.ACCOUNTING_INTERVAL, value);
+    public AccountingSelection intervalNot(String... value) {
+        addNotEquals(AccountingColumns.INTERVAL, value);
         return this;
     }
 
-
-    public AccountingSelection accountingCategoryId(long... value) {
-        addEquals(AccountingColumns.ACCOUNTING_CATEGORY_ID, toObjectArray(value));
+    public AccountingSelection intervalLike(String... value) {
+        addLike(AccountingColumns.INTERVAL, value);
         return this;
     }
 
-    public AccountingSelection accountingCategoryIdNot(long... value) {
-        addNotEquals(AccountingColumns.ACCOUNTING_CATEGORY_ID, toObjectArray(value));
+    public AccountingSelection intervalContains(String... value) {
+        addContains(AccountingColumns.INTERVAL, value);
         return this;
     }
 
-    public AccountingSelection accountingCategoryIdGt(long value) {
-        addGreaterThan(AccountingColumns.ACCOUNTING_CATEGORY_ID, value);
+    public AccountingSelection intervalStartsWith(String... value) {
+        addStartsWith(AccountingColumns.INTERVAL, value);
         return this;
     }
 
-    public AccountingSelection accountingCategoryIdGtEq(long value) {
-        addGreaterThanOrEquals(AccountingColumns.ACCOUNTING_CATEGORY_ID, value);
+    public AccountingSelection intervalEndsWith(String... value) {
+        addEndsWith(AccountingColumns.INTERVAL, value);
         return this;
     }
 
-    public AccountingSelection accountingCategoryIdLt(long value) {
-        addLessThan(AccountingColumns.ACCOUNTING_CATEGORY_ID, value);
+    public AccountingSelection date(Date... value) {
+        addEquals(AccountingColumns.DATE, value);
         return this;
     }
 
-    public AccountingSelection accountingCategoryIdLtEq(long value) {
-        addLessThanOrEquals(AccountingColumns.ACCOUNTING_CATEGORY_ID, value);
+    public AccountingSelection dateNot(Date... value) {
+        addNotEquals(AccountingColumns.DATE, value);
         return this;
     }
 
-    public AccountingSelection accountingCategoryName(String... value) {
-        addEquals(AccountingCategoryColumns.NAME, value);
+    public AccountingSelection date(long... value) {
+        addEquals(AccountingColumns.DATE, toObjectArray(value));
         return this;
     }
 
-    public AccountingSelection accountingCategoryNameNot(String... value) {
-        addNotEquals(AccountingCategoryColumns.NAME, value);
+    public AccountingSelection dateAfter(Date value) {
+        addGreaterThan(AccountingColumns.DATE, value);
         return this;
     }
 
-    public AccountingSelection accountingCategoryNameLike(String... value) {
-        addLike(AccountingCategoryColumns.NAME, value);
+    public AccountingSelection dateAfterEq(Date value) {
+        addGreaterThanOrEquals(AccountingColumns.DATE, value);
         return this;
     }
 
-    public AccountingSelection accountingCategoryNameContains(String... value) {
-        addContains(AccountingCategoryColumns.NAME, value);
+    public AccountingSelection dateBefore(Date value) {
+        addLessThan(AccountingColumns.DATE, value);
         return this;
     }
 
-    public AccountingSelection accountingCategoryNameStartsWith(String... value) {
-        addStartsWith(AccountingCategoryColumns.NAME, value);
+    public AccountingSelection dateBeforeEq(Date value) {
+        addLessThanOrEquals(AccountingColumns.DATE, value);
         return this;
     }
 
-    public AccountingSelection accountingCategoryNameEndsWith(String... value) {
-        addEndsWith(AccountingCategoryColumns.NAME, value);
+    public AccountingSelection type(String... value) {
+        addEquals(AccountingColumns.TYPE, value);
         return this;
     }
 
-    public AccountingSelection accountingDate(Date... value) {
-        addEquals(AccountingColumns.ACCOUNTING_DATE, value);
+    public AccountingSelection typeNot(String... value) {
+        addNotEquals(AccountingColumns.TYPE, value);
         return this;
     }
 
-    public AccountingSelection accountingDateNot(Date... value) {
-        addNotEquals(AccountingColumns.ACCOUNTING_DATE, value);
+    public AccountingSelection typeLike(String... value) {
+        addLike(AccountingColumns.TYPE, value);
         return this;
     }
 
-    public AccountingSelection accountingDate(long... value) {
-        addEquals(AccountingColumns.ACCOUNTING_DATE, toObjectArray(value));
+    public AccountingSelection typeContains(String... value) {
+        addContains(AccountingColumns.TYPE, value);
         return this;
     }
 
-    public AccountingSelection accountingDateAfter(Date value) {
-        addGreaterThan(AccountingColumns.ACCOUNTING_DATE, value);
+    public AccountingSelection typeStartsWith(String... value) {
+        addStartsWith(AccountingColumns.TYPE, value);
         return this;
     }
 
-    public AccountingSelection accountingDateAfterEq(Date value) {
-        addGreaterThanOrEquals(AccountingColumns.ACCOUNTING_DATE, value);
+    public AccountingSelection typeEndsWith(String... value) {
+        addEndsWith(AccountingColumns.TYPE, value);
         return this;
     }
-
-    public AccountingSelection accountingDateBefore(Date value) {
-        addLessThan(AccountingColumns.ACCOUNTING_DATE, value);
-        return this;
-    }
-
-    public AccountingSelection accountingDateBeforeEq(Date value) {
-        addLessThanOrEquals(AccountingColumns.ACCOUNTING_DATE, value);
-        return this;
-    }
-
-    public AccountingSelection accountingType(AccountingType... value) {
-        addEquals(AccountingColumns.ACCOUNTING_TYPE, value);
-        return this;
-    }
-
-    public AccountingSelection accountingTypeNot(AccountingType... value) {
-        addNotEquals(AccountingColumns.ACCOUNTING_TYPE, value);
-        return this;
-    }
-
 
     public AccountingSelection value(int... value) {
         addEquals(AccountingColumns.VALUE, toObjectArray(value));

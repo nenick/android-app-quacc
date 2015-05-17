@@ -1,0 +1,24 @@
+{
+  "fields": [
+    {
+      "name": "name",
+      "type": "String",
+      "nullable": false
+    },
+    {
+      "name": "section",
+      "type": "String",
+      "nullable": false
+    },
+    {
+      "name": "interval",
+      "type": "String",
+      "nullable": false
+    },
+    {
+      "name": "type",
+      "type": "String",
+      "nullable": false
+    }
+  ]
+}

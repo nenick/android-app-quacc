@@ -1,8 +1,11 @@
 package de.nenick.quacc.accounting.create;
 
+import android.widget.Adapter;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.ListAdapter;
 import android.widget.Spinner;
+import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 
 import com.melnykov.fab.FloatingActionButton;
@@ -56,9 +59,7 @@ public class CreateAccountingView extends BaseView {
         return accountSpinner.getSelectedItem().toString();
     }
 
-    public void showAccountingTypes(CharSequence[] stringArray) {
-        ArrayAdapter<CharSequence> adapter = new ArrayAdapter<>(context, android.R.layout.simple_spinner_item, stringArray);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+    public void showAccountingTypes(SpinnerAdapter adapter) {
         accountingTypeSpinner.setAdapter(adapter);
     }
 
@@ -66,9 +67,7 @@ public class CreateAccountingView extends BaseView {
         return accountingTypeSpinner.getSelectedItem().toString();
     }
 
-    public void showAccountingIntervals(CharSequence[] stringArray) {
-        ArrayAdapter<CharSequence> adapter = new ArrayAdapter<>(context, android.R.layout.simple_spinner_item, stringArray);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+    public void showAccountingIntervals(SpinnerAdapter adapter) {
         accountingIntervalSpinner.setAdapter(adapter);
     }
 
@@ -126,5 +125,24 @@ public class CreateAccountingView extends BaseView {
 
     public void showSpeechStopButton() {
         speechButton.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_action_micoff));
+    }
+
+    public void setAccountingType(String accountingType) {
+        for (int position = 0; position < accountingTypeSpinner.getAdapter().getCount(); position++) {
+            String item = (String) accountingTypeSpinner.getAdapter().getItem(position);
+            if(item.equals(accountingType)) {
+                accountingTypeSpinner.setSelection(position);
+            }
+        }
+    }
+
+
+    public void setAccountingInterval(String accountingInterval) {
+        for (int position = 0; position < accountingIntervalSpinner.getAdapter().getCount(); position++) {
+            String item = (String) accountingIntervalSpinner.getAdapter().getItem(position);
+            if(item.equals(accountingInterval)) {
+                accountingIntervalSpinner.setSelection(position);
+            }
+        }
     }
 }

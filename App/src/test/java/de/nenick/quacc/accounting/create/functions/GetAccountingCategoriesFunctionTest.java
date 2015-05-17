@@ -6,9 +6,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import de.nenick.quacc.accounting.create.functions.GetAccountingCategoriesFunction;
-import de.nenick.quacc.database.AccountingCategoryDb;
-import de.nenick.quacc.database.provider.accountingcategory.AccountingCategoryCursor;
+import de.nenick.quacc.database.CategoryDb;
+import de.nenick.quacc.database.provider.category.CategoryCursor;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.BDDMockito.given;
@@ -20,22 +19,22 @@ public class GetAccountingCategoriesFunctionTest {
     GetAccountingCategoriesFunction getAccountingCategoriesFunction;
 
     @Mock
-    AccountingCategoryDb accountingCategoryDb;
+    CategoryDb categoryDb;
 
     @Mock
-    AccountingCategoryCursor accountingCategoryCursor;
+    CategoryCursor accountingCategoryCursor;
 
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
-        given(accountingCategoryDb.getAll()).willReturn(accountingCategoryCursor);
+        given(categoryDb.getAll()).willReturn(accountingCategoryCursor);
     }
 
     @Test
     public void shouldDeliverAccountingTypes() {
         given(accountingCategoryCursor.getCount()).willReturn(2);
         given(accountingCategoryCursor.getName()).willReturn("One").willReturn("Two");
-        CharSequence[] apply = getAccountingCategoriesFunction.apply();
+        CharSequence[] apply = getAccountingCategoriesFunction.apply("foo", "bar");
         assertThat(apply.length).isEqualTo(2);
         assertThat(apply).contains("One");
         assertThat(apply).contains("Two");
@@ -43,7 +42,7 @@ public class GetAccountingCategoriesFunctionTest {
 
     @Test
     public void shouldCloseCursor() {
-        getAccountingCategoriesFunction.apply();
+        getAccountingCategoriesFunction.apply("foo", "bar");
         verify(accountingCategoryCursor).close();
     }
 }

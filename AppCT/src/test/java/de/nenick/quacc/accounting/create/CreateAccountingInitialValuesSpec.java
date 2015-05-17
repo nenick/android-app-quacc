@@ -29,36 +29,36 @@ public class CreateAccountingInitialValuesSpec extends RoboComponentTestBase {
         addAccountingPage.startPage();
 
         entries = addAccountingPage.accountSpinner().entries();
-        assertThat(entries.get(0).getText()).isEqualTo("Konto");
-        assertThat(entries.get(1).getText()).isEqualTo("Sparkonto");
-        assertThat(entries.get(2).getText()).isEqualTo("Bar");
+        assertThat(entries.get(0).getText()).isEqualTo("Girokonto");
+        assertThat(entries.get(1).getText()).isEqualTo("Bar");
+        assertThat(entries.get(2).getText()).isEqualTo("Tagesgeldkonto");
         assertThat(entries).hasSize(3);
-        assertThat(addAccountingPage.accountSpinner().selectedEntry().getText()).isEqualTo("Konto");
+        assertThat(addAccountingPage.accountSpinner().selectedEntry().getText()).isEqualTo("Girokonto");
 
         entries = addAccountingPage.typeSpinner().entries();
-        assertThat(entries.get(0).getText()).isEqualTo("Ausgabe");
-        assertThat(entries.get(1).getText()).isEqualTo("Einnahme");
+        assertThat(entries.get(0).getText()).isEqualTo("Einnahme");
+        assertThat(entries.get(1).getText()).isEqualTo("Ausgabe");
         assertThat(entries.get(2).getText()).isEqualTo("Übertrag");
         assertThat(entries).hasSize(3);
         assertThat(addAccountingPage.typeSpinner().selectedEntry().getText()).isEqualTo("Ausgabe");
 
+        assertThat(addAccountingPage.dateField().getText()).isEqualTo(String.format("%s.%s.%s", day(), month(), year()));
+
         entries = addAccountingPage.intervalSpinner().entries();
         assertThat(entries.get(0).getText()).isEqualTo("Einmahlig");
-        assertThat(entries.get(1).getText()).isEqualTo("Wöchentlich");
-        assertThat(entries.get(2).getText()).isEqualTo("Monatlich");
-        assertThat(entries.get(3).getText()).isEqualTo("Alle_3_Monate");
-        assertThat(entries).hasSize(4);
+        assertThat(entries.get(1).getText()).isEqualTo("Täglich");
+        assertThat(entries.get(2).getText()).isEqualTo("Wöchentlich");
+        assertThat(entries.get(3).getText()).isEqualTo("Alle 2 Wochen");
+        assertThat(entries.get(4).getText()).isEqualTo("Monatlich");
+        assertThat(entries.get(5).getText()).isEqualTo("Alle 2 Monate");
+        assertThat(entries.get(6).getText()).isEqualTo("Alle 3 Monate");
+        assertThat(entries.get(7).getText()).isEqualTo("Alle 6 Monate");
+        assertThat(entries.get(8).getText()).isEqualTo("Jährlich");
+        assertThat(entries).hasSize(9);
         assertThat(addAccountingPage.intervalSpinner().selectedEntry().getText()).isEqualTo("Einmahlig");
 
         entries = addAccountingPage.categorySpinner().entries();
-        assertThat(entries.get(0).getText()).isEqualTo("Beruf");
-        assertThat(entries.get(1).getText()).isEqualTo("Essen");
-        assertThat(entries.get(2).getText()).isEqualTo("Freizeit");
-        assertThat(entries.get(3).getText()).isEqualTo("Miete");
-        assertThat(entries).hasSize(4);
-        assertThat(addAccountingPage.intervalSpinner().selectedEntry().getText()).isEqualTo("Einmahlig");
-
-        assertThat(addAccountingPage.dateField().getText()).isEqualTo(String.format("%s.%s.%s", day(), month(), year()));
+        assertThat(entries.size()).isPositive();
     }
 
     public Bundle speechResultBundle(String text) {

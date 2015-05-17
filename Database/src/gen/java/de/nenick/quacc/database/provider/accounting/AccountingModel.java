@@ -1,14 +1,14 @@
 package de.nenick.quacc.database.provider.accounting;
 
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import de.nenick.quacc.database.provider.base.BaseModel;
 
 import java.util.Date;
 
-import de.nenick.quacc.database.provider.base.BaseModel;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
 /**
- * Accounting
+ * Data model for the {@code accounting} table.
  */
 public interface AccountingModel extends BaseModel {
 
@@ -18,40 +18,40 @@ public interface AccountingModel extends BaseModel {
     long getAccountId();
 
     /**
-     * Short description of the accounting.
+     * Get the {@code category_id} value.
+     */
+    long getCategoryId();
+
+    /**
+     * Get the {@code comment} value.
      * Can be {@code null}.
      */
     @Nullable
     String getComment();
 
     /**
-     * Get the {@code accounting_interval} value.
+     * Get the {@code interval} value.
      * Cannot be {@code null}.
      */
     @NonNull
-    AccountingInterval getAccountingInterval();
+    String getInterval();
 
     /**
-     * Get the {@code accounting_category_id} value.
-     */
-    long getAccountingCategoryId();
-
-    /**
-     * Get the {@code accounting_date} value.
+     * Get the {@code date} value.
      * Cannot be {@code null}.
      */
     @NonNull
-    Date getAccountingDate();
+    Date getDate();
 
     /**
-     * Get the {@code accounting_type} value.
+     * Get the {@code type} value.
      * Cannot be {@code null}.
      */
     @NonNull
-    AccountingType getAccountingType();
+    String getType();
 
     /**
-     * Values are stored with two decimals (1 Euro = 100)
+     * Get the {@code value} value.
      */
     int getValue();
 }

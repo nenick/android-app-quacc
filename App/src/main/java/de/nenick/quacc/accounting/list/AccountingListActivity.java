@@ -6,9 +6,11 @@ import android.support.v7.app.ActionBarActivity;
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
+import org.androidannotations.annotations.OptionsItem;
 
 import de.nenick.quacc.R;
 import de.nenick.quacc.accounting.create.CreateAccountingActivity_;
+import de.nenick.quacc.categories.CategoriesActivity_;
 
 @EActivity(R.layout.activity)
 public class AccountingListActivity extends ActionBarActivity {
@@ -32,5 +34,10 @@ public class AccountingListActivity extends ActionBarActivity {
     @Click(R.id.btn_add_accounting)
     protected void onAddAccounting() {
         CreateAccountingActivity_.intent(this).start();
+    }
+
+    @OptionsItem(R.id.category)
+    protected void onCategoriesEditor() {
+        CategoriesActivity_.intent(this).start();
     }
 }

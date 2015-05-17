@@ -4,6 +4,8 @@ import com.getbase.android.forger.Forger;
 
 import org.junit.Test;
 
+import de.nenick.quacc.database.AccountingInterval;
+import de.nenick.quacc.database.AccountingType;
 import de.nenick.quacc.database.provider.accounting.AccountingColumns;
 import de.nenick.quacc.database.provider.testdata.Accounting;
 import de.nenick.quacc.database.provider.testdata.TestDataGraph;
@@ -24,8 +26,8 @@ public class InitialAccountingListSpec extends RoboComponentTestBase {
     @Test
     public void shouldShowAccountings() {
         access.iNeed(3).of(Accounting.class)
-                .with(AccountingColumns.ACCOUNTING_INTERVAL, 1)
-                .with(AccountingColumns.ACCOUNTING_TYPE, 1)
+                .with(AccountingColumns.INTERVAL, AccountingInterval.once)
+                .with(AccountingColumns.TYPE, AccountingType.incoming)
                 .in(context.getContentResolver());
 
         accountingListPage.startPage();

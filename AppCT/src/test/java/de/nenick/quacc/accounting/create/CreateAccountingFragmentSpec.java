@@ -5,9 +5,9 @@ import org.junit.Test;
 
 import de.nenick.quacc.database.AccountingDb;
 import de.nenick.quacc.database.AccountingDb_;
+import de.nenick.quacc.database.AccountingInterval;
+import de.nenick.quacc.database.AccountingType;
 import de.nenick.quacc.database.provider.accounting.AccountingCursor;
-import de.nenick.quacc.database.provider.accounting.AccountingInterval;
-import de.nenick.quacc.database.provider.accounting.AccountingType;
 import de.nenick.quacc.database.tools.TestDatabaseDateUtil;
 import de.nenick.quacc.test.TestDateUtil;
 import de.nenick.robolectric.RoboComponentTestBase;
@@ -43,10 +43,10 @@ public class CreateAccountingFragmentSpec extends RoboComponentTestBase {
     public void shouldSaveStateForConfigChanges() {
         addAccountingPage.startPage();
 
-        addAccountingPage.accountSpinner().entries().get(2).select();
-        addAccountingPage.typeSpinner().entries().get(1).select();
-        addAccountingPage.intervalSpinner().entries().get(2).select();
-        addAccountingPage.categorySpinner().entries().get(3).select();
+        addAccountingPage.accountSpinner().entry("Bar").select();;
+        addAccountingPage.typeSpinner().entry("Einnahme").select();
+        addAccountingPage.intervalSpinner().entry("Monatlich").select();
+        addAccountingPage.categorySpinner().entry("Miete").select();
         addAccountingPage.dateField().click();
         addAccountingPage.dialog().datePicker().pickDate(21, 12, 2012);
         addAccountingPage.dialog().datePicker().clickOk();
@@ -69,7 +69,7 @@ public class CreateAccountingFragmentSpec extends RoboComponentTestBase {
         addAccountingPage.accountSpinner().entries().get(2).select();
         addAccountingPage.typeSpinner().entries().get(1).select();
         addAccountingPage.intervalSpinner().entries().get(2).select();
-        addAccountingPage.categorySpinner().entries().get(3).select();
+        addAccountingPage.categorySpinner().entries().get(0).select();
         addAccountingPage.dateField().click();
         addAccountingPage.dialog().datePicker().pickDate(21, 12, 2012);
         addAccountingPage.dialog().datePicker().clickOk();
@@ -87,7 +87,7 @@ public class CreateAccountingFragmentSpec extends RoboComponentTestBase {
         assertThat(accountingDb.getAll().getCount()).isZero();
 
         addAccountingPage.accountSpinner().entry("Bar").select();
-        addAccountingPage.intervalSpinner().entry("Alle_3_Monate").select();
+        addAccountingPage.intervalSpinner().entry("Alle 3 Monate").select();
         addAccountingPage.typeSpinner().entry("Einnahme").select();
         addAccountingPage.categorySpinner().entry("Miete").select();
         addAccountingPage.dateField().setText(TestDateUtil.date(21, 12, 2012));
@@ -100,10 +100,10 @@ public class CreateAccountingFragmentSpec extends RoboComponentTestBase {
         assertThat(accountings.getCount()).isEqualTo(1);
         accountings.moveToFirst();
         assertThat(accountings.getAccountName()).isEqualTo("Bar");
-        assertThat(accountings.getAccountingInterval()).isEqualTo(AccountingInterval.Alle_3_Monate);
-        assertThat(accountings.getAccountingType()).isEqualTo(AccountingType.Einnahme);
-        assertThat(accountings.getAccountingCategoryName()).isEqualTo("Miete");
-        assertThat(accountings.getAccountingDate()).isEqualTo(TestDatabaseDateUtil.parse(TestDateUtil.date(21, 12, 2012)));
+        assertThat(accountings.getInterval()).isEqualTo(AccountingInterval.eachThirdMonth.name());
+        assertThat(accountings.getType()).isEqualTo(AccountingType.incoming.name());
+        assertThat(accountings.getCategoryName()).isEqualTo("Miete");
+        assertThat(accountings.getDate()).isEqualTo(TestDatabaseDateUtil.parse(TestDateUtil.date(21, 12, 2012)));
         assertThat(accountings.getValue()).isEqualTo(583);
         assertThat(accountings.getComment()).isEqualTo("take the money");
     }

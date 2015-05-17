@@ -2,16 +2,21 @@ package de.nenick.quacc.accounting.create.functions;
 
 import org.androidannotations.annotations.EBean;
 
-import de.nenick.quacc.database.provider.accounting.AccountingInterval;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+
+import de.nenick.quacc.database.AccountingInterval;
 
 @EBean
 public class GetAccountingIntervalsFunction {
 
-    public CharSequence[] apply() {
+    public Collection<String> apply() {
         AccountingInterval[] values = AccountingInterval.values();
-        CharSequence[] types = new CharSequence[values.length];
-        for (int i = 0; i < values.length; i++) {
-            types[i] = values[i].name();
+        List<String> types = new ArrayList<>();
+        for (AccountingInterval value : values) {
+            if(value == AccountingInterval.all) continue;
+            types.add(value.name());
         }
         return types;
     }

@@ -1,6 +1,10 @@
 <resources>
     <string name="app_name">QuAcc</string>
     <string name="action_confirm">Fertig</string>
+    <string name="action_categories">Kategorien</string>
     <string name="title_activity_accounting_list">Account Übersicht</string>
     <string name="title_activity_add_accounting">Neue Buchung</string>
+    <string name="title_activity_categories">CategoriesActivity</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
 </resources>

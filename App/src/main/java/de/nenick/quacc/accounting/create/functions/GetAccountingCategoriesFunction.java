@@ -1,26 +1,33 @@
 package de.nenick.quacc.accounting.create.functions;
 
-import android.content.Context;
-
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EBean;
-import org.androidannotations.annotations.RootContext;
 
-import de.nenick.quacc.database.AccountingCategoryDb;
-import de.nenick.quacc.database.provider.accountingcategory.AccountingCategoryCursor;
-import de.nenick.quacc.database.provider.accountingcategory.AccountingCategorySelection;
+import java.util.ArrayList;
+import java.util.List;
+
+import de.nenick.quacc.database.CategoryDb;
+import de.nenick.quacc.database.provider.category.CategoryCursor;
 
 @EBean
 public class GetAccountingCategoriesFunction {
 
-    @RootContext
-    Context context;
-
     @Bean
-    AccountingCategoryDb accountingCategoryDb;
-
+    CategoryDb categoryDb;
+/*
     public CharSequence[] apply() {
-        AccountingCategoryCursor accountingCategories = accountingCategoryDb.getAll();
+        CategoryCursor accountingCategories = categoryDb.getAll();
+        String[] values = new String[accountingCategories.getCount()];
+        for (int i = 0; i < accountingCategories.getCount(); i++) {
+            accountingCategories.moveToNext();
+            values[i] = accountingCategories.getName();
+        }
+        accountingCategories.close();
+        return values;
+    }
+*/
+    public CharSequence[] apply(String accountingType, String accountingInterval) {
+        CategoryCursor accountingCategories =  categoryDb.getAllFor(accountingType, accountingInterval);
         String[] values = new String[accountingCategories.getCount()];
         for (int i = 0; i < accountingCategories.getCount(); i++) {
             accountingCategories.moveToNext();

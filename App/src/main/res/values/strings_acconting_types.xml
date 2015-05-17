@@ -1,0 +1,6 @@
+<resources>
+    <string name="accounting_type_all">Alle Buchungsarten</string>
+    <string name="accounting_type_incoming">Einnahme</string>
+    <string name="accounting_type_outgoing">Ausgabe</string>
+    <string name="accounting_type_transfer">Übertrag</string>
+</resources>

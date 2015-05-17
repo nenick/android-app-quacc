@@ -1,0 +1,12 @@
+<resources>
+    <string name="accounting_interval_all">Alle Intervalle</string>
+    <string name="accounting_interval_once">Einmahlig</string>
+    <string name="accounting_interval_daily">Täglich</string>
+    <string name="accounting_interval_weekly">Wöchentlich</string>
+    <string name="accounting_interval_eachSecondWeek">Alle 2 Wochen</string>
+    <string name="accounting_interval_monthly">Monatlich</string>
+    <string name="accounting_interval_eachSecondMonth">Alle 2 Monate</string>
+    <string name="accounting_interval_eachThirdMonth">Alle 3 Monate</string>
+    <string name="accounting_interval_eachSixMonth">Alle 6 Monate</string>
+    <string name="accounting_interval_yearly">Jährlich</string>
+</resources>

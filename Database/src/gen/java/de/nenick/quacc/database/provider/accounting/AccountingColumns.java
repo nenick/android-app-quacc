@@ -5,10 +5,11 @@ import android.provider.BaseColumns;
 
 import de.nenick.quacc.database.provider.QuAccProvider;
 import de.nenick.quacc.database.provider.account.AccountColumns;
-import de.nenick.quacc.database.provider.accountingcategory.AccountingCategoryColumns;
+import de.nenick.quacc.database.provider.accounting.AccountingColumns;
+import de.nenick.quacc.database.provider.category.CategoryColumns;
 
 /**
- * Accounting
+ * Columns for the {@code accounting} table.
  */
 public class AccountingColumns implements BaseColumns {
     public static final String TABLE_NAME = "accounting";
@@ -21,36 +22,30 @@ public class AccountingColumns implements BaseColumns {
 
     public static final String ACCOUNT_ID = "account_id";
 
-    /**
-     * Short description of the accounting.
-     */
+    public static final String CATEGORY_ID = "category_id";
+
     public static final String COMMENT = "comment";
 
-    public static final String ACCOUNTING_INTERVAL = "accounting_interval";
+    public static final String INTERVAL = "accounting__interval";
 
-    public static final String ACCOUNTING_CATEGORY_ID = "accounting_category_id";
+    public static final String DATE = "date";
 
-    public static final String ACCOUNTING_DATE = "accounting_date";
+    public static final String TYPE = "accounting__type";
 
-    public static final String ACCOUNTING_TYPE = "accounting_type";
-
-    /**
-     * Values are stored with two decimals (1 Euro = 100)
-     */
     public static final String VALUE = "value";
 
 
-    public static final String DEFAULT_ORDER = TABLE_NAME + "." + _ID;
+    public static final String DEFAULT_ORDER = TABLE_NAME + "." +_ID;
 
     // @formatter:off
-    public static final String[] ALL_COLUMNS = new String[]{
+    public static final String[] ALL_COLUMNS = new String[] {
             _ID,
             ACCOUNT_ID,
+            CATEGORY_ID,
             COMMENT,
-            ACCOUNTING_INTERVAL,
-            ACCOUNTING_CATEGORY_ID,
-            ACCOUNTING_DATE,
-            ACCOUNTING_TYPE,
+            INTERVAL,
+            DATE,
+            TYPE,
             VALUE
     };
     // @formatter:on
@@ -59,17 +54,16 @@ public class AccountingColumns implements BaseColumns {
         if (projection == null) return true;
         for (String c : projection) {
             if (c.equals(ACCOUNT_ID) || c.contains("." + ACCOUNT_ID)) return true;
+            if (c.equals(CATEGORY_ID) || c.contains("." + CATEGORY_ID)) return true;
             if (c.equals(COMMENT) || c.contains("." + COMMENT)) return true;
-            if (c.equals(ACCOUNTING_INTERVAL) || c.contains("." + ACCOUNTING_INTERVAL)) return true;
-            if (c.equals(ACCOUNTING_CATEGORY_ID) || c.contains("." + ACCOUNTING_CATEGORY_ID))
-                return true;
-            if (c.equals(ACCOUNTING_DATE) || c.contains("." + ACCOUNTING_DATE)) return true;
-            if (c.equals(ACCOUNTING_TYPE) || c.contains("." + ACCOUNTING_TYPE)) return true;
+            if (c.equals(INTERVAL) || c.contains("." + INTERVAL)) return true;
+            if (c.equals(DATE) || c.contains("." + DATE)) return true;
+            if (c.equals(TYPE) || c.contains("." + TYPE)) return true;
             if (c.equals(VALUE) || c.contains("." + VALUE)) return true;
         }
         return false;
     }
 
     public static final String PREFIX_ACCOUNT = TABLE_NAME + "__" + AccountColumns.TABLE_NAME;
-    public static final String PREFIX_ACCOUNTING_CATEGORY = TABLE_NAME + "__" + AccountingCategoryColumns.TABLE_NAME;
+    public static final String PREFIX_CATEGORY = TABLE_NAME + "__" + CategoryColumns.TABLE_NAME;
 }

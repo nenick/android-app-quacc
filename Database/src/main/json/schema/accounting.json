@@ -1,5 +1,4 @@
 {
-  "documentation": "Accounting",
   "fields": [
     {
       "name": "account_id",
@@ -11,50 +10,35 @@
       }
     },
     {
-      "documentation": "Short description of the accounting.",
+      "name": "category_id",
+      "type": "Long",
+      "nullable": false,
+      "foreignKey": {
+        "table": "category",
+        "onDelete": "CASCADE"
+      }
+    },
+    {
       "name": "comment",
       "type": "String",
       "nullable": true
     },
     {
-      "name": "accounting_interval",
-      "type": "enum",
-      "enumName": "AccountingInterval",
-      "enumValues": [
-        "Einmahlig",
-        "Wöchentlich",
-        "Monatlich",
-        "Alle_3_Monate"
-      ],
+      "name": "interval",
+      "type": "String",
       "nullable": false
     },
     {
-      "name": "accounting_category_id",
-      "type": "Long",
-      "nullable": false,
-      "foreignKey": {
-        "table": "accounting_category",
-        "onDelete": "CASCADE"
-      }
-    },
-    {
-      "name": "accounting_date",
+      "name": "date",
       "type": "Date",
       "nullable": false
     },
     {
-      "name": "accounting_type",
-      "type": "enum",
-      "enumName": "AccountingType",
-      "enumValues": [
-        "Ausgabe",
-        "Einnahme",
-        "Übertrag"
-      ],
+      "name": "type",
+      "type": "String",
       "nullable": false
     },
     {
-      "documentation": "Values are stored with two decimals (1 Euro = 100)",
       "name": "value",
       "type": "Integer",
       "nullable": false

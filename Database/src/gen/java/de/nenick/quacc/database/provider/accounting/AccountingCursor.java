@@ -1,14 +1,14 @@
 package de.nenick.quacc.database.provider.accounting;
 
+import java.util.Date;
+
 import android.database.Cursor;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
-import java.util.Date;
-
-import de.nenick.quacc.database.provider.account.AccountColumns;
-import de.nenick.quacc.database.provider.accountingcategory.AccountingCategoryColumns;
 import de.nenick.quacc.database.provider.base.AbstractCursor;
+import de.nenick.quacc.database.provider.account.*;
+import de.nenick.quacc.database.provider.category.*;
 
 /**
  * Cursor wrapper for the {@code accounting} table.
@@ -61,7 +61,65 @@ public class AccountingCursor extends AbstractCursor implements AccountingModel 
     }
 
     /**
-     * Short description of the accounting.
+     * Get the {@code category_id} value.
+     */
+    public long getCategoryId() {
+        Long res = getLongOrNull(AccountingColumns.CATEGORY_ID);
+        if (res == null)
+            throw new NullPointerException("The value of 'category_id' in the database was null, which is not allowed according to the model definition");
+        return res;
+    }
+
+    /**
+     * Get the {@code name} value.
+     * Cannot be {@code null}.
+     */
+    @NonNull
+    public String getCategoryName() {
+        String res = getStringOrNull(CategoryColumns.NAME);
+        if (res == null)
+            throw new NullPointerException("The value of 'name' in the database was null, which is not allowed according to the model definition");
+        return res;
+    }
+
+    /**
+     * Get the {@code section} value.
+     * Cannot be {@code null}.
+     */
+    @NonNull
+    public String getCategorySection() {
+        String res = getStringOrNull(CategoryColumns.SECTION);
+        if (res == null)
+            throw new NullPointerException("The value of 'section' in the database was null, which is not allowed according to the model definition");
+        return res;
+    }
+
+    /**
+     * Get the {@code interval} value.
+     * Cannot be {@code null}.
+     */
+    @NonNull
+    public String getCategoryInterval() {
+        String res = getStringOrNull(CategoryColumns.INTERVAL);
+        if (res == null)
+            throw new NullPointerException("The value of 'interval' in the database was null, which is not allowed according to the model definition");
+        return res;
+    }
+
+    /**
+     * Get the {@code type} value.
+     * Cannot be {@code null}.
+     */
+    @NonNull
+    public String getCategoryType() {
+        String res = getStringOrNull(CategoryColumns.TYPE);
+        if (res == null)
+            throw new NullPointerException("The value of 'type' in the database was null, which is not allowed according to the model definition");
+        return res;
+    }
+
+    /**
+     * Get the {@code comment} value.
      * Can be {@code null}.
      */
     @Nullable
@@ -71,65 +129,43 @@ public class AccountingCursor extends AbstractCursor implements AccountingModel 
     }
 
     /**
-     * Get the {@code accounting_interval} value.
+     * Get the {@code interval} value.
      * Cannot be {@code null}.
      */
     @NonNull
-    public AccountingInterval getAccountingInterval() {
-        Integer intValue = getIntegerOrNull(AccountingColumns.ACCOUNTING_INTERVAL);
-        if (intValue == null)
-            throw new NullPointerException("The value of 'accounting_interval' in the database was null, which is not allowed according to the model definition");
-        return AccountingInterval.values()[intValue];
-    }
-
-    /**
-     * Get the {@code accounting_category_id} value.
-     */
-    public long getAccountingCategoryId() {
-        Long res = getLongOrNull(AccountingColumns.ACCOUNTING_CATEGORY_ID);
+    public String getInterval() {
+        String res = getStringOrNull(AccountingColumns.INTERVAL);
         if (res == null)
-            throw new NullPointerException("The value of 'accounting_category_id' in the database was null, which is not allowed according to the model definition");
+            throw new NullPointerException("The value of 'interval' in the database was null, which is not allowed according to the model definition");
         return res;
     }
 
     /**
-     * Name
+     * Get the {@code date} value.
      * Cannot be {@code null}.
      */
     @NonNull
-    public String getAccountingCategoryName() {
-        String res = getStringOrNull(AccountingCategoryColumns.NAME);
+    public Date getDate() {
+        Date res = getDateOrNull(AccountingColumns.DATE);
         if (res == null)
-            throw new NullPointerException("The value of 'name' in the database was null, which is not allowed according to the model definition");
+            throw new NullPointerException("The value of 'date' in the database was null, which is not allowed according to the model definition");
         return res;
     }
 
     /**
-     * Get the {@code accounting_date} value.
+     * Get the {@code type} value.
      * Cannot be {@code null}.
      */
     @NonNull
-    public Date getAccountingDate() {
-        Date res = getDateOrNull(AccountingColumns.ACCOUNTING_DATE);
+    public String getType() {
+        String res = getStringOrNull(AccountingColumns.TYPE);
         if (res == null)
-            throw new NullPointerException("The value of 'accounting_date' in the database was null, which is not allowed according to the model definition");
+            throw new NullPointerException("The value of 'type' in the database was null, which is not allowed according to the model definition");
         return res;
     }
 
     /**
-     * Get the {@code accounting_type} value.
-     * Cannot be {@code null}.
-     */
-    @NonNull
-    public AccountingType getAccountingType() {
-        Integer intValue = getIntegerOrNull(AccountingColumns.ACCOUNTING_TYPE);
-        if (intValue == null)
-            throw new NullPointerException("The value of 'accounting_type' in the database was null, which is not allowed according to the model definition");
-        return AccountingType.values()[intValue];
-    }
-
-    /**
-     * Values are stored with two decimals (1 Euro = 100)
+     * Get the {@code value} value.
      */
     public int getValue() {
         Integer res = getIntegerOrNull(AccountingColumns.VALUE);

@@ -1,6 +1,6 @@
 <resources>
 
-    <style name="AppTheme" parent="Theme.AppCompat">
+    <style name="AppTheme" parent="Theme.AppCompat.Light">
         <!-- for actionbar -->
         <item name="colorPrimary">@color/primary</item>
         <!-- for fields text: textView, spinner -->

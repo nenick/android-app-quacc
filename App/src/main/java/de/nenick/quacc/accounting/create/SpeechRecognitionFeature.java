@@ -51,7 +51,7 @@ public class SpeechRecognitionFeature {
 
             @Override
             public void onResults(ArrayList<String> speechResults) {
-                onViewSpeechResult(speechResults);
+                interpreteSpeechResult(speechResults);
                 view.showSpeechStartButton();
             }
         });
@@ -72,7 +72,7 @@ public class SpeechRecognitionFeature {
         }
     }
 
-    private void onViewSpeechResult(ArrayList<String> matches) {
+    private void interpreteSpeechResult(ArrayList<String> matches) {
         String accountingType = recognizeAccountingTypeFunction.apply(matches);
 
         String recognizedText = "";

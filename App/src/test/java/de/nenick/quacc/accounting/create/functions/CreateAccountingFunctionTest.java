@@ -8,9 +8,8 @@ import org.mockito.MockitoAnnotations;
 
 import java.util.Date;
 
-import de.nenick.quacc.accounting.create.functions.CreateAccountingFunction;
 import de.nenick.quacc.database.AccountDb;
-import de.nenick.quacc.database.AccountingCategoryDb;
+import de.nenick.quacc.database.CategoryDb;
 import de.nenick.quacc.database.AccountingDb;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -35,7 +34,7 @@ public class CreateAccountingFunctionTest {
     AccountDb accountDb;
 
     @Mock
-    AccountingCategoryDb accountingCategoryDb;
+    CategoryDb categoryDb;
 
     @Mock
     AccountingDb accountingDb;
@@ -48,7 +47,7 @@ public class CreateAccountingFunctionTest {
     @Test
     public void shouldAddAccounting() {
         given(accountDb.getIdByName(ACCOUNT)).willReturn(ACCOUNT_ID);
-        given(accountingCategoryDb.getIdByName(CATEGORY_NAME)).willReturn(CATEGORY_ID);
+        given(categoryDb.getIdByName(CATEGORY_NAME)).willReturn(CATEGORY_ID);
         function.apply(ACCOUNT, ACCOUNTING_TYPE, ACCOUNTING_INTERVAL, CATEGORY_NAME, DATE, VALUE, COMMENT);
         verify(accountingDb).insert(ACCOUNT_ID, ACCOUNTING_TYPE, ACCOUNTING_INTERVAL, CATEGORY_ID, DATE, COMMENT, 1212);
     }
