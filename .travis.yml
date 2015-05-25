@@ -38,40 +38,6 @@ cache:
     # Caching dependencies for faster builds
     - $HOME/.m2
     - $HOME/.gradle
-
-before_script:
-
-  # Emulator Management: Create, Start
-  - echo no | android create avd --force -n test -t android-21 --abi armeabi-v7a
-  - emulator -avd test -no-audio -no-window &
-  - ./android-wait-for-emulator
-
-script:
-
-  # Build the code
-  - ./gradlew App:assembleDebug
-
-  # Execute Unit Tests
-  - ./gradlew App:test
-  - ./gradlew Database:test
-
-  # Execute Component Tests
-  - ./gradlew AppCT:test
-  
-  # Execute Tests on Emulator
-  - ./gradlew App:connectedCheck
-
-  # Create coverage report
-  - ./gradlew jacocoTestReport
-
-  # Check lint hints
-  - ./gradlew lint
-
-after_success:
-
-  # Only report code coverage if all tasks are successful
-  # This was switched to circleCI
-  # - ./gradlew coveralls
   
 addons:
   coverity_scan:
@@ -87,4 +53,4 @@ addons:
 
     # Selecting branches that will run analysis. We recommend leaving this set to 'coverity_scan'.
     # Take care in resource usage, and consider the build frequency allowances https://scan.coverity.com/faq#frequency
-    branch_pattern: coverity_scan
+    branch_pattern: master
