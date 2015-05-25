@@ -1,10 +1,7 @@
 package de.nenick.quacc.accounting.create;
 
-import android.annotation.Nullable;
-import android.widget.Adapter;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
-import android.widget.ListAdapter;
 import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
 import android.widget.TextView;

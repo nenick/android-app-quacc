@@ -44,7 +44,7 @@ public class CreateAccountingFragmentSpec extends RoboComponentTestBase {
         addAccountingPage.accountSpinner().entry("Bar").select();
         addAccountingPage.typeSpinner().entry("Einnahme").select();
         addAccountingPage.intervalSpinner().entry("Monatlich").select();
-        addAccountingPage.categorySpinner().entry("Miete").select();
+        addAccountingPage.categorySpinner().entry("eBay").select();
         whenPickDate(defaultDate);
         addAccountingPage.valueField().setText("60.00");
 
@@ -53,7 +53,7 @@ public class CreateAccountingFragmentSpec extends RoboComponentTestBase {
         assertThat(addAccountingPage.accountSpinner().selectedEntry().getText()).isEqualTo("Bar");
         assertThat(addAccountingPage.typeSpinner().selectedEntry().getText()).isEqualTo("Einnahme");
         assertThat(addAccountingPage.intervalSpinner().selectedEntry().getText()).isEqualTo("Monatlich");
-//        assertThat(addAccountingPage.categorySpinner().selectedEntry().getText()).isEqualTo("Miete");
+        assertThat(addAccountingPage.categorySpinner().selectedEntry().getText()).isEqualTo("eBay");
         assertThat(addAccountingPage.dateField().getText()).isEqualTo(defaultDate);
         assertThat(addAccountingPage.valueField().getText()).isEqualTo("60.00");
     }
@@ -83,7 +83,7 @@ public class CreateAccountingFragmentSpec extends RoboComponentTestBase {
         addAccountingPage.accountSpinner().entry("Bar").select();
         addAccountingPage.intervalSpinner().entry("Alle 3 Monate").select();
         addAccountingPage.typeSpinner().entry("Einnahme").select();
-        addAccountingPage.categorySpinner().entry("Miete").select();
+        addAccountingPage.categorySpinner().entry("eBay").select();
         whenPickDate(defaultDate);
         addAccountingPage.valueField().setText("5,83");
         addAccountingPage.commentField().setText("take the money");
@@ -96,7 +96,7 @@ public class CreateAccountingFragmentSpec extends RoboComponentTestBase {
         assertThat(accountings.getAccountName()).isEqualTo("Bar");
         assertThat(accountings.getInterval()).isEqualTo(AccountingInterval.eachThirdMonth.name());
         assertThat(accountings.getType()).isEqualTo(AccountingType.incoming.name());
-        assertThat(accountings.getCategoryName()).isEqualTo("Miete");
+        assertThat(accountings.getCategoryName()).isEqualTo("eBay");
         assertThat(accountings.getDate()).isEqualTo(QuAccDateUtil.parse(defaultDate));
         assertThat(accountings.getValue()).isEqualTo(583);
         assertThat(accountings.getComment()).isEqualTo("take the money");

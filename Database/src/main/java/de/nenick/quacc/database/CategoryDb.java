@@ -14,6 +14,8 @@ import de.nenick.quacc.database.provider.category.CategorySelection;
 @EBean
 public class CategoryDb {
 
+    public static final String sortBySectionAndName = CategoryColumns.SECTION + " ASC , " + CategoryColumns.NAME + " ASC";
+
     @RootContext
     Context context;
 
@@ -37,7 +39,13 @@ public class CategoryDb {
         new CategoryContentValues().putName(name).insert(context.getContentResolver());
     }
 
-    public CategoryCursor getAllFor(String accountingType, String accountingInterval) {
-        return new CategorySelection().type(accountingType).and().interval(accountingInterval).or().interval(AccountingInterval.all.name()).or().type(AccountingType.all.name()).query(context.getContentResolver());
+    public void insert(String section, String name, String interval, String type) {
+        new CategoryContentValues().putName(name).putInterval(interval).putSection(section).putType(type).insert(context.getContentResolver());
+    }
+
+    public CategoryCursor getAllFor(String[] intervals, String[] types, String sortOrder) {
+        CategorySelection where = new CategorySelection();
+        return where.interval(intervals).and().type(types)
+                .query(context.getContentResolver(), null, sortOrder);
     }
 }

@@ -6,10 +6,8 @@ import org.androidannotations.annotations.EBean;
 import java.util.Date;
 
 import de.nenick.quacc.database.AccountDb;
-import de.nenick.quacc.database.CategoryDb;
 import de.nenick.quacc.database.AccountingDb;
-import de.nenick.quacc.i18n.AccountingIntervalTranslator;
-import de.nenick.quacc.i18n.AccountingTypeTranslator;
+import de.nenick.quacc.database.CategoryDb;
 
 @EBean
 public class CreateAccountingFunction {

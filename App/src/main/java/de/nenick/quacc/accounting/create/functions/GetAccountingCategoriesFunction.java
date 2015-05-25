@@ -6,6 +6,8 @@ import org.androidannotations.annotations.EBean;
 import java.util.ArrayList;
 import java.util.List;
 
+import de.nenick.quacc.database.AccountingInterval;
+import de.nenick.quacc.database.AccountingType;
 import de.nenick.quacc.database.CategoryDb;
 import de.nenick.quacc.database.provider.category.CategoryCursor;
 
@@ -14,20 +16,11 @@ public class GetAccountingCategoriesFunction {
 
     @Bean
     CategoryDb categoryDb;
-/*
-    public CharSequence[] apply() {
-        CategoryCursor accountingCategories = categoryDb.getAll();
-        String[] values = new String[accountingCategories.getCount()];
-        for (int i = 0; i < accountingCategories.getCount(); i++) {
-            accountingCategories.moveToNext();
-            values[i] = accountingCategories.getName();
-        }
-        accountingCategories.close();
-        return values;
-    }
-*/
+
     public CharSequence[] apply(String accountingType, String accountingInterval) {
-        CategoryCursor accountingCategories =  categoryDb.getAllFor(accountingType, accountingInterval);
+        String[] intervals = {accountingInterval, AccountingInterval.all.name()};
+        String[] types = {accountingType, AccountingType.all.name()};
+        CategoryCursor accountingCategories =  categoryDb.getAllFor(intervals, types, CategoryDb.sortBySectionAndName);
         String[] values = new String[accountingCategories.getCount()];
         for (int i = 0; i < accountingCategories.getCount(); i++) {
             accountingCategories.moveToNext();
