@@ -1,5 +1,6 @@
 package de.nenick.quacc.accounting.create;
 
+import android.annotation.Nullable;
 import android.widget.Adapter;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
@@ -63,7 +64,8 @@ public class CreateAccountingView extends BaseView {
         accountingTypeSpinner.setAdapter(adapter);
     }
 
-    public  <T extends Object> T getAccountingType() {
+    public  <T> T getAccountingType() {
+        //noinspection unchecked the caller should now what kind of item he expect
         return (T) accountingTypeSpinner.getSelectedItem();
     }
 
@@ -71,7 +73,8 @@ public class CreateAccountingView extends BaseView {
         accountingIntervalSpinner.setAdapter(adapter);
     }
 
-    public <T extends Object> T getAccountingInterval() {
+    public <T> T getAccountingInterval() {
+        //noinspection unchecked the caller should now what kind of item he expect
         return (T) accountingIntervalSpinner.getSelectedItem();
     }
 
