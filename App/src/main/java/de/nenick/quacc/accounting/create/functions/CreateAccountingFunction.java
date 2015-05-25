@@ -23,18 +23,9 @@ public class CreateAccountingFunction {
     @Bean
     AccountingDb accountingDb;
 
-    @Bean
-    AccountingIntervalTranslator accountingIntervalTranslator;
-
-    @Bean
-    AccountingTypeTranslator accountingTypeTranslator;
-
     public void apply(String account, String accountingType, String accountingInterval, String accountingCategory, Date date, int value, String comment) {
         long accountId = accountDb.getIdByName(account);
         long accountingCategoryId = categoryDb.getIdByName(accountingCategory);
-
-        accountingInterval = accountingIntervalTranslator.asEnum(accountingInterval).name();
-        accountingType = accountingTypeTranslator.asEnum(accountingType).name();
 
         accountingDb.insert(accountId, accountingType, accountingInterval, accountingCategoryId, date, comment, value);
     }

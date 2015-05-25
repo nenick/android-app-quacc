@@ -3,12 +3,12 @@ package de.nenick.quacc.accounting.create;
 import org.junit.Before;
 import org.junit.Test;
 
+import de.nenick.quacc.common.util.QuAccDateUtil;
 import de.nenick.quacc.database.AccountingDb;
 import de.nenick.quacc.database.AccountingDb_;
 import de.nenick.quacc.database.AccountingInterval;
 import de.nenick.quacc.database.AccountingType;
 import de.nenick.quacc.database.provider.accounting.AccountingCursor;
-import de.nenick.quacc.database.tools.TestDatabaseDateUtil;
 import de.nenick.quacc.test.TestDateUtil;
 import de.nenick.robolectric.RoboComponentTestBase;
 import de.nenick.robolectric.RoboSup;
@@ -103,7 +103,7 @@ public class CreateAccountingFragmentSpec extends RoboComponentTestBase {
         assertThat(accountings.getInterval()).isEqualTo(AccountingInterval.eachThirdMonth.name());
         assertThat(accountings.getType()).isEqualTo(AccountingType.incoming.name());
         assertThat(accountings.getCategoryName()).isEqualTo("Miete");
-        assertThat(accountings.getDate()).isEqualTo(TestDatabaseDateUtil.parse(TestDateUtil.date(21, 12, 2012)));
+        assertThat(accountings.getDate()).isEqualTo(QuAccDateUtil.parse(TestDateUtil.date(21, 12, 2012)));
         assertThat(accountings.getValue()).isEqualTo(583);
         assertThat(accountings.getComment()).isEqualTo("take the money");
     }

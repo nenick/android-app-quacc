@@ -11,6 +11,7 @@ import de.nenick.quacc.database.provider.category.CategoryCursor;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.BDDMockito.given;
+import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.verify;
 
 public class GetAccountingCategoriesFunctionTest {
@@ -27,7 +28,7 @@ public class GetAccountingCategoriesFunctionTest {
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
-        given(categoryDb.getAll()).willReturn(accountingCategoryCursor);
+        given(categoryDb.getAllFor(anyString(), anyString())).willReturn(accountingCategoryCursor);
     }
 
     @Test

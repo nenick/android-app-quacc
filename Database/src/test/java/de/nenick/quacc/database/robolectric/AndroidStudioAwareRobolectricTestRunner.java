@@ -23,7 +23,7 @@ public class AndroidStudioAwareRobolectricTestRunner extends RobolectricGradleTe
 
     public AndroidStudioAwareRobolectricTestRunner(Class<?> clazz) throws InitializationError {
         super(clazz);
-        String intermediatesPath = BuildConfig.MODULE_PATH + "/build//intermediates";
+        String intermediatesPath = BuildConfig.MODULE_PATH + "/build/intermediates";
         System.setProperty("java.io.tmpdir", intermediatesPath + "/test-data");
         mkdir(intermediatesPath + "/test-data");
     }
@@ -43,7 +43,7 @@ public class AndroidStudioAwareRobolectricTestRunner extends RobolectricGradleTe
             return appManifest;
         } else {
             String moduleRoot = getModuleRootPath(config);
-            androidManifestFile = FileFsFile.from(moduleRoot, appManifest.getAndroidManifestFile().getPath());
+            androidManifestFile = FileFsFile.from(moduleRoot, appManifest.getAndroidManifestFile().getPath().replace("manifests\\full", "bundles"));
             FsFile resDirectory = FileFsFile.from(moduleRoot, appManifest.getResDirectory().getPath());
             FsFile assetsDirectory = FileFsFile.from(moduleRoot, appManifest.getAssetsDirectory().getPath());
             return new AndroidManifest(androidManifestFile, resDirectory, assetsDirectory);

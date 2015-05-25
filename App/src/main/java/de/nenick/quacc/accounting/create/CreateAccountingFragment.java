@@ -137,7 +137,14 @@ public class CreateAccountingFragment extends BasePresenterFragment {
     private void reloadCategories() {
         String accountingInterval = view.getAccountingInterval();
         String accountingType = view.getAccountingType();
+        if(isViewNotFullInitialized(accountingInterval, accountingType)) {
+            return;
+        }
         CharSequence[] categories = getAccountingCategoriesFunction.apply(accountingType, accountingInterval);
         view.showAccountingCategories(categories);
+    }
+
+    private boolean isViewNotFullInitialized(String accountingInterval, String accountingType) {
+        return accountingInterval == null || accountingType == null;
     }
 }

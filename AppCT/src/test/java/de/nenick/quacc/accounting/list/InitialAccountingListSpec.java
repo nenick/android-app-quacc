@@ -1,15 +1,10 @@
 package de.nenick.quacc.accounting.list;
 
-import com.getbase.android.forger.Forger;
-
 import org.junit.Test;
 
-import de.nenick.quacc.database.AccountingInterval;
-import de.nenick.quacc.database.AccountingType;
-import de.nenick.quacc.database.provider.accounting.AccountingColumns;
-import de.nenick.quacc.database.provider.testdata.Accounting;
-import de.nenick.quacc.database.provider.testdata.TestDataGraph;
-import de.nenick.quacc.database.provider.testdata.base.DataModel;
+import java.util.Date;
+
+import de.nenick.quacc.database.AccountingDb_;
 import de.nenick.robolectric.RoboComponentTestBase;
 import de.nenick.robolectric.RoboSup;
 
@@ -21,15 +16,9 @@ public class InitialAccountingListSpec extends RoboComponentTestBase {
 
     RoboAccountingListPage accountingListPage = new RoboAccountingListPage(robo);
 
-    Forger<DataModel> access = TestDataGraph.access();
-
     @Test
     public void shouldShowAccountings() {
-        access.iNeed(3).of(Accounting.class)
-                .with(AccountingColumns.INTERVAL, AccountingInterval.once)
-                .with(AccountingColumns.TYPE, AccountingType.incoming)
-                .in(context.getContentResolver());
-
+        AccountingDb_.getInstance_(context).insert(1, "a", "a", 1, new Date(), "", 20);
         accountingListPage.startPage();
         assertThat(accountingListPage.list().count()).isEqualTo(3);
     }

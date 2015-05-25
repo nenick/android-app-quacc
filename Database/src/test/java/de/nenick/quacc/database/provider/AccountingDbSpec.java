@@ -26,7 +26,7 @@ public class AccountingDbSpec extends RoboDatabaseTest {
 
         assertThat(accountingCursor.getCount()).isEqualTo(1);
         accountingCursor.moveToFirst();
-        assertThat(accountingCursor.getAccountingCategoryId()).isPositive();
+        assertThat(accountingCursor.getCategoryId()).isPositive();
     }
 /*
     @Test

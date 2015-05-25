@@ -63,16 +63,16 @@ public class CreateAccountingView extends BaseView {
         accountingTypeSpinner.setAdapter(adapter);
     }
 
-    public String getAccountingType() {
-        return accountingTypeSpinner.getSelectedItem().toString();
+    public  <T extends Object> T getAccountingType() {
+        return (T) accountingTypeSpinner.getSelectedItem();
     }
 
     public void showAccountingIntervals(SpinnerAdapter adapter) {
         accountingIntervalSpinner.setAdapter(adapter);
     }
 
-    public String getAccountingInterval() {
-        return accountingIntervalSpinner.getSelectedItem().toString();
+    public <T extends Object> T getAccountingInterval() {
+        return (T) accountingIntervalSpinner.getSelectedItem();
     }
 
     public void showAccountingCategories(CharSequence[] stringArray) {
