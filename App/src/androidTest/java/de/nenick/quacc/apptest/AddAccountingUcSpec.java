@@ -20,7 +20,7 @@ public class AddAccountingUcSpec extends BaseEspressoSpec {
         addAccountingPage.chooseAccount("Bar");
         addAccountingPage.chooseAccountingInterval("Monatlich");
         addAccountingPage.chooseAccountingType("Einnahme");
-        addAccountingPage.chooseAccountingCategory("Miete");
+        addAccountingPage.chooseAccountingCategory("Mieteinnahmen");
         addAccountingPage.chooseAccountingDate("10.11.2012");
         addAccountingPage.chooseAccountingValue("3,50");
         addAccountingPage.actionbar().clickConfirmButton();

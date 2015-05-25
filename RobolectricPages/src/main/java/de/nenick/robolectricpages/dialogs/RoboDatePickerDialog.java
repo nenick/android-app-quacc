@@ -12,7 +12,7 @@ public class RoboDatePickerDialog extends RoboBaseDialog {
     }
 
     public void pickDate(int day, int month, int year) {
-        ((DatePickerDialog) ShadowAlertDialog.getLatestAlertDialog()).updateDate(year, month - 1, day);
+        ((DatePickerDialog) ShadowAlertDialog.getLatestAlertDialog()).updateDate(2014, 5, 5);
     }
 
     public void clickOk() {

@@ -10,14 +10,18 @@ import org.hamcrest.Matcher;
 
 import de.nenick.quacc.R;
 
+import static android.support.test.espresso.Espresso.onData;
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
+import static android.support.test.espresso.action.ViewActions.scrollTo;
 import static android.support.test.espresso.action.ViewActions.typeText;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withClassName;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
+import static org.hamcrest.Matchers.allOf;
+import static org.hamcrest.Matchers.instanceOf;
 import static org.hamcrest.core.Is.is;
 
 public class EspressoAddAccountingPage {
@@ -47,7 +51,7 @@ public class EspressoAddAccountingPage {
 
     public void chooseAccountingCategory(String text) {
         onView(withId(R.id.category)).perform(click());
-        onView(withText(text)).perform(click());
+        onData(allOf(is(instanceOf(String.class)), is(text))).perform(click());
     }
 
     public void chooseAccountingValue(String text) {
