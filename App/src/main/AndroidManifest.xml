@@ -36,6 +36,11 @@
             android:label="@string/title_activity_categories"
             android:parentActivityName=".accounting.list.AccountingListActivity_" >
         </activity>
+        <activity
+            android:name=".accounts.AccountsActivity_"
+            android:label="@string/title_activity_accounts"
+            android:parentActivityName=".accounting.list.AccountingListActivity_" >
+        </activity>
     </application>
 
 </manifest>

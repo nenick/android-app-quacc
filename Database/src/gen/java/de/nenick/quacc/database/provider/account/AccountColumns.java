@@ -21,14 +21,14 @@ public class AccountColumns implements BaseColumns {
     public static final String _ID = BaseColumns._ID;
 
     /**
-     * Name
+     * The name of the account set by the user.
      */
     public static final String NAME = "account__name";
 
     /**
-     * Short description
+     * The base to calculate the current amount of money. Values are stored in 100 cent.
      */
-    public static final String DESCRIPTION = "description";
+    public static final String INITIALVALUE = "initialValue";
 
 
     public static final String DEFAULT_ORDER = TABLE_NAME + "." +_ID;
@@ -37,7 +37,7 @@ public class AccountColumns implements BaseColumns {
     public static final String[] ALL_COLUMNS = new String[] {
             _ID,
             NAME,
-            DESCRIPTION
+            INITIALVALUE
     };
     // @formatter:on
 
@@ -45,7 +45,7 @@ public class AccountColumns implements BaseColumns {
         if (projection == null) return true;
         for (String c : projection) {
             if (c.equals(NAME) || c.contains("." + NAME)) return true;
-            if (c.equals(DESCRIPTION) || c.contains("." + DESCRIPTION)) return true;
+            if (c.equals(INITIALVALUE) || c.contains("." + INITIALVALUE)) return true;
         }
         return false;
     }

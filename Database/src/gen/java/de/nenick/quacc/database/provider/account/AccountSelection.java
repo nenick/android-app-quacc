@@ -82,33 +82,33 @@ public class AccountSelection extends AbstractSelection<AccountSelection> {
         return this;
     }
 
-    public AccountSelection description(String... value) {
-        addEquals(AccountColumns.DESCRIPTION, value);
+    public AccountSelection initialvalue(int... value) {
+        addEquals(AccountColumns.INITIALVALUE, toObjectArray(value));
         return this;
     }
 
-    public AccountSelection descriptionNot(String... value) {
-        addNotEquals(AccountColumns.DESCRIPTION, value);
+    public AccountSelection initialvalueNot(int... value) {
+        addNotEquals(AccountColumns.INITIALVALUE, toObjectArray(value));
         return this;
     }
 
-    public AccountSelection descriptionLike(String... value) {
-        addLike(AccountColumns.DESCRIPTION, value);
+    public AccountSelection initialvalueGt(int value) {
+        addGreaterThan(AccountColumns.INITIALVALUE, value);
         return this;
     }
 
-    public AccountSelection descriptionContains(String... value) {
-        addContains(AccountColumns.DESCRIPTION, value);
+    public AccountSelection initialvalueGtEq(int value) {
+        addGreaterThanOrEquals(AccountColumns.INITIALVALUE, value);
         return this;
     }
 
-    public AccountSelection descriptionStartsWith(String... value) {
-        addStartsWith(AccountColumns.DESCRIPTION, value);
+    public AccountSelection initialvalueLt(int value) {
+        addLessThan(AccountColumns.INITIALVALUE, value);
         return this;
     }
 
-    public AccountSelection descriptionEndsWith(String... value) {
-        addEndsWith(AccountColumns.DESCRIPTION, value);
+    public AccountSelection initialvalueLtEq(int value) {
+        addLessThanOrEquals(AccountColumns.INITIALVALUE, value);
         return this;
     }
 }

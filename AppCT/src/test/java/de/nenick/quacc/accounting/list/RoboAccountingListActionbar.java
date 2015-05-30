@@ -14,4 +14,8 @@ public class RoboAccountingListActionbar extends RoboActionbar {
     public RoboActionbarMenuItem categories() {
         return new RoboActionbarMenuItem(robo, R.id.category, null);
     }
+
+    public RoboActionbarMenuItem accounts() {
+        return new RoboActionbarMenuItem(robo, R.id.account, null);
+    }
 }

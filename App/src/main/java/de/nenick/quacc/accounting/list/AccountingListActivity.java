@@ -10,6 +10,7 @@ import org.androidannotations.annotations.OptionsItem;
 
 import de.nenick.quacc.R;
 import de.nenick.quacc.accounting.create.CreateAccountingActivity_;
+import de.nenick.quacc.accounts.AccountsActivity_;
 import de.nenick.quacc.categories.CategoriesActivity_;
 
 @EActivity(R.layout.activity)
@@ -34,5 +35,10 @@ public class AccountingListActivity extends ActionBarActivity {
     @OptionsItem(R.id.category)
     protected void onCategoriesEditor() {
         CategoriesActivity_.intent(this).start();
+    }
+
+    @OptionsItem(R.id.account)
+    protected void onAccountsEditor() {
+        AccountsActivity_.intent(this).start();
     }
 }

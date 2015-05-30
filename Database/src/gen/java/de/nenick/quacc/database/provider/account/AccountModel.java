@@ -13,16 +13,14 @@ import android.support.annotation.Nullable;
 public interface AccountModel extends BaseModel {
 
     /**
-     * Name
+     * The name of the account set by the user.
      * Cannot be {@code null}.
      */
     @NonNull
     String getName();
 
     /**
-     * Short description
-     * Can be {@code null}.
+     * The base to calculate the current amount of money. Values are stored in 100 cent.
      */
-    @Nullable
-    String getDescription();
+    int getInitialvalue();
 }

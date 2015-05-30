@@ -14,14 +14,14 @@ import de.nenick.quacc.accounting.create.functions.GetAccountingCategoriesFuncti
 import de.nenick.quacc.accounting.create.functions.GetAccountingIntervalsFunction;
 import de.nenick.quacc.accounting.create.functions.GetAccountingTypesFunction;
 import de.nenick.quacc.accounting.create.functions.GetAccountsFunction;
-import de.nenick.quacc.accounting.create.functions.ParseAccountingValueFunction;
+import de.nenick.quacc.accounting.create.functions.ParseValueFromStringFunction;
 import de.nenick.quacc.common.mvp.BasePresenterFragment;
 import de.nenick.quacc.common.mvp.BaseView;
 import de.nenick.quacc.common.util.QuAccDateUtil;
 import de.nenick.quacc.database.AccountingInterval;
 import de.nenick.quacc.database.AccountingType;
 
-import static de.nenick.quacc.accounting.create.functions.ParseAccountingValueFunction.ParseResult.Successful;
+import static de.nenick.quacc.accounting.create.functions.ParseValueFromStringFunction.ParseResult.Successful;
 
 @EFragment(R.layout.fragment_create_accounting)
 @OptionsMenu(R.menu.menu_create_account)
@@ -46,7 +46,7 @@ public class CreateAccountingFragment extends BasePresenterFragment {
     CreateAccountingFunction createAccountingFunction;
 
     @Bean
-    ParseAccountingValueFunction parseAccountingValueFunction;
+    ParseValueFromStringFunction parseValueFromStringFunction;
 
     @Bean
     SpeechRecognitionFeature speechRecognitionFeature;
@@ -99,7 +99,7 @@ public class CreateAccountingFragment extends BasePresenterFragment {
     protected void onConfirmNewAccounting() {
         view.closeSoftKeyboard();
         String value = view.getValue();
-        ParseAccountingValueFunction.Result valueResult = parseAccountingValueFunction.apply(value);
+        ParseValueFromStringFunction.Result valueResult = parseValueFromStringFunction.apply(value);
         if (valueResult.report == Successful) {
             String account = view.getAccount();
             String accountingType = view.getAccountingType();
@@ -115,7 +115,7 @@ public class CreateAccountingFragment extends BasePresenterFragment {
         }
     }
 
-    private void showParsingError(ParseAccountingValueFunction.Result valueResult) {
+    private void showParsingError(ParseValueFromStringFunction.Result valueResult) {
         switch (valueResult.report) {
             case EmptyInput:
                 view.showValueParsingError(R.string.parse_error_missing_value);

@@ -32,6 +32,9 @@ public class AccountingColumns implements BaseColumns {
 
     public static final String TYPE = "accounting__type";
 
+    /**
+     * Values are stored in 100 cent.
+     */
     public static final String VALUE = "value";
 
 

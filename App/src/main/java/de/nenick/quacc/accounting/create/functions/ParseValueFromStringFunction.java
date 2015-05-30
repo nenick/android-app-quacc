@@ -12,7 +12,7 @@ import org.androidannotations.annotations.EBean;
  * - a positive real number with 1 or 2 numbers of digits after the decimal comma (e.g. ",34", "42,3", "42,31")
  */
 @EBean
-public class ParseAccountingValueFunction {
+public class ParseValueFromStringFunction {
 
     public static final String TWO_DECIMAL_PLACES = "00";
 

@@ -114,33 +114,33 @@ public class AccountingSelection extends AbstractSelection<AccountingSelection> 
         return this;
     }
 
-    public AccountingSelection accountDescription(String... value) {
-        addEquals(AccountColumns.DESCRIPTION, value);
+    public AccountingSelection accountInitialvalue(int... value) {
+        addEquals(AccountColumns.INITIALVALUE, toObjectArray(value));
         return this;
     }
 
-    public AccountingSelection accountDescriptionNot(String... value) {
-        addNotEquals(AccountColumns.DESCRIPTION, value);
+    public AccountingSelection accountInitialvalueNot(int... value) {
+        addNotEquals(AccountColumns.INITIALVALUE, toObjectArray(value));
         return this;
     }
 
-    public AccountingSelection accountDescriptionLike(String... value) {
-        addLike(AccountColumns.DESCRIPTION, value);
+    public AccountingSelection accountInitialvalueGt(int value) {
+        addGreaterThan(AccountColumns.INITIALVALUE, value);
         return this;
     }
 
-    public AccountingSelection accountDescriptionContains(String... value) {
-        addContains(AccountColumns.DESCRIPTION, value);
+    public AccountingSelection accountInitialvalueGtEq(int value) {
+        addGreaterThanOrEquals(AccountColumns.INITIALVALUE, value);
         return this;
     }
 
-    public AccountingSelection accountDescriptionStartsWith(String... value) {
-        addStartsWith(AccountColumns.DESCRIPTION, value);
+    public AccountingSelection accountInitialvalueLt(int value) {
+        addLessThan(AccountColumns.INITIALVALUE, value);
         return this;
     }
 
-    public AccountingSelection accountDescriptionEndsWith(String... value) {
-        addEndsWith(AccountColumns.DESCRIPTION, value);
+    public AccountingSelection accountInitialvalueLtEq(int value) {
+        addLessThanOrEquals(AccountColumns.INITIALVALUE, value);
         return this;
     }
 

@@ -1,0 +1,39 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    tools:context="de.nenick.quacc.categories.CategoriesFragment">
+
+    <Spinner
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/account"
+        android:spinnerMode="dialog"
+        tools:listitem="@layout/support_simple_spinner_dropdown_item"
+        />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/value"
+        android:inputType="numberDecimal"
+        android:gravity="end"
+        android:imeOptions="flagNoExtractUi"
+        android:text="@string/initial_value"
+        android:layout_alignParentTop="true"
+        android:layout_toEndOf="@+id/account"
+        android:layout_marginStart="24dp" />
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/save"
+        android:id="@+id/button"
+        android:layout_marginStart="24dp"
+        android:layout_alignBottom="@+id/value"
+        android:layout_toEndOf="@+id/value" />
+
+</RelativeLayout>

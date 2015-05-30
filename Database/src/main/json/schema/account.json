@@ -2,16 +2,16 @@
   "documentation": "Consolidate the accounting.",
   "fields": [
     {
-      "documentation": "Name",
+      "documentation": "The name of the account set by the user.",
       "name": "name",
       "type": "String",
       "nullable": false
     },
     {
-      "documentation": "Short description",
-      "name": "description",
-      "type": "String",
-      "nullable": true
+      "documentation": "The base to calculate the current amount of money. Values are stored in 100 cent.",
+      "name": "initialValue",
+      "type": "Integer",
+      "nullable": false
     }
   ],
   "constraints": [

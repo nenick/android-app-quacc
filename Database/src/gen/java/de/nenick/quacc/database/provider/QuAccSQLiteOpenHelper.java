@@ -28,7 +28,7 @@ public class QuAccSQLiteOpenHelper extends SQLiteOpenHelper {
             + AccountColumns.TABLE_NAME + " ( "
             + AccountColumns._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
             + AccountColumns.NAME + " TEXT NOT NULL, "
-            + AccountColumns.DESCRIPTION + " TEXT "
+            + AccountColumns.INITIALVALUE + " INTEGER NOT NULL "
             + ", CONSTRAINT unique_name UNIQUE (account__name) ON CONFLICT FAIL"
             + " );";
 

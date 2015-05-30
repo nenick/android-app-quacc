@@ -27,7 +27,7 @@ public class AccountCursor extends AbstractCursor implements AccountModel {
     }
 
     /**
-     * Name
+     * The name of the account set by the user.
      * Cannot be {@code null}.
      */
     @NonNull
@@ -39,12 +39,12 @@ public class AccountCursor extends AbstractCursor implements AccountModel {
     }
 
     /**
-     * Short description
-     * Can be {@code null}.
+     * The base to calculate the current amount of money. Values are stored in 100 cent.
      */
-    @Nullable
-    public String getDescription() {
-        String res = getStringOrNull(AccountColumns.DESCRIPTION);
+    public int getInitialvalue() {
+        Integer res = getIntegerOrNull(AccountColumns.INITIALVALUE);
+        if (res == null)
+            throw new NullPointerException("The value of 'initialvalue' in the database was null, which is not allowed according to the model definition");
         return res;
     }
 }

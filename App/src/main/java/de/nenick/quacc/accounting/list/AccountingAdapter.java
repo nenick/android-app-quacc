@@ -16,6 +16,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 import de.nenick.quacc.accounting.list.functions.GetAccountingListFunction;
+import de.nenick.quacc.accounting.list.functions.ParseValueFromIntegerFunction;
 import de.nenick.quacc.common.util.QuAccDateUtil;
 import de.nenick.quacc.database.AccountingType;
 import de.nenick.quacc.database.provider.accounting.AccountingCursor;
@@ -36,6 +37,9 @@ public class AccountingAdapter extends CursorAdapter {
 
     @Bean
     AccountingTypeTranslator accountingTypeTranslator;
+
+    @Bean
+    ParseValueFromIntegerFunction parseValueFromInteger;
 
     public AccountingAdapter() {
         super(null, null, true);
@@ -76,16 +80,7 @@ public class AccountingAdapter extends CursorAdapter {
 
     private String createValueString(AccountingCursor accountingCursor) {
         int value = accountingCursor.getValue();
-        String valueString = String.valueOf(value);
-        if (value < 10) {
-            valueString = "0,0" + valueString;
-        } else if (value < 100) {
-            valueString = "0," + valueString;
-        } else {
-            String decimal = valueString.substring(valueString.length() - 2, valueString.length());
-            valueString = valueString.substring(0, valueString.length() - 2) + "," + decimal;
-        }
-        return valueString;
+        return parseValueFromInteger.apply(value);
     }
 
     public void updateFor(int month, String year) {

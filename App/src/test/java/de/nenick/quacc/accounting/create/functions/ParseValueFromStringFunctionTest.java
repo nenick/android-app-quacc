@@ -2,16 +2,15 @@ package de.nenick.quacc.accounting.create.functions;
 
 import org.junit.Test;
 
-import de.nenick.quacc.accounting.create.functions.ParseAccountingValueFunction;
-import de.nenick.quacc.accounting.create.functions.ParseAccountingValueFunction.ParseResult;
+import de.nenick.quacc.accounting.create.functions.ParseValueFromStringFunction.ParseResult;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class ParseAccountingValueFunctionTest {
+public class ParseValueFromStringFunctionTest {
 
-    ParseAccountingValueFunction parseAccountingValueFunction = new ParseAccountingValueFunction();
+    ParseValueFromStringFunction parseValueFromStringFunction = new ParseValueFromStringFunction();
 
-    ParseAccountingValueFunction.Result result;
+    ParseValueFromStringFunction.Result result;
 
     @Test
     public void shouldParseNaturalNumbers() {
@@ -55,13 +54,13 @@ public class ParseAccountingValueFunctionTest {
     }
 
     private void parseAndExpect(String input, int expected) {
-        result = parseAccountingValueFunction.apply(input);
+        result = parseValueFromStringFunction.apply(input);
         assertThat(result.report).isEqualTo(ParseResult.Successful);
         assertThat(result.value).isEqualTo(expected);
     }
 
     private void parseAndExpect(String input, ParseResult expected) {
-        result = parseAccountingValueFunction.apply(input);
+        result = parseValueFromStringFunction.apply(input);
         assertThat(result.report).isEqualTo(expected);
     }
 }

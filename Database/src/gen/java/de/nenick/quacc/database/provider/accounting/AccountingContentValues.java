@@ -76,6 +76,9 @@ public class AccountingContentValues extends AbstractContentValues {
     }
 
 
+    /**
+     * Values are stored in 100 cent.
+     */
     public AccountingContentValues putValue(int value) {
         mContentValues.put(AccountingColumns.VALUE, value);
         return this;

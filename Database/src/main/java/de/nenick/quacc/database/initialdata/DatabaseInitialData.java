@@ -177,9 +177,9 @@ public class DatabaseInitialData {
     }
 
     private void addAccountData(SQLiteDatabase database) {
-        data.add(new AccountContentValues().putName("Girokonto"));
-        data.add(new AccountContentValues().putName("Bar"));
-        data.add(new AccountContentValues().putName("Tagesgeldkonto"));
+        data.add(new AccountContentValues().putName("Girokonto").putInitialvalue(0));
+        data.add(new AccountContentValues().putName("Bar").putInitialvalue(0));
+        data.add(new AccountContentValues().putName("Tagesgeldkonto").putInitialvalue(0));
         insert(database, AccountColumns.TABLE_NAME);
     }
 

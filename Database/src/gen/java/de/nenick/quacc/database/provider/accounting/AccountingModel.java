@@ -51,7 +51,7 @@ public interface AccountingModel extends BaseModel {
     String getType();
 
     /**
-     * Get the {@code value} value.
+     * Values are stored in 100 cent.
      */
     int getValue();
 }

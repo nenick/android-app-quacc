@@ -1,15 +1,13 @@
 package de.nenick.quacc.accounting.list;
 
-import android.graphics.drawable.ColorDrawable;
-
 import org.junit.Test;
 
-import java.awt.Color;
 import java.util.Date;
 import java.util.List;
 
 import de.nenick.quacc.R;
 import de.nenick.quacc.accounting.create.RoboCreateAccountingPage;
+import de.nenick.quacc.accounts.RoboAccountsPage;
 import de.nenick.quacc.categories.RoboCategoriesPage;
 import de.nenick.quacc.common.util.QuAccDateUtil;
 import de.nenick.quacc.database.AccountingDb_;
@@ -30,8 +28,6 @@ public class AccountingListInitialSpec extends RoboComponentTestBase {
 
     RoboSup<AccountingListActivity_, AccountingListFragment_> robo = new RoboSup<>();
     RoboAccountingListPage accountingListPage = new RoboAccountingListPage(robo);
-
-
 
     @Test
     public void shouldShowAccounting() {
@@ -72,6 +68,13 @@ public class AccountingListInitialSpec extends RoboComponentTestBase {
         whenPageIsStarted();
         accountingListPage.actionbar().categories().click();
         assertThat(accountingListPage.nextStartedPage()).isEqualTo(RoboCategoriesPage.Intent());
+    }
+
+    @Test
+    public void shouldStartAccountsEditor() {
+        whenPageIsStarted();
+        accountingListPage.actionbar().accounts().click();
+        assertThat(accountingListPage.nextStartedPage()).isEqualTo(RoboAccountsPage.Intent());
     }
 
     private void whenFilterForGivenTestData() {
