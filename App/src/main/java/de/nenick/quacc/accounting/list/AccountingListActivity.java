@@ -31,11 +31,6 @@ public class AccountingListActivity extends ActionBarActivity {
         }
     }
 
-    @Click(R.id.btn_add_accounting)
-    protected void onAddAccounting() {
-        CreateAccountingActivity_.intent(this).start();
-    }
-
     @OptionsItem(R.id.category)
     protected void onCategoriesEditor() {
         CategoriesActivity_.intent(this).start();

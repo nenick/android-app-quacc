@@ -7,6 +7,7 @@
 
     <color name="negativeBackground">@color/orange_100</color>
     <color name="positiveBackground">@color/green_100</color>
+    <color name="neutralBackground">@color/amber_100</color>
     <color name="negativeText">@color/red_900</color>
     <color name="positiveText">@color/green_900</color>
 

@@ -42,7 +42,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            tools:text="Dezember"
+            tools:text="September"
             android:id="@+id/month"
             android:layout_marginEnd="35dp"
             android:layout_alignParentTop="true"
@@ -70,16 +70,17 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="           >  "
+            android:text="            >  "
             android:id="@+id/monthUp"
             android:layout_alignParentTop="true"
-            android:layout_alignParentEnd="true" />
+            android:layout_alignParentEnd="true"
+            android:clickable="true" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="  &lt;           "
+            android:text="  &lt;            "
             android:id="@+id/monthDown"
             android:layout_alignParentTop="true"
             android:layout_toStartOf="@+id/monthUp" />

@@ -1,68 +1,97 @@
 package de.nenick.quacc.accounting.list;
 
+import android.graphics.drawable.ColorDrawable;
+
 import org.junit.Test;
 
+import java.awt.Color;
 import java.util.Date;
+import java.util.List;
 
+import de.nenick.quacc.R;
+import de.nenick.quacc.accounting.create.RoboCreateAccountingPage;
+import de.nenick.quacc.categories.RoboCategoriesPage;
 import de.nenick.quacc.common.util.QuAccDateUtil;
 import de.nenick.quacc.database.AccountingDb_;
 import de.nenick.quacc.database.AccountingInterval;
 import de.nenick.quacc.database.AccountingType;
+import de.nenick.quacc.i18n.MonthTranslator_;
 import de.nenick.robolectric.RoboComponentTestBase;
 import de.nenick.robolectric.RoboSup;
+import de.nenick.robolectricpages.components.RoboListViewEntry;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class AccountingListInitialSpec extends RoboComponentTestBase {
 
+    String defaultYear = "2015";
+    String defaultMonth = "Mai";
+    Date defaultDate = QuAccDateUtil.toDate("5.5." + defaultYear);
+
     RoboSup<AccountingListActivity_, AccountingListFragment_> robo = new RoboSup<>();
     RoboAccountingListPage accountingListPage = new RoboAccountingListPage(robo);
 
+
+
     @Test
     public void shouldShowAccounting() {
-        AccountingDb_.getInstance_(context).insert(1, AccountingType.incoming.name(), AccountingInterval.once.name(), 1, new Date(), "", 20);
-        accountingListPage.startPage();
-        assertThat(accountingListPage.filterMonth().getText()).isEqualTo(QuAccDateUtil.currentMonth());
-        assertThat(accountingListPage.filterYear().getText()).isEqualTo(QuAccDateUtil.currentYear());
-        assertThat(accountingListPage.list().count()).isEqualTo(1);
-    }
+        givenAnEntryOfEachAccountingType();
+        whenPageIsStarted();
+        thenFilterShowCurrentMonth();
 
-    /*
-        @Test
-    public void shoudlShowAccountings() {
-        Date date = new Date();
-        AccountingCursor accountingCursor = mock(AccountingCursor.class);
-        given(accountingCursor.getCount()).willReturn(3);
-        given(accountingCursor.moveToPosition(anyInt())).willReturn(true, true, true);
-        given(accountingCursor.getAccountingDate()).willReturn(date);
-        given(accountingCursor.getAccountingType()).willReturn(AccountingType.Ausgabe);
-        given(accountingCursor.getAccountingInterval()).willReturn(AccountingInterval.Einmahlig);
-        given(accountingCursor.getComment()).willReturn("", "Eintrag 1", "Eintrag 2", "Eintrag 3");
-        given(accountingCursor.getValue()).willReturn(0, 0, 10, 230);
-        //TODO given(TestQuAccApplication.coreModuleMocks.getAccountingListUc.apply()).willReturn(accountingCursor);
-        accountingListPage.startPage();
+        whenFilterForGivenTestData();
         assertThat(accountingListPage.list().count()).isEqualTo(3);
 
         List<RoboListViewEntry> entries = accountingListPage.list().entries();
-        assertThat(entries.get(0).getText(R.id.date)).isEqualTo(QuAccDateUtil.getDefaultDateFormat().format(date));
-        assertThat(entries.get(0).getText(R.id.type)).isEqualTo("Ausgabe");
+
+//        assertThat(entries.get(0).getBackgroundColor().getDrawingCacheBackgroundColor()).isEqualTo((R.color.positiveBackground));
+        assertThat(entries.get(0).getText(R.id.date)).isEqualTo(QuAccDateUtil.toString(defaultDate));
         assertThat(entries.get(0).getText(R.id.interval)).isEqualTo("Einmahlig");
-        assertThat(entries.get(0).getText(R.id.category)).isEqualTo("");
-        assertThat(entries.get(0).getText(R.id.comment)).isEqualTo("Eintrag 1");
-        assertThat(entries.get(0).getText(R.id.value)).isEqualTo("0,00");
+        assertThat(entries.get(0).getText(R.id.category)).isEqualTo("Allgemein");
+        assertThat(entries.get(0).getText(R.id.comment)).isEqualTo("my comment 1");
+        assertThat(entries.get(0).getText(R.id.value)).isEqualTo("0,02");
 
-        assertThat(entries.get(1).getText(R.id.comment)).isEqualTo("Eintrag 2");
-        assertThat(entries.get(1).getText(R.id.value)).isEqualTo("0,10");
+//        assertThat(entries.get(0).getBackgroundColor()).isEqualTo(R.color.negativeBackground);
+        assertThat(entries.get(1).getText(R.id.comment)).isEqualTo("my comment 2");
+        assertThat(entries.get(1).getText(R.id.value)).isEqualTo("0,40");
 
-        assertThat(entries.get(2).getText(R.id.comment)).isEqualTo("Eintrag 3");
-        assertThat(entries.get(2).getText(R.id.value)).isEqualTo("2,30");
+//        assertThat(entries.get(0).getBackgroundColor()).isEqualTo(R.color.neutralBackground);
+        assertThat(entries.get(2).getText(R.id.comment)).isEqualTo("my comment 3");
+        assertThat(entries.get(2).getText(R.id.value)).isEqualTo("6000,00");
     }
 
     @Test
     public void shouldStartAddAccountingPage() {
-        accountingListPage.startPage();
+        whenPageIsStarted();
         accountingListPage.addAccountingButton().click();
-        assertThat(accountingListPage.nextStartedPage()).isEqualTo(RoboAddAccountingPage.Intent());
+        assertThat(accountingListPage.nextStartedPage()).isEqualTo(RoboCreateAccountingPage.Intent());
     }
-     */
+
+    @Test
+    public void shouldStartCategoryEditor() {
+        whenPageIsStarted();
+        accountingListPage.actionbar().categories().click();
+        assertThat(accountingListPage.nextStartedPage()).isEqualTo(RoboCategoriesPage.Intent());
+    }
+
+    private void whenFilterForGivenTestData() {
+        accountingListPage.filterMonth().setText(defaultMonth);
+        accountingListPage.filterYear().setText(defaultYear);
+    }
+
+    private void thenFilterShowCurrentMonth() {
+        MonthTranslator_ monthTranslator = MonthTranslator_.getInstance_(context);
+        assertThat(accountingListPage.filterMonth().getText()).isEqualTo(monthTranslator.translate(QuAccDateUtil.currentMonth()));
+        assertThat(accountingListPage.filterYear().getText()).isEqualTo(QuAccDateUtil.currentYear());
+    }
+
+    private void givenAnEntryOfEachAccountingType() {
+        AccountingDb_.getInstance_(context).insert(1, AccountingType.incoming.name(), AccountingInterval.once.name(), 1, defaultDate, "my comment 1", 2);
+        AccountingDb_.getInstance_(context).insert(1, AccountingType.outgoing.name(), AccountingInterval.once.name(), 1, defaultDate, "my comment 2", 40);
+        AccountingDb_.getInstance_(context).insert(1, AccountingType.transfer.name(), AccountingInterval.once.name(), 1, defaultDate, "my comment 3", 600000);
+    }
+
+    private void whenPageIsStarted() {
+        accountingListPage.startPage();
+    }
 }

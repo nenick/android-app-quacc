@@ -7,9 +7,11 @@ import org.robolectric.RuntimeEnvironment;
 import de.nenick.quacc.R;
 import de.nenick.robolectric.RoboSup;
 import de.nenick.robolectric.RoboSupPage;
+import de.nenick.robolectricpages.components.RoboActionbar;
 import de.nenick.robolectricpages.components.RoboImageButton;
 import de.nenick.robolectricpages.components.RoboListView;
 import de.nenick.robolectricpages.components.RoboTextView;
+import javafx.scene.chart.CategoryAxisBuilder;
 
 public class RoboAccountingListPage extends RoboSupPage<AccountingListActivity_, AccountingListFragment_> {
 
@@ -33,7 +35,27 @@ public class RoboAccountingListPage extends RoboSupPage<AccountingListActivity_,
         return new RoboTextView(robo, R.id.month);
     }
 
+    public RoboTextView filterMonthUp() {
+        return new RoboTextView(robo, R.id.monthUp);
+    }
+
+    public RoboTextView filterMonthDown() {
+        return new RoboTextView(robo, R.id.monthDown);
+    }
+
     public RoboTextView filterYear() {
         return new RoboTextView(robo, R.id.year);
+    }
+
+    public RoboTextView filterYearUp() {
+        return new RoboTextView(robo, R.id.yearUp);
+    }
+
+    public RoboTextView filterYearDown() {
+        return new RoboTextView(robo, R.id.yearDown);
+    }
+
+    public RoboAccountingListActionbar actionbar() {
+        return new RoboAccountingListActionbar(robo);
     }
 }

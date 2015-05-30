@@ -1,19 +1,10 @@
 package de.nenick.quacc.accounting.create;
 
-import android.os.Bundle;
-import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.Spinner;
-
-import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.ItemSelect;
 import org.androidannotations.annotations.OptionsItem;
 import org.androidannotations.annotations.OptionsMenu;
-import org.androidannotations.annotations.ViewById;
-import org.androidannotations.api.view.HasViews;
-import org.androidannotations.api.view.OnViewChangedListener;
 
 import java.util.Date;
 
@@ -117,7 +108,7 @@ public class CreateAccountingFragment extends BasePresenterFragment {
             String dateString = view.getDate();
             String comment = view.getComment();
             view.finish();
-            Date date = QuAccDateUtil.parse(dateString);
+            Date date = QuAccDateUtil.toDate(dateString);
             createAccountingFunction.apply(account, accountingType, accountingInterval, accountingCategory, date, valueResult.value, comment);
         } else {
             showParsingError(valueResult);

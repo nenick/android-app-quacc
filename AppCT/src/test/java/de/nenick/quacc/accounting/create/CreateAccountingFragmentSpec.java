@@ -98,7 +98,7 @@ public class CreateAccountingFragmentSpec extends RoboComponentTestBase {
         assertThat(accountings.getInterval()).isEqualTo(AccountingInterval.eachThirdMonth.name());
         assertThat(accountings.getType()).isEqualTo(AccountingType.incoming.name());
         assertThat(accountings.getCategoryName()).isEqualTo("eBay");
-        assertThat(accountings.getDate()).isEqualTo(QuAccDateUtil.parse(defaultDate));
+        assertThat(accountings.getDate()).isEqualTo(QuAccDateUtil.toDate(defaultDate));
         assertThat(accountings.getValue()).isEqualTo(583);
         assertThat(accountings.getComment()).isEqualTo("take the money");
     }

@@ -24,11 +24,6 @@ public class AccountingListView extends BaseView {
     @ViewById(R.id.month)
     TextView monthField;
 
-    @Click(R.id.btn_add_accounting)
-    protected void onAddAccounting() {
-        CreateAccountingActivity_.intent(context).start();
-    }
-
     public void setListAdapter(ListAdapter listAdapter) {
         accountingList.setAdapter(listAdapter);
     }

@@ -2,8 +2,6 @@ package de.nenick.quacc.accounting.list;
 
 import org.junit.Test;
 
-import java.util.Date;
-
 import de.nenick.quacc.R;
 import de.nenick.quacc.common.util.QuAccDateUtil;
 import de.nenick.quacc.database.AccountingDb_;
@@ -23,13 +21,42 @@ public class AccountingListFilterSpec extends RoboComponentTestBase {
     @Test
     public void shouldOnlyShowAccountingFromSelectedMonth() {
         givenAccountingFor(1, 4, 2014);
+        givenAccountingFor(1, 4, 2015);
         givenAccountingFor(1, 5, 2014);
-        givenAccountingFor(1, 6, 2014);
+        givenAccountingFor(1, 5, 2015);
         givenAccountingFor(1, 5, 2013);
+        givenAccountingFor(1, 6, 2014);
 
         whenShowPageFor("Mai", "2014");
-
         thenOnlyEntryShownIsFrom("1.5.2014");
+
+        whenNavigateMonthDown();
+        thenOnlyEntryShownIsFrom("1.4.2014");
+
+        whenNavigateYearUp();
+        thenOnlyEntryShownIsFrom("1.4.2015");
+
+        whenNavigateMonthUp();
+        thenOnlyEntryShownIsFrom("1.5.2015");
+
+        whenNavigateYearDown();
+        thenOnlyEntryShownIsFrom("1.5.2014");
+    }
+
+    private void whenNavigateYearDown() {
+        accountingListPage.filterYearDown().click();
+    }
+
+    private void whenNavigateYearUp() {
+        accountingListPage.filterYearUp().click();
+    }
+
+    private void whenNavigateMonthDown() {
+        accountingListPage.filterMonthDown().click();
+    }
+
+    private void whenNavigateMonthUp() {
+        accountingListPage.filterMonthUp().click();
     }
 
     private void thenOnlyEntryShownIsFrom(String comment) {
@@ -44,6 +71,6 @@ public class AccountingListFilterSpec extends RoboComponentTestBase {
     }
 
     private void givenAccountingFor(int day, int month, int year) {
-        AccountingDb_.getInstance_(context).insert(1, AccountingType.incoming.name(), AccountingInterval.once.name(), 1, QuAccDateUtil.asDate(year, month - 1, day), day + "." + month + "." + year, 20);
+        AccountingDb_.getInstance_(context).insert(1, AccountingType.incoming.name(), AccountingInterval.once.name(), 1, QuAccDateUtil.toDate(day, month, year), day + "." + month + "." + year, 20);
     }
 }

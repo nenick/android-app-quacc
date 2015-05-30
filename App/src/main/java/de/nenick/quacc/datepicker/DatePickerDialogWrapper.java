@@ -6,12 +6,9 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v7.app.ActionBarActivity;
 import android.widget.DatePicker;
 
-import org.androidannotations.annotations.EBean;
 import org.androidannotations.annotations.EFragment;
-import org.androidannotations.annotations.RootContext;
 
 import java.util.Calendar;
 
@@ -35,7 +32,7 @@ public class DatePickerDialogWrapper extends DialogFragment implements DatePicke
 
     @Override
     public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-        callback.onDatePick(QuAccDateUtil.toString(year, monthOfYear, dayOfMonth));
+        callback.onDatePick(QuAccDateUtil.toString(dayOfMonth, monthOfYear, year));
     }
 
     @NonNull

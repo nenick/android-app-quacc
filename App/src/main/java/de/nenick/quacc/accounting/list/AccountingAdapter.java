@@ -12,7 +12,6 @@ import org.androidannotations.annotations.EBean;
 import org.androidannotations.annotations.RootContext;
 import org.joda.time.DateTime;
 
-import java.text.DateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -68,7 +67,7 @@ public class AccountingAdapter extends CursorAdapter {
                 view.showAsOutgoing();
         }
 
-        view.setDate(QuAccDateUtil.asString(accountingCursor.getDate()));
+        view.setDate(QuAccDateUtil.toString(accountingCursor.getDate()));
         view.setInterval(accountingIntervalTranslator.translate(accountingCursor.getInterval()));
         view.setCategory(accountingCursor.getCategoryName());
         view.setComment(accountingCursor.getComment());
@@ -89,13 +88,13 @@ public class AccountingAdapter extends CursorAdapter {
         return valueString;
     }
 
-    public void updateFor(String month, String year) {
-        Date startDate = QuAccDateUtil.asDate(1, month, year);
+    public void updateFor(int month, String year) {
+        Date startDate = QuAccDateUtil.toDate(1, month, year);
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(startDate);
         calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
 
-        Date endDate = QuAccDateUtil.asDate(calendar.getActualMaximum(Calendar.DAY_OF_MONTH), month, year);
+        Date endDate = QuAccDateUtil.toDate(calendar.getActualMaximum(Calendar.DAY_OF_MONTH), month, year);
 
         AccountingCursor apply = getAccountingListFunction.apply(new DateTime(startDate), new DateTime(endDate));
         swapCursor(apply);
