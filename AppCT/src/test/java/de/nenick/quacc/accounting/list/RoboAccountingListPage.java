@@ -7,11 +7,9 @@ import org.robolectric.RuntimeEnvironment;
 import de.nenick.quacc.R;
 import de.nenick.robolectric.RoboSup;
 import de.nenick.robolectric.RoboSupPage;
-import de.nenick.robolectricpages.components.RoboActionbar;
 import de.nenick.robolectricpages.components.RoboImageButton;
 import de.nenick.robolectricpages.components.RoboListView;
 import de.nenick.robolectricpages.components.RoboTextView;
-import javafx.scene.chart.CategoryAxisBuilder;
 
 public class RoboAccountingListPage extends RoboSupPage<AccountingListActivity_, AccountingListFragment_> {
 
