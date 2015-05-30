@@ -171,4 +171,34 @@ public class CategorySelection extends AbstractSelection<CategorySelection> {
         addEndsWith(CategoryColumns.TYPE, value);
         return this;
     }
+
+    public CategorySelection level(int... value) {
+        addEquals(CategoryColumns.LEVEL, toObjectArray(value));
+        return this;
+    }
+
+    public CategorySelection levelNot(int... value) {
+        addNotEquals(CategoryColumns.LEVEL, toObjectArray(value));
+        return this;
+    }
+
+    public CategorySelection levelGt(int value) {
+        addGreaterThan(CategoryColumns.LEVEL, value);
+        return this;
+    }
+
+    public CategorySelection levelGtEq(int value) {
+        addGreaterThanOrEquals(CategoryColumns.LEVEL, value);
+        return this;
+    }
+
+    public CategorySelection levelLt(int value) {
+        addLessThan(CategoryColumns.LEVEL, value);
+        return this;
+    }
+
+    public CategorySelection levelLtEq(int value) {
+        addLessThanOrEquals(CategoryColumns.LEVEL, value);
+        return this;
+    }
 }

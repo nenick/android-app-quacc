@@ -1,13 +1,21 @@
 package de.nenick.quacc.accounting.create;
 
+import android.os.Bundle;
+import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
+
+import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.ItemSelect;
 import org.androidannotations.annotations.OptionsItem;
 import org.androidannotations.annotations.OptionsMenu;
+import org.androidannotations.annotations.ViewById;
+import org.androidannotations.api.view.HasViews;
+import org.androidannotations.api.view.OnViewChangedListener;
 
 import java.util.Date;
-import java.util.Objects;
 
 import de.nenick.quacc.R;
 import de.nenick.quacc.accounting.create.functions.CreateAccountingFunction;
@@ -17,6 +25,7 @@ import de.nenick.quacc.accounting.create.functions.GetAccountingTypesFunction;
 import de.nenick.quacc.accounting.create.functions.GetAccountsFunction;
 import de.nenick.quacc.accounting.create.functions.ParseAccountingValueFunction;
 import de.nenick.quacc.common.mvp.BasePresenterFragment;
+import de.nenick.quacc.common.mvp.BaseView;
 import de.nenick.quacc.common.util.QuAccDateUtil;
 import de.nenick.quacc.database.AccountingInterval;
 import de.nenick.quacc.database.AccountingType;
@@ -52,26 +61,37 @@ public class CreateAccountingFragment extends BasePresenterFragment {
     SpeechRecognitionFeature speechRecognitionFeature;
 
     @Bean
-    AccountingIntervalAdapter accountingIntervalAdapter;
+    IntervalAdapter intervalAdapter;
 
     @Bean
-    AccountingTypeAdapter accountingTypeAdapter;
+    TypeAdapter typeAdapter;
+
+    @Bean
+    CategoryAdapter categoryAdapter;
+
+    @Override
+    protected BaseView getBaseView() {
+        return view;
+    }
 
     @Override
     protected void onViewStart() {
+        view.showAccounts(getAccountsFunction.apply());
         speechRecognitionFeature.setView(view);
 
-        view.showAccountingIntervals(accountingIntervalAdapter);
-        accountingIntervalAdapter.addAll(getAccountingIntervalsFunction.apply());
+        view.showAccountingIntervals(intervalAdapter);
+        intervalAdapter.addAll(getAccountingIntervalsFunction.apply());
         view.setAccountingInterval(AccountingInterval.once.name());
 
-        view.showAccountingTypes(accountingTypeAdapter);
-        accountingTypeAdapter.addAll(getAccountingTypesFunction.apply());
+        view.showAccountingTypes(typeAdapter);
+        typeAdapter.addAll(getAccountingTypesFunction.apply());
         view.setAccountingType(AccountingType.outgoing.name());
 
-        view.showAccounts(getAccountsFunction.apply());
         view.showDate(QuAccDateUtil.currentDate());
+
+        view.showAccountingCategories(categoryAdapter);
         reloadCategories();
+
     }
 
     @Override
@@ -137,11 +157,11 @@ public class CreateAccountingFragment extends BasePresenterFragment {
     private void reloadCategories() {
         String accountingInterval = view.getAccountingInterval();
         String accountingType = view.getAccountingType();
-        if(isViewNotFullInitialized(accountingInterval, accountingType)) {
+        if (isViewNotFullInitialized(accountingInterval, accountingType)) {
             return;
         }
-        CharSequence[] categories = getAccountingCategoriesFunction.apply(accountingType, accountingInterval);
-        view.showAccountingCategories(categories);
+        categoryAdapter.updateFor(accountingInterval, accountingType);
+        //view.showAccountingCategories(getAccountingCategoriesFunction.apply(accountingInterval, accountingType));
     }
 
     private boolean isViewNotFullInitialized(String accountingInterval, String accountingType) {

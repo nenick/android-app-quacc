@@ -9,29 +9,30 @@ import android.widget.TextView;
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EBean;
 
+import de.nenick.quacc.i18n.AccountingIntervalTranslator;
 import de.nenick.quacc.i18n.AccountingTypeTranslator;
 
 @EBean
-public class AccountingTypeAdapter extends ArrayAdapter<String> {
+public class IntervalAdapter extends ArrayAdapter<String> {
 
     @Bean
-    AccountingTypeTranslator accountingTypeTranslator;
+    AccountingIntervalTranslator accountingIntervalTranslator;
 
-    public AccountingTypeAdapter(Context context) {
+    public IntervalAdapter(Context context) {
         super(context, android.R.layout.simple_spinner_dropdown_item);
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         TextView view = (TextView) super.getView(position, convertView, parent);
-        view.setText(accountingTypeTranslator.translate(view.getText().toString()));
+        view.setText(accountingIntervalTranslator.translate(view.getText().toString()));
         return view;
     }
 
     @Override
     public View getDropDownView(int position, View convertView, ViewGroup parent) {
         TextView view = (TextView) super.getDropDownView(position, convertView, parent);
-        view.setText(accountingTypeTranslator.translate(view.getText().toString()));
+        view.setText(accountingIntervalTranslator.translate(view.getText().toString()));
         return view;
     }
 }

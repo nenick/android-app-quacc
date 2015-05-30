@@ -2,6 +2,8 @@ package de.nenick.robolectricpages.components;
 
 import android.widget.Spinner;
 
+import org.robolectric.Shadows;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,10 +20,22 @@ public class RoboSpinner extends RoboBaseComponent {
 
     public List<RoboSpinnerEntry> entries() {
         List<RoboSpinnerEntry> spinnerEntries = new ArrayList<>();
+
         for (int position = 0; position < spinner.getCount(); position++) {
             spinnerEntries.add(new RoboSpinnerEntry(robo, spinner, position));
         }
         return spinnerEntries;
+    }
+
+
+    public RoboSpinnerEntry entry(String text, int resourceId) {
+        for (RoboSpinnerEntry entry : entries()) {
+            if (entry.getText(resourceId).equals(text)) {
+                return entry;
+            }
+        }
+
+        throw new IllegalStateException("No entry found with text " + text);
     }
 
     public RoboSpinnerEntry entry(String text) {

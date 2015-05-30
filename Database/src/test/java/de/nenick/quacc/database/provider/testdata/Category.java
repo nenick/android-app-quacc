@@ -18,4 +18,7 @@ public class Category extends BaseModel {
 
     @Column(CategoryColumns.TYPE)
     String TYPE;
+
+    @Column(CategoryColumns.LEVEL)
+    int LEVEL;
 }

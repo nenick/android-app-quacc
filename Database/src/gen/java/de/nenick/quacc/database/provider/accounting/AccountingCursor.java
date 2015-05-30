@@ -119,6 +119,16 @@ public class AccountingCursor extends AbstractCursor implements AccountingModel 
     }
 
     /**
+     * Get the {@code level} value.
+     */
+    public int getCategoryLevel() {
+        Integer res = getIntegerOrNull(CategoryColumns.LEVEL);
+        if (res == null)
+            throw new NullPointerException("The value of 'level' in the database was null, which is not allowed according to the model definition");
+        return res;
+    }
+
+    /**
      * Get the {@code comment} value.
      * Can be {@code null}.
      */

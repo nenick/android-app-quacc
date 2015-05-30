@@ -17,10 +17,10 @@ public class AccountingListFragment extends Fragment {
     AccountingListView view;
 
     @Bean
-    AccountingListAdapter accountingListAdapter;
+    AccountingAdapter accountingAdapter;
 
     @AfterViews
     protected void onAfterViews() {
-        view.setListAdapter(accountingListAdapter);
+        view.setListAdapter(accountingAdapter);
     }
 }

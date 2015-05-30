@@ -294,6 +294,36 @@ public class AccountingSelection extends AbstractSelection<AccountingSelection> 
         return this;
     }
 
+    public AccountingSelection categoryLevel(int... value) {
+        addEquals(CategoryColumns.LEVEL, toObjectArray(value));
+        return this;
+    }
+
+    public AccountingSelection categoryLevelNot(int... value) {
+        addNotEquals(CategoryColumns.LEVEL, toObjectArray(value));
+        return this;
+    }
+
+    public AccountingSelection categoryLevelGt(int value) {
+        addGreaterThan(CategoryColumns.LEVEL, value);
+        return this;
+    }
+
+    public AccountingSelection categoryLevelGtEq(int value) {
+        addGreaterThanOrEquals(CategoryColumns.LEVEL, value);
+        return this;
+    }
+
+    public AccountingSelection categoryLevelLt(int value) {
+        addLessThan(CategoryColumns.LEVEL, value);
+        return this;
+    }
+
+    public AccountingSelection categoryLevelLtEq(int value) {
+        addLessThanOrEquals(CategoryColumns.LEVEL, value);
+        return this;
+    }
+
     public AccountingSelection comment(String... value) {
         addEquals(AccountingColumns.COMMENT, value);
         return this;

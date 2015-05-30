@@ -14,7 +14,7 @@ import de.nenick.quacc.database.provider.category.CategorySelection;
 @EBean
 public class CategoryDb {
 
-    public static final String sortBySectionAndName = CategoryColumns.SECTION + " ASC , " + CategoryColumns.NAME + " ASC";
+    public static final String sortBySectionAndName = CategoryColumns.SECTION + " ASC, " + CategoryColumns.LEVEL + " ASC, " + CategoryColumns.NAME + " ASC";
 
     @RootContext
     Context context;

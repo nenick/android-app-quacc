@@ -3,6 +3,7 @@ package de.nenick.quacc.accounting.create;
 import org.junit.Before;
 import org.junit.Test;
 
+import de.nenick.quacc.R;
 import de.nenick.quacc.common.util.QuAccDateUtil;
 import de.nenick.quacc.database.AccountingDb;
 import de.nenick.quacc.database.AccountingDb_;
@@ -53,7 +54,7 @@ public class CreateAccountingFragmentSpec extends RoboComponentTestBase {
         assertThat(addAccountingPage.accountSpinner().selectedEntry().getText()).isEqualTo("Bar");
         assertThat(addAccountingPage.typeSpinner().selectedEntry().getText()).isEqualTo("Einnahme");
         assertThat(addAccountingPage.intervalSpinner().selectedEntry().getText()).isEqualTo("Monatlich");
-        assertThat(addAccountingPage.categorySpinner().selectedEntry().getText()).isEqualTo("eBay");
+        assertThat(addAccountingPage.categorySpinner().selectedEntry().getText(R.id.text1)).isEqualTo("eBay");
         assertThat(addAccountingPage.dateField().getText()).isEqualTo(defaultDate);
         assertThat(addAccountingPage.valueField().getText()).isEqualTo("60.00");
     }

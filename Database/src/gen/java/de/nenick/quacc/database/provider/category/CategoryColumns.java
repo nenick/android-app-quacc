@@ -28,6 +28,8 @@ public class CategoryColumns implements BaseColumns {
 
     public static final String TYPE = "category__type";
 
+    public static final String LEVEL = "level";
+
 
     public static final String DEFAULT_ORDER = TABLE_NAME + "." +_ID;
 
@@ -37,7 +39,8 @@ public class CategoryColumns implements BaseColumns {
             NAME,
             SECTION,
             INTERVAL,
-            TYPE
+            TYPE,
+            LEVEL
     };
     // @formatter:on
 
@@ -48,6 +51,7 @@ public class CategoryColumns implements BaseColumns {
             if (c.equals(SECTION) || c.contains("." + SECTION)) return true;
             if (c.equals(INTERVAL) || c.contains("." + INTERVAL)) return true;
             if (c.equals(TYPE) || c.contains("." + TYPE)) return true;
+            if (c.equals(LEVEL) || c.contains("." + LEVEL)) return true;
         }
         return false;
     }

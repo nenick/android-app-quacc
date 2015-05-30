@@ -4,6 +4,8 @@ import android.view.View;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import org.robolectric.Robolectric;
+
 import de.nenick.robolectricpages.Robo;
 import de.nenick.robolectricpages.utils.RoboTextViewUtil;
 
@@ -29,7 +31,7 @@ public class RoboSpinnerEntry extends RoboBaseComponent {
     }
 
     public CharSequence getText(int resourceId) {
-        return RoboTextViewUtil.getTextFromView(robo, resourceId);
+        return RoboTextViewUtil.getTextFromView(spinnerChildView, resourceId);
     }
 
     private boolean isSimpleTextView() {

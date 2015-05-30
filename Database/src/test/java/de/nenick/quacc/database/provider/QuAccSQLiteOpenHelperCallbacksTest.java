@@ -18,6 +18,6 @@ public class QuAccSQLiteOpenHelperCallbacksTest extends RoboDatabaseTest {
         assertThat(account.getCount()).isEqualTo(3);
 
         CategoryCursor accountingCategory = new CategorySelection().query(context.getContentResolver());
-        assertThat(accountingCategory.getCount()).isEqualTo(98);
+        assertThat(accountingCategory.getCount()).isEqualTo(115);
     }
 }

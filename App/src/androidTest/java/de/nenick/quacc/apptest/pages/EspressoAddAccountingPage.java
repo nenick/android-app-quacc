@@ -1,14 +1,23 @@
 package de.nenick.quacc.apptest.pages;
 
+import android.database.Cursor;
+import android.support.test.espresso.Espresso;
 import android.support.test.espresso.UiController;
 import android.support.test.espresso.ViewAction;
+import android.support.test.espresso.action.ViewActions;
 import android.support.test.espresso.matcher.ViewMatchers;
 import android.view.View;
+import android.widget.CursorAdapter;
 import android.widget.DatePicker;
 
+import org.hamcrest.BaseMatcher;
+import org.hamcrest.Description;
 import org.hamcrest.Matcher;
+import org.hamcrest.Matchers;
 
 import de.nenick.quacc.R;
+import de.nenick.quacc.accounting.create.CategoryAdapter;
+import de.nenick.quacc.database.provider.category.CategoryCursor;
 
 import static android.support.test.espresso.Espresso.onData;
 import static android.support.test.espresso.Espresso.onView;
@@ -16,6 +25,7 @@ import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.action.ViewActions.scrollTo;
 import static android.support.test.espresso.action.ViewActions.typeText;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
+import static android.support.test.espresso.matcher.PreferenceMatchers.withTitle;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withClassName;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
@@ -49,7 +59,7 @@ public class EspressoAddAccountingPage {
         onView(withText(text)).perform(click());
     }
 
-    public void chooseAccountingCategory(String text) {
+    public void chooseAccountingCategory(final String text) {
         onView(withId(R.id.category)).perform(click());
         onData(allOf(is(instanceOf(String.class)), is(text))).perform(click());
     }

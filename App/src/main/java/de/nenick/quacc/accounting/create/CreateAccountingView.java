@@ -81,6 +81,10 @@ public class CreateAccountingView extends BaseView {
         accountingCategorySpinner.setAdapter(adapter);
     }
 
+    public void showAccountingCategories(SpinnerAdapter adapter) {
+        accountingCategorySpinner.setAdapter(adapter);
+    }
+
     public String getAccountingCategory() {
         return accountingCategorySpinner.getSelectedItem().toString();
     }
@@ -90,7 +94,7 @@ public class CreateAccountingView extends BaseView {
     }
 
     public void showDate(String dateString) {
-        date.setText(dateString);
+        date.setText(dateString, TextView.BufferType.NORMAL);
     }
 
     public String getDate() {

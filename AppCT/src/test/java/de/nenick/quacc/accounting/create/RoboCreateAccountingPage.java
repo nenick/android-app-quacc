@@ -56,8 +56,8 @@ public class RoboCreateAccountingPage extends RoboSupPage<CreateAccountingActivi
         return new RoboSpinner(robo, R.id.interval);
     }
 
-    public RoboSpinner categorySpinner() {
-        return new RoboSpinner(robo, R.id.category);
+    public RoboCategorySpinner categorySpinner() {
+        return new RoboCategorySpinner(robo, R.id.category);
     }
 
     public RoboSpinner accountSpinner() {

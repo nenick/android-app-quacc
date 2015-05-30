@@ -5,13 +5,12 @@ import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EFragment;
 
 import de.nenick.quacc.R;
-import de.nenick.quacc.accounting.create.AccountingIntervalAdapter;
-import de.nenick.quacc.accounting.create.AccountingTypeAdapter;
 import de.nenick.quacc.accounting.create.functions.GetAccountingCategoriesFunction;
 import de.nenick.quacc.accounting.create.functions.GetAccountingIntervalsFunction;
 import de.nenick.quacc.accounting.create.functions.GetAccountingTypesFunction;
 import de.nenick.quacc.categories.functions.CreateCategoryFunction;
 import de.nenick.quacc.common.mvp.BasePresenterFragment;
+import de.nenick.quacc.common.mvp.BaseView;
 
 @EFragment(R.layout.fragment_categories)
 public class CategoriesFragment extends BasePresenterFragment {
@@ -33,6 +32,11 @@ public class CategoriesFragment extends BasePresenterFragment {
 
     @Bean
     CreateCategoryFunction createCategoryFunction;
+
+    @Override
+    protected BaseView getBaseView() {
+        return view;
+    }
 
     @Override
     protected void onViewStart() {

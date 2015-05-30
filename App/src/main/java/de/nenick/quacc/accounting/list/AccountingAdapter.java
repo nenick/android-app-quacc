@@ -20,7 +20,7 @@ import de.nenick.quacc.i18n.AccountingIntervalTranslator;
 import de.nenick.quacc.i18n.AccountingTypeTranslator;
 
 @EBean
-public class AccountingListAdapter extends CursorAdapter {
+public class AccountingAdapter extends CursorAdapter {
 
     @RootContext
     Context context;
@@ -34,7 +34,7 @@ public class AccountingListAdapter extends CursorAdapter {
     @Bean
     AccountingTypeTranslator accountingTypeTranslator;
 
-    public AccountingListAdapter() {
+    public AccountingAdapter() {
         super(null, null, true);
     }
 
@@ -46,15 +46,15 @@ public class AccountingListAdapter extends CursorAdapter {
 
     @Override
     public View newView(Context context, Cursor cursor, ViewGroup parent) {
-        return AccountingListItem_.build(context);
+        return AccountingItemView_.build(context);
     }
 
     @Override
     public void bindView(View view, Context context, Cursor cursor) {
-        bindView((AccountingListItem) view, (AccountingCursor) cursor);
+        bindView((AccountingItemView) view, (AccountingCursor) cursor);
     }
 
-    private void bindView(AccountingListItem view, AccountingCursor accountingCursor) {
+    private void bindView(AccountingItemView view, AccountingCursor accountingCursor) {
         AccountingType accountingType = AccountingType.valueOf(accountingCursor.getType());
         switch (accountingType) {
             case incoming:

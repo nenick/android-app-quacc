@@ -2,7 +2,10 @@ package de.nenick.quacc.common.mvp;
 
 import android.support.v4.app.Fragment;
 
+import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EFragment;
+import org.androidannotations.api.view.HasViews;
+import org.androidannotations.api.view.OnViewChangedListener;
 
 /**
  * Base class for our fragments.
@@ -11,17 +14,19 @@ import org.androidannotations.annotations.EFragment;
  * support by not directly calling the super functionality.
  * <ul>
  * <li><b>onViewStart:</b> At this time all beans and views are injected but view is not visible.</li>
- * <li><b>onViewResumed:</b> View is full visible and the user can interact with the view.
- * <li><b>onViewPaused:</b> The user can't interact with the view.
- * <li><b>onViewFinished:</b> The view gets destroyed so release all resources at this time.
+ * <li><b>onViewResumed:</b> View is full restored including last view states and the user can interact with the view.</li>
+ * <li><b>onViewPaused:</b> The user can't interact with the view.</li>
+ * <li><b>onViewFinished:</b> The view gets destroyed so release all resources at this time.</li>
  * </ul>
  */
 @EFragment
 public abstract class BasePresenterFragment extends Fragment {
 
-    @Override
-    public void onStart() {
-        super.onStart();
+    protected abstract BaseView getBaseView();
+
+    @AfterViews
+    protected void onAfterViews() {
+        ((OnViewChangedListener) getBaseView()).onViewChanged((HasViews) this);
         onViewStart();
     }
 

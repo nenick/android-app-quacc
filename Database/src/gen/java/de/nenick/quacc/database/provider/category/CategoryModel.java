@@ -39,4 +39,9 @@ public interface CategoryModel extends BaseModel {
      */
     @NonNull
     String getType();
+
+    /**
+     * Get the {@code level} value.
+     */
+    int getLevel();
 }

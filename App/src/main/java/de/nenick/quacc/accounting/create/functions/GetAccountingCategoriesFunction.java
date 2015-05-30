@@ -17,16 +17,9 @@ public class GetAccountingCategoriesFunction {
     @Bean
     CategoryDb categoryDb;
 
-    public CharSequence[] apply(String accountingType, String accountingInterval) {
-        String[] intervals = {accountingInterval, AccountingInterval.all.name()};
-        String[] types = {accountingType, AccountingType.all.name()};
-        CategoryCursor accountingCategories =  categoryDb.getAllFor(intervals, types, CategoryDb.sortBySectionAndName);
-        String[] values = new String[accountingCategories.getCount()];
-        for (int i = 0; i < accountingCategories.getCount(); i++) {
-            accountingCategories.moveToNext();
-            values[i] = accountingCategories.getName();
-        }
-        accountingCategories.close();
-        return values;
+    public CategoryCursor apply(String interval, String type) {
+        String[] intervals = {interval, AccountingInterval.all.name()};
+        String[] types = {type, AccountingType.all.name()};
+        return categoryDb.getAllFor(intervals, types, CategoryDb.sortBySectionAndName);
     }
 }

@@ -73,4 +73,14 @@ public class CategoryCursor extends AbstractCursor implements CategoryModel {
             throw new NullPointerException("The value of 'type' in the database was null, which is not allowed according to the model definition");
         return res;
     }
+
+    /**
+     * Get the {@code level} value.
+     */
+    public int getLevel() {
+        Integer res = getIntegerOrNull(CategoryColumns.LEVEL);
+        if (res == null)
+            throw new NullPointerException("The value of 'level' in the database was null, which is not allowed according to the model definition");
+        return res;
+    }
 }

@@ -52,7 +52,8 @@ public class QuAccSQLiteOpenHelper extends SQLiteOpenHelper {
             + CategoryColumns.NAME + " TEXT NOT NULL, "
             + CategoryColumns.SECTION + " TEXT NOT NULL, "
             + CategoryColumns.INTERVAL + " TEXT NOT NULL, "
-            + CategoryColumns.TYPE + " TEXT NOT NULL "
+            + CategoryColumns.TYPE + " TEXT NOT NULL, "
+            + CategoryColumns.LEVEL + " INTEGER NOT NULL "
             + " );";
 
     // @formatter:on

@@ -19,6 +19,11 @@
       "name": "type",
       "type": "String",
       "nullable": false
+    },
+    {
+      "name": "level",
+      "type": "Integer",
+      "nullable": false
     }
   ]
 }

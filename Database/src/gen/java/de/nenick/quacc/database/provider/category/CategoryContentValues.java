@@ -55,4 +55,10 @@ public class CategoryContentValues extends AbstractContentValues {
         return this;
     }
 
+
+    public CategoryContentValues putLevel(int value) {
+        mContentValues.put(CategoryColumns.LEVEL, value);
+        return this;
+    }
+
 }
