@@ -19,6 +19,8 @@ public class CategoryDbTest extends RoboDatabaseTest {
     public static final String testIntervalAll = "testAll";
     public static final String testTypeIncoming = "testIncoming";
     public static final String testTypeOutgoing = "testOutgoing";
+    public static final int subCategory = 1;
+    public static final int mainCategory = 0;
     CategoryDb categoryDb;
 
     @Before
@@ -28,21 +30,25 @@ public class CategoryDbTest extends RoboDatabaseTest {
 
     @Test
     public void shouldFilterCategories() {
-        categoryDb.insert("SectionA", "AllIncoming", testIntervalAll, testTypeIncoming);
-        categoryDb.insert("SectionA", "AllOutgoing", testIntervalAll, testTypeOutgoing);
-        categoryDb.insert("SectionA", "OnceAll", testIntervalOnce, testTypeAll);
-        categoryDb.insert("SectionA", "WeeklyAll", testTypeWeekly, testTypeAll);
-        categoryDb.insert("SectionA", "AllAll", testIntervalAll, testTypeAll);
-        categoryDb.insert("SectionA", "OnceIncoming", testIntervalOnce, testTypeIncoming);
-        categoryDb.insert("SectionA", "OnceOutgoing", testIntervalOnce, testTypeOutgoing);
-        categoryDb.insert("SectionA", "WeeklyIncoming", testTypeWeekly, testTypeOutgoing);
-        categoryDb.insert("SectionA", "WeeklyOutgoing", testTypeWeekly, testTypeIncoming);
+        categoryDb.insert("SectionB", "SectionB", testIntervalAll, testTypeAll, mainCategory);
+        categoryDb.insert("SectionA", "SectionA", testIntervalAll, testTypeAll, mainCategory);
+        categoryDb.insert("SectionA", "AllIncoming", testIntervalAll, testTypeIncoming, subCategory);
+        categoryDb.insert("SectionA", "AllOutgoing", testIntervalAll, testTypeOutgoing, subCategory);
+        categoryDb.insert("SectionA", "OnceAll", testIntervalOnce, testTypeAll, subCategory);
+        categoryDb.insert("SectionA", "WeeklyAll", testTypeWeekly, testTypeAll, subCategory);
+        categoryDb.insert("SectionA", "AllAll", testIntervalAll, testTypeAll, subCategory);
+        categoryDb.insert("SectionA", "OnceIncoming", testIntervalOnce, testTypeIncoming, subCategory);
+        categoryDb.insert("SectionA", "OnceOutgoing", testIntervalOnce, testTypeOutgoing, subCategory);
+        categoryDb.insert("SectionA", "WeeklyIncoming", testTypeWeekly, testTypeOutgoing, subCategory);
+        categoryDb.insert("SectionA", "WeeklyOutgoing", testTypeWeekly, testTypeIncoming, subCategory);
 
         String[] intervals = {testIntervalOnce, testIntervalAll};
         String[] types = {testTypeIncoming, testTypeAll};
         CategoryCursor categoryResult = categoryDb.getAllFor(intervals, types, CategoryDb.sortBySectionAndName);
 
         List<String> expected = new ArrayList<>();
+        expected.add("SectionA");
+        expected.add("SectionB");
         expected.add("AllIncoming");
         expected.add("OnceAll");
         expected.add("AllAll");
@@ -56,16 +62,20 @@ public class CategoryDbTest extends RoboDatabaseTest {
 
     @Test
     public void shouldOrderCategories() {
-        categoryDb.insert("SectionB", "A", testIntervalOnce, testTypeIncoming);
-        categoryDb.insert("SectionB", "C", testIntervalOnce, testTypeIncoming);
-        categoryDb.insert("SectionB", "B", testIntervalOnce, testTypeIncoming);
-        categoryDb.insert("SectionA", "A", testIntervalOnce, testTypeIncoming);
+        categoryDb.insert("SectionB", "SectionB", testIntervalAll, testTypeAll, mainCategory);
+        categoryDb.insert("SectionA", "SectionA", testIntervalAll, testTypeAll, mainCategory);
+        categoryDb.insert("SectionB", "A", testIntervalOnce, testTypeIncoming, subCategory);
+        categoryDb.insert("SectionB", "C", testIntervalOnce, testTypeIncoming, subCategory);
+        categoryDb.insert("SectionB", "B", testIntervalOnce, testTypeIncoming, subCategory);
+        categoryDb.insert("SectionA", "A", testIntervalOnce, testTypeIncoming, subCategory);
 
-        String[] intervals = {testIntervalOnce};
-        String[] types = {testTypeIncoming};
+        String[] intervals = {testIntervalOnce, testIntervalAll};
+        String[] types = {testTypeIncoming, testTypeAll};
         CategoryCursor categoryResult = categoryDb.getAllFor(intervals, types, CategoryDb.sortBySectionAndName);
 
+        assertThatNextResultIs("SectionA", "SectionA", categoryResult);
         assertThatNextResultIs("SectionA", "A", categoryResult);
+        assertThatNextResultIs("SectionB", "SectionB", categoryResult);
         assertThatNextResultIs("SectionB", "A", categoryResult);
         assertThatNextResultIs("SectionB", "B", categoryResult);
         assertThatNextResultIs("SectionB", "C", categoryResult);

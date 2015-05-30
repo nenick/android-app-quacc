@@ -39,8 +39,8 @@ public class CategoryDb {
         new CategoryContentValues().putName(name).insert(context.getContentResolver());
     }
 
-    public void insert(String section, String name, String interval, String type) {
-        new CategoryContentValues().putName(name).putInterval(interval).putSection(section).putType(type).insert(context.getContentResolver());
+    public void insert(String section, String name, String interval, String type, int level) {
+        new CategoryContentValues().putName(name).putInterval(interval).putSection(section).putType(type).putLevel(level).insert(context.getContentResolver());
     }
 
     public CategoryCursor getAllFor(String[] intervals, String[] types, String sortOrder) {
