@@ -1,30 +1,28 @@
 package de.nenick.quacc.accounting.list;
 
-import android.content.Context;
-import android.support.v4.app.Fragment;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 
-import org.androidannotations.annotations.AfterViews;
-import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EBean;
-import org.androidannotations.annotations.EFragment;
-import org.androidannotations.annotations.RootContext;
 import org.androidannotations.annotations.ViewById;
 
 import de.nenick.quacc.R;
 import de.nenick.quacc.accounting.create.CreateAccountingActivity_;
-import de.nenick.quacc.database.provider.accounting.AccountingCursor;
+import de.nenick.quacc.common.mvp.BaseView;
 
 @EBean
-public class AccountingListView {
-
-    @RootContext
-    Context context;
+public class AccountingListView extends BaseView {
 
     @ViewById(R.id.listView)
     ListView accountingList;
+
+    @ViewById(R.id.year)
+    TextView yearField;
+
+    @ViewById(R.id.month)
+    TextView monthField;
 
     @Click(R.id.btn_add_accounting)
     protected void onAddAccounting() {
@@ -33,5 +31,21 @@ public class AccountingListView {
 
     public void setListAdapter(ListAdapter listAdapter) {
         accountingList.setAdapter(listAdapter);
+    }
+
+    public void setYear(String year) {
+        yearField.setText(year);
+    }
+
+    public String getYear() {
+        return yearField.getText().toString();
+    }
+
+    public void setMonth(String month) {
+        monthField.setText(month);
+    }
+
+    public String getMonth() {
+        return monthField.getText().toString();
     }
 }

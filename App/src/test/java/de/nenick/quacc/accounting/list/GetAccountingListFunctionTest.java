@@ -7,6 +7,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import de.nenick.quacc.accounting.list.functions.GetAccountingListFunction;
 import de.nenick.quacc.database.AccountingDb;
 import de.nenick.quacc.database.provider.accounting.AccountingCursor;
 

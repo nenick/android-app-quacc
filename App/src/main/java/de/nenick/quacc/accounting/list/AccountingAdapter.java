@@ -10,9 +10,13 @@ import org.androidannotations.annotations.AfterInject;
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EBean;
 import org.androidannotations.annotations.RootContext;
+import org.joda.time.DateTime;
 
 import java.text.DateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
+import de.nenick.quacc.accounting.list.functions.GetAccountingListFunction;
 import de.nenick.quacc.common.util.QuAccDateUtil;
 import de.nenick.quacc.database.AccountingType;
 import de.nenick.quacc.database.provider.accounting.AccountingCursor;
@@ -85,5 +89,17 @@ public class AccountingAdapter extends CursorAdapter {
             valueString = valueString.substring(0, valueString.length() - 2) + "," + decimal;
         }
         return valueString;
+    }
+
+    public void updateFor(String month, String year) {
+        Date startDate = QuAccDateUtil.asDate(1, month, year);
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(startDate);
+        calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
+
+        Date endDate = QuAccDateUtil.asDate(calendar.getActualMaximum(Calendar.DAY_OF_MONTH), month, year);
+
+        AccountingCursor apply = getAccountingListFunction.apply(new DateTime(startDate), new DateTime(endDate));
+        swapCursor(apply);
     }
 }

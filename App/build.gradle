@@ -62,6 +62,9 @@ dependencies {
     // style support
     compile 'com.melnykov:floatingactionbutton:1.2.0'
 
+    // better time handling
+    compile 'net.danlew:android.joda:2.7.2'
+
     // unit test support
     testCompile project(':RobolectricPages')
 

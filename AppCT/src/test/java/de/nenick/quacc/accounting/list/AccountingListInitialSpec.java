@@ -4,6 +4,7 @@ import org.junit.Test;
 
 import java.util.Date;
 
+import de.nenick.quacc.common.util.QuAccDateUtil;
 import de.nenick.quacc.database.AccountingDb_;
 import de.nenick.quacc.database.AccountingInterval;
 import de.nenick.quacc.database.AccountingType;
@@ -12,16 +13,17 @@ import de.nenick.robolectric.RoboSup;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class InitialAccountingListSpec extends RoboComponentTestBase {
+public class AccountingListInitialSpec extends RoboComponentTestBase {
 
     RoboSup<AccountingListActivity_, AccountingListFragment_> robo = new RoboSup<>();
-
     RoboAccountingListPage accountingListPage = new RoboAccountingListPage(robo);
 
     @Test
-    public void shouldShowAccountings() {
+    public void shouldShowAccounting() {
         AccountingDb_.getInstance_(context).insert(1, AccountingType.incoming.name(), AccountingInterval.once.name(), 1, new Date(), "", 20);
         accountingListPage.startPage();
+        assertThat(accountingListPage.filterMonth().getText()).isEqualTo(QuAccDateUtil.currentMonth());
+        assertThat(accountingListPage.filterYear().getText()).isEqualTo(QuAccDateUtil.currentYear());
         assertThat(accountingListPage.list().count()).isEqualTo(1);
     }
 

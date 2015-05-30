@@ -9,6 +9,7 @@ import de.nenick.robolectric.RoboSup;
 import de.nenick.robolectric.RoboSupPage;
 import de.nenick.robolectricpages.components.RoboImageButton;
 import de.nenick.robolectricpages.components.RoboListView;
+import de.nenick.robolectricpages.components.RoboTextView;
 
 public class RoboAccountingListPage extends RoboSupPage<AccountingListActivity_, AccountingListFragment_> {
 
@@ -26,5 +27,13 @@ public class RoboAccountingListPage extends RoboSupPage<AccountingListActivity_,
 
     public RoboImageButton addAccountingButton() {
         return new RoboImageButton(robo, R.id.btn_add_accounting);
+    }
+
+    public RoboTextView filterMonth() {
+        return new RoboTextView(robo, R.id.month);
+    }
+
+    public RoboTextView filterYear() {
+        return new RoboTextView(robo, R.id.year);
     }
 }

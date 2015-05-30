@@ -21,6 +21,11 @@ public class RoboBasePage<T extends Activity, B extends Robo<T>> {
         robo.activity = robo.activityController.setup().get();
     }
 
+    public void startPage(Intent intent) {
+        robo.activityController = Robolectric.buildActivity(getActivityClass());
+        robo.activity = robo.activityController.withIntent(intent).setup().get();
+    }
+
     protected void createPage() {
         robo.activityController = Robolectric.buildActivity(getActivityClass());
         robo.activity = robo.activityController.create().start().get();
