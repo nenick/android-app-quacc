@@ -24,6 +24,9 @@ public class AccountingListView extends BaseView {
     @ViewById(R.id.month)
     TextView monthField;
 
+    @ViewById(R.id.accountValue)
+    TextView accountValueField;
+
     public void setListAdapter(ListAdapter listAdapter) {
         accountingList.setAdapter(listAdapter);
     }
@@ -42,5 +45,9 @@ public class AccountingListView extends BaseView {
 
     public String getMonth() {
         return monthField.getText().toString();
+    }
+
+    public void setAccountValue(String value) {
+        accountValueField.setText(value);
     }
 }

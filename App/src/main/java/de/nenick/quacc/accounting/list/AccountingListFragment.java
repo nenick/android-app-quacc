@@ -8,9 +8,12 @@ import org.androidannotations.annotations.OptionsMenu;
 
 import de.nenick.quacc.R;
 import de.nenick.quacc.accounting.create.CreateAccountingActivity_;
+import de.nenick.quacc.accounting.list.functions.ParseValueFromIntegerFunction;
 import de.nenick.quacc.common.mvp.BasePresenterFragment;
 import de.nenick.quacc.common.mvp.BaseView;
 import de.nenick.quacc.common.util.QuAccDateUtil;
+import de.nenick.quacc.database.AccountDb;
+import de.nenick.quacc.database.provider.account.AccountCursor;
 import de.nenick.quacc.i18n.MonthTranslator;
 
 @EFragment(R.layout.fragment_accounting_list)
@@ -25,6 +28,12 @@ public class AccountingListFragment extends BasePresenterFragment {
 
     @Bean
     MonthTranslator monthTranslator;
+
+    @Bean
+    ParseValueFromIntegerFunction parseValueFromIntegerFunction;
+
+    @Bean
+    AccountDb accountDb;
 
     @Override
     protected BaseView getBaseView() {
@@ -41,6 +50,9 @@ public class AccountingListFragment extends BasePresenterFragment {
         view.setListAdapter(accountingAdapter);
         view.setYear(QuAccDateUtil.currentYear());
         view.setMonth(monthTranslator.translate(QuAccDateUtil.currentMonth()));
+        AccountCursor bar = accountDb.getAccountByName("Bar");
+        bar.moveToFirst();
+        view.setAccountValue(parseValueFromIntegerFunction.apply(bar.getInitialvalue()));
     }
 
     @AfterTextChange({R.id.month, R.id.year})
