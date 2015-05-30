@@ -68,9 +68,7 @@ public class AccountingAdapter extends CursorAdapter {
                 view.showAsOutgoing();
         }
 
-        DateFormat df = QuAccDateUtil.getDefaultDateFormat();
-        view.setType(accountingTypeTranslator.translate(accountingType));
-        view.setDate(df.format(accountingCursor.getDate()));
+        view.setDate(QuAccDateUtil.asString(accountingCursor.getDate()));
         view.setInterval(accountingIntervalTranslator.translate(accountingCursor.getInterval()));
         view.setCategory(accountingCursor.getCategoryName());
         view.setComment(accountingCursor.getComment());

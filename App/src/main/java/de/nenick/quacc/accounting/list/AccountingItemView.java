@@ -15,9 +15,6 @@ public class AccountingItemView extends RelativeLayout {
     @ViewById(R.id.date)
     TextView date;
 
-    @ViewById(R.id.type)
-    TextView type;
-
     @ViewById(R.id.interval)
     TextView interval;
 
@@ -36,10 +33,6 @@ public class AccountingItemView extends RelativeLayout {
 
     public void setDate(String txt) {
         date.setText(txt);
-    }
-
-    public void setType(String txt) {
-        type.setText(txt);
     }
 
     public void setInterval(String txt) {
@@ -61,7 +54,6 @@ public class AccountingItemView extends RelativeLayout {
     public void showAsIncome() {
         setBackgroundColor(getResources().getColor(R.color.positiveBackground));
         date.setTextColor(getResources().getColor(R.color.positiveText));
-        type.setTextColor(getResources().getColor(R.color.positiveText));
         interval.setTextColor(getResources().getColor(R.color.positiveText));
         category.setTextColor(getResources().getColor(R.color.positiveText));
         comment.setTextColor(getResources().getColor(R.color.positiveText));
@@ -71,7 +63,6 @@ public class AccountingItemView extends RelativeLayout {
     public void showAsOutgoing() {
         setBackgroundColor(getResources().getColor(R.color.negativeBackground));
         date.setTextColor(getResources().getColor(R.color.negativeText));
-        type.setTextColor(getResources().getColor(R.color.negativeText));
         interval.setTextColor(getResources().getColor(R.color.negativeText));
         category.setTextColor(getResources().getColor(R.color.negativeText));
         comment.setTextColor(getResources().getColor(R.color.negativeText));

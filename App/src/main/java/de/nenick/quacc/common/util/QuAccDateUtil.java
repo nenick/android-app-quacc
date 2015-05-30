@@ -1,6 +1,8 @@
 package de.nenick.quacc.common.util;
 
 import org.androidannotations.annotations.EBean;
+import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -116,5 +118,13 @@ public class QuAccDateUtil {
         } else {
             throw new IllegalStateException();
         }
+    }
+
+    public static String getDay(Date date) {
+        return String.valueOf(new DateTime(date).dayOfMonth().get());
+    }
+
+    public static String asString(Date date) {
+        return new DateTime(date).toString(DateTimeFormat.forPattern("dd.MM.yyyy"));
     }
 }
