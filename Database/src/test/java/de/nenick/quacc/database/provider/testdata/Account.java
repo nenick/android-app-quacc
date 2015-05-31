@@ -10,7 +10,7 @@ public class Account extends BaseModel {
     @Column(AccountColumns.NAME)
     String NAME;
 
-    @Column(AccountColumns.DESCRIPTION)
-    String DESCRIPTION;
+    @Column(AccountColumns.INITIALVALUE)
+    int INITIALVALUE;
 
 }
