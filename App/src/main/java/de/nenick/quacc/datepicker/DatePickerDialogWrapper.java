@@ -32,7 +32,7 @@ public class DatePickerDialogWrapper extends DialogFragment implements DatePicke
 
     @Override
     public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-        callback.onDatePick(QuAccDateUtil.toString(dayOfMonth, monthOfYear, year));
+        callback.onDatePick(QuAccDateUtil.toString(dayOfMonth, monthOfYear + 1, year));
     }
 
     @NonNull
