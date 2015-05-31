@@ -18,9 +18,6 @@ allprojects {
         jcenter()
     }
     apply plugin: "jacoco"
-    jacoco {
-        toolVersion = "0.7.4.201502262128"
-    }
 }
 
 project.ext.set("isCircleCi", ("true".equals(System.getenv("TRAVIS")) || "true".equals(System.getenv("CIRCLECI"))))
