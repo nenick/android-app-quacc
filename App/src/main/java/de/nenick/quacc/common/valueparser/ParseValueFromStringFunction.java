@@ -1,4 +1,4 @@
-package de.nenick.quacc.accounting.create.functions;
+package de.nenick.quacc.common.valueparser;
 
 import org.androidannotations.annotations.EBean;
 

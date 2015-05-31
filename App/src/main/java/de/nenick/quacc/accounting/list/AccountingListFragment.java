@@ -8,7 +8,7 @@ import org.androidannotations.annotations.OptionsMenu;
 
 import de.nenick.quacc.R;
 import de.nenick.quacc.accounting.create.CreateAccountingActivity_;
-import de.nenick.quacc.accounting.list.functions.ParseValueFromIntegerFunction;
+import de.nenick.quacc.common.valueparser.ParseValueFromIntegerFunction;
 import de.nenick.quacc.common.mvp.BasePresenterFragment;
 import de.nenick.quacc.common.mvp.BaseView;
 import de.nenick.quacc.common.util.QuAccDateUtil;

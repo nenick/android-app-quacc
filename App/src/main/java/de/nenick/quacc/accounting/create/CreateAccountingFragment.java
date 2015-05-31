@@ -14,14 +14,14 @@ import de.nenick.quacc.accounting.create.functions.GetAccountingCategoriesFuncti
 import de.nenick.quacc.accounting.create.functions.GetAccountingIntervalsFunction;
 import de.nenick.quacc.accounting.create.functions.GetAccountingTypesFunction;
 import de.nenick.quacc.accounting.create.functions.GetAccountsFunction;
-import de.nenick.quacc.accounting.create.functions.ParseValueFromStringFunction;
+import de.nenick.quacc.common.valueparser.ParseValueFromStringFunction;
 import de.nenick.quacc.common.mvp.BasePresenterFragment;
 import de.nenick.quacc.common.mvp.BaseView;
 import de.nenick.quacc.common.util.QuAccDateUtil;
 import de.nenick.quacc.database.AccountingInterval;
 import de.nenick.quacc.database.AccountingType;
 
-import static de.nenick.quacc.accounting.create.functions.ParseValueFromStringFunction.ParseResult.Successful;
+import static de.nenick.quacc.common.valueparser.ParseValueFromStringFunction.ParseResult.Successful;
 
 @EFragment(R.layout.fragment_create_accounting)
 @OptionsMenu(R.menu.menu_create_account)

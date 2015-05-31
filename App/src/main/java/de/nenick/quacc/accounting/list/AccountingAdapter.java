@@ -16,7 +16,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 import de.nenick.quacc.accounting.list.functions.GetAccountingListFunction;
-import de.nenick.quacc.accounting.list.functions.ParseValueFromIntegerFunction;
+import de.nenick.quacc.common.valueparser.ParseValueFromIntegerFunction;
 import de.nenick.quacc.common.util.QuAccDateUtil;
 import de.nenick.quacc.database.AccountingType;
 import de.nenick.quacc.database.provider.accounting.AccountingCursor;

@@ -3,13 +3,12 @@ package de.nenick.quacc.accounts;
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EFragment;
-import org.androidannotations.annotations.ItemClick;
 import org.androidannotations.annotations.ItemSelect;
 
 import de.nenick.quacc.R;
 import de.nenick.quacc.accounting.create.functions.GetAccountsFunction;
-import de.nenick.quacc.accounting.create.functions.ParseValueFromStringFunction;
-import de.nenick.quacc.accounting.list.functions.ParseValueFromIntegerFunction;
+import de.nenick.quacc.common.valueparser.ParseValueFromStringFunction;
+import de.nenick.quacc.common.valueparser.ParseValueFromIntegerFunction;
 import de.nenick.quacc.common.mvp.BasePresenterFragment;
 import de.nenick.quacc.common.mvp.BaseView;
 import de.nenick.quacc.database.AccountDb;
