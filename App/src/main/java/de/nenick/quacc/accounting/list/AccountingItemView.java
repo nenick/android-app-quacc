@@ -68,4 +68,13 @@ public class AccountingItemView extends RelativeLayout {
         comment.setTextColor(getResources().getColor(R.color.negativeText));
         value.setTextColor(getResources().getColor(R.color.negativeText));
     }
+
+    public void showAsTransfer() {
+        setBackgroundColor(getResources().getColor(R.color.neutralBackground));
+        date.setTextColor(getResources().getColor(R.color.neutralBackground));
+        interval.setTextColor(getResources().getColor(R.color.neutralBackground));
+        category.setTextColor(getResources().getColor(R.color.neutralBackground));
+        comment.setTextColor(getResources().getColor(R.color.neutralBackground));
+        value.setTextColor(getResources().getColor(R.color.neutralBackground));
+    }
 }
