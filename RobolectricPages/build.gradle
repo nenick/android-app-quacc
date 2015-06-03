@@ -14,7 +14,7 @@ sourceSets {
 }
 
 dependencies {
-    provided('org.robolectric:robolectric:3.0-rc2') {
+    provided('org.robolectric:robolectric:3.0-rc3') {
         exclude module: 'classworlds'
         exclude module: 'commons-logging'
         exclude module: 'httpclient'

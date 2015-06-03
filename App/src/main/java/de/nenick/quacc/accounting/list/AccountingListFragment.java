@@ -4,6 +4,7 @@ import org.androidannotations.annotations.AfterTextChange;
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EFragment;
+import org.androidannotations.annotations.FragmentArg;
 import org.androidannotations.annotations.OptionsMenu;
 
 import de.nenick.quacc.R;
@@ -17,7 +18,6 @@ import de.nenick.quacc.database.provider.account.AccountCursor;
 import de.nenick.quacc.i18n.MonthTranslator;
 
 @EFragment(R.layout.fragment_accounting_list)
-@OptionsMenu(R.menu.menu_accounting_list)
 public class AccountingListFragment extends BasePresenterFragment {
 
     @Bean
@@ -35,6 +35,9 @@ public class AccountingListFragment extends BasePresenterFragment {
     @Bean
     AccountDb accountDb;
 
+    @FragmentArg
+    String account;
+
     @Override
     protected BaseView getBaseView() {
         return view;
@@ -47,6 +50,7 @@ public class AccountingListFragment extends BasePresenterFragment {
 
     @Override
     protected void onViewStart() {
+        accountingAdapter.setAccount(account);
         view.setListAdapter(accountingAdapter);
         view.setYear(QuAccDateUtil.currentYear());
         view.setMonth(monthTranslator.translate(QuAccDateUtil.currentMonth()));

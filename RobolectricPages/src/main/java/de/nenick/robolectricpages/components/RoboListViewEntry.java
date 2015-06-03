@@ -39,4 +39,12 @@ public class RoboListViewEntry extends RoboBaseComponent {
     public void select() {
         listView.setSelection(position);
     }
+
+    public void click() {
+        listView.performItemClick(listView, position, listView.getAdapter().getItemId(position));
+    }
+
+    public boolean isSelected() {
+        return listView.getSelectedItemPosition() == position;
+    }
 }

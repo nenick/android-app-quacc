@@ -12,4 +12,8 @@ public class RoboActionbar extends RoboBaseComponent {
     public RoboActionbarMenuItem getMenuItem(int resourceId, String fragmentTag) {
         return new RoboActionbarMenuItem(robo, resourceId, fragmentTag);
     }
+
+    public String title() {
+        return robo.activity.getTitle().toString();
+    }
 }

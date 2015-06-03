@@ -43,6 +43,7 @@ public class CategoryAdapter extends BaseCursorPresenterAdapter<CategoryCursor, 
     @Override
     public void bindView(CategoryItemView view, int position, CategoryCursor cursor) {
         view.setText(cursor.getName());
+        view.setMainCategory();
     }
 
     @Override

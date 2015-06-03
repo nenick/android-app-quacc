@@ -33,9 +33,9 @@ public class AccountingDb {
         return new AccountingSelection().query(context.getContentResolver());
     }
 
-    public AccountingCursor getAllBetween(Date startDate, Date endDate) {
+    public AccountingCursor getAllBetween(long accountId, Date startDate, Date endDate) {
         AccountingSelection where = new AccountingSelection();
-        where.dateAfter(startDate).and().dateBefore(endDate);
+        where.accountId(accountId).and().dateAfter(startDate).and().dateBefore(endDate);
         return where.query(context.getContentResolver(), null, AccountingColumns.DATE);
     }
 }

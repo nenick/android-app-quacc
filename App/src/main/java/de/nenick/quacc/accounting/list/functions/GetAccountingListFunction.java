@@ -9,6 +9,7 @@ import org.joda.time.DateTime;
 
 import java.util.Date;
 
+import de.nenick.quacc.database.AccountDb;
 import de.nenick.quacc.database.AccountingDb;
 import de.nenick.quacc.database.provider.accounting.AccountingCursor;
 
@@ -21,13 +22,13 @@ public class GetAccountingListFunction {
     @Bean
     AccountingDb accountingDb;
 
-    public AccountingCursor apply() {
-        return accountingDb.getAll();
-    }
+    @Bean
+    AccountDb accountDb;
 
-    public AccountingCursor apply(DateTime startDate, DateTime endDate) {
+    public AccountingCursor apply(String account, DateTime startDate, DateTime endDate) {
+        long accountId = accountDb.getIdByName(account);
         startDate = startDate.minusDays(1);
         endDate = endDate.plus(1);
-        return accountingDb.getAllBetween(startDate.toDate(), endDate.toDate());
+        return accountingDb.getAllBetween(accountId, startDate.toDate(), endDate.toDate());
     }
 }

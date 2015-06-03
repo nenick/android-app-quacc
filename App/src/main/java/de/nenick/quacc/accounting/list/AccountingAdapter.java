@@ -40,6 +40,7 @@ public class AccountingAdapter extends CursorAdapter {
 
     @Bean
     ParseValueFromIntegerFunction parseValueFromInteger;
+    private String account;
 
     public AccountingAdapter() {
         super(null, null, true);
@@ -48,7 +49,6 @@ public class AccountingAdapter extends CursorAdapter {
     @AfterInject
     protected void afterInject() {
         mContext = context;
-        swapCursor(getAccountingListFunction.apply());
     }
 
     @Override
@@ -91,7 +91,11 @@ public class AccountingAdapter extends CursorAdapter {
 
         Date endDate = QuAccDateUtil.toDate(calendar.getActualMaximum(Calendar.DAY_OF_MONTH), month, year);
 
-        AccountingCursor apply = getAccountingListFunction.apply(new DateTime(startDate), new DateTime(endDate));
+        AccountingCursor apply = getAccountingListFunction.apply(account, new DateTime(startDate), new DateTime(endDate));
         swapCursor(apply);
+    }
+
+    public void setAccount(String account) {
+        this.account = account;
     }
 }

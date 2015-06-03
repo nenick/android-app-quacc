@@ -1,6 +1,7 @@
 package de.nenick.quacc.accounting.list;
 
 import android.content.Intent;
+import android.support.v4.widget.DrawerLayout;
 
 import org.robolectric.RuntimeEnvironment;
 
@@ -15,6 +16,13 @@ public class RoboAccountingListPage extends RoboSupPage<AccountingListActivity_,
 
     public RoboAccountingListPage(RoboSup<AccountingListActivity_, AccountingListFragment_> robo) {
         super(robo, AccountingListActivity.TAG_FRAGMENT);
+    }
+
+    @Override
+    public void startPage() {
+        super.startPage();
+        // don't know why but this page starts with an open drawer. in real it does not.
+        drawer().close();
     }
 
     public static Intent Intent() {
@@ -55,5 +63,9 @@ public class RoboAccountingListPage extends RoboSupPage<AccountingListActivity_,
 
     public RoboAccountingListActionbar actionbar() {
         return new RoboAccountingListActionbar(robo);
+    }
+
+    public RoboAccountingListDrawer drawer() {
+        return new RoboAccountingListDrawer(robo);
     }
 }

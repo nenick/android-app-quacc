@@ -3,11 +3,21 @@
     <string name="action_confirm">Fertig</string>
     <string name="action_categories">Kategorien</string>
     <string name="action_accounts">Accounts</string>
-    <string name="title_activity_accounting_list">Account Übersicht</string>
+    <string name="title_activity_accounting_list">Übersicht</string>
     <string name="title_activity_add_accounting">Neue Buchung</string>
     <string name="title_activity_categories">CategoriesActivity</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_accounts">Account Editor</string>
     <string name="save">Speichern</string>
+    <string name="title_activity_main">MainActivity</string>
+
+    <string name="title_section1">Girkonto</string>
+    <string name="title_section2">Bar</string>
+    <string name="title_section3">Tagesgeldkonto</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_example">Example action</string>
 </resources>
