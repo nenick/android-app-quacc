@@ -1,6 +1,7 @@
 package de.nenick.quacc.accounting.list;
 
 import android.support.v4.widget.DrawerLayout;
+import android.view.View;
 
 import org.robolectric.Robolectric;
 
@@ -24,12 +25,18 @@ public class RoboAccountingListDrawer extends RoboBaseComponent {
     }
 
     public void open() {
-        ((DrawerLayout)robo.activity.findViewById(R.id.drawer_layout)).openDrawer(robo.activity.findViewById(R.id.navigation_drawer));
+        View drawer = robo.activity.findViewById(R.id.navigation_drawer);
+        DrawerLayout view = (DrawerLayout) robo.activity.findViewById(R.id.drawer_layout);
+        view.openDrawer(drawer);
         updateOpenCloseState();
     }
 
     public void close() {
-        ((DrawerLayout)robo.activity.findViewById(R.id.drawer_layout)).closeDrawer(robo.activity.findViewById(R.id.navigation_drawer));
+        View drawer = robo.activity.findViewById(R.id.navigation_drawer);
+        DrawerLayout view = (DrawerLayout) robo.activity.findViewById(R.id.drawer_layout);
+        view.closeDrawer(drawer);
         updateOpenCloseState();
+        // with robolectric 3.0-rc2 there is a bug where we must call open to toggle the drawer state
+        open();
     }
 }
