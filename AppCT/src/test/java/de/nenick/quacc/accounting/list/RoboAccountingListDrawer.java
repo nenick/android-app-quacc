@@ -36,7 +36,5 @@ public class RoboAccountingListDrawer extends RoboBaseComponent {
         DrawerLayout view = (DrawerLayout) robo.activity.findViewById(R.id.drawer_layout);
         view.closeDrawer(drawer);
         updateOpenCloseState();
-        // with robolectric 3.0-rc2 there is a bug where we must call open to toggle the drawer state
-        open();
     }
 }

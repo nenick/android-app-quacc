@@ -70,12 +70,13 @@ public class CreateAccountingFragment extends BasePresenterFragment {
         view.showAccounts(getAccountsFunction.apply());
         speechRecognitionFeature.setView(view);
 
-        view.showAccountingIntervals(intervalAdapter);
+
         intervalAdapter.addAll(getAccountingIntervalsFunction.apply());
+        view.showAccountingIntervals(intervalAdapter);
         view.setAccountingInterval(AccountingInterval.once.name());
 
-        view.showAccountingTypes(typeAdapter);
         typeAdapter.addAll(getAccountingTypesFunction.apply());
+        view.showAccountingTypes(typeAdapter);
         view.setAccountingType(AccountingType.outgoing.name());
 
         view.showDate(QuAccDateUtil.currentDate());

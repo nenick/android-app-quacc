@@ -1,8 +1,17 @@
 package de.nenick.quacc.accounting.create;
 
+import android.app.Application;
+
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.robolectric.Robolectric;
+import org.robolectric.RobolectricGradleTestRunner;
+import org.robolectric.RuntimeEnvironment;
+import org.robolectric.annotation.Config;
+import org.robolectric.shadows.ShadowSQLiteConnection;
 
+import de.nenick.quacc.BuildConfig;
 import de.nenick.quacc.R;
 import de.nenick.quacc.common.util.QuAccDateUtil;
 import de.nenick.quacc.database.AccountingDb;
@@ -10,6 +19,7 @@ import de.nenick.quacc.database.AccountingDb_;
 import de.nenick.quacc.database.AccountingInterval;
 import de.nenick.quacc.database.AccountingType;
 import de.nenick.quacc.database.provider.accounting.AccountingCursor;
+import de.nenick.robolectric.AndroidStudioAwareRobolectricTestRunner;
 import de.nenick.robolectric.RoboComponentTestBase;
 import de.nenick.robolectric.RoboSup;
 
@@ -25,17 +35,19 @@ public class CreateAccountingFragmentSpec extends RoboComponentTestBase {
     AccountingDb accountingDb;
 
     final String defaultDate = "21.12.2012";
+    private Application context;
 
     @Before
     public void setUp() {
+        context = RuntimeEnvironment.application;
         accountingDb = AccountingDb_.getInstance_(context);
     }
 
     @Test
     public void shouldShowValueFromDatePicker() {
-        addAccountingPage.startPage();
-        whenPickDate(defaultDate);
-        assertThat(addAccountingPage.dateField().getText()).isEqualTo(defaultDate);
+       addAccountingPage.startPage();
+       whenPickDate(defaultDate);
+       assertThat(addAccountingPage.dateField().getText()).isEqualTo(defaultDate);
     }
 
     @Test
@@ -105,6 +117,7 @@ public class CreateAccountingFragmentSpec extends RoboComponentTestBase {
 
     @Test
     public void shouldGiveFeedbackForInvalidValues() {
+        ShadowSQLiteConnection.reset();
         addAccountingPage.startPage();
 
         whenValueIs("A");
