@@ -54,8 +54,6 @@ public class AccountingListInitialSpec extends RoboComponentTestBase {
 //        assertThat(entries.get(0).getBackgroundColor()).isEqualTo(R.color.neutralBackground);
         assertThat(entries.get(2).getText(R.id.comment)).isEqualTo("my comment 3");
         assertThat(entries.get(2).getText(R.id.value)).isEqualTo("6000,00");
-
-        assertThat(accountingListPage.actionbar().title()).isEqualTo("Übersicht (Girokonto)");
     }
 
     @Test
