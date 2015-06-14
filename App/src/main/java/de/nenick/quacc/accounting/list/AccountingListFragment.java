@@ -13,8 +13,9 @@ import org.joda.time.DateTime;
 
 import de.nenick.quacc.R;
 import de.nenick.quacc.accounting.create.CreateAccountingActivity_;
-import de.nenick.quacc.accounting.list.functions.GetEndDateForRangeFunction;
+import de.nenick.quacc.accounting.list.functions.GetDateForRangeEndFunction;
 import de.nenick.quacc.accounting.list.functions.GetFilterRangesFunction;
+import de.nenick.quacc.accounting.list.functions.GetDateForRangeStartFunction;
 import de.nenick.quacc.common.valueparser.ParseValueFromIntegerFunction;
 import de.nenick.quacc.common.mvp.BasePresenterFragment;
 import de.nenick.quacc.common.mvp.BaseView;
@@ -45,7 +46,10 @@ public class AccountingListFragment extends BasePresenterFragment {
     FilterRangeAdapter filterRangeAdapter;
 
     @Bean
-    GetEndDateForRangeFunction getEndDateForRangeFunction;
+    GetDateForRangeEndFunction getDateForRangeEndFunction;
+
+    @Bean
+    GetDateForRangeStartFunction getDateForRangeStartFunction;
 
     @Bean
     GetFilterRangesFunction getFilterRangesFunction;
@@ -75,9 +79,10 @@ public class AccountingListFragment extends BasePresenterFragment {
 
         changeRangeFilterToCurrentMonth();
 
-        AccountCursor bar = accountDb.getAccountByName("Bar");
-        bar.moveToFirst();
-        view.setAccountValue(parseValueFromIntegerFunction.apply(bar.getInitialvalue()));
+        AccountCursor accountCursor = accountDb.getAccountByName(account);
+        accountCursor.moveToFirst();
+        view.setAccountValue(parseValueFromIntegerFunction.apply(accountCursor.getInitialvalue()));
+
     }
 
     private void changeRangeFilterToCurrentMonth() {
@@ -98,7 +103,6 @@ public class AccountingListFragment extends BasePresenterFragment {
         String filterRangeString = view.getFilterRange();
 
         if (isViewFullInitialised(month, year, filterRangeString)) {
-            DateTime firstDayOfSelectedMonth = QuAccDateUtil.toDateTime(1, monthTranslator.translate(month), year);
             FilterRange filterRange = FilterRange.valueOf(filterRangeString);
             if(filterRange == FilterRange.free) {
                 view.showFilterFreeRange();
@@ -106,8 +110,9 @@ public class AccountingListFragment extends BasePresenterFragment {
                 view.hideFilterFreeRange();
                 changeRangeFilterToCurrentMonth();
             }
-            DateTime endDate = getEndDateForRangeFunction.apply(filterRange, firstDayOfSelectedMonth);
-            accountingAdapter.changeFor(firstDayOfSelectedMonth, endDate);
+            DateTime startDate = getDateForRangeStartFunction.apply(filterRange, monthTranslator.translate(month), year);
+            DateTime endDate = getDateForRangeEndFunction.apply(filterRange, startDate);
+            accountingAdapter.changeFor(startDate, endDate);
         }
     }
 
