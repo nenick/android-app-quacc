@@ -1,4 +1,4 @@
-package de.nenick.quacc.accounting.list;
+package de.nenick.quacc.view.accounting_overview;
 
 import org.junit.Test;
 
@@ -6,9 +6,9 @@ import java.util.Date;
 import java.util.List;
 
 import de.nenick.quacc.R;
-import de.nenick.quacc.accounting.create.RoboCreateAccountingPage;
+import de.nenick.quacc.view.accounting_create.RoboCreateAccountingPage;
 import de.nenick.quacc.view.account.RoboAccountsPage;
-import de.nenick.quacc.category.RoboCategoriesPage;
+import de.nenick.quacc.view.category.RoboCategoriesPage;
 import de.nenick.quacc.common.util.QuAccDateUtil;
 import de.nenick.quacc.database.AccountingDb_;
 import de.nenick.quacc.database.AccountingInterval;

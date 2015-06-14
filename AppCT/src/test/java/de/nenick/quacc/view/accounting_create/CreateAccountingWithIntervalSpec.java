@@ -1,4 +1,4 @@
-package de.nenick.quacc.accounting.create;
+package de.nenick.quacc.view.accounting_create;
 
 import android.app.Application;
 
@@ -8,7 +8,7 @@ import org.junit.Test;
 import org.robolectric.RuntimeEnvironment;
 
 
-import de.nenick.quacc.accounting.interval.functions.UpdateIntervalFunction_;
+import de.nenick.quacc.accounting.creation.UpdateIntervalFunction_;
 import de.nenick.quacc.common.util.QuAccDateUtil;
 import de.nenick.quacc.database.AccountingDb;
 import de.nenick.quacc.database.AccountingDb_;
@@ -18,7 +18,6 @@ import de.nenick.quacc.database.IntervalAccountingDb_;
 import de.nenick.quacc.database.IntervalDb_;
 import de.nenick.quacc.database.provider.accounting.AccountingCursor;
 import de.nenick.quacc.database.provider.interval.IntervalCursor;
-import de.nenick.quacc.view.accounting_create.CreateAccountingFragment;
 import de.nenick.robolectric.RoboComponentTestBase;
 import de.nenick.robolectric.RoboSup;
 

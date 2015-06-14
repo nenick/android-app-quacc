@@ -2,7 +2,7 @@ package de.nenick.quacc.view.main;
 
 import org.junit.Test;
 
-import de.nenick.quacc.accounting.list.RoboAccountingListPage;
+import de.nenick.quacc.view.accounting_overview.RoboAccountingListPage;
 import de.nenick.robolectric.RoboComponentTestBase;
 import de.nenick.robolectric.RoboSup;
 

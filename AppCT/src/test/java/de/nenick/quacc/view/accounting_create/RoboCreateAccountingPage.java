@@ -1,4 +1,4 @@
-package de.nenick.quacc.accounting.create;
+package de.nenick.quacc.view.accounting_create;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,9 +13,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 import de.nenick.quacc.R;
-import de.nenick.quacc.view.accounting_create.CreateAccountingActivity;
-import de.nenick.quacc.view.accounting_create.CreateAccountingActivity_;
-import de.nenick.quacc.view.accounting_create.CreateAccountingFragment;
 import de.nenick.quacc.view.speechrecognition.RecognitionListenerWrapper;
 import de.nenick.robolectric.RoboSup;
 import de.nenick.robolectric.RoboSupPage;

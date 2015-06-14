@@ -1,4 +1,4 @@
-package de.nenick.quacc.accounting.create;
+package de.nenick.quacc.view.accounting_create;
 
 import de.nenick.quacc.R;
 import de.nenick.robolectricpages.Robo;

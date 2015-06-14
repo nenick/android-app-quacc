@@ -5,7 +5,7 @@ import android.content.Context;
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EBean;
 
-import de.nenick.quacc.category.GetAccountingCategoriesFilteredFunction;
+import de.nenick.quacc.view.category.GetAccountingCategoriesFilteredFunction;
 import de.nenick.quacc.common.mvp.BaseCursorPresenterAdapter;
 import de.nenick.quacc.database.provider.category.CategoryCursor;
 import de.nenick.quacc.view.i18n.AccountingIntervalTranslator;

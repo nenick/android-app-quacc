@@ -1,4 +1,4 @@
-package de.nenick.quacc.category;
+package de.nenick.quacc.view.category;
 
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EBean;

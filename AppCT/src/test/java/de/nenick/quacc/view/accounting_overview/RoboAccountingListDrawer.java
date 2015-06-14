@@ -1,4 +1,4 @@
-package de.nenick.quacc.accounting.list;
+package de.nenick.quacc.view.accounting_overview;
 
 import android.support.v4.widget.DrawerLayout;
 import android.view.View;

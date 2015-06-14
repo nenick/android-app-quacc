@@ -1,4 +1,4 @@
-package de.nenick.quacc.accounting.create;
+package de.nenick.quacc.view.accounting_create;
 
 import android.os.Bundle;
 import android.speech.SpeechRecognizer;
@@ -9,7 +9,6 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.List;
 
-import de.nenick.quacc.view.accounting_create.CreateAccountingFragment;
 import de.nenick.robolectric.RoboComponentTestBase;
 import de.nenick.robolectric.RoboSup;
 import de.nenick.robolectricpages.components.RoboSpinnerEntry;

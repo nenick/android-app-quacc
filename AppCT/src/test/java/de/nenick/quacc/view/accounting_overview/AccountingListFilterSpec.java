@@ -1,4 +1,4 @@
-package de.nenick.quacc.accounting.list;
+package de.nenick.quacc.view.accounting_overview;
 
 import org.junit.Test;
 

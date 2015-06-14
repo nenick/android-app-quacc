@@ -11,7 +11,7 @@ import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EBean;
 import org.androidannotations.annotations.RootContext;
 
-import de.nenick.quacc.category.GetAccountingCategoriesCursorFunction;
+import de.nenick.quacc.view.category.GetAccountingCategoriesCursorFunction;
 import de.nenick.quacc.database.provider.category.CategoryCursor;
 
 @EBean

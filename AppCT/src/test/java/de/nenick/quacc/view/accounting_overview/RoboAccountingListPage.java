@@ -1,11 +1,10 @@
-package de.nenick.quacc.accounting.list;
+package de.nenick.quacc.view.accounting_overview;
 
 import android.content.Intent;
 
 import org.robolectric.RuntimeEnvironment;
 
 import de.nenick.quacc.R;
-import de.nenick.quacc.view.accounting_overview.AccountingListActivity;
 import de.nenick.robolectric.RoboSup;
 import de.nenick.robolectric.RoboSupPage;
 import de.nenick.robolectricpages.components.RoboImageButton;

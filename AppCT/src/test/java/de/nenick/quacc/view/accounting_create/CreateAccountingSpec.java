@@ -1,4 +1,4 @@
-package de.nenick.quacc.accounting.create;
+package de.nenick.quacc.view.accounting_create;
 
 import android.app.Application;
 
@@ -14,7 +14,6 @@ import de.nenick.quacc.database.AccountingDb_;
 import de.nenick.quacc.database.AccountingInterval;
 import de.nenick.quacc.database.AccountingType;
 import de.nenick.quacc.database.provider.accounting.AccountingCursor;
-import de.nenick.quacc.view.accounting_create.CreateAccountingFragment;
 import de.nenick.robolectric.RoboComponentTestBase;
 import de.nenick.robolectric.RoboSup;
 
