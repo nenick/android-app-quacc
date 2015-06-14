@@ -15,6 +15,7 @@ import org.joda.time.DateTime;
 import java.util.Calendar;
 import java.util.Date;
 
+import de.nenick.quacc.accounting.interval.functions.UpdateIntervalsFunction;
 import de.nenick.quacc.accounting.list.functions.GetAccountingListFunction;
 import de.nenick.quacc.common.valueparser.ParseValueFromIntegerFunction;
 import de.nenick.quacc.common.util.QuAccDateUtil;
@@ -40,6 +41,10 @@ public class AccountingAdapter extends CursorAdapter {
 
     @Bean
     ParseValueFromIntegerFunction parseValueFromInteger;
+
+    @Bean
+    UpdateIntervalsFunction updateIntervalsFunction;
+
     private String account;
 
     public AccountingAdapter() {
@@ -83,16 +88,10 @@ public class AccountingAdapter extends CursorAdapter {
         return parseValueFromInteger.apply(value);
     }
 
-    public void updateFor(int month, String year) {
-        Date startDate = QuAccDateUtil.toDate(1, month, year);
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(startDate);
-        calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
-
-        Date endDate = QuAccDateUtil.toDate(calendar.getActualMaximum(Calendar.DAY_OF_MONTH), month, year);
-
-        AccountingCursor apply = getAccountingListFunction.apply(account, new DateTime(startDate), new DateTime(endDate));
-        swapCursor(apply);
+    public void changeFor(DateTime startDate, DateTime endDate) {
+        updateIntervalsFunction.apply(account, endDate);
+        AccountingCursor apply = getAccountingListFunction.apply(account, startDate, endDate);
+        changeCursor(apply);
     }
 
     public void setAccount(String account) {

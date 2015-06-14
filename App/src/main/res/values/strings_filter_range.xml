@@ -1,0 +1,4 @@
+<resources>
+    <string name="filter_range_all_accounting">Alle Buchungen</string>
+    <string name="filter_range_current_month">Aktueller Monat</string>
+</resources>

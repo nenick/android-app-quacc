@@ -13,6 +13,10 @@ public class QuAccDateUtil {
 
     public static final DateTimeFormatter defaultPattern = DateTimeFormat.forPattern("dd.MM.yyyy");
 
+    public static DateTime currentDateTime() {
+        return new DateTime();
+    }
+
     public static String currentDate() {
         return new DateTime().toString(defaultPattern);
     }
@@ -23,6 +27,10 @@ public class QuAccDateUtil {
 
     public static int currentMonth() {
         return new DateTime().monthOfYear().get();
+    }
+
+    public static DateTime toDateTime(int day, int month, String year) {
+        return new DateTime(toDate(day, month, Integer.parseInt(year)));
     }
 
     public static Date toDate(int day, int month, String year) {
@@ -62,5 +70,9 @@ public class QuAccDateUtil {
     public static boolean isGreaterEq(Date base, DateTime expectedToBeGreater) {
         int compareResult = new DateTime(base).compareTo(expectedToBeGreater);
         return compareResult == -1 || compareResult == 0;
+    }
+
+    public static DateTime lastDayOfMonth(DateTime startDate) {
+        return startDate.withDayOfMonth(startDate.dayOfMonth().getMaximumValue());
     }
 }

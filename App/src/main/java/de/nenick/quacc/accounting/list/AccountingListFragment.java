@@ -1,15 +1,18 @@
 package de.nenick.quacc.accounting.list;
 
+import com.google.common.base.Strings;
+
 import org.androidannotations.annotations.AfterTextChange;
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.FragmentArg;
+import org.androidannotations.annotations.ItemSelect;
 import org.joda.time.DateTime;
 
 import de.nenick.quacc.R;
 import de.nenick.quacc.accounting.create.CreateAccountingActivity_;
-import de.nenick.quacc.accounting.interval.functions.UpdateIntervalsFunction;
+import de.nenick.quacc.accounting.list.functions.GetEndDateForRangeFunction;
 import de.nenick.quacc.common.valueparser.ParseValueFromIntegerFunction;
 import de.nenick.quacc.common.mvp.BasePresenterFragment;
 import de.nenick.quacc.common.mvp.BaseView;
@@ -37,7 +40,10 @@ public class AccountingListFragment extends BasePresenterFragment {
     AccountDb accountDb;
 
     @Bean
-    UpdateIntervalsFunction updateIntervalsFunction;
+    FilterRangeAdapter filterRangeAdapter;
+
+    @Bean
+    GetEndDateForRangeFunction getEndDateForRangeFunction;
 
     @FragmentArg
     String account;
@@ -54,6 +60,7 @@ public class AccountingListFragment extends BasePresenterFragment {
 
     @Override
     protected void onViewStart() {
+        view.setFilterRanges(filterRangeAdapter);
         accountingAdapter.setAccount(account);
         view.setListAdapter(accountingAdapter);
         view.setYear(QuAccDateUtil.currentYear());
@@ -67,13 +74,18 @@ public class AccountingListFragment extends BasePresenterFragment {
     protected void onFilterChanged() {
         String month = view.getMonth();
         String year = view.getYear();
-        if(isViewFullInitialised(month, year)) {
+        String filterRange = view.getFilterRange();
 
-            DateTime dateTime = new DateTime(QuAccDateUtil.toDate(1, monthTranslator.translate(month), year));
-            updateIntervalsFunction.apply(account, new DateTime(QuAccDateUtil.toDate(dateTime.dayOfMonth().getMaximumValue(), monthTranslator.translate(month), year)));
-
-            accountingAdapter.updateFor(monthTranslator.translate(month), year);
+        if (isViewFullInitialised(month, year, filterRange)) {
+            DateTime firstDayOfSelectedMonth = QuAccDateUtil.toDateTime(1, monthTranslator.translate(month), year);
+            DateTime endDate = getEndDateForRangeFunction.apply(filterRange, firstDayOfSelectedMonth);
+            accountingAdapter.changeFor(firstDayOfSelectedMonth, endDate);
         }
+    }
+
+    @ItemSelect(R.id.filterRange)
+    protected void onFilterByRange(boolean selected) {
+        onFilterChanged();
     }
 
     @Click(R.id.monthUp)
@@ -96,7 +108,7 @@ public class AccountingListFragment extends BasePresenterFragment {
         view.setYear(String.valueOf(Integer.parseInt(view.getYear()) - 1));
     }
 
-    private boolean isViewFullInitialised(String month, String year) {
-        return !(month.isEmpty() || year.isEmpty());
+    private boolean isViewFullInitialised(String month, String year, String filterRange) {
+        return !(month.isEmpty() || year.isEmpty() || Strings.isNullOrEmpty(filterRange));
     }
 }

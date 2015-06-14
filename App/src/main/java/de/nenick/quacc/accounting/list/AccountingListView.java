@@ -1,7 +1,11 @@
 package de.nenick.quacc.accounting.list;
 
+import android.view.View;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
+import android.widget.Spinner;
+import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 
 import org.androidannotations.annotations.Click;
@@ -27,6 +31,21 @@ public class AccountingListView extends BaseView {
     @ViewById(R.id.accountValue)
     TextView accountValueField;
 
+    @ViewById(R.id.filterRange)
+    Spinner filterRangeField;
+
+    @ViewById(R.id.filterLayout)
+    RelativeLayout toggleFilterLayout;
+
+    @Click(R.id.filterToggle)
+    protected void onToggleFilterVisibility() {
+        if(toggleFilterLayout.getVisibility() == View.VISIBLE) {
+            toggleFilterLayout.setVisibility(View.GONE);
+        } else {
+            toggleFilterLayout.setVisibility(View.VISIBLE);
+        }
+    }
+
     public void setListAdapter(ListAdapter listAdapter) {
         accountingList.setAdapter(listAdapter);
     }
@@ -49,5 +68,14 @@ public class AccountingListView extends BaseView {
 
     public void setAccountValue(String value) {
         accountValueField.setText(value);
+    }
+
+    public void setFilterRanges(SpinnerAdapter adapter) {
+        filterRangeField.setAdapter(adapter);
+    }
+
+    public <T> T getFilterRange() {
+        //noinspection unchecked the caller should now what kind of item he expect
+        return (T) filterRangeField.getSelectedItem();
     }
 }
