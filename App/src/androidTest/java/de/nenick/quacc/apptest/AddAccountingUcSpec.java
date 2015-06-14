@@ -1,5 +1,7 @@
 package de.nenick.quacc.apptest;
 
+import android.support.test.espresso.contrib.DrawerActions;
+
 import org.junit.Test;
 
 import de.nenick.quacc.apptest.espresso.BaseEspressoSpec;
@@ -15,6 +17,8 @@ public class AddAccountingUcSpec extends BaseEspressoSpec {
     public void shouldAddNewAccounting() {
         //accountingListPage.list().doNotContain("Monatlich");
         startApp();
+        accountingListPage.closeDrawer();
+
         accountingListPage.clickAddButton();
         addAccountingPage.isActivePage();
         addAccountingPage.chooseAccount("Bar");
@@ -32,6 +36,8 @@ public class AddAccountingUcSpec extends BaseEspressoSpec {
     @Test
     public void shouldToggleSpeechRecognition() throws InterruptedException {
         startApp();
+        accountingListPage.closeDrawer();
+
         accountingListPage.clickAddButton();
         // check toggle speech recognition on and off
         addAccountingPage.clickSpeechRecogniction();
