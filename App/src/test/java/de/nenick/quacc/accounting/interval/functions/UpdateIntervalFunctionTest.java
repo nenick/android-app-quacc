@@ -11,6 +11,8 @@ import org.mockito.MockitoAnnotations;
 
 import java.util.Date;
 
+import de.nenick.quacc.accounting.creation.CreateIntervalAccountingFunction;
+import de.nenick.quacc.accounting.creation.UpdateIntervalFunction;
 import de.nenick.quacc.database.IntervalDb;
 import de.nenick.quacc.database.provider.interval.IntervalCursor;
 

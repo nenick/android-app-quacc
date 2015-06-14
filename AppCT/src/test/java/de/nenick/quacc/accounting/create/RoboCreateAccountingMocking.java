@@ -2,8 +2,8 @@ package de.nenick.quacc.accounting.create;
 
 import android.speech.SpeechRecognizer;
 
-import de.nenick.quacc.speechrecognition.RoboSpeechRecognitionMocking;
-import de.nenick.quacc.speechrecognition.SpeechRecognitionWrapper;
+import de.nenick.quacc.view.speechrecognition.RoboSpeechRecognitionMocking;
+import de.nenick.quacc.view.accounting_create.CreateAccountingFragment;
 
 public class RoboCreateAccountingMocking {
 

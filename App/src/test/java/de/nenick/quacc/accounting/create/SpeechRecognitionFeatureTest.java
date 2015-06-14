@@ -11,8 +11,8 @@ import org.mockito.MockitoAnnotations;
 import java.util.ArrayList;
 
 import de.nenick.quacc.R;
-import de.nenick.quacc.accounting.create.speechinterpretation.RecognizeAccountingTypeFunction;
-import de.nenick.quacc.speechrecognition.SpeechRecognitionWrapper;
+import de.nenick.quacc.speechrecognition.RecognizeAccountingTypeFunction;
+import de.nenick.quacc.view.speechrecognition.SpeechRecognitionWrapper;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.BDDMockito.given;

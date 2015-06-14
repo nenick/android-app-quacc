@@ -7,13 +7,13 @@ import java.util.List;
 
 import de.nenick.quacc.R;
 import de.nenick.quacc.accounting.create.RoboCreateAccountingPage;
-import de.nenick.quacc.accounts.RoboAccountsPage;
-import de.nenick.quacc.categories.RoboCategoriesPage;
+import de.nenick.quacc.view.account.RoboAccountsPage;
+import de.nenick.quacc.category.RoboCategoriesPage;
 import de.nenick.quacc.common.util.QuAccDateUtil;
 import de.nenick.quacc.database.AccountingDb_;
 import de.nenick.quacc.database.AccountingInterval;
 import de.nenick.quacc.database.AccountingType;
-import de.nenick.quacc.i18n.MonthTranslator_;
+import de.nenick.quacc.view.i18n.MonthTranslator_;
 import de.nenick.robolectric.RoboComponentTestBase;
 import de.nenick.robolectric.RoboSup;
 import de.nenick.robolectricpages.components.RoboListViewEntry;

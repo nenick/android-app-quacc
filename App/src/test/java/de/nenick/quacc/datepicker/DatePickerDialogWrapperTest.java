@@ -1,16 +1,8 @@
-package de.nenick.quacc.datepicker;
+package de.nenick.quacc.view.datepicker;
 
-
-import android.content.Context;
-import android.test.mock.MockApplication;
-
-import net.danlew.android.joda.JodaTimeAndroid;
-import net.danlew.android.joda.ResourceZoneInfoProvider;
 
 import org.joda.time.DateTimeZone;
-import org.joda.time.JodaTimePermission;
 import org.joda.time.tz.UTCProvider;
-import org.joda.time.tz.ZoneInfoProvider;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InjectMocks;

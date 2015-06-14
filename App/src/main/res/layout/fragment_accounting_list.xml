@@ -285,7 +285,9 @@
                 android:layout_height="wrap_content"
                 tools:listitem="@layout/support_simple_spinner_dropdown_item"
                 android:id="@+id/filterRange"
-                android:layout_alignParentStart="true" />
+                android:layout_marginStart="23dp"
+                android:layout_alignParentTop="true"
+                android:layout_toEndOf="@+id/groupingMode" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -352,6 +354,14 @@
                     android:layout_alignParentTop="true"
                     android:layout_toStartOf="@+id/monthUp" />
             </RelativeLayout>
+
+            <Spinner
+                tools:listitem="@layout/support_simple_spinner_dropdown_item"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/groupingMode"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentStart="true" />
 
         </RelativeLayout>
 

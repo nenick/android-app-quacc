@@ -1,6 +1,7 @@
 package de.nenick.quacc.accounting.create;
 
 import de.nenick.quacc.R;
+import de.nenick.quacc.view.accounting_create.CreateAccountingActivity;
 import de.nenick.robolectric.RoboSup;
 import de.nenick.robolectric.RoboSupActionbarMenuItem;
 import de.nenick.robolectricpages.components.RoboActionbar;

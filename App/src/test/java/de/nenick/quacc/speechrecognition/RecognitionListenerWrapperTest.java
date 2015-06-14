@@ -1,4 +1,4 @@
-package de.nenick.quacc.speechrecognition;
+package de.nenick.quacc.view.speechrecognition;
 
 import android.os.Bundle;
 

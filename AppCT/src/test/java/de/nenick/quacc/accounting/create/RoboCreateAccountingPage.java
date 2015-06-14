@@ -13,14 +13,16 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 import de.nenick.quacc.R;
+import de.nenick.quacc.view.accounting_create.CreateAccountingActivity;
+import de.nenick.quacc.view.accounting_create.CreateAccountingActivity_;
+import de.nenick.quacc.view.accounting_create.CreateAccountingFragment;
+import de.nenick.quacc.view.speechrecognition.RecognitionListenerWrapper;
 import de.nenick.robolectric.RoboSup;
 import de.nenick.robolectric.RoboSupPage;
-import de.nenick.quacc.speechrecognition.RecognitionListenerWrapper;
 import de.nenick.robolectricpages.components.RoboImageButton;
 import de.nenick.robolectricpages.components.RoboSpinner;
 import de.nenick.robolectricpages.components.RoboTextView;
 
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
 public class RoboCreateAccountingPage extends RoboSupPage<CreateAccountingActivity_, CreateAccountingFragment> {

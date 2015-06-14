@@ -8,6 +8,7 @@ import org.mockito.MockitoAnnotations;
 
 import java.util.Date;
 
+import de.nenick.quacc.accounting.creation.CreateAccountingFunction;
 import de.nenick.quacc.database.AccountDb;
 import de.nenick.quacc.database.CategoryDb;
 import de.nenick.quacc.database.AccountingDb;

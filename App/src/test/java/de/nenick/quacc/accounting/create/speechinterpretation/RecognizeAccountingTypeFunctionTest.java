@@ -4,6 +4,8 @@ import org.junit.Test;
 
 import java.util.ArrayList;
 
+import de.nenick.quacc.speechrecognition.RecognizeAccountingTypeFunction;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class RecognizeAccountingTypeFunctionTest {

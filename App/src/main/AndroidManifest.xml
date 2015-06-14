@@ -14,7 +14,7 @@
         android:theme="@style/AppTheme"
         tools:replace="android:name" >
         <activity
-            android:name=".main.MainActivity_"
+            android:name=".view.main.MainActivity_"
             android:finishOnTaskLaunch="true"
             android:label="@string/app_name"
             android:noHistory="true" >
@@ -24,21 +24,21 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".accounting.create.CreateAccountingActivity_"
+            android:name=".view.accounting_create.CreateAccountingActivity_"
             android:label="@string/title_activity_add_accounting"
-            android:parentActivityName=".accounting.list.AccountingListActivity_" />
+            android:parentActivityName=".view.accounting_overview.AccountingListActivity_" />
         <activity
-            android:name=".accounting.list.AccountingListActivity_"
+            android:name=".view.accounting_overview.AccountingListActivity_"
             android:label="@string/title_activity_accounting_list" />
         <activity
-            android:name=".categories.CategoriesActivity_"
+            android:name=".view.category.CategoriesActivity_"
             android:label="@string/title_activity_categories"
-            android:parentActivityName=".accounting.list.AccountingListActivity_" >
+            android:parentActivityName="view.accounting_overview.AccountingListActivity_" >
         </activity>
         <activity
-            android:name=".accounts.AccountsActivity_"
+            android:name=".view.account.AccountsActivity_"
             android:label="@string/title_activity_accounts"
-            android:parentActivityName=".accounting.list.AccountingListActivity_" >
+            android:parentActivityName="view.accounting_overview.AccountingListActivity_" >
         </activity>
     </application>
 

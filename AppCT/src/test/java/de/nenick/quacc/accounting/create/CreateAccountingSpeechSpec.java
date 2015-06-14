@@ -5,6 +5,7 @@ import android.speech.SpeechRecognizer;
 
 import org.junit.Test;
 
+import de.nenick.quacc.view.accounting_create.CreateAccountingFragment;
 import de.nenick.robolectric.RoboComponentTestBase;
 import de.nenick.robolectric.RoboSup;
 

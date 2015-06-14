@@ -18,6 +18,7 @@ import de.nenick.quacc.database.IntervalAccountingDb_;
 import de.nenick.quacc.database.IntervalDb_;
 import de.nenick.quacc.database.provider.accounting.AccountingCursor;
 import de.nenick.quacc.database.provider.interval.IntervalCursor;
+import de.nenick.quacc.view.accounting_create.CreateAccountingFragment;
 import de.nenick.robolectric.RoboComponentTestBase;
 import de.nenick.robolectric.RoboSup;
 
