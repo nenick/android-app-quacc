@@ -1,0 +1,4 @@
+<resources>
+    <string name="grouping_option_no_grouping">Keine Gruppierung</string>
+    <string name="grouping_option_categories">Nach Kategorie</string>
+</resources>

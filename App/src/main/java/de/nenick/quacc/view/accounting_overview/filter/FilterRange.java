@@ -1,4 +1,4 @@
-package de.nenick.quacc.filter;
+package de.nenick.quacc.view.accounting_overview.filter;
 
 public enum  FilterRange {
 

@@ -285,9 +285,9 @@
                 android:layout_height="wrap_content"
                 tools:listitem="@layout/support_simple_spinner_dropdown_item"
                 android:id="@+id/filterRange"
-                android:layout_marginStart="23dp"
+                android:layout_marginStart="42dp"
                 android:layout_alignParentTop="true"
-                android:layout_toEndOf="@+id/groupingMode" />
+                android:layout_toEndOf="@+id/grouping" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -359,7 +359,7 @@
                 tools:listitem="@layout/support_simple_spinner_dropdown_item"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/groupingMode"
+                android:id="@+id/grouping"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentStart="true" />
 

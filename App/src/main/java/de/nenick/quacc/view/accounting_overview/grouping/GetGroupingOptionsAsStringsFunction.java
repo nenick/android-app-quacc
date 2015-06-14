@@ -1,4 +1,4 @@
-package de.nenick.quacc.filter;
+package de.nenick.quacc.view.accounting_overview.grouping;
 
 import org.androidannotations.annotations.EBean;
 
@@ -6,15 +6,13 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import de.nenick.quacc.filter.FilterRange;
-
 @EBean
-public class GetFilterRangesAsStringsFunction {
+public class GetGroupingOptionsAsStringsFunction {
 
     public Collection<String> apply() {
-        FilterRange[] values = FilterRange.values();
+        GroupingOption[] values = GroupingOption.values();
         List<String> valueStrings = new ArrayList<>();
-        for (FilterRange value : values) {
+        for (GroupingOption value : values) {
             valueStrings.add(value.name());
         }
         return valueStrings;

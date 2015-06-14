@@ -1,9 +1,8 @@
-package de.nenick.quacc.filter;
+package de.nenick.quacc.view.accounting_overview.filter;
 
 import org.androidannotations.annotations.EBean;
 import org.joda.time.DateTime;
 
-import de.nenick.quacc.filter.FilterRange;
 import de.nenick.quacc.common.util.QuAccDateUtil;
 
 @EBean

@@ -12,9 +12,10 @@ import org.androidannotations.annotations.OptionsItem;
 import org.joda.time.DateTime;
 
 import de.nenick.quacc.R;
-import de.nenick.quacc.filter.GetDateForRangeEndFunction;
-import de.nenick.quacc.filter.GetFilterRangesAsStringsFunction;
-import de.nenick.quacc.filter.GetDateForRangeStartFunction;
+import de.nenick.quacc.view.accounting_overview.adapter.GroupingOptionAdapter;
+import de.nenick.quacc.view.accounting_overview.filter.GetDateForRangeEndFunction;
+import de.nenick.quacc.view.accounting_overview.filter.GetFilterRangesAsStringsFunction;
+import de.nenick.quacc.view.accounting_overview.filter.GetDateForRangeStartFunction;
 import de.nenick.quacc.common.valueparser.ParseValueFromIntegerFunction;
 import de.nenick.quacc.common.mvp.BasePresenterFragment;
 import de.nenick.quacc.common.mvp.BaseView;
@@ -22,9 +23,10 @@ import de.nenick.quacc.common.util.QuAccDateUtil;
 import de.nenick.quacc.database.AccountDb;
 import de.nenick.quacc.database.provider.account.AccountCursor;
 import de.nenick.quacc.view.accounting_create.CreateAccountingActivity_;
+import de.nenick.quacc.view.accounting_overview.grouping.GetGroupingOptionsAsStringsFunction;
 import de.nenick.quacc.view.i18n.MonthTranslator;
 import de.nenick.quacc.view.accounting_overview.adapter.AccountingAdapter;
-import de.nenick.quacc.filter.FilterRange;
+import de.nenick.quacc.view.accounting_overview.filter.FilterRange;
 import de.nenick.quacc.view.accounting_overview.adapter.FilterRangeAdapter;
 
 @EFragment(R.layout.fragment_accounting_list)
@@ -49,6 +51,9 @@ public class AccountingListFragment extends BasePresenterFragment {
     FilterRangeAdapter filterRangeAdapter;
 
     @Bean
+    GroupingOptionAdapter groupingOptionAdapter;
+
+    @Bean
     GetDateForRangeEndFunction getDateForRangeEndFunction;
 
     @Bean
@@ -56,6 +61,9 @@ public class AccountingListFragment extends BasePresenterFragment {
 
     @Bean
     GetFilterRangesAsStringsFunction getFilterRangesAsStringsFunction;
+
+    @Bean
+    GetGroupingOptionsAsStringsFunction getGroupingOptionsAsStringsFunction;
 
     @FragmentArg
     String account;
@@ -73,6 +81,9 @@ public class AccountingListFragment extends BasePresenterFragment {
     @Override
     protected void onViewStart() {
         setHasOptionsMenu(true);
+
+        groupingOptionAdapter.addAll(getGroupingOptionsAsStringsFunction.apply());
+        view.setGroupingOption(groupingOptionAdapter);
 
         filterRangeAdapter.addAll(getFilterRangesAsStringsFunction.apply());
         view.setFilterRanges(filterRangeAdapter);

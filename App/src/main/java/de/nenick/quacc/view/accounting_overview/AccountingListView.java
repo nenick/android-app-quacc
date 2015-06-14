@@ -13,6 +13,7 @@ import org.androidannotations.annotations.ViewById;
 
 import de.nenick.quacc.R;
 import de.nenick.quacc.common.mvp.BaseView;
+import de.nenick.quacc.view.accounting_overview.adapter.GroupingOptionAdapter;
 
 @EBean
 public class AccountingListView extends BaseView {
@@ -31,6 +32,9 @@ public class AccountingListView extends BaseView {
 
     @ViewById(R.id.filterRange)
     Spinner filterRangeField;
+
+    @ViewById(R.id.grouping)
+    Spinner groupingField;
 
     @ViewById(R.id.filterLayout)
     RelativeLayout filterLayout;
@@ -85,5 +89,9 @@ public class AccountingListView extends BaseView {
 
     public void hideFilterFreeRange() {
         filterFreeRangeLayout.setVisibility(View.GONE);
+    }
+
+    public void setGroupingOption(GroupingOptionAdapter adapter) {
+        groupingField.setAdapter(adapter);
     }
 }

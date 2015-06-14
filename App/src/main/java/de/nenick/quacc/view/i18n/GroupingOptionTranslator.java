@@ -9,24 +9,25 @@ import java.util.HashMap;
 import java.util.Map;
 
 import de.nenick.quacc.view.accounting_overview.filter.FilterRange;
+import de.nenick.quacc.view.accounting_overview.grouping.GroupingOption;
 
 @EBean
-public class FilterRangeTranslator {
+public class GroupingOptionTranslator {
 
     @RootContext
     Context context;
 
-    private static Map<String, FilterRange> translated = new HashMap<>();
+    private static Map<String, GroupingOption> translated = new HashMap<>();
 
-    public FilterRange asEnum(String translation) {
+    public GroupingOption asEnum(String translation) {
         return translated.get(translation);
     }
 
     public String translate(String type) {
-        return translate(FilterRange.valueOf(type));
+        return translate(GroupingOption.valueOf(type));
     }
 
-    public String translate(FilterRange value) {
+    public String translate(GroupingOption value) {
         String translation = findCachedTranslation(value);
         if (translation == null) {
             translation = translateOrThrow(value);
@@ -35,9 +36,9 @@ public class FilterRangeTranslator {
         return translation;
     }
 
-    private String translateOrThrow(FilterRange value) {
+    private String translateOrThrow(GroupingOption value) {
         String translation;
-        String resourceName = "filter_range_" + value.name();
+        String resourceName = "grouping_option_" + value.name();
         int resourceId = context.getResources().getIdentifier(resourceName, "string", context.getPackageName());
         try {
             translation = context.getString(resourceId);
@@ -47,8 +48,8 @@ public class FilterRangeTranslator {
         return translation;
     }
 
-    private String findCachedTranslation(FilterRange value) {
-        for (Map.Entry<String, FilterRange> entry : translated.entrySet()) {
+    private String findCachedTranslation(GroupingOption value) {
+        for (Map.Entry<String, GroupingOption> entry : translated.entrySet()) {
             if(entry.getValue() == value) {
                 return entry.getKey();
             }
