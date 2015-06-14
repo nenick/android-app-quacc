@@ -6,9 +6,12 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import com.google.common.collect.Lists;
+
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EBean;
 
+import de.nenick.quacc.accounting.list.functions.GetFilterRangesFunction;
 import de.nenick.quacc.i18n.FilterRangeTranslator;
 
 @EBean
@@ -17,9 +20,10 @@ public class FilterRangeAdapter extends ArrayAdapter<String> {
     @Bean
     FilterRangeTranslator filterRangeTranslator;
 
+
+
     public FilterRangeAdapter(Context context) {
         super(context, android.R.layout.simple_spinner_dropdown_item);
-        addAll(FilterRange.all_accounting.name(), FilterRange.current_month.name());
     }
 
     @Override

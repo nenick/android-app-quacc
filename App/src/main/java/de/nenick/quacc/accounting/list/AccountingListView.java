@@ -8,12 +8,10 @@ import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 
-import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EBean;
 import org.androidannotations.annotations.ViewById;
 
 import de.nenick.quacc.R;
-import de.nenick.quacc.accounting.create.CreateAccountingActivity_;
 import de.nenick.quacc.common.mvp.BaseView;
 
 @EBean
@@ -35,14 +33,16 @@ public class AccountingListView extends BaseView {
     Spinner filterRangeField;
 
     @ViewById(R.id.filterLayout)
-    RelativeLayout toggleFilterLayout;
+    RelativeLayout filterLayout;
 
-    @Click(R.id.filterToggle)
-    protected void onToggleFilterVisibility() {
-        if(toggleFilterLayout.getVisibility() == View.VISIBLE) {
-            toggleFilterLayout.setVisibility(View.GONE);
+    @ViewById(R.id.freeRangeFilterLayout)
+    RelativeLayout filterFreeRangeLayout;
+
+    public void toggleFilterVisibility() {
+        if(filterLayout.getVisibility() == View.VISIBLE) {
+            filterLayout.setVisibility(View.GONE);
         } else {
-            toggleFilterLayout.setVisibility(View.VISIBLE);
+            filterLayout.setVisibility(View.VISIBLE);
         }
     }
 
@@ -77,5 +77,13 @@ public class AccountingListView extends BaseView {
     public <T> T getFilterRange() {
         //noinspection unchecked the caller should now what kind of item he expect
         return (T) filterRangeField.getSelectedItem();
+    }
+
+    public void showFilterFreeRange() {
+        filterFreeRangeLayout.setVisibility(View.VISIBLE);
+    }
+
+    public void hideFilterFreeRange() {
+        filterFreeRangeLayout.setVisibility(View.GONE);
     }
 }

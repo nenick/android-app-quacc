@@ -2,6 +2,7 @@
     <string name="app_name">QuAcc</string>
     <string name="action_confirm">Fertig</string>
     <string name="action_categories">Kategorien</string>
+    <string name="action_filter">Filter</string>
     <string name="action_accounts">Accounts</string>
     <string name="title_activity_accounting_list">Übersicht</string>
     <string name="title_activity_add_accounting">Neue Buchung</string>

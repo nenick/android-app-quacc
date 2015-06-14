@@ -9,9 +9,9 @@ import de.nenick.quacc.common.util.QuAccDateUtil;
 @EBean
 public class GetEndDateForRangeFunction {
 
-    public DateTime apply(String filterRange, DateTime firstDayOfSelectedMonth) {
+    public DateTime apply(FilterRange filterRange, DateTime firstDayOfSelectedMonth) {
         DateTime endDate;
-        switch (FilterRange.valueOf(filterRange)) {
+        switch (filterRange) {
             case all_accounting:
                 DateTime currentDate = QuAccDateUtil.currentDateTime();
                 if(firstDayOfSelectedMonth.monthOfYear().equals(currentDate.monthOfYear())) {
@@ -23,8 +23,11 @@ public class GetEndDateForRangeFunction {
             case current_month:
                 endDate = QuAccDateUtil.lastDayOfMonth(firstDayOfSelectedMonth);
                 break;
+            case free:
+                endDate = QuAccDateUtil.lastDayOfMonth(firstDayOfSelectedMonth);
+                break;
             default:
-                throw new IllegalStateException(filterRange);
+                throw new IllegalStateException(filterRange.name());
         }
         return endDate;
     }
