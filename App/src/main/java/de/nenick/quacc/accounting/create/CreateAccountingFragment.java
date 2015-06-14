@@ -1,6 +1,7 @@
 package de.nenick.quacc.accounting.create;
 
 import org.androidannotations.annotations.Bean;
+import org.androidannotations.annotations.CheckedChange;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.ItemSelect;
 import org.androidannotations.annotations.OptionsItem;
@@ -10,6 +11,7 @@ import java.util.Date;
 
 import de.nenick.quacc.R;
 import de.nenick.quacc.accounting.create.functions.CreateAccountingFunction;
+import de.nenick.quacc.accounting.interval.functions.CreateIntervalFunction;
 import de.nenick.quacc.accounting.create.functions.GetAccountingCategoriesFunction;
 import de.nenick.quacc.accounting.create.functions.GetAccountingIntervalsFunction;
 import de.nenick.quacc.accounting.create.functions.GetAccountingTypesFunction;
@@ -46,6 +48,9 @@ public class CreateAccountingFragment extends BasePresenterFragment {
     CreateAccountingFunction createAccountingFunction;
 
     @Bean
+    CreateIntervalFunction createIntervalFunction;
+
+    @Bean
     ParseValueFromStringFunction parseValueFromStringFunction;
 
     @Bean
@@ -67,21 +72,22 @@ public class CreateAccountingFragment extends BasePresenterFragment {
 
     @Override
     protected void onViewStart() {
-        view.showAccounts(getAccountsFunction.apply());
+        view.setDate(QuAccDateUtil.currentDate());
+        view.setEndDate(QuAccDateUtil.currentDate());
+        view.hideEndDate();
+
+        view.setAccounts(getAccountsFunction.apply());
         speechRecognitionFeature.setView(view);
 
-
         intervalAdapter.addAll(getAccountingIntervalsFunction.apply());
-        view.showAccountingIntervals(intervalAdapter);
+        view.setAccountingIntervals(intervalAdapter);
         view.setAccountingInterval(AccountingInterval.once.name());
 
         typeAdapter.addAll(getAccountingTypesFunction.apply());
-        view.showAccountingTypes(typeAdapter);
+        view.setAccountingTypes(typeAdapter);
         view.setAccountingType(AccountingType.outgoing.name());
 
-        view.showDate(QuAccDateUtil.currentDate());
-
-        view.showAccountingCategories(categoryAdapter);
+        view.setAccountingCategories(categoryAdapter);
         reloadCategories();
 
     }
@@ -110,7 +116,18 @@ public class CreateAccountingFragment extends BasePresenterFragment {
             String comment = view.getComment();
             view.finish();
             Date date = QuAccDateUtil.toDate(dateString);
-            createAccountingFunction.apply(account, accountingType, accountingInterval, accountingCategory, date, valueResult.value, comment);
+            if(accountingInterval.equals(AccountingInterval.once.name())) {
+                createAccountingFunction.apply(account, accountingType, accountingInterval, accountingCategory, date, valueResult.value, comment);
+            } else {
+                if(view.isEndDateActive()) {
+                    String endDateString = view.getEndDate();
+                    Date endDate = QuAccDateUtil.toDate(endDateString);
+                    createIntervalFunction.applyWithEndDate(account, accountingType, accountingInterval, accountingCategory, date, endDate
+                            , valueResult.value, comment);
+                } else {
+                    createIntervalFunction.apply(account, accountingType, accountingInterval, accountingCategory, date, valueResult.value, comment);
+                }
+            }
         } else {
             showParsingError(valueResult);
         }
@@ -136,8 +153,22 @@ public class CreateAccountingFragment extends BasePresenterFragment {
         }
     }
 
+    @CheckedChange(R.id.endDateCheck)
+    public void onToggleEndDate() {
+        if(view.isEndDateActive()) {
+            view.enableEndDate();
+        } else {
+            view.disableEndDate();
+        }
+    }
+
     @ItemSelect(R.id.interval)
     public void onIntervalSelection(boolean selected, int position) {
+        if(view.getAccountingInterval().equals(AccountingInterval.once.name())) {
+            view.hideEndDate();
+        } else {
+            view.showEndDate();
+        }
         reloadCategories();
     }
 
@@ -153,7 +184,7 @@ public class CreateAccountingFragment extends BasePresenterFragment {
             return;
         }
         categoryAdapter.updateFor(accountingInterval, accountingType);
-        //view.showAccountingCategories(getAccountingCategoriesFunction.apply(accountingInterval, accountingType));
+        //view.setAccountingCategories(getAccountingCategoriesFunction.apply(accountingInterval, accountingType));
     }
 
     private boolean isViewNotFullInitialized(String accountingInterval, String accountingType) {

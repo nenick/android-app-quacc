@@ -1,4 +1,4 @@
-package de.nenick.quacc.database.provider.accounting;
+package de.nenick.quacc.database.provider.interval;
 
 import android.net.Uri;
 import android.provider.BaseColumns;
@@ -11,10 +11,10 @@ import de.nenick.quacc.database.provider.interval.IntervalColumns;
 import de.nenick.quacc.database.provider.intervalaccounting.IntervalAccountingColumns;
 
 /**
- * Columns for the {@code accounting} table.
+ * Columns for the {@code interval} table.
  */
-public class AccountingColumns implements BaseColumns {
-    public static final String TABLE_NAME = "accounting";
+public class IntervalColumns implements BaseColumns {
+    public static final String TABLE_NAME = "interval";
     public static final Uri CONTENT_URI = Uri.parse(QuAccProvider.CONTENT_URI_BASE + "/" + TABLE_NAME);
 
     /**
@@ -22,22 +22,38 @@ public class AccountingColumns implements BaseColumns {
      */
     public static final String _ID = BaseColumns._ID;
 
-    public static final String ACCOUNT_ID = "accounting__account_id";
+    public static final String ACCOUNT_ID = "interval__account_id";
 
-    public static final String CATEGORY_ID = "accounting__category_id";
+    public static final String CATEGORY_ID = "interval__category_id";
 
-    public static final String COMMENT = "accounting__comment";
+    public static final String COMMENT = "interval__comment";
 
-    public static final String INTERVAL = "accounting__interval";
+    /**
+     * The type of this interval how it will add accounting.
+     */
+    public static final String INTERVAL = "interval__interval";
 
-    public static final String DATE = "date";
+    /**
+     * Start date when the interval have the first accounting.
+     */
+    public static final String DATE_START = "date_start";
 
-    public static final String TYPE = "accounting__type";
+    /**
+     * Last date where the interval is active. This must not match the last accounting date.
+     */
+    public static final String DATE_END = "date_end";
+
+    /**
+     * Until this date all accounting which belong to this interval are created or updated.
+     */
+    public static final String DATE_UPDATED_UNTIL = "date_updated_until";
+
+    public static final String TYPE = "interval__type";
 
     /**
      * Values are stored in 100 cent.
      */
-    public static final String VALUE = "accounting__value";
+    public static final String VALUE = "interval__value";
 
 
     public static final String DEFAULT_ORDER = TABLE_NAME + "." +_ID;
@@ -49,7 +65,9 @@ public class AccountingColumns implements BaseColumns {
             CATEGORY_ID,
             COMMENT,
             INTERVAL,
-            DATE,
+            DATE_START,
+            DATE_END,
+            DATE_UPDATED_UNTIL,
             TYPE,
             VALUE
     };
@@ -62,7 +80,9 @@ public class AccountingColumns implements BaseColumns {
             if (c.equals(CATEGORY_ID) || c.contains("." + CATEGORY_ID)) return true;
             if (c.equals(COMMENT) || c.contains("." + COMMENT)) return true;
             if (c.equals(INTERVAL) || c.contains("." + INTERVAL)) return true;
-            if (c.equals(DATE) || c.contains("." + DATE)) return true;
+            if (c.equals(DATE_START) || c.contains("." + DATE_START)) return true;
+            if (c.equals(DATE_END) || c.contains("." + DATE_END)) return true;
+            if (c.equals(DATE_UPDATED_UNTIL) || c.contains("." + DATE_UPDATED_UNTIL)) return true;
             if (c.equals(TYPE) || c.contains("." + TYPE)) return true;
             if (c.equals(VALUE) || c.contains("." + VALUE)) return true;
         }

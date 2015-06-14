@@ -59,5 +59,8 @@ public class QuAccDateUtil {
         return dateTime.minusMonths(1).getMonthOfYear();
     }
 
-
+    public static boolean isGreaterEq(Date base, DateTime expectedToBeGreater) {
+        int compareResult = new DateTime(base).compareTo(expectedToBeGreater);
+        return compareResult == -1 || compareResult == 0;
+    }
 }

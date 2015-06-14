@@ -1,0 +1,22 @@
+{
+  "fields": [
+    {
+      "name": "interval_id",
+      "type": "Long",
+      "nullable": false,
+      "foreignKey": {
+        "table": "interval",
+        "onDelete": "CASCADE"
+      }
+    },
+    {
+      "name": "accounting_id",
+      "type": "Long",
+      "nullable": false,
+      "foreignKey": {
+        "table": "accounting",
+        "onDelete": "CASCADE"
+      }
+    }
+  ]
+}

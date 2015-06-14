@@ -21,7 +21,7 @@ public class RoboAccountingListPage extends RoboSupPage<AccountingListActivity_,
     @Override
     public void startPage() {
         super.startPage();
-        // don't know why but this page starts with an open drawer. in real it does not.
+        // At first start the drawer is open per default. This behaviour is android default.
         drawer().close();
     }
 

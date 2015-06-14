@@ -20,4 +20,6 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="action_example">Example action</string>
+    <string name="title_activity_navigation_drawer_check">NavigationDrawerCheck</string>
+    <string name="title_activity_navi_check">NaviCheck</string>
 </resources>

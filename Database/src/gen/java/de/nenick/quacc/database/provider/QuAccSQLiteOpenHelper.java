@@ -13,6 +13,8 @@ import de.nenick.quacc.database.BuildConfig;
 import de.nenick.quacc.database.provider.account.AccountColumns;
 import de.nenick.quacc.database.provider.accounting.AccountingColumns;
 import de.nenick.quacc.database.provider.category.CategoryColumns;
+import de.nenick.quacc.database.provider.interval.IntervalColumns;
+import de.nenick.quacc.database.provider.intervalaccounting.IntervalAccountingColumns;
 
 public class QuAccSQLiteOpenHelper extends SQLiteOpenHelper {
     private static final String TAG = QuAccSQLiteOpenHelper.class.getSimpleName();
@@ -54,6 +56,31 @@ public class QuAccSQLiteOpenHelper extends SQLiteOpenHelper {
             + CategoryColumns.INTERVAL + " TEXT NOT NULL, "
             + CategoryColumns.TYPE + " TEXT NOT NULL, "
             + CategoryColumns.LEVEL + " INTEGER NOT NULL "
+            + " );";
+
+    public static final String SQL_CREATE_TABLE_INTERVAL = "CREATE TABLE IF NOT EXISTS "
+            + IntervalColumns.TABLE_NAME + " ( "
+            + IntervalColumns._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+            + IntervalColumns.ACCOUNT_ID + " INTEGER NOT NULL, "
+            + IntervalColumns.CATEGORY_ID + " INTEGER NOT NULL, "
+            + IntervalColumns.COMMENT + " TEXT, "
+            + IntervalColumns.INTERVAL + " TEXT NOT NULL, "
+            + IntervalColumns.DATE_START + " INTEGER NOT NULL, "
+            + IntervalColumns.DATE_END + " INTEGER NOT NULL, "
+            + IntervalColumns.DATE_UPDATED_UNTIL + " INTEGER NOT NULL, "
+            + IntervalColumns.TYPE + " TEXT NOT NULL, "
+            + IntervalColumns.VALUE + " INTEGER NOT NULL "
+            + ", CONSTRAINT fk_account_id FOREIGN KEY (" + IntervalColumns.ACCOUNT_ID + ") REFERENCES account (_id) ON DELETE CASCADE"
+            + ", CONSTRAINT fk_category_id FOREIGN KEY (" + IntervalColumns.CATEGORY_ID + ") REFERENCES category (_id) ON DELETE CASCADE"
+            + " );";
+
+    public static final String SQL_CREATE_TABLE_INTERVAL_ACCOUNTING = "CREATE TABLE IF NOT EXISTS "
+            + IntervalAccountingColumns.TABLE_NAME + " ( "
+            + IntervalAccountingColumns._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+            + IntervalAccountingColumns.INTERVAL_ID + " INTEGER NOT NULL, "
+            + IntervalAccountingColumns.ACCOUNTING_ID + " INTEGER NOT NULL "
+            + ", CONSTRAINT fk_interval_id FOREIGN KEY (" + IntervalAccountingColumns.INTERVAL_ID + ") REFERENCES interval (_id) ON DELETE CASCADE"
+            + ", CONSTRAINT fk_accounting_id FOREIGN KEY (" + IntervalAccountingColumns.ACCOUNTING_ID + ") REFERENCES accounting (_id) ON DELETE CASCADE"
             + " );";
 
     // @formatter:on
@@ -113,6 +140,8 @@ public class QuAccSQLiteOpenHelper extends SQLiteOpenHelper {
         db.execSQL(SQL_CREATE_TABLE_ACCOUNT);
         db.execSQL(SQL_CREATE_TABLE_ACCOUNTING);
         db.execSQL(SQL_CREATE_TABLE_CATEGORY);
+        db.execSQL(SQL_CREATE_TABLE_INTERVAL);
+        db.execSQL(SQL_CREATE_TABLE_INTERVAL_ACCOUNTING);
         mOpenHelperCallbacks.onPostCreate(mContext, db);
     }
 

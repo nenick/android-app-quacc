@@ -40,9 +40,9 @@ public class CategoriesFragment extends BasePresenterFragment {
 
     @Override
     protected void onViewStart() {
-        //view.showAccountingTypes(getAccountingTypesFunction.apply());
-        //view.showAccountingCategories(getAccountingCategoriesFunction.apply());
-        //view.showAccountingIntervals(getAccountingIntervalsFunction.apply());
+        //view.setAccountingTypes(getAccountingTypesFunction.apply());
+        //view.setAccountingCategories(getAccountingCategoriesFunction.apply());
+        //view.setAccountingIntervals(getAccountingIntervalsFunction.apply());
         view.setListAdapter(categoryListAdapter);
     }
 

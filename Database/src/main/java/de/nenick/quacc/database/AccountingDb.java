@@ -1,6 +1,8 @@
 package de.nenick.quacc.database;
 
+import android.content.ContentUris;
 import android.content.Context;
+import android.net.Uri;
 
 import org.androidannotations.annotations.EBean;
 import org.androidannotations.annotations.RootContext;
@@ -18,8 +20,8 @@ public class AccountingDb {
     @RootContext
     Context context;
 
-    public void insert(long accountId, String accountingType, String accountingInterval, long accountingCategoryId, Date date, String comment, int value) {
-        new AccountingContentValues()
+    public long insert(long accountId, String accountingType, String accountingInterval, long accountingCategoryId, Date date, String comment, int value) {
+        Uri uri = new AccountingContentValues()
                 .putAccountId(accountId)
                 .putType(accountingType)
                 .putInterval(accountingInterval)
@@ -27,6 +29,7 @@ public class AccountingDb {
                 .putDate(date)
                 .putComment(comment)
                 .putValue(value).insert(context.getContentResolver());
+        return ContentUris.parseId(uri);
     }
 
     public AccountingCursor getAll() {

@@ -15,6 +15,8 @@ import de.nenick.quacc.database.provider.base.BaseContentProvider;
 import de.nenick.quacc.database.provider.account.AccountColumns;
 import de.nenick.quacc.database.provider.accounting.AccountingColumns;
 import de.nenick.quacc.database.provider.category.CategoryColumns;
+import de.nenick.quacc.database.provider.interval.IntervalColumns;
+import de.nenick.quacc.database.provider.intervalaccounting.IntervalAccountingColumns;
 
 public class QuAccProvider extends BaseContentProvider {
     private static final String TAG = QuAccProvider.class.getSimpleName();
@@ -36,6 +38,12 @@ public class QuAccProvider extends BaseContentProvider {
     private static final int URI_TYPE_CATEGORY = 4;
     private static final int URI_TYPE_CATEGORY_ID = 5;
 
+    private static final int URI_TYPE_INTERVAL = 6;
+    private static final int URI_TYPE_INTERVAL_ID = 7;
+
+    private static final int URI_TYPE_INTERVAL_ACCOUNTING = 8;
+    private static final int URI_TYPE_INTERVAL_ACCOUNTING_ID = 9;
+
 
 
     private static final UriMatcher URI_MATCHER = new UriMatcher(UriMatcher.NO_MATCH);
@@ -47,6 +55,10 @@ public class QuAccProvider extends BaseContentProvider {
         URI_MATCHER.addURI(AUTHORITY, AccountingColumns.TABLE_NAME + "/#", URI_TYPE_ACCOUNTING_ID);
         URI_MATCHER.addURI(AUTHORITY, CategoryColumns.TABLE_NAME, URI_TYPE_CATEGORY);
         URI_MATCHER.addURI(AUTHORITY, CategoryColumns.TABLE_NAME + "/#", URI_TYPE_CATEGORY_ID);
+        URI_MATCHER.addURI(AUTHORITY, IntervalColumns.TABLE_NAME, URI_TYPE_INTERVAL);
+        URI_MATCHER.addURI(AUTHORITY, IntervalColumns.TABLE_NAME + "/#", URI_TYPE_INTERVAL_ID);
+        URI_MATCHER.addURI(AUTHORITY, IntervalAccountingColumns.TABLE_NAME, URI_TYPE_INTERVAL_ACCOUNTING);
+        URI_MATCHER.addURI(AUTHORITY, IntervalAccountingColumns.TABLE_NAME + "/#", URI_TYPE_INTERVAL_ACCOUNTING_ID);
     }
 
     @Override
@@ -77,6 +89,16 @@ public class QuAccProvider extends BaseContentProvider {
                 return TYPE_CURSOR_DIR + CategoryColumns.TABLE_NAME;
             case URI_TYPE_CATEGORY_ID:
                 return TYPE_CURSOR_ITEM + CategoryColumns.TABLE_NAME;
+
+            case URI_TYPE_INTERVAL:
+                return TYPE_CURSOR_DIR + IntervalColumns.TABLE_NAME;
+            case URI_TYPE_INTERVAL_ID:
+                return TYPE_CURSOR_ITEM + IntervalColumns.TABLE_NAME;
+
+            case URI_TYPE_INTERVAL_ACCOUNTING:
+                return TYPE_CURSOR_DIR + IntervalAccountingColumns.TABLE_NAME;
+            case URI_TYPE_INTERVAL_ACCOUNTING_ID:
+                return TYPE_CURSOR_ITEM + IntervalAccountingColumns.TABLE_NAME;
 
         }
         return null;
@@ -150,6 +172,46 @@ public class QuAccProvider extends BaseContentProvider {
                 res.orderBy = CategoryColumns.DEFAULT_ORDER;
                 break;
 
+            case URI_TYPE_INTERVAL:
+            case URI_TYPE_INTERVAL_ID:
+                res.table = IntervalColumns.TABLE_NAME;
+                res.idColumn = IntervalColumns._ID;
+                res.tablesWithJoins = IntervalColumns.TABLE_NAME;
+                if (AccountColumns.hasColumns(projection)) {
+                    res.tablesWithJoins += " LEFT OUTER JOIN " + AccountColumns.TABLE_NAME + " AS " + IntervalColumns.PREFIX_ACCOUNT + " ON " + IntervalColumns.TABLE_NAME + "." + IntervalColumns.ACCOUNT_ID + "=" + IntervalColumns.PREFIX_ACCOUNT + "." + AccountColumns._ID;
+                }
+                if (CategoryColumns.hasColumns(projection)) {
+                    res.tablesWithJoins += " LEFT OUTER JOIN " + CategoryColumns.TABLE_NAME + " AS " + IntervalColumns.PREFIX_CATEGORY + " ON " + IntervalColumns.TABLE_NAME + "." + IntervalColumns.CATEGORY_ID + "=" + IntervalColumns.PREFIX_CATEGORY + "." + CategoryColumns._ID;
+                }
+                res.orderBy = IntervalColumns.DEFAULT_ORDER;
+                break;
+
+            case URI_TYPE_INTERVAL_ACCOUNTING:
+            case URI_TYPE_INTERVAL_ACCOUNTING_ID:
+                res.table = IntervalAccountingColumns.TABLE_NAME;
+                res.idColumn = IntervalAccountingColumns._ID;
+                res.tablesWithJoins = IntervalAccountingColumns.TABLE_NAME;
+                if (IntervalColumns.hasColumns(projection) || AccountColumns.hasColumns(projection) || CategoryColumns.hasColumns(projection)) {
+                    res.tablesWithJoins += " LEFT OUTER JOIN " + IntervalColumns.TABLE_NAME + " AS " + IntervalAccountingColumns.PREFIX_INTERVAL + " ON " + IntervalAccountingColumns.TABLE_NAME + "." + IntervalAccountingColumns.INTERVAL_ID + "=" + IntervalAccountingColumns.PREFIX_INTERVAL + "." + IntervalColumns._ID;
+                }
+                if (AccountColumns.hasColumns(projection)) {
+                    res.tablesWithJoins += " LEFT OUTER JOIN " + AccountColumns.TABLE_NAME + " AS " + IntervalColumns.PREFIX_ACCOUNT + " ON " + IntervalAccountingColumns.PREFIX_INTERVAL + "." + IntervalColumns.ACCOUNT_ID + "=" + IntervalColumns.PREFIX_ACCOUNT + "." + AccountColumns._ID;
+                }
+                if (CategoryColumns.hasColumns(projection)) {
+                    res.tablesWithJoins += " LEFT OUTER JOIN " + CategoryColumns.TABLE_NAME + " AS " + IntervalColumns.PREFIX_CATEGORY + " ON " + IntervalAccountingColumns.PREFIX_INTERVAL + "." + IntervalColumns.CATEGORY_ID + "=" + IntervalColumns.PREFIX_CATEGORY + "." + CategoryColumns._ID;
+                }
+                if (AccountingColumns.hasColumns(projection) || AccountColumns.hasColumns(projection) || CategoryColumns.hasColumns(projection)) {
+                    res.tablesWithJoins += " LEFT OUTER JOIN " + AccountingColumns.TABLE_NAME + " AS " + IntervalAccountingColumns.PREFIX_ACCOUNTING + " ON " + IntervalAccountingColumns.TABLE_NAME + "." + IntervalAccountingColumns.ACCOUNTING_ID + "=" + IntervalAccountingColumns.PREFIX_ACCOUNTING + "." + AccountingColumns._ID;
+                }
+                if (AccountColumns.hasColumns(projection)) {
+                    res.tablesWithJoins += " LEFT OUTER JOIN " + AccountColumns.TABLE_NAME + " AS " + AccountingColumns.PREFIX_ACCOUNT + " ON " + IntervalAccountingColumns.PREFIX_ACCOUNTING + "." + AccountingColumns.ACCOUNT_ID + "=" + AccountingColumns.PREFIX_ACCOUNT + "." + AccountColumns._ID;
+                }
+                if (CategoryColumns.hasColumns(projection)) {
+                    res.tablesWithJoins += " LEFT OUTER JOIN " + CategoryColumns.TABLE_NAME + " AS " + AccountingColumns.PREFIX_CATEGORY + " ON " + IntervalAccountingColumns.PREFIX_ACCOUNTING + "." + AccountingColumns.CATEGORY_ID + "=" + AccountingColumns.PREFIX_CATEGORY + "." + CategoryColumns._ID;
+                }
+                res.orderBy = IntervalAccountingColumns.DEFAULT_ORDER;
+                break;
+
             default:
                 throw new IllegalArgumentException("The uri '" + uri + "' is not supported by this ContentProvider");
         }
@@ -158,6 +220,8 @@ public class QuAccProvider extends BaseContentProvider {
             case URI_TYPE_ACCOUNT_ID:
             case URI_TYPE_ACCOUNTING_ID:
             case URI_TYPE_CATEGORY_ID:
+            case URI_TYPE_INTERVAL_ID:
+            case URI_TYPE_INTERVAL_ACCOUNTING_ID:
                 id = uri.getLastPathSegment();
         }
         if (id != null) {

@@ -2,6 +2,7 @@ package de.nenick.quacc.accounting.create;
 
 import android.os.Bundle;
 import android.speech.SpeechRecognizer;
+import android.view.View;
 
 import org.junit.Test;
 
@@ -59,6 +60,9 @@ public class CreateAccountingInitialValuesSpec extends RoboComponentTestBase {
 
         entries = addAccountingPage.categorySpinner().entries();
         assertThat(entries.size()).isPositive();
+
+        assertThat(addAccountingPage.endDateField().getVisibility()).isEqualTo(View.INVISIBLE);
+        assertThat(addAccountingPage.endDateField().getText()).isEqualTo(String.format("%s.%s.%s", day(), month(), year()));
     }
 
     public Bundle speechResultBundle(String text) {

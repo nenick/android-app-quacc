@@ -43,7 +43,8 @@
                 android:layout_alignParentStart="true"
                 android:layout_below="@+id/typeLabel"
                 android:spinnerMode="dialog"
-                tools:listitem="@layout/support_simple_spinner_dropdown_item" />
+                tools:listitem="@layout/support_simple_spinner_dropdown_item"
+                android:layout_alignEnd="@+id/account" />
 
             <TextView
                 android:id="@+id/dateLabel"
@@ -51,7 +52,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
                 android:layout_below="@+id/type"
-                android:layout_marginTop="35dp"
+                android:layout_marginTop="26dp"
                 android:text="Datum" />
 
             <TextView
@@ -108,22 +109,22 @@
                 android:id="@+id/valueLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignStart="@+id/category"
-                android:layout_below="@+id/category"
-                android:layout_marginTop="33dp"
-                android:text="Betrag" />
+                android:layout_marginTop="26dp"
+                android:text="Betrag"
+                android:layout_below="@+id/endDate"
+                android:layout_toEndOf="@+id/endDateCheck" />
 
             <EditText
                 android:id="@+id/value"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignEnd="@+id/category"
-                android:layout_alignStart="@+id/valueLabel"
-                android:layout_below="@+id/valueLabel"
                 android:gravity="end"
                 android:imeOptions="flagNoExtractUi"
                 android:inputType="numberDecimal"
-                android:text="@string/initial_value" />
+                android:text="@string/initial_value"
+                android:layout_below="@+id/valueLabel"
+                android:layout_alignStart="@+id/valueLabel"
+                android:layout_alignEnd="@+id/category" />
 
             <TextView
                 android:id="@+id/accountLabel"
@@ -148,10 +149,10 @@
                 android:id="@+id/commentLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
+                android:text="Kommantar (Optional)"
                 android:layout_below="@+id/date"
-                android:layout_marginTop="33dp"
-                android:text="Kommantar (Optional)" />
+                android:layout_alignParentStart="true"
+                android:layout_marginTop="26dp" />
 
             <EditText
                 android:id="@+id/comment"
@@ -159,23 +160,48 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
                 android:layout_below="@+id/commentLabel"
-                android:imeOptions="flagNoExtractUi" />
+                android:imeOptions="flagNoExtractUi"
+                android:layout_toStartOf="@+id/endDateCheck" />
 
             <TextView
                 android:id="@+id/valueError"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignStart="@+id/value"
-                android:layout_below="@+id/value"
                 android:textColor="#FF0000"
-                tools:text="Fehler Text fall der Wert nicht geparst werden kann." />
+                tools:text="Fehler Text fall der Wert nicht geparst werden kann."
+                android:layout_marginLeft="10dp"
+                android:layout_below="@+id/value"
+                android:layout_toEndOf="@+id/endDateCheck" />
 
             <TextView
-                android:id="@+id/speechResult"
-                android:layout_width="match_parent"
+                android:id="@+id/endDateLabel"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/comment"
-                tools:text="..."/>
+                android:text="Endet am"
+                android:layout_alignTop="@+id/dateLabel"
+                android:layout_alignLeft="@+id/category"
+                android:textColor="@color/text_color_with_disable" />
+
+            <TextView
+                style="@android:style/Widget.EditText"
+                tools:text="02.02.2002"
+                android:id="@+id/endDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:focusable="false"
+                android:freezesText="true"
+                android:layout_alignBottom="@+id/date"
+                android:layout_alignStart="@+id/endDateLabel"
+                android:textColor="@color/text_color_with_disable" />
+
+            <CheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/endDateCheck"
+                android:checked="false"
+                android:layout_alignBaseline="@+id/endDateLabel"
+                android:layout_alignBottom="@+id/endDateLabel"
+                android:layout_toStartOf="@+id/category" />
 
         </RelativeLayout>
     </ScrollView>
@@ -188,5 +214,13 @@
         android:layout_alignParentEnd="true"
         android:layout_margin="16dp"
         android:src="@drawable/ic_action_mic" />
+
+    <TextView
+        android:id="@+id/speechResult"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:text="..."
+        android:layout_alignTop="@+id/btn_speech_recognition"
+        android:layout_alignParentStart="true" />
 
 </RelativeLayout>

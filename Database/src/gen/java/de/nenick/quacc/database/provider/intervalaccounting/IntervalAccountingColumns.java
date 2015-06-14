@@ -1,4 +1,4 @@
-package de.nenick.quacc.database.provider.account;
+package de.nenick.quacc.database.provider.intervalaccounting;
 
 import android.net.Uri;
 import android.provider.BaseColumns;
@@ -11,10 +11,10 @@ import de.nenick.quacc.database.provider.interval.IntervalColumns;
 import de.nenick.quacc.database.provider.intervalaccounting.IntervalAccountingColumns;
 
 /**
- * Consolidate the accounting.
+ * Columns for the {@code interval_accounting} table.
  */
-public class AccountColumns implements BaseColumns {
-    public static final String TABLE_NAME = "account";
+public class IntervalAccountingColumns implements BaseColumns {
+    public static final String TABLE_NAME = "interval_accounting";
     public static final Uri CONTENT_URI = Uri.parse(QuAccProvider.CONTENT_URI_BASE + "/" + TABLE_NAME);
 
     /**
@@ -22,15 +22,9 @@ public class AccountColumns implements BaseColumns {
      */
     public static final String _ID = BaseColumns._ID;
 
-    /**
-     * The name of the account set by the user.
-     */
-    public static final String NAME = "account__name";
+    public static final String INTERVAL_ID = "interval_id";
 
-    /**
-     * The base to calculate the current amount of money. Values are stored in 100 cent.
-     */
-    public static final String INITIALVALUE = "account__initialvalue";
+    public static final String ACCOUNTING_ID = "accounting_id";
 
 
     public static final String DEFAULT_ORDER = TABLE_NAME + "." +_ID;
@@ -38,18 +32,20 @@ public class AccountColumns implements BaseColumns {
     // @formatter:off
     public static final String[] ALL_COLUMNS = new String[] {
             _ID,
-            NAME,
-            INITIALVALUE
+            INTERVAL_ID,
+            ACCOUNTING_ID
     };
     // @formatter:on
 
     public static boolean hasColumns(String[] projection) {
         if (projection == null) return true;
         for (String c : projection) {
-            if (c.equals(NAME) || c.contains("." + NAME)) return true;
-            if (c.equals(INITIALVALUE) || c.contains("." + INITIALVALUE)) return true;
+            if (c.equals(INTERVAL_ID) || c.contains("." + INTERVAL_ID)) return true;
+            if (c.equals(ACCOUNTING_ID) || c.contains("." + ACCOUNTING_ID)) return true;
         }
         return false;
     }
 
+    public static final String PREFIX_INTERVAL = TABLE_NAME + "__" + IntervalColumns.TABLE_NAME;
+    public static final String PREFIX_ACCOUNTING = TABLE_NAME + "__" + AccountingColumns.TABLE_NAME;
 }

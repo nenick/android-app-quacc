@@ -5,10 +5,11 @@ import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.FragmentArg;
-import org.androidannotations.annotations.OptionsMenu;
+import org.joda.time.DateTime;
 
 import de.nenick.quacc.R;
 import de.nenick.quacc.accounting.create.CreateAccountingActivity_;
+import de.nenick.quacc.accounting.interval.functions.UpdateIntervalsFunction;
 import de.nenick.quacc.common.valueparser.ParseValueFromIntegerFunction;
 import de.nenick.quacc.common.mvp.BasePresenterFragment;
 import de.nenick.quacc.common.mvp.BaseView;
@@ -34,6 +35,9 @@ public class AccountingListFragment extends BasePresenterFragment {
 
     @Bean
     AccountDb accountDb;
+
+    @Bean
+    UpdateIntervalsFunction updateIntervalsFunction;
 
     @FragmentArg
     String account;
@@ -64,6 +68,10 @@ public class AccountingListFragment extends BasePresenterFragment {
         String month = view.getMonth();
         String year = view.getYear();
         if(isViewFullInitialised(month, year)) {
+
+            DateTime dateTime = new DateTime(QuAccDateUtil.toDate(1, monthTranslator.translate(month), year));
+            updateIntervalsFunction.apply(account, new DateTime(QuAccDateUtil.toDate(dateTime.dayOfMonth().getMaximumValue(), monthTranslator.translate(month), year)));
+
             accountingAdapter.updateFor(monthTranslator.translate(month), year);
         }
     }

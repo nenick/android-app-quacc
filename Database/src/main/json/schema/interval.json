@@ -1,0 +1,62 @@
+{
+  "fields": [
+    {
+      "name": "account_id",
+      "type": "Long",
+      "nullable": false,
+      "foreignKey": {
+        "table": "account",
+        "onDelete": "CASCADE"
+      }
+    },
+    {
+      "name": "category_id",
+      "type": "Long",
+      "nullable": false,
+      "foreignKey": {
+        "table": "category",
+        "onDelete": "CASCADE"
+      }
+    },
+    {
+      "name": "comment",
+      "type": "String",
+      "nullable": true
+    },
+    {
+      "documentation": "The type of this interval how it will add accounting.",
+      "name": "interval",
+      "type": "String",
+      "nullable": false
+    },
+    {
+      "documentation": "Start date when the interval have the first accounting.",
+      "name": "date_start",
+      "type": "Date",
+      "nullable": false
+    },
+    {
+      "documentation": "Last date where the interval is active. This must not match the last accounting date.",
+      "name": "date_end",
+      "type": "Date",
+      "nullable": false
+    },
+    {
+      "documentation": "Until this date all accounting which belong to this interval are created or updated.",
+      "name": "date_updated_until",
+      "type": "Date",
+      "nullable": false
+    },
+    {
+      "name": "type",
+      "type": "String",
+      "nullable": false
+    },
+    {
+      "documentation": "Values are stored in 100 cent.",
+      "name": "value",
+      "type": "Integer",
+      "nullable": false
+    }
+  ]
+}

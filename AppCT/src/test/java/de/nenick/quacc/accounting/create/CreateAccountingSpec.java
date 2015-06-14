@@ -4,14 +4,9 @@ import android.app.Application;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.robolectric.Robolectric;
-import org.robolectric.RobolectricGradleTestRunner;
 import org.robolectric.RuntimeEnvironment;
-import org.robolectric.annotation.Config;
 import org.robolectric.shadows.ShadowSQLiteConnection;
 
-import de.nenick.quacc.BuildConfig;
 import de.nenick.quacc.R;
 import de.nenick.quacc.common.util.QuAccDateUtil;
 import de.nenick.quacc.database.AccountingDb;
@@ -19,7 +14,6 @@ import de.nenick.quacc.database.AccountingDb_;
 import de.nenick.quacc.database.AccountingInterval;
 import de.nenick.quacc.database.AccountingType;
 import de.nenick.quacc.database.provider.accounting.AccountingCursor;
-import de.nenick.robolectric.AndroidStudioAwareRobolectricTestRunner;
 import de.nenick.robolectric.RoboComponentTestBase;
 import de.nenick.robolectric.RoboSup;
 
@@ -28,7 +22,7 @@ import static de.nenick.quacc.test.TestDateUtil.month;
 import static de.nenick.quacc.test.TestDateUtil.year;
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class CreateAccountingFragmentSpec extends RoboComponentTestBase {
+public class CreateAccountingSpec extends RoboComponentTestBase {
 
     RoboSup<CreateAccountingActivity_, CreateAccountingFragment> robo = new RoboSup<>();
     RoboCreateAccountingPage addAccountingPage = new RoboCreateAccountingPage(robo);
@@ -74,17 +68,8 @@ public class CreateAccountingFragmentSpec extends RoboComponentTestBase {
     @Test
     public void shouldAddAccounting()  {
         addAccountingPage.startPage();
-
-        addAccountingPage.accountSpinner().entries().get(2).select();
-        addAccountingPage.typeSpinner().entries().get(1).select();
-        addAccountingPage.intervalSpinner().entries().get(2).select();
-        addAccountingPage.categorySpinner().entries().get(0).select();
-        whenPickDate(defaultDate);
         addAccountingPage.valueField().setText("60,00");
-        addAccountingPage.commentField().setText("money money");
-
         addAccountingPage.actionbar().confirmMenuItem().click();
-
         assertThat(AccountingDb_.getInstance_(context).getAll().getCount()).isEqualTo(1);
     }
 
@@ -94,7 +79,7 @@ public class CreateAccountingFragmentSpec extends RoboComponentTestBase {
         assertThat(accountingDb.getAll().getCount()).isZero();
 
         addAccountingPage.accountSpinner().entry("Bar").select();
-        addAccountingPage.intervalSpinner().entry("Alle 3 Monate").select();
+        addAccountingPage.intervalSpinner().entry("Einmahlig").select();
         addAccountingPage.typeSpinner().entry("Einnahme").select();
         addAccountingPage.categorySpinner().entry("eBay").select();
         whenPickDate(defaultDate);
@@ -107,7 +92,7 @@ public class CreateAccountingFragmentSpec extends RoboComponentTestBase {
         assertThat(accountings.getCount()).isEqualTo(1);
         accountings.moveToFirst();
         assertThat(accountings.getAccountName()).isEqualTo("Bar");
-        assertThat(accountings.getInterval()).isEqualTo(AccountingInterval.eachThirdMonth.name());
+        assertThat(accountings.getInterval()).isEqualTo(AccountingInterval.once.name());
         assertThat(accountings.getType()).isEqualTo(AccountingType.incoming.name());
         assertThat(accountings.getCategoryName()).isEqualTo("eBay");
         assertThat(accountings.getDate()).isEqualTo(QuAccDateUtil.toDate(defaultDate));
@@ -144,7 +129,7 @@ public class CreateAccountingFragmentSpec extends RoboComponentTestBase {
         addAccountingPage.dialog().datePicker().clickOk();
 
         // instead of picking the date whe set it direct until the issue is fixed
-        robo.fragment.view.showDate(date);
+        robo.fragment.view.setDate(date);
     }
 
     private void thenHintIsShown(String noValidNumber) {

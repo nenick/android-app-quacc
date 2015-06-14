@@ -4,13 +4,10 @@ import android.content.Intent;
 
 import org.robolectric.RuntimeEnvironment;
 
-import java.awt.peer.TextComponentPeer;
-
 import de.nenick.quacc.R;
 import de.nenick.robolectric.RoboSup;
 import de.nenick.robolectric.RoboSupPage;
 import de.nenick.robolectricpages.components.RoboButton;
-import de.nenick.robolectricpages.components.RoboListViewEntry;
 import de.nenick.robolectricpages.components.RoboSpinner;
 import de.nenick.robolectricpages.components.RoboTextView;
 

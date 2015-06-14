@@ -103,4 +103,8 @@ public class RoboCreateAccountingPage extends RoboSupPage<CreateAccountingActivi
     public RoboTextView valueErrorField() {
         return new RoboTextView(robo, R.id.valueError);
     }
+
+    public RoboTextView endDateField() {
+        return new RoboTextView(robo, R.id.endDate);
+    }
 }

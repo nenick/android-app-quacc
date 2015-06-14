@@ -25,4 +25,12 @@ public class RoboTextView extends RoboBaseComponent {
     public void click() {
         RoboClickUtil.click(textView);
     }
+
+    public int getVisibility() {
+        return textView.getVisibility();
+    }
+
+    public boolean isEnabled() {
+        return textView.isEnabled();
+    }
 }

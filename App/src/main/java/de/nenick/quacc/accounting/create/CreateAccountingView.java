@@ -1,6 +1,8 @@
 package de.nenick.quacc.accounting.create;
 
+import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
@@ -47,7 +49,16 @@ public class CreateAccountingView extends BaseView {
     @ViewById(R.id.btn_speech_recognition)
     FloatingActionButton speechButton;
 
-    public void showAccounts(CharSequence[] stringArray) {
+    @ViewById(R.id.endDate)
+    TextView endDate;
+
+    @ViewById(R.id.endDateLabel)
+    TextView endDateLabel;
+
+    @ViewById(R.id.endDateCheck)
+    CheckBox endDateCheck;
+
+    public void setAccounts(CharSequence[] stringArray) {
         ArrayAdapter<CharSequence> adapter = new ArrayAdapter<>(context, android.R.layout.simple_spinner_item, stringArray);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         accountSpinner.setAdapter(adapter);
@@ -57,7 +68,7 @@ public class CreateAccountingView extends BaseView {
         return accountSpinner.getSelectedItem().toString();
     }
 
-    public void showAccountingTypes(SpinnerAdapter adapter) {
+    public void setAccountingTypes(SpinnerAdapter adapter) {
         accountingTypeSpinner.setAdapter(adapter);
     }
 
@@ -66,7 +77,7 @@ public class CreateAccountingView extends BaseView {
         return (T) accountingTypeSpinner.getSelectedItem();
     }
 
-    public void showAccountingIntervals(SpinnerAdapter adapter) {
+    public void setAccountingIntervals(SpinnerAdapter adapter) {
         accountingIntervalSpinner.setAdapter(adapter);
     }
 
@@ -75,13 +86,7 @@ public class CreateAccountingView extends BaseView {
         return (T) accountingIntervalSpinner.getSelectedItem();
     }
 
-    public void showAccountingCategories(CharSequence[] stringArray) {
-        ArrayAdapter<CharSequence> adapter = new ArrayAdapter<>(context, android.R.layout.simple_spinner_item, stringArray);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        accountingCategorySpinner.setAdapter(adapter);
-    }
-
-    public void showAccountingCategories(SpinnerAdapter adapter) {
+    public void setAccountingCategories(SpinnerAdapter adapter) {
         accountingCategorySpinner.setAdapter(adapter);
     }
 
@@ -93,7 +98,7 @@ public class CreateAccountingView extends BaseView {
         ((TextView) context.findViewById(R.id.speechResult)).setText(recognizedText);
     }
 
-    public void showDate(String dateString) {
+    public void setDate(String dateString) {
         date.setText(dateString, TextView.BufferType.NORMAL);
     }
 
@@ -118,7 +123,17 @@ public class CreateAccountingView extends BaseView {
         DatePickerDialogWrapper_.builder().build().show(new DatePickerDialogWrapper.Callback() {
             @Override
             public void onDatePick(String date) {
-                showDate(date);
+                setDate(date);
+            }
+        }, context.getSupportFragmentManager());
+    }
+
+    @Click(R.id.endDate)
+    void onShowEndDatePicker() {
+        DatePickerDialogWrapper_.builder().build().show(new DatePickerDialogWrapper.Callback() {
+            @Override
+            public void onDatePick(String date) {
+                setEndDate(date);
             }
         }, context.getSupportFragmentManager());
     }
@@ -140,6 +155,36 @@ public class CreateAccountingView extends BaseView {
         }
     }
 
+    public void hideEndDate() {
+        disableEndDate();
+        endDate.setVisibility(View.INVISIBLE);
+        endDateLabel.setVisibility(View.INVISIBLE);
+        endDateCheck.setVisibility(View.INVISIBLE);
+    }
+
+    public void enableEndDate() {
+        endDate.setEnabled(true);
+        endDateLabel.setEnabled(true);
+    }
+
+    public void disableEndDate() {
+        endDate.setEnabled(false);
+        endDateLabel.setEnabled(false);
+    }
+
+    public boolean isEndDateActive() {
+        return endDateCheck.isChecked();
+    }
+
+    public void setEndDate(String dateString) {
+        endDate.setText(dateString, TextView.BufferType.NORMAL);
+    }
+
+    public void showEndDate() {
+        endDate.setVisibility(View.VISIBLE);
+        endDateLabel.setVisibility(View.VISIBLE);
+        endDateCheck.setVisibility(View.VISIBLE);
+    }
 
     public void setAccountingInterval(String accountingInterval) {
         for (int position = 0; position < accountingIntervalSpinner.getAdapter().getCount(); position++) {
@@ -148,5 +193,9 @@ public class CreateAccountingView extends BaseView {
                 accountingIntervalSpinner.setSelection(position);
             }
         }
+    }
+
+    public String getEndDate() {
+        return endDate.getText().toString();
     }
 }
