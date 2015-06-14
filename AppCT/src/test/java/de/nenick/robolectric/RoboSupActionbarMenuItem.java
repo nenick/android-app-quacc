@@ -16,6 +16,11 @@ public class RoboSupActionbarMenuItem extends RoboActionbarMenuItem {
         this.roboSup = roboSup;
     }
 
+    public RoboSupActionbarMenuItem(RoboSup roboSup, int resourceId, int fragmentId) {
+        super(roboSup, resourceId, fragmentId);
+        this.roboSup = roboSup;
+    }
+
     @Override
     public void click() {
         RoboMenuItem menuItem = new RoboMenuItem(resourceId);
@@ -23,7 +28,12 @@ public class RoboSupActionbarMenuItem extends RoboActionbarMenuItem {
             return;
         }
         // this does not work for fragments handled by support fragment manager
-        Fragment fragmentByTag = roboSup.activity.getSupportFragmentManager().findFragmentByTag(fragmentTag);
+        Fragment fragmentByTag;
+        if(fragmentTag != null) {
+            fragmentByTag = roboSup.activity.getSupportFragmentManager().findFragmentByTag(fragmentTag);
+        } else {
+            fragmentByTag = roboSup.activity.getSupportFragmentManager().findFragmentById(fragmentId);
+        }
         if (fragmentByTag != null && fragmentByTag.onOptionsItemSelected(menuItem)) {
             return;
         }

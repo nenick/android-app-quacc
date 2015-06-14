@@ -1,6 +1,8 @@
 package de.nenick.quacc.view.accounting_overview;
 
 import android.view.View;
+import android.widget.BaseExpandableListAdapter;
+import android.widget.ExpandableListView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
@@ -17,6 +19,9 @@ import de.nenick.quacc.view.accounting_overview.adapter.GroupingOptionAdapter;
 
 @EBean
 public class AccountingListView extends BaseView {
+
+    @ViewById(R.id.listViewExpandable)
+    ExpandableListView accountingListExpandable;
 
     @ViewById(R.id.listView)
     ListView accountingList;
@@ -50,8 +55,16 @@ public class AccountingListView extends BaseView {
         }
     }
 
+    public void setListAdapter(BaseExpandableListAdapter listAdapter) {
+        accountingListExpandable.setVisibility(View.VISIBLE);
+        accountingListExpandable.setAdapter(listAdapter);
+        accountingList.setVisibility(View.GONE);
+    }
+
     public void setListAdapter(ListAdapter listAdapter) {
+        accountingList.setVisibility(View.VISIBLE);
         accountingList.setAdapter(listAdapter);
+        accountingListExpandable.setVisibility(View.GONE);
     }
 
     public void setYear(String year) {
@@ -93,5 +106,10 @@ public class AccountingListView extends BaseView {
 
     public void setGroupingOption(GroupingOptionAdapter adapter) {
         groupingField.setAdapter(adapter);
+    }
+
+    public <T> T getGroupingOption() {
+        //noinspection unchecked the caller should now what kind of item he expect
+        return (T) groupingField.getSelectedItem();
     }
 }

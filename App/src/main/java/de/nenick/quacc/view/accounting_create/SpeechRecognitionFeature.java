@@ -42,7 +42,7 @@ public class SpeechRecognitionFeature {
     }
 
     @AfterInject
-    void onAfterInject() {
+    public void onAfterInject() {
         speechRecognitionWrapper.setSpeechResultListener(new SpeechRecognitionWrapper.SpeechResultListener() {
             @Override
             public void onError(int error) {
@@ -58,7 +58,7 @@ public class SpeechRecognitionFeature {
     }
 
     @Click(R.id.btn_speech_recognition)
-    void onToggleSpeechRecognitionClick() {
+    public void onToggleSpeechRecognitionClick() {
         if (!speechRecognitionWrapper.isSpeechRecognitionAvailable()) {
             view.showToast(R.string.speech_recognition_not_available);
             return;

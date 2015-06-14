@@ -12,6 +12,7 @@ import org.androidannotations.annotations.OptionsItem;
 import org.joda.time.DateTime;
 
 import de.nenick.quacc.R;
+import de.nenick.quacc.view.accounting_overview.adapter.AccountingCursorAdapter;
 import de.nenick.quacc.view.accounting_overview.adapter.GroupingOptionAdapter;
 import de.nenick.quacc.view.accounting_overview.filter.GetDateForRangeEndFunction;
 import de.nenick.quacc.view.accounting_overview.filter.GetFilterRangesAsStringsFunction;
@@ -24,6 +25,7 @@ import de.nenick.quacc.database.AccountDb;
 import de.nenick.quacc.database.provider.account.AccountCursor;
 import de.nenick.quacc.view.accounting_create.CreateAccountingActivity_;
 import de.nenick.quacc.view.accounting_overview.grouping.GetGroupingOptionsAsStringsFunction;
+import de.nenick.quacc.view.accounting_overview.grouping.GroupingOption;
 import de.nenick.quacc.view.i18n.MonthTranslator;
 import de.nenick.quacc.view.accounting_overview.adapter.AccountingAdapter;
 import de.nenick.quacc.view.accounting_overview.filter.FilterRange;
@@ -37,6 +39,9 @@ public class AccountingListFragment extends BasePresenterFragment {
 
     @Bean
     AccountingAdapter accountingAdapter;
+
+    @Bean
+    AccountingCursorAdapter accountingCursorAdapter;
 
     @Bean
     MonthTranslator monthTranslator;
@@ -84,12 +89,13 @@ public class AccountingListFragment extends BasePresenterFragment {
 
         groupingOptionAdapter.addAll(getGroupingOptionsAsStringsFunction.apply());
         view.setGroupingOption(groupingOptionAdapter);
+        onGroupingOptionChanged();
 
         filterRangeAdapter.addAll(getFilterRangesAsStringsFunction.apply());
         view.setFilterRanges(filterRangeAdapter);
 
         accountingAdapter.setAccount(account);
-        view.setListAdapter(accountingAdapter);
+        accountingCursorAdapter.setAccount(account);
 
         changeRangeFilterToCurrentMonth();
 
@@ -127,12 +133,27 @@ public class AccountingListFragment extends BasePresenterFragment {
             DateTime startDate = getDateForRangeStartFunction.apply(filterRange, monthTranslator.translate(month), year);
             DateTime endDate = getDateForRangeEndFunction.apply(filterRange, startDate);
             accountingAdapter.changeFor(startDate, endDate);
+            accountingCursorAdapter.changeFor(startDate, endDate);
         }
     }
 
     @ItemSelect(R.id.filterRange)
     protected void onFilterByRange(boolean selected) {
         onFilterChanged();
+    }
+
+    @ItemSelect(R.id.grouping)
+    protected void onGroupingOption(boolean selected) {
+        onGroupingOptionChanged();
+    }
+
+    protected void onGroupingOptionChanged() {
+        String groupingString = view.getGroupingOption();
+        if(GroupingOption.valueOf(groupingString) == GroupingOption.no_grouping) {
+            view.setListAdapter(accountingAdapter);
+        } else {
+            view.setListAdapter(accountingCursorAdapter);
+        }
     }
 
     @Click(R.id.monthUp)

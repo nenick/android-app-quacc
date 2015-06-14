@@ -13,6 +13,7 @@ import de.nenick.quacc.database.provider.accounting.AccountingColumns;
 import de.nenick.quacc.database.provider.accounting.AccountingContentValues;
 import de.nenick.quacc.database.provider.accounting.AccountingCursor;
 import de.nenick.quacc.database.provider.accounting.AccountingSelection;
+import de.nenick.quacc.database.provider.category.CategoryColumns;
 
 @EBean
 public class AccountingDb {
@@ -38,7 +39,53 @@ public class AccountingDb {
 
     public AccountingCursor getAllBetween(long accountId, Date startDate, Date endDate) {
         AccountingSelection where = new AccountingSelection();
-        where.accountId(accountId).and().dateAfter(startDate).and().dateBefore(endDate);
+        where.accountId(accountId)
+                .and().dateAfter(startDate)
+                .and().dateBefore(endDate);
         return where.query(context.getContentResolver(), null, AccountingColumns.DATE);
+    }
+
+    public AccountingCursor getGroupsBetween(long accountId, Date startDate, Date endDate) {
+
+        String[] projection = {CategoryColumns.NAME, AccountingColumns.CATEGORY_ID, AccountingColumns.TYPE, AccountingColumns._ID, AccountingColumns._ID, "MIN(" + AccountingColumns.DATE +") AS minDate", "MAX(" + AccountingColumns.DATE +") AS date", AccountingColumns.VALUE};
+
+        AccountingSelection where = new AccountingSelection();
+        where.accountId(accountId)
+                .and().dateAfter(startDate)
+                .and().dateBefore(endDate)
+                .groupBy(AccountingColumns.CATEGORY_ID + " , " + AccountingColumns.TYPE);
+        return where.query(context.getContentResolver(), projection, AccountingColumns.DATE);
+    }
+
+    public AccountingCursor getForGroupBetween(long accountId, long categoryId, String type, Date startDate, Date endDate) {
+        AccountingSelection where = new AccountingSelection();
+        where.accountId(accountId)
+                .and().dateAfter(startDate)
+                .and().dateBefore(endDate)
+                .and().categoryId(categoryId)
+                .and().type(type);
+        return where.query(context.getContentResolver(), null, AccountingColumns.DATE);
+    }
+
+    public AccountingCursor getForGroupBetweenMaxDate(long accountId, long categoryId, String type, Date startDate, Date endDate) {
+        String[] projection = {"MAX(" + AccountingColumns.DATE +") AS date"};
+        AccountingSelection where = new AccountingSelection();
+        where.accountId(accountId)
+                .and().dateAfter(startDate)
+                .and().dateBefore(endDate)
+                .and().categoryId(categoryId)
+                .and().type(type);
+        return where.query(context.getContentResolver(), projection, AccountingColumns.DATE);
+    }
+
+    public AccountingCursor getForGroupBetweenMinDate(long accountId, long categoryId, String type, Date startDate, Date endDate) {
+        String[] projection = {"MIN(" + AccountingColumns.DATE +") AS date"};
+        AccountingSelection where = new AccountingSelection();
+        where.accountId(accountId)
+                .and().dateAfter(startDate)
+                .and().dateBefore(endDate)
+                .and().categoryId(categoryId)
+                .and().type(type);
+        return where.query(context.getContentResolver(), projection, AccountingColumns.DATE);
     }
 }

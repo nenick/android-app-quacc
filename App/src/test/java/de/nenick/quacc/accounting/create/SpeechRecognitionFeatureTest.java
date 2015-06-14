@@ -12,6 +12,8 @@ import java.util.ArrayList;
 
 import de.nenick.quacc.R;
 import de.nenick.quacc.speechrecognition.RecognizeAccountingTypeFunction;
+import de.nenick.quacc.view.accounting_create.CreateAccountingView;
+import de.nenick.quacc.view.accounting_create.SpeechRecognitionFeature;
 import de.nenick.quacc.view.speechrecognition.SpeechRecognitionWrapper;
 
 import static org.assertj.core.api.Assertions.assertThat;

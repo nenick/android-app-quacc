@@ -9,12 +9,21 @@ import de.nenick.robolectricpages.Robo;
 public class RoboActionbarMenuItem extends RoboBaseComponent {
 
     protected final int resourceId;
-    protected String fragmentTag;
+    protected final int fragmentId;
+    protected final String fragmentTag;
 
     public RoboActionbarMenuItem(Robo robo, int resourceId, String fragmentTag) {
         super(robo);
         this.resourceId = resourceId;
         this.fragmentTag = fragmentTag;
+        this.fragmentId = 0;
+    }
+
+    public RoboActionbarMenuItem(Robo robo, int resourceId, int fragmentId) {
+        super(robo);
+        this.resourceId = resourceId;
+        this.fragmentTag = null;
+        this.fragmentId = fragmentId;
     }
 
     public void click() {
@@ -23,7 +32,13 @@ public class RoboActionbarMenuItem extends RoboBaseComponent {
             return;
         }
         // this does not work for fragments handled by support fragment manager
-        Fragment fragmentByTag = robo.activity.getFragmentManager().findFragmentByTag(fragmentTag);
+        Fragment fragmentByTag;
+        if(fragmentTag != null) {
+            fragmentByTag = robo.activity.getFragmentManager().findFragmentByTag(fragmentTag);
+        } else {
+            fragmentByTag = robo.activity.getFragmentManager().findFragmentById(fragmentId);
+        }
+
         if (fragmentByTag != null && fragmentByTag.onOptionsItemSelected(menuItem)) {
             return;
         }

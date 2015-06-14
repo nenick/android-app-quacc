@@ -31,13 +31,22 @@
             android:layout_height="match_parent"
             android:layout_marginTop="15dp"
             android:id="@+id/listView"
+            android:visibility="gone"
             android:layout_below="@+id/filterLayout"
+            android:layout_above="@+id/report" />
+
+        <ExpandableListView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="15dp"
+            android:id="@+id/listViewExpandable"
+            android:layout_below="@+id/listView"
             android:layout_above="@+id/report" />
 
         <View
             android:layout_width="wrap_content"
             android:layout_height="2dp"
-            android:layout_below="@+id/listView"
+            android:layout_below="@+id/listViewExpandable"
             android:background="#c0c0c0" />
 
         <RelativeLayout
