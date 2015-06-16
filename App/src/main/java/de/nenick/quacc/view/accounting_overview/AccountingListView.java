@@ -16,6 +16,7 @@ import org.androidannotations.annotations.ViewById;
 import de.nenick.quacc.R;
 import de.nenick.quacc.common.mvp.BaseView;
 import de.nenick.quacc.view.accounting_overview.adapter.GroupingOptionAdapter;
+import de.nenick.quacc.view.accounting_overview.filter.FilterRange;
 
 @EBean
 public class AccountingListView extends BaseView {
@@ -47,11 +48,11 @@ public class AccountingListView extends BaseView {
     @ViewById(R.id.freeRangeFilterLayout)
     RelativeLayout filterFreeRangeLayout;
 
-    public void toggleFilterVisibility() {
-        if(filterLayout.getVisibility() == View.VISIBLE) {
-            filterLayout.setVisibility(View.GONE);
-        } else {
+    public void showFilterVisibility(boolean visible) {
+        if(visible) {
             filterLayout.setVisibility(View.VISIBLE);
+        } else {
+            filterLayout.setVisibility(View.GONE);
         }
     }
 
@@ -104,12 +105,32 @@ public class AccountingListView extends BaseView {
         filterFreeRangeLayout.setVisibility(View.GONE);
     }
 
-    public void setGroupingOption(GroupingOptionAdapter adapter) {
+    public void setGroupingOptions(GroupingOptionAdapter adapter) {
         groupingField.setAdapter(adapter);
+    }
+
+    public void setGroupingOption(String value) {
+        for (int position = 0; position < groupingField.getAdapter().getCount(); position++) {
+            String item = (String) groupingField.getAdapter().getItem(position);
+            if(item.equals(value)) {
+                groupingField.setSelection(position);
+            }
+        }
     }
 
     public <T> T getGroupingOption() {
         //noinspection unchecked the caller should now what kind of item he expect
         return (T) groupingField.getSelectedItem();
     }
+
+    public void setFilterRange(String value) {
+        for (int position = 0; position < filterRangeField.getAdapter().getCount(); position++) {
+            String item = (String) filterRangeField.getAdapter().getItem(position);
+            if(item.equals(value)) {
+                filterRangeField.setSelection(position);
+            }
+        }
+    }
+
+
 }

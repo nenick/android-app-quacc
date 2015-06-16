@@ -18,4 +18,14 @@
         android:title="@string/action_accounts"
         android:orderInCategory="150"
         app:showAsAction="never" />
+    <item
+        android:id="@+id/export_data"
+        android:title="export"
+        android:orderInCategory="200"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/import_data"
+        android:title="import"
+        android:orderInCategory="2001"
+        app:showAsAction="never" />
 </menu>

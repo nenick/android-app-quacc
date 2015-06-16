@@ -1,5 +1,8 @@
 package de.nenick.quacc.view.accounting_overview;
 
+import android.os.Bundle;
+import android.view.View;
+
 import com.google.common.base.Strings;
 
 import org.androidannotations.annotations.AfterTextChange;
@@ -72,6 +75,7 @@ public class AccountingListFragment extends BasePresenterFragment {
 
     @FragmentArg
     String account;
+    private boolean extended;
 
     @Override
     protected BaseView getBaseView() {
@@ -84,11 +88,19 @@ public class AccountingListFragment extends BasePresenterFragment {
     }
 
     @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        if(savedInstanceState != null ) {
+            extended = savedInstanceState.getBoolean("extended");
+        }
+    }
+
+    @Override
     protected void onViewStart() {
         setHasOptionsMenu(true);
 
         groupingOptionAdapter.addAll(getGroupingOptionsAsStringsFunction.apply());
-        view.setGroupingOption(groupingOptionAdapter);
+        view.setGroupingOptions(groupingOptionAdapter);
         onGroupingOptionChanged();
 
         filterRangeAdapter.addAll(getFilterRangesAsStringsFunction.apply());
@@ -97,20 +109,34 @@ public class AccountingListFragment extends BasePresenterFragment {
         accountingAdapter.setAccount(account);
         accountingCursorAdapter.setAccount(account);
 
-        changeRangeFilterToCurrentMonth();
+        resetFilter();
 
         AccountCursor accountCursor = accountDb.getAccountByName(account);
         accountCursor.moveToFirst();
         view.setAccountValue(parseValueFromIntegerFunction.apply(accountCursor.getInitialvalue()));
+    }
 
+    @Override
+    protected void onViewResume() {
+        view.showFilterVisibility(extended);
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putBoolean("extended", extended);
     }
 
     private void changeRangeFilterToCurrentMonth() {
         String year = QuAccDateUtil.currentYear();
+        String month = monthTranslator.translate(QuAccDateUtil.currentMonth());
+
+        // avoid not necessary reload events
         if(!view.getYear().equals(year)) {
             view.setYear(year);
         }
-        String month = monthTranslator.translate(QuAccDateUtil.currentMonth());
+
+        // avoid not necessary reload events
         if(!view.getMonth().equals(month)) {
             view.setMonth(month);
         }
@@ -128,7 +154,6 @@ public class AccountingListFragment extends BasePresenterFragment {
                 view.showFilterFreeRange();
             } else {
                 view.hideFilterFreeRange();
-                changeRangeFilterToCurrentMonth();
             }
             DateTime startDate = getDateForRangeStartFunction.apply(filterRange, monthTranslator.translate(month), year);
             DateTime endDate = getDateForRangeEndFunction.apply(filterRange, startDate);
@@ -178,7 +203,16 @@ public class AccountingListFragment extends BasePresenterFragment {
 
     @OptionsItem(R.id.filterToggle)
     protected void onToggleFilterView() {
-        view.toggleFilterVisibility();
+        view.showFilterVisibility(extended = !extended);
+        resetFilter();
+    }
+
+    private void resetFilter() {
+        changeRangeFilterToCurrentMonth();
+        view.setFilterRange(FilterRange.current_month.name());
+        view.setGroupingOption(GroupingOption.categories.name());
+        onFilterChanged();
+        onGroupingOptionChanged();
     }
 
     private boolean isViewFullInitialised(String month, String year, String filterRange) {

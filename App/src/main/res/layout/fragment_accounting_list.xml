@@ -285,7 +285,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
-            android:visibility="gone"
+            android:visibility="visible"
             tools:visibility="visible"
             android:id="@+id/filterLayout">
 
@@ -302,7 +302,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/filterRange"
-                android:visibility="gone"
+                android:visibility="visible"
                 tools:visibility="visible"
                 android:id="@+id/freeRangeFilterLayout" >
 
@@ -314,6 +314,7 @@
                     android:id="@+id/year"
                     android:layout_alignParentTop="true"
                     android:layout_alignParentStart="true"
+                    android:freezesText="true"
                     android:layout_marginStart="32dp" />
 
                 <TextView
@@ -323,6 +324,7 @@
                     tools:text="September"
                     android:id="@+id/month"
                     android:layout_marginEnd="35dp"
+                    android:freezesText="true"
                     android:layout_alignParentTop="true"
                     android:layout_alignParentEnd="true" />
 
