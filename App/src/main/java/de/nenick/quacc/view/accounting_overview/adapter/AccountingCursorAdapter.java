@@ -155,22 +155,22 @@ public class AccountingCursorAdapter extends CursorTreeAdapter implements Loader
 
     @Override
     public Loader<Cursor> onCreateLoader(final int id, Bundle bundle) {
-        if (id > 0) {
-            // child cursor
-            return new CursorLoader(context) {
-                @Override
-                public Cursor loadInBackground() {
-                    GroupData groupData = mGroupMap.get(id);
-                    return getAccountingByGroupFunction.apply(account, groupData.categoryId, groupData.type, groupData.startDate, groupData.endDate);
-                }
-            };
-        } else {
+        if (isGroupCursor(id)) {
             // group cursor
             return new CursorLoader(context) {
                 @Override
                 public Cursor loadInBackground() {
                     GroupData groupData = mGroupMap.get(id);
                     return getGroupsFunction.apply(account, groupData.startDate, groupData.endDate);
+                }
+            };
+        } else {
+            // child cursor
+            return new CursorLoader(context) {
+                @Override
+                public Cursor loadInBackground() {
+                    GroupData groupData = mGroupMap.get(id);
+                    return getAccountingByGroupFunction.apply(account, groupData.categoryId, groupData.type, groupData.startDate, groupData.endDate);
                 }
             };
         }
@@ -190,10 +190,14 @@ public class AccountingCursorAdapter extends CursorTreeAdapter implements Loader
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
         int id = loader.getId();
-        if (id != -1) {
-            setChildrenCursor(mGroupMap.get(id).groupPosition, null);
-        } else {
+        if (isGroupCursor(id)) {
             setGroupCursor(null);
+        } else {
+            setChildrenCursor(mGroupMap.get(id).groupPosition, null);
         }
+    }
+
+    private boolean isGroupCursor(int id) {
+        return id <= 0;
     }
 }
