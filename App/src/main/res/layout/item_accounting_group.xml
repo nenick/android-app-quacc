@@ -1,61 +1,57 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_height="48dp"
     android:layout_width="match_parent"
     android:orientation="horizontal"
-    android:paddingLeft="30dp"
-    android:paddingTop="10dp"
-    android:paddingBottom="10dp">
+    android:paddingStart="30dp"
+    android:paddingEnd="16dp"
+    android:gravity="center_vertical">
 
     <TextView
         android:id="@+id/date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceListItem"
-        android:text="Date"
-        android:layout_alignParentLeft="true"
-        android:layout_marginLeft="0dp"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="0dp" />
+        tools:text="20.12.2012"
+        android:layout_below="@+id/category"
+        android:layout_alignParentStart="true"
+        android:textSize="14sp" />
 
     <TextView
         android:id="@+id/category"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceListItem"
-        android:text="Category"
-        android:layout_marginStart="15dp"
+        tools:text="Category"
         android:layout_alignParentTop="true"
-        android:layout_toEndOf="@+id/endDate" />
-
-
+        android:layout_alignParentStart="true"
+        android:textSize="16sp" />
 
     <TextView
         android:id="@+id/value"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceListItem"
-        android:text="Value"
+        tools:text="Value"
         android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"
+        android:textSize="16sp" />
 
     <TextView
         android:id="@+id/endDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceListItem"
-        android:text="21.12.2012"
-        android:layout_marginLeft="5dp"
-        android:layout_marginStart="18dp"
-        android:layout_alignParentTop="true"
-        android:layout_toEndOf="@+id/dateSeparator" />
+        tools:text="21.12.2012"
+        android:layout_marginStart="5dp"
+        android:layout_alignTop="@+id/dateSeparator"
+        android:layout_toEndOf="@+id/dateSeparator"
+        android:textSize="14sp" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="-"
         android:id="@+id/dateSeparator"
-        android:layout_alignParentTop="true"
+        android:layout_marginStart="5dp"
+        android:layout_alignTop="@+id/date"
         android:layout_toEndOf="@+id/date"
-        android:layout_marginLeft="5dp" />
+        android:textSize="14sp" />
 
 </RelativeLayout>

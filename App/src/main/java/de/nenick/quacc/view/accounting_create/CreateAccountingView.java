@@ -38,7 +38,7 @@ public class CreateAccountingView extends BaseView {
     TextView date;
 
     @ViewById(R.id.value)
-    EditText value;
+    EditText valueField;
 
     @ViewById(R.id.valueError)
     TextView valueError;
@@ -107,7 +107,7 @@ public class CreateAccountingView extends BaseView {
     }
 
     public String getValue() {
-        return value.getText().toString();
+        return valueField.getText().toString();
     }
 
     public String getComment() {
@@ -186,10 +186,10 @@ public class CreateAccountingView extends BaseView {
         endDateCheck.setVisibility(View.VISIBLE);
     }
 
-    public void setAccountingInterval(String accountingInterval) {
+    public void setAccountingInterval(String value) {
         for (int position = 0; position < accountingIntervalSpinner.getAdapter().getCount(); position++) {
             String item = (String) accountingIntervalSpinner.getAdapter().getItem(position);
-            if(item.equals(accountingInterval)) {
+            if(item.equals(value)) {
                 accountingIntervalSpinner.setSelection(position);
             }
         }
@@ -197,5 +197,22 @@ public class CreateAccountingView extends BaseView {
 
     public String getEndDate() {
         return endDate.getText().toString();
+    }
+
+    public void setAccountingCategory(String value) {
+        for (int position = 0; position < accountingCategorySpinner.getAdapter().getCount(); position++) {
+            String item = (String) accountingCategorySpinner.getAdapter().getItem(position);
+            if(item.equals(value)) {
+                accountingCategorySpinner.setSelection(position);
+            }
+        }
+    }
+
+    public void setComment(String text) {
+        comment.setText(text);
+    }
+
+    public void setValue(String value) {
+        valueField.setText(value);
     }
 }

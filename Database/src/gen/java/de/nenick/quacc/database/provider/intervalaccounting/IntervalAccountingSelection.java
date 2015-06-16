@@ -488,6 +488,41 @@ public class IntervalAccountingSelection extends AbstractSelection<IntervalAccou
         return this;
     }
 
+    public IntervalAccountingSelection intervalDateLast(Date... value) {
+        addEquals(IntervalColumns.DATE_LAST, value);
+        return this;
+    }
+
+    public IntervalAccountingSelection intervalDateLastNot(Date... value) {
+        addNotEquals(IntervalColumns.DATE_LAST, value);
+        return this;
+    }
+
+    public IntervalAccountingSelection intervalDateLast(long... value) {
+        addEquals(IntervalColumns.DATE_LAST, toObjectArray(value));
+        return this;
+    }
+
+    public IntervalAccountingSelection intervalDateLastAfter(Date value) {
+        addGreaterThan(IntervalColumns.DATE_LAST, value);
+        return this;
+    }
+
+    public IntervalAccountingSelection intervalDateLastAfterEq(Date value) {
+        addGreaterThanOrEquals(IntervalColumns.DATE_LAST, value);
+        return this;
+    }
+
+    public IntervalAccountingSelection intervalDateLastBefore(Date value) {
+        addLessThan(IntervalColumns.DATE_LAST, value);
+        return this;
+    }
+
+    public IntervalAccountingSelection intervalDateLastBeforeEq(Date value) {
+        addLessThanOrEquals(IntervalColumns.DATE_LAST, value);
+        return this;
+    }
+
     public IntervalAccountingSelection intervalDateUpdatedUntil(Date... value) {
         addEquals(IntervalColumns.DATE_UPDATED_UNTIL, value);
         return this;

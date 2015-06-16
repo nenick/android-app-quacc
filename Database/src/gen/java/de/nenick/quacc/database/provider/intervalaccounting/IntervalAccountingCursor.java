@@ -189,6 +189,18 @@ public class IntervalAccountingCursor extends AbstractCursor implements Interval
     }
 
     /**
+     * This is the last account entry created by this interval.
+     * Cannot be {@code null}.
+     */
+    @NonNull
+    public Date getIntervalDateLast() {
+        Date res = getDateOrNull(IntervalColumns.DATE_LAST);
+        if (res == null)
+            throw new NullPointerException("The value of 'date_last' in the database was null, which is not allowed according to the model definition");
+        return res;
+    }
+
+    /**
      * Until this date all accounting which belong to this interval are created or updated.
      * Cannot be {@code null}.
      */

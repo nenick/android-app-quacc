@@ -49,18 +49,18 @@ public class AccountingGroupItemView extends RelativeLayout {
 
     public void showAsIncome() {
         setBackgroundColor(getResources().getColor(R.color.positiveBackground));
-        date.setTextColor(getResources().getColor(R.color.positiveText));
-        dateSeparator.setTextColor(getResources().getColor(R.color.positiveText));
-        endDate.setTextColor(getResources().getColor(R.color.positiveText));
+        date.setTextColor(getResources().getColor(R.color.positiveTextSmall));
+        dateSeparator.setTextColor(getResources().getColor(R.color.positiveTextSmall));
+        endDate.setTextColor(getResources().getColor(R.color.positiveTextSmall));
         category.setTextColor(getResources().getColor(R.color.positiveText));
         value.setTextColor(getResources().getColor(R.color.positiveText));
     }
 
     public void showAsOutgoing() {
         setBackgroundColor(getResources().getColor(R.color.negativeBackground));
-        date.setTextColor(getResources().getColor(R.color.negativeText));
-        dateSeparator.setTextColor(getResources().getColor(R.color.negativeText));
-        endDate.setTextColor(getResources().getColor(R.color.negativeText));
+        date.setTextColor(getResources().getColor(R.color.negativeTextSmall));
+        dateSeparator.setTextColor(getResources().getColor(R.color.negativeTextSmall));
+        endDate.setTextColor(getResources().getColor(R.color.negativeTextSmall));
         category.setTextColor(getResources().getColor(R.color.negativeText));
         value.setTextColor(getResources().getColor(R.color.negativeText));
     }

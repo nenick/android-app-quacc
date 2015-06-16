@@ -45,7 +45,7 @@ test:
     - mv App/build/outputs/lint-results.html $CIRCLE_TEST_REPORTS/Lint/app-lint-results.html
     - mv Database/build/outputs/lint-results.html $CIRCLE_TEST_REPORTS/Lint/database-lint-results.html
 
-    #try circleCi proper test result feature
+    #try circleCi proper test value feature
     - mkdir $CIRCLE_TEST_REPORTS/junit
     - find */build/test-results -name "*.xml" -exec cp {} $CIRCLE_TEST_REPORTS/junit/ \;
 

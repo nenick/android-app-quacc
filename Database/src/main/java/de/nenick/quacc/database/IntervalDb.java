@@ -38,13 +38,17 @@ public class IntervalDb {
                 .putDateEnd(endDate)
                 .putComment(comment)
                 .putValue(value)
+                .putDateLast(NO_DATE_GIVEN)
                 .putDateUpdatedUntil(NO_DATE_GIVEN)
                 .insert(context.getContentResolver());
         return ContentUris.parseId(uri);
     }
 
-    public void updatedUntil(long intervalId, Date updatedUntil) {
-        new IntervalContentValues().putDateUpdatedUntil(updatedUntil).update(context.getContentResolver(), new IntervalSelection().id(intervalId));
+    public void updatedUntil(long intervalId, Date lastDate, Date updatedUntil) {
+        new IntervalContentValues()
+                .putDateLast(lastDate)
+                .putDateUpdatedUntil(updatedUntil)
+                .update(context.getContentResolver(), new IntervalSelection().id(intervalId));
     }
 
     public IntervalCursor getAll() {

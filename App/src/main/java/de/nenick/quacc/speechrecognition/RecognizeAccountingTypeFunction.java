@@ -1,14 +1,38 @@
 package de.nenick.quacc.speechrecognition;
 
+import android.content.Context;
+
 import org.androidannotations.annotations.EBean;
+import org.androidannotations.annotations.RootContext;
 
 import java.util.List;
+
+import de.nenick.quacc.R;
+import de.nenick.quacc.database.AccountingType;
 
 @EBean
 public class RecognizeAccountingTypeFunction {
 
-    public String apply(List<String> recognizedText) {
-        return recognizedText.get(0);
+    @RootContext
+    Context context;
+
+    public SpeechResult apply(String recognizedText) {
+
+        String incoming = context.getResources().getString(R.string.accounting_type_incoming);
+        String outgoing = context.getResources().getString(R.string.accounting_type_outgoing);
+        String transfer = context.getResources().getString(R.string.accounting_type_transfer);
+
+        if (recognizedText.toLowerCase().contains(incoming.toLowerCase())) {
+            return new SpeechResult(AccountingType.incoming.name(), recognizedText.toLowerCase().indexOf(incoming.toLowerCase()), incoming.length());
+        }
+        if (recognizedText.toLowerCase().contains(outgoing.toLowerCase())) {
+            return new SpeechResult(AccountingType.outgoing.name(), recognizedText.toLowerCase().indexOf(outgoing.toLowerCase()), outgoing.length());
+        }
+        if (recognizedText.toLowerCase().contains(transfer.toLowerCase())) {
+            return new SpeechResult(AccountingType.transfer.name(), recognizedText.toLowerCase().indexOf(transfer.toLowerCase()), transfer.length());
+        }
+
+        return null;
     }
 
 }

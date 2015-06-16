@@ -73,7 +73,7 @@ public class UpdateIntervalFunctionTest {
         DateTime updateUntil = new DateTime(new Date(2015, 1, 2));
         updateIntervalFunction.apply(cursor, updateUntil);
 
-        verify(intervalDb).updatedUntil(intervalId, updateUntil.toDate());
+        verify(intervalDb).updatedUntil(intervalId, updateUntil.toDate(), updateUntil.toDate());
     }
 
 }

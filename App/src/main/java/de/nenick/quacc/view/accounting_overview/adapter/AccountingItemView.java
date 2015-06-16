@@ -53,19 +53,19 @@ public class AccountingItemView extends RelativeLayout {
 
     public void showAsIncome() {
         setBackgroundColor(getResources().getColor(R.color.positiveBackground));
-        date.setTextColor(getResources().getColor(R.color.positiveText));
+        date.setTextColor(getResources().getColor(R.color.positiveTextSmall));
         interval.setTextColor(getResources().getColor(R.color.positiveText));
         category.setTextColor(getResources().getColor(R.color.positiveText));
-        comment.setTextColor(getResources().getColor(R.color.positiveText));
+        comment.setTextColor(getResources().getColor(R.color.positiveTextSmall));
         value.setTextColor(getResources().getColor(R.color.positiveText));
     }
 
     public void showAsOutgoing() {
         setBackgroundColor(getResources().getColor(R.color.negativeBackground));
-        date.setTextColor(getResources().getColor(R.color.negativeText));
+        date.setTextColor(getResources().getColor(R.color.negativeTextSmall));
         interval.setTextColor(getResources().getColor(R.color.negativeText));
         category.setTextColor(getResources().getColor(R.color.negativeText));
-        comment.setTextColor(getResources().getColor(R.color.negativeText));
+        comment.setTextColor(getResources().getColor(R.color.negativeTextSmall));
         value.setTextColor(getResources().getColor(R.color.negativeText));
     }
 

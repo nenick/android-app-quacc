@@ -11,7 +11,12 @@ import org.androidannotations.annotations.RootContext;
 import java.util.ArrayList;
 
 import de.nenick.quacc.R;
+import de.nenick.quacc.database.AccountingType;
+import de.nenick.quacc.speechrecognition.RecognizeAccountingIntervalFunction;
 import de.nenick.quacc.speechrecognition.RecognizeAccountingTypeFunction;
+import de.nenick.quacc.speechrecognition.RecognizeCategoryFunction;
+import de.nenick.quacc.speechrecognition.RecognizeValueFunction;
+import de.nenick.quacc.speechrecognition.SpeechResult;
 import de.nenick.quacc.view.speechrecognition.SpeechRecognitionWrapper;
 
 @EBean
@@ -25,6 +30,15 @@ public class SpeechRecognitionFeature {
 
     @Bean
     RecognizeAccountingTypeFunction recognizeAccountingTypeFunction;
+
+    @Bean
+    RecognizeAccountingIntervalFunction recognizeAccountingIntervalFunction;
+
+    @Bean
+    RecognizeCategoryFunction recognizeCategoryFunction;
+
+    @Bean
+    RecognizeValueFunction recognizeValueFunction;
 
     CreateAccountingView view;
 
@@ -51,7 +65,7 @@ public class SpeechRecognitionFeature {
 
             @Override
             public void onResults(ArrayList<String> speechResults) {
-                interpreteSpeechResult(speechResults);
+                interpretSpeechResult(speechResults);
                 view.showSpeechStartButton();
             }
         });
@@ -72,13 +86,60 @@ public class SpeechRecognitionFeature {
         }
     }
 
-    private void interpreteSpeechResult(ArrayList<String> matches) {
-        String accountingType = recognizeAccountingTypeFunction.apply(matches);
+    private void interpretSpeechResult(ArrayList<String> matches) {
 
-        String recognizedText = "";
-        for (String match : matches) {
-            recognizedText += "[" + match + "] ";
+        // analyse more than one result is not implemented at this time
+        String notMatchedText = matches.get(0);
+
+        notMatchedText = interpretAccountingType(notMatchedText);
+        notMatchedText = interpretAccountingInterval(notMatchedText);
+        notMatchedText = interpretAccountingCategory(notMatchedText);
+        notMatchedText = interpretAccountingValue(notMatchedText);
+        if(!notMatchedText.trim().isEmpty()) {
+            view.setComment(notMatchedText);
         }
+
+        String recognizedText = "[" + matches.get(0) + "]";
+        // analyse more than one result is not implemented at this time
+        //for (String match : matches) {
+        //    recognizedText += "[" + match + "] ";
+        //}
         view.showRecognizedText(recognizedText);
+    }
+
+    private String interpretAccountingCategory(String matches) {
+        SpeechResult result = recognizeCategoryFunction.apply(matches);
+        if(result != null) {
+            view.setAccountingCategory(result.value);
+            return matches.replace(matches.substring(result.start, result.start + result.length), "").replaceAll("  ", " ");
+        }
+        return matches;
+    }
+
+    private String interpretAccountingType(String matches) {
+        SpeechResult result = recognizeAccountingTypeFunction.apply(matches);
+        if (result != null) {
+            view.setAccountingType(result.value);
+            return matches.replace(matches.substring(result.start, result.start + result.length), "").replaceAll("  ", " ");
+        }
+        return matches;
+    }
+
+    private String interpretAccountingInterval(String matches) {
+        SpeechResult result = recognizeAccountingIntervalFunction.apply(matches);
+        if (result != null) {
+            view.setAccountingInterval(result.value);
+            return matches.replace(matches.substring(result.start, result.start + result.length), "").replaceAll("  ", " ");
+        }
+        return matches;
+    }
+
+    private String interpretAccountingValue(String matches) {
+        SpeechResult result = recognizeValueFunction.apply(matches);
+        if (result != null) {
+            view.setValue(result.value);
+            return matches.replace(matches.substring(result.start, result.start + result.length), "").replaceAll("  ", " ");
+        }
+        return matches;
     }
 }

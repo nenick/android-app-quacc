@@ -28,7 +28,7 @@ public class UpdateIntervalFunction {
             lastDate = nextDate;
             nextDate = calculateNextDate(intervalCursor, lastDate);
         }
-        intervalDb.updatedUntil(intervalCursor.getId(), updateUntil.toDate());
+        intervalDb.updatedUntil(intervalCursor.getId(), lastDate, updateUntil.toDate());
     }
 
     private Date calculateNextDate(IntervalCursor intervalCursor, Date lastDate) {
@@ -56,12 +56,12 @@ public class UpdateIntervalFunction {
     }
 
     private Date createFirstAccountingIfNotDone(IntervalCursor intervalCursor) {
-        Date nextDate = intervalCursor.getDateUpdatedUntil();
-        if (intervalCursor.getDateUpdatedUntil().equals(IntervalDb.NO_DATE_GIVEN)) {
-            nextDate = intervalCursor.getDateStart();
-            update(intervalCursor, nextDate);
+        Date lastDate = intervalCursor.getDateLast();
+        if (lastDate.equals(IntervalDb.NO_DATE_GIVEN)) {
+            lastDate = intervalCursor.getDateStart();
+            update(intervalCursor, lastDate);
         }
-        return nextDate;
+        return lastDate;
     }
 
     private void update(IntervalCursor intervalCursor, Date date) {

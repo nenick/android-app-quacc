@@ -91,6 +91,21 @@ public class IntervalContentValues extends AbstractContentValues {
     }
 
     /**
+     * This is the last account entry created by this interval.
+     */
+    public IntervalContentValues putDateLast(@NonNull Date value) {
+        if (value == null) throw new IllegalArgumentException("dateLast must not be null");
+        mContentValues.put(IntervalColumns.DATE_LAST, value.getTime());
+        return this;
+    }
+
+
+    public IntervalContentValues putDateLast(long value) {
+        mContentValues.put(IntervalColumns.DATE_LAST, value);
+        return this;
+    }
+
+    /**
      * Until this date all accounting which belong to this interval are created or updated.
      */
     public IntervalContentValues putDateUpdatedUntil(@NonNull Date value) {

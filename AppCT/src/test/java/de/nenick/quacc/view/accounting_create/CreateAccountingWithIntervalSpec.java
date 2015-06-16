@@ -100,7 +100,7 @@ public class CreateAccountingWithIntervalSpec extends RoboComponentTestBase {
         addAccountingPage.dateField().click();
         assertThat(addAccountingPage.dialog().datePicker().isShowing()).isTrue();
 
-        // since updateOpenCloseState from robolectric 3.0-rc2 to rc3 picking the date result in long running tests
+        // since updateOpenCloseState from robolectric 3.0-rc2 to rc3 picking the date value in long running tests
         // the issue is tracked at https://github.com/robolectric/robolectric/issues/1838
         //addAccountingPage.dialog().datePicker().pickDate(21, 12, 2012);
 
@@ -114,7 +114,7 @@ public class CreateAccountingWithIntervalSpec extends RoboComponentTestBase {
         addAccountingPage.endDateField().click();
         assertThat(addAccountingPage.dialog().datePicker().isShowing()).isTrue();
 
-        // since updateOpenCloseState from robolectric 3.0-rc2 to rc3 picking the date result in long running tests
+        // since updateOpenCloseState from robolectric 3.0-rc2 to rc3 picking the date value in long running tests
         // the issue is tracked at https://github.com/robolectric/robolectric/issues/1838
         //addAccountingPage.dialog().datePicker().pickDate(21, 12, 2012);
 

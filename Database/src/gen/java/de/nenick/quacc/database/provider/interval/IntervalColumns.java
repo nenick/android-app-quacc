@@ -44,6 +44,11 @@ public class IntervalColumns implements BaseColumns {
     public static final String DATE_END = "date_end";
 
     /**
+     * This is the last account entry created by this interval.
+     */
+    public static final String DATE_LAST = "date_last";
+
+    /**
      * Until this date all accounting which belong to this interval are created or updated.
      */
     public static final String DATE_UPDATED_UNTIL = "date_updated_until";
@@ -67,6 +72,7 @@ public class IntervalColumns implements BaseColumns {
             INTERVAL,
             DATE_START,
             DATE_END,
+            DATE_LAST,
             DATE_UPDATED_UNTIL,
             TYPE,
             VALUE
@@ -82,6 +88,7 @@ public class IntervalColumns implements BaseColumns {
             if (c.equals(INTERVAL) || c.contains("." + INTERVAL)) return true;
             if (c.equals(DATE_START) || c.contains("." + DATE_START)) return true;
             if (c.equals(DATE_END) || c.contains("." + DATE_END)) return true;
+            if (c.equals(DATE_LAST) || c.contains("." + DATE_LAST)) return true;
             if (c.equals(DATE_UPDATED_UNTIL) || c.contains("." + DATE_UPDATED_UNTIL)) return true;
             if (c.equals(TYPE) || c.contains("." + TYPE)) return true;
             if (c.equals(VALUE) || c.contains("." + VALUE)) return true;

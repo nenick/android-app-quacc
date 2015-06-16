@@ -5,6 +5,7 @@ import org.junit.Test;
 import java.util.ArrayList;
 
 import de.nenick.quacc.speechrecognition.RecognizeAccountingTypeFunction;
+import de.nenick.quacc.speechrecognition.SpeechResult;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -14,9 +15,7 @@ public class RecognizeAccountingTypeFunctionTest {
 
     @Test
     public void testApply() throws Exception {
-        ArrayList<String> strings = new ArrayList<>();
-        strings.add("Blub");
-        String apply = recognizeAccountingTypeFunction.apply(strings);
-        assertThat(apply).isEqualTo("Blub");
+        SpeechResult apply = recognizeAccountingTypeFunction.apply("Blub");
+        assertThat(apply.value).isEqualTo("Blub");
     }
 }

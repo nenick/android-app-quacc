@@ -67,6 +67,7 @@ public class QuAccSQLiteOpenHelper extends SQLiteOpenHelper {
             + IntervalColumns.INTERVAL + " TEXT NOT NULL, "
             + IntervalColumns.DATE_START + " INTEGER NOT NULL, "
             + IntervalColumns.DATE_END + " INTEGER NOT NULL, "
+            + IntervalColumns.DATE_LAST + " INTEGER NOT NULL, "
             + IntervalColumns.DATE_UPDATED_UNTIL + " INTEGER NOT NULL, "
             + IntervalColumns.TYPE + " TEXT NOT NULL, "
             + IntervalColumns.VALUE + " INTEGER NOT NULL "

@@ -23,8 +23,10 @@ import de.nenick.quacc.accounting.GetAccountingByGroupFunction_;
 import de.nenick.quacc.accounting.GetGroupsFunction;
 import de.nenick.quacc.accounting.GetGroupsFunction_;
 import de.nenick.quacc.common.util.QuAccDateUtil;
+import de.nenick.quacc.common.valueparser.ParseValueFromIntegerFunction;
 import de.nenick.quacc.database.AccountingType;
 import de.nenick.quacc.database.provider.accounting.AccountingCursor;
+import de.nenick.quacc.view.i18n.AccountingIntervalTranslator;
 
 @EBean
 public class AccountingCursorAdapter extends CursorTreeAdapter implements LoaderManager.LoaderCallbacks<Cursor> {
@@ -34,6 +36,12 @@ public class AccountingCursorAdapter extends CursorTreeAdapter implements Loader
 
     @Bean
     GetGroupsFunction getGroupsFunction;
+
+    @Bean
+    AccountingIntervalTranslator accountingIntervalTranslator;
+
+    @Bean
+    ParseValueFromIntegerFunction parseValueFromIntegerFunction;
 
     protected HashMap<Integer, GroupData> mGroupMap = new HashMap<>();
     private Activity context;
@@ -115,7 +123,7 @@ public class AccountingCursorAdapter extends CursorTreeAdapter implements Loader
         accountingView.setEndDate(QuAccDateUtil.toString(accountingCursor.getDate()));
 
         accountingView.setCategory(accountingCursor.getCategoryName());
-        accountingView.setValue(String.valueOf(accountingCursor.getValue()));
+        accountingView.setValue(parseValueFromIntegerFunction.apply(accountingCursor.getValue()));
 
         AccountingType accountingType = AccountingType.valueOf(accountingCursor.getType());
         switch (accountingType) {
@@ -138,10 +146,10 @@ public class AccountingCursorAdapter extends CursorTreeAdapter implements Loader
         AccountingCursor accountingCursor = (AccountingCursor) cursor;
 
         accountingView.setDate(QuAccDateUtil.toString(accountingCursor.getDate()));
-        accountingView.setInterval(accountingCursor.getInterval());
+        accountingView.setInterval(accountingIntervalTranslator.translate(accountingCursor.getInterval()));
         accountingView.setCategory(accountingCursor.getCategoryName());
         accountingView.setComment(accountingCursor.getComment());
-        accountingView.setValue(String.valueOf(accountingCursor.getValue()));
+        accountingView.setValue(parseValueFromIntegerFunction.apply(accountingCursor.getValue()));
 
         AccountingType accountingType = AccountingType.valueOf(accountingCursor.getType());
         switch (accountingType) {
@@ -198,6 +206,6 @@ public class AccountingCursorAdapter extends CursorTreeAdapter implements Loader
     }
 
     private boolean isGroupCursor(int id) {
-        return id <= 0;
+        return id < 0;
     }
 }

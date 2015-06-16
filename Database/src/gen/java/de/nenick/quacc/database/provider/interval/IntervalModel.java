@@ -51,6 +51,13 @@ public interface IntervalModel extends BaseModel {
     Date getDateEnd();
 
     /**
+     * This is the last account entry created by this interval.
+     * Cannot be {@code null}.
+     */
+    @NonNull
+    Date getDateLast();
+
+    /**
      * Until this date all accounting which belong to this interval are created or updated.
      * Cannot be {@code null}.
      */

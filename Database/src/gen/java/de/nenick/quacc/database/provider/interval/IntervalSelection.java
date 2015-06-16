@@ -454,6 +454,41 @@ public class IntervalSelection extends AbstractSelection<IntervalSelection> {
         return this;
     }
 
+    public IntervalSelection dateLast(Date... value) {
+        addEquals(IntervalColumns.DATE_LAST, value);
+        return this;
+    }
+
+    public IntervalSelection dateLastNot(Date... value) {
+        addNotEquals(IntervalColumns.DATE_LAST, value);
+        return this;
+    }
+
+    public IntervalSelection dateLast(long... value) {
+        addEquals(IntervalColumns.DATE_LAST, toObjectArray(value));
+        return this;
+    }
+
+    public IntervalSelection dateLastAfter(Date value) {
+        addGreaterThan(IntervalColumns.DATE_LAST, value);
+        return this;
+    }
+
+    public IntervalSelection dateLastAfterEq(Date value) {
+        addGreaterThanOrEquals(IntervalColumns.DATE_LAST, value);
+        return this;
+    }
+
+    public IntervalSelection dateLastBefore(Date value) {
+        addLessThan(IntervalColumns.DATE_LAST, value);
+        return this;
+    }
+
+    public IntervalSelection dateLastBeforeEq(Date value) {
+        addLessThanOrEquals(IntervalColumns.DATE_LAST, value);
+        return this;
+    }
+
     public IntervalSelection dateUpdatedUntil(Date... value) {
         addEquals(IntervalColumns.DATE_UPDATED_UNTIL, value);
         return this;

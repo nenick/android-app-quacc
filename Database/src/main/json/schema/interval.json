@@ -42,6 +42,12 @@
       "nullable": false
     },
     {
+      "documentation": "This is the last account entry created by this interval.",
+      "name": "date_last",
+      "type": "Date",
+      "nullable": false
+    },
+    {
       "documentation": "Until this date all accounting which belong to this interval are created or updated.",
       "name": "date_updated_until",
       "type": "Date",
