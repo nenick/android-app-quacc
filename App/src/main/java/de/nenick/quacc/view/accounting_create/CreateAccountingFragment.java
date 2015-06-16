@@ -187,7 +187,6 @@ public class CreateAccountingFragment extends BasePresenterFragment {
             return;
         }
         categoryAdapter.updateFor(accountingInterval, accountingType);
-        //view.setAccountingCategories(getAccountingCategoriesFunction.apply(accountingInterval, accountingType));
     }
 
     private boolean isViewNotFullInitialized(String accountingInterval, String accountingType) {
