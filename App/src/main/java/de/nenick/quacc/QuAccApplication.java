@@ -1,13 +1,26 @@
 package de.nenick.quacc;
 
 import android.app.Application;
+import android.database.sqlite.SQLiteDatabase;
 
 import net.danlew.android.joda.JodaTimeAndroid;
+
+import org.androidannotations.annotations.AfterInject;
+import org.androidannotations.annotations.EApplication;
+import org.androidannotations.annotations.sharedpreferences.Pref;
 
 import java.io.IOException;
 import java.util.logging.LogManager;
 
+import de.nenick.quacc.database.provider.QuAccSQLiteOpenHelper;
+import de.nenick.quacc.initialdata.DatabaseInitialData;
+import de.nenick.quacc.settings.QuAccPreferences_;
+
+@EApplication
 public class QuAccApplication extends Application {
+
+    @Pref
+    QuAccPreferences_ pref;
 
     @Override
     public void onCreate() {
@@ -17,6 +30,18 @@ public class QuAccApplication extends Application {
             LogManager.getLogManager().readConfiguration(getAssets().open("logging.properties"));
         } catch (IOException e) {
             throw new RuntimeException(e);
+        }
+    }
+
+    @AfterInject
+    protected void setupInitialData() {
+        if (pref.isFirstAppStart().get()) {
+            SQLiteDatabase database = QuAccSQLiteOpenHelper.getInstance(this).getWritableDatabase();
+            //database.beginTransaction();
+            new DatabaseInitialData().insert(database);
+            //database.endTransaction();
+            //database.close();
+            pref.isFirstAppStart().put(false);
         }
     }
 }

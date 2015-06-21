@@ -3,9 +3,9 @@ package de.nenick.quacc.view.category;
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EBean;
 
-import de.nenick.quacc.database.AccountingInterval;
-import de.nenick.quacc.database.AccountingType;
-import de.nenick.quacc.database.CategoryDb;
+import de.nenick.quacc.accounting.interval.AccountingInterval;
+import de.nenick.quacc.accounting.type.AccountingType;
+import de.nenick.quacc.database.category.CategoryDb;
 import de.nenick.quacc.database.provider.category.CategoryCursor;
 
 @EBean

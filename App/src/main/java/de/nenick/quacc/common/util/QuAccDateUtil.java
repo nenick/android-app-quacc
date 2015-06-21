@@ -30,7 +30,11 @@ public class QuAccDateUtil {
     }
 
     public static DateTime toDateTime(int day, int month, String year) {
-        return new DateTime(toDate(day, month, Integer.parseInt(year)));
+        return toDateTime(day, month, Integer.parseInt(year));
+    }
+
+    public static DateTime toDateTime(int day, int month, int year) {
+        return DateTime.parse(day + "." + month + "." + year, defaultPattern);
     }
 
     public static Date toDate(int day, int month, String year) {

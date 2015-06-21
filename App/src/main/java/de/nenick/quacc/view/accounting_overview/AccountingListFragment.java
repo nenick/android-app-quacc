@@ -24,7 +24,7 @@ import de.nenick.quacc.common.valueparser.ParseValueFromIntegerFunction;
 import de.nenick.quacc.common.mvp.BasePresenterFragment;
 import de.nenick.quacc.common.mvp.BaseView;
 import de.nenick.quacc.common.util.QuAccDateUtil;
-import de.nenick.quacc.database.AccountDb;
+import de.nenick.quacc.database.account.AccountDb;
 import de.nenick.quacc.database.provider.account.AccountCursor;
 import de.nenick.quacc.view.accounting_create.CreateAccountingActivity_;
 import de.nenick.quacc.view.accounting_overview.grouping.GetGroupingOptionsAsStringsFunction;

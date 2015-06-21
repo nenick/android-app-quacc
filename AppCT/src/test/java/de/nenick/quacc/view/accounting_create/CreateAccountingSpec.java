@@ -8,18 +8,15 @@ import org.robolectric.RuntimeEnvironment;
 import org.robolectric.shadows.ShadowSQLiteConnection;
 
 import de.nenick.quacc.R;
+import de.nenick.quacc.accounting.interval.AccountingInterval;
+import de.nenick.quacc.accounting.type.AccountingType;
 import de.nenick.quacc.common.util.QuAccDateUtil;
-import de.nenick.quacc.database.AccountingDb;
-import de.nenick.quacc.database.AccountingDb_;
-import de.nenick.quacc.database.AccountingInterval;
-import de.nenick.quacc.database.AccountingType;
+import de.nenick.quacc.database.accounting.AccountingDb;
+import de.nenick.quacc.database.accounting.AccountingDb_;
 import de.nenick.quacc.database.provider.accounting.AccountingCursor;
 import de.nenick.robolectric.RoboComponentTestBase;
 import de.nenick.robolectric.RoboSup;
 
-import static de.nenick.quacc.test.TestDateUtil.day;
-import static de.nenick.quacc.test.TestDateUtil.month;
-import static de.nenick.quacc.test.TestDateUtil.year;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class CreateAccountingSpec extends RoboComponentTestBase {

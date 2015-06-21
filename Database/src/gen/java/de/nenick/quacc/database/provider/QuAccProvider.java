@@ -14,9 +14,11 @@ import de.nenick.quacc.database.BuildConfig;
 import de.nenick.quacc.database.provider.base.BaseContentProvider;
 import de.nenick.quacc.database.provider.account.AccountColumns;
 import de.nenick.quacc.database.provider.accounting.AccountingColumns;
+import de.nenick.quacc.database.provider.accountingtemplate.AccountingTemplateColumns;
 import de.nenick.quacc.database.provider.category.CategoryColumns;
 import de.nenick.quacc.database.provider.interval.IntervalColumns;
 import de.nenick.quacc.database.provider.intervalaccounting.IntervalAccountingColumns;
+import de.nenick.quacc.database.provider.templatematching.TemplateMatchingColumns;
 
 public class QuAccProvider extends BaseContentProvider {
     private static final String TAG = QuAccProvider.class.getSimpleName();
@@ -35,14 +37,20 @@ public class QuAccProvider extends BaseContentProvider {
     private static final int URI_TYPE_ACCOUNTING = 2;
     private static final int URI_TYPE_ACCOUNTING_ID = 3;
 
-    private static final int URI_TYPE_CATEGORY = 4;
-    private static final int URI_TYPE_CATEGORY_ID = 5;
+    private static final int URI_TYPE_ACCOUNTING_TEMPLATE = 4;
+    private static final int URI_TYPE_ACCOUNTING_TEMPLATE_ID = 5;
 
-    private static final int URI_TYPE_INTERVAL = 6;
-    private static final int URI_TYPE_INTERVAL_ID = 7;
+    private static final int URI_TYPE_CATEGORY = 6;
+    private static final int URI_TYPE_CATEGORY_ID = 7;
 
-    private static final int URI_TYPE_INTERVAL_ACCOUNTING = 8;
-    private static final int URI_TYPE_INTERVAL_ACCOUNTING_ID = 9;
+    private static final int URI_TYPE_INTERVAL = 8;
+    private static final int URI_TYPE_INTERVAL_ID = 9;
+
+    private static final int URI_TYPE_INTERVAL_ACCOUNTING = 10;
+    private static final int URI_TYPE_INTERVAL_ACCOUNTING_ID = 11;
+
+    private static final int URI_TYPE_TEMPLATE_MATCHING = 12;
+    private static final int URI_TYPE_TEMPLATE_MATCHING_ID = 13;
 
 
 
@@ -53,12 +61,16 @@ public class QuAccProvider extends BaseContentProvider {
         URI_MATCHER.addURI(AUTHORITY, AccountColumns.TABLE_NAME + "/#", URI_TYPE_ACCOUNT_ID);
         URI_MATCHER.addURI(AUTHORITY, AccountingColumns.TABLE_NAME, URI_TYPE_ACCOUNTING);
         URI_MATCHER.addURI(AUTHORITY, AccountingColumns.TABLE_NAME + "/#", URI_TYPE_ACCOUNTING_ID);
+        URI_MATCHER.addURI(AUTHORITY, AccountingTemplateColumns.TABLE_NAME, URI_TYPE_ACCOUNTING_TEMPLATE);
+        URI_MATCHER.addURI(AUTHORITY, AccountingTemplateColumns.TABLE_NAME + "/#", URI_TYPE_ACCOUNTING_TEMPLATE_ID);
         URI_MATCHER.addURI(AUTHORITY, CategoryColumns.TABLE_NAME, URI_TYPE_CATEGORY);
         URI_MATCHER.addURI(AUTHORITY, CategoryColumns.TABLE_NAME + "/#", URI_TYPE_CATEGORY_ID);
         URI_MATCHER.addURI(AUTHORITY, IntervalColumns.TABLE_NAME, URI_TYPE_INTERVAL);
         URI_MATCHER.addURI(AUTHORITY, IntervalColumns.TABLE_NAME + "/#", URI_TYPE_INTERVAL_ID);
         URI_MATCHER.addURI(AUTHORITY, IntervalAccountingColumns.TABLE_NAME, URI_TYPE_INTERVAL_ACCOUNTING);
         URI_MATCHER.addURI(AUTHORITY, IntervalAccountingColumns.TABLE_NAME + "/#", URI_TYPE_INTERVAL_ACCOUNTING_ID);
+        URI_MATCHER.addURI(AUTHORITY, TemplateMatchingColumns.TABLE_NAME, URI_TYPE_TEMPLATE_MATCHING);
+        URI_MATCHER.addURI(AUTHORITY, TemplateMatchingColumns.TABLE_NAME + "/#", URI_TYPE_TEMPLATE_MATCHING_ID);
     }
 
     @Override
@@ -85,6 +97,11 @@ public class QuAccProvider extends BaseContentProvider {
             case URI_TYPE_ACCOUNTING_ID:
                 return TYPE_CURSOR_ITEM + AccountingColumns.TABLE_NAME;
 
+            case URI_TYPE_ACCOUNTING_TEMPLATE:
+                return TYPE_CURSOR_DIR + AccountingTemplateColumns.TABLE_NAME;
+            case URI_TYPE_ACCOUNTING_TEMPLATE_ID:
+                return TYPE_CURSOR_ITEM + AccountingTemplateColumns.TABLE_NAME;
+
             case URI_TYPE_CATEGORY:
                 return TYPE_CURSOR_DIR + CategoryColumns.TABLE_NAME;
             case URI_TYPE_CATEGORY_ID:
@@ -99,6 +116,11 @@ public class QuAccProvider extends BaseContentProvider {
                 return TYPE_CURSOR_DIR + IntervalAccountingColumns.TABLE_NAME;
             case URI_TYPE_INTERVAL_ACCOUNTING_ID:
                 return TYPE_CURSOR_ITEM + IntervalAccountingColumns.TABLE_NAME;
+
+            case URI_TYPE_TEMPLATE_MATCHING:
+                return TYPE_CURSOR_DIR + TemplateMatchingColumns.TABLE_NAME;
+            case URI_TYPE_TEMPLATE_MATCHING_ID:
+                return TYPE_CURSOR_ITEM + TemplateMatchingColumns.TABLE_NAME;
 
         }
         return null;
@@ -164,6 +186,20 @@ public class QuAccProvider extends BaseContentProvider {
                 res.orderBy = AccountingColumns.DEFAULT_ORDER;
                 break;
 
+            case URI_TYPE_ACCOUNTING_TEMPLATE:
+            case URI_TYPE_ACCOUNTING_TEMPLATE_ID:
+                res.table = AccountingTemplateColumns.TABLE_NAME;
+                res.idColumn = AccountingTemplateColumns._ID;
+                res.tablesWithJoins = AccountingTemplateColumns.TABLE_NAME;
+                if (AccountColumns.hasColumns(projection)) {
+                    res.tablesWithJoins += " LEFT OUTER JOIN " + AccountColumns.TABLE_NAME + " AS " + AccountingTemplateColumns.PREFIX_ACCOUNT + " ON " + AccountingTemplateColumns.TABLE_NAME + "." + AccountingTemplateColumns.ACCOUNT_ID + "=" + AccountingTemplateColumns.PREFIX_ACCOUNT + "." + AccountColumns._ID;
+                }
+                if (CategoryColumns.hasColumns(projection)) {
+                    res.tablesWithJoins += " LEFT OUTER JOIN " + CategoryColumns.TABLE_NAME + " AS " + AccountingTemplateColumns.PREFIX_CATEGORY + " ON " + AccountingTemplateColumns.TABLE_NAME + "." + AccountingTemplateColumns.CATEGORY_ID + "=" + AccountingTemplateColumns.PREFIX_CATEGORY + "." + CategoryColumns._ID;
+                }
+                res.orderBy = AccountingTemplateColumns.DEFAULT_ORDER;
+                break;
+
             case URI_TYPE_CATEGORY:
             case URI_TYPE_CATEGORY_ID:
                 res.table = CategoryColumns.TABLE_NAME;
@@ -212,6 +248,23 @@ public class QuAccProvider extends BaseContentProvider {
                 res.orderBy = IntervalAccountingColumns.DEFAULT_ORDER;
                 break;
 
+            case URI_TYPE_TEMPLATE_MATCHING:
+            case URI_TYPE_TEMPLATE_MATCHING_ID:
+                res.table = TemplateMatchingColumns.TABLE_NAME;
+                res.idColumn = TemplateMatchingColumns._ID;
+                res.tablesWithJoins = TemplateMatchingColumns.TABLE_NAME;
+                if (AccountingTemplateColumns.hasColumns(projection) || AccountColumns.hasColumns(projection) || CategoryColumns.hasColumns(projection)) {
+                    res.tablesWithJoins += " LEFT OUTER JOIN " + AccountingTemplateColumns.TABLE_NAME + " AS " + TemplateMatchingColumns.PREFIX_ACCOUNTING_TEMPLATE + " ON " + TemplateMatchingColumns.TABLE_NAME + "." + TemplateMatchingColumns.ACCOUNTING_TEMPLATE_ID + "=" + TemplateMatchingColumns.PREFIX_ACCOUNTING_TEMPLATE + "." + AccountingTemplateColumns._ID;
+                }
+                if (AccountColumns.hasColumns(projection)) {
+                    res.tablesWithJoins += " LEFT OUTER JOIN " + AccountColumns.TABLE_NAME + " AS " + AccountingTemplateColumns.PREFIX_ACCOUNT + " ON " + TemplateMatchingColumns.PREFIX_ACCOUNTING_TEMPLATE + "." + AccountingTemplateColumns.ACCOUNT_ID + "=" + AccountingTemplateColumns.PREFIX_ACCOUNT + "." + AccountColumns._ID;
+                }
+                if (CategoryColumns.hasColumns(projection)) {
+                    res.tablesWithJoins += " LEFT OUTER JOIN " + CategoryColumns.TABLE_NAME + " AS " + AccountingTemplateColumns.PREFIX_CATEGORY + " ON " + TemplateMatchingColumns.PREFIX_ACCOUNTING_TEMPLATE + "." + AccountingTemplateColumns.CATEGORY_ID + "=" + AccountingTemplateColumns.PREFIX_CATEGORY + "." + CategoryColumns._ID;
+                }
+                res.orderBy = TemplateMatchingColumns.DEFAULT_ORDER;
+                break;
+
             default:
                 throw new IllegalArgumentException("The uri '" + uri + "' is not supported by this ContentProvider");
         }
@@ -219,9 +272,11 @@ public class QuAccProvider extends BaseContentProvider {
         switch (matchedId) {
             case URI_TYPE_ACCOUNT_ID:
             case URI_TYPE_ACCOUNTING_ID:
+            case URI_TYPE_ACCOUNTING_TEMPLATE_ID:
             case URI_TYPE_CATEGORY_ID:
             case URI_TYPE_INTERVAL_ID:
             case URI_TYPE_INTERVAL_ACCOUNTING_ID:
+            case URI_TYPE_TEMPLATE_MATCHING_ID:
                 id = uri.getLastPathSegment();
         }
         if (id != null) {

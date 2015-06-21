@@ -12,11 +12,11 @@ import org.androidannotations.annotations.EBean;
 import org.androidannotations.annotations.RootContext;
 import org.joda.time.DateTime;
 
-import de.nenick.quacc.accounting.GetAccountingFunction;
+import de.nenick.quacc.accounting.content.GetAccountingFunction;
 import de.nenick.quacc.accounting.creation.UpdateIntervalsFunction;
 import de.nenick.quacc.common.valueparser.ParseValueFromIntegerFunction;
 import de.nenick.quacc.common.util.QuAccDateUtil;
-import de.nenick.quacc.database.AccountingType;
+import de.nenick.quacc.accounting.type.AccountingType;
 import de.nenick.quacc.database.provider.accounting.AccountingCursor;
 import de.nenick.quacc.view.i18n.AccountingIntervalTranslator;
 import de.nenick.quacc.view.i18n.AccountingTypeTranslator;

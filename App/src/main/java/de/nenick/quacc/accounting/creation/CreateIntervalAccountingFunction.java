@@ -5,8 +5,8 @@ import org.androidannotations.annotations.EBean;
 
 import java.util.Date;
 
-import de.nenick.quacc.database.IntervalAccountingDb;
-import de.nenick.quacc.database.IntervalDb;
+import de.nenick.quacc.database.interval.IntervalAccountingDb;
+import de.nenick.quacc.database.interval.IntervalDb;
 import de.nenick.quacc.database.provider.interval.IntervalCursor;
 
 @EBean

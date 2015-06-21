@@ -5,10 +5,10 @@ import org.androidannotations.annotations.EBean;
 
 import java.util.Date;
 
-import de.nenick.quacc.database.AccountDb;
-import de.nenick.quacc.database.CategoryDb;
-import de.nenick.quacc.database.IntervalAccountingDb;
-import de.nenick.quacc.database.IntervalDb;
+import de.nenick.quacc.database.account.AccountDb;
+import de.nenick.quacc.database.category.CategoryDb;
+import de.nenick.quacc.database.interval.IntervalAccountingDb;
+import de.nenick.quacc.database.interval.IntervalDb;
 
 @EBean
 public class CreateIntervalFunction {

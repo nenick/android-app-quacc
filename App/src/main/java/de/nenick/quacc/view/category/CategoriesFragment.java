@@ -5,8 +5,8 @@ import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EFragment;
 
 import de.nenick.quacc.R;
-import de.nenick.quacc.accounting.GetAccountingIntervalsFunction;
-import de.nenick.quacc.accounting.GetAccountingTypesFunction;
+import de.nenick.quacc.accounting.interval.GetAccountingIntervalsFunction;
+import de.nenick.quacc.accounting.type.GetAccountingTypesFunction;
 import de.nenick.quacc.common.mvp.BasePresenterFragment;
 import de.nenick.quacc.common.mvp.BaseView;
 import de.nenick.quacc.view.category.adapter.CategoryListAdapter;

@@ -4,8 +4,8 @@ import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EBean;
 import org.joda.time.DateTime;
 
-import de.nenick.quacc.database.AccountDb;
-import de.nenick.quacc.database.IntervalDb;
+import de.nenick.quacc.database.account.AccountDb;
+import de.nenick.quacc.database.interval.IntervalDb;
 import de.nenick.quacc.database.provider.account.AccountCursor;
 import de.nenick.quacc.database.provider.interval.IntervalCursor;
 

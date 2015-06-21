@@ -3,7 +3,7 @@ package de.nenick.quacc.view.category;
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EBean;
 
-import de.nenick.quacc.database.CategoryDb;
+import de.nenick.quacc.database.category.CategoryDb;
 
 @EBean
 public class CreateCategoryFunction {

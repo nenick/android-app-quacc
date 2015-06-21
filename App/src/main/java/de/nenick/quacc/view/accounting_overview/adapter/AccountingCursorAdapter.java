@@ -18,13 +18,11 @@ import org.joda.time.DateTime;
 import java.util.Date;
 import java.util.HashMap;
 
-import de.nenick.quacc.accounting.GetAccountingByGroupFunction;
-import de.nenick.quacc.accounting.GetAccountingByGroupFunction_;
-import de.nenick.quacc.accounting.GetGroupsFunction;
-import de.nenick.quacc.accounting.GetGroupsFunction_;
+import de.nenick.quacc.accounting.content.GetAccountingByGroupFunction;
+import de.nenick.quacc.accounting.content.GetGroupsFunction;
 import de.nenick.quacc.common.util.QuAccDateUtil;
 import de.nenick.quacc.common.valueparser.ParseValueFromIntegerFunction;
-import de.nenick.quacc.database.AccountingType;
+import de.nenick.quacc.accounting.type.AccountingType;
 import de.nenick.quacc.database.provider.accounting.AccountingCursor;
 import de.nenick.quacc.view.i18n.AccountingIntervalTranslator;
 

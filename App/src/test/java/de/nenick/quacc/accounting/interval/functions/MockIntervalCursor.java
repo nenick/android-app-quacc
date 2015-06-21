@@ -2,11 +2,10 @@ package de.nenick.quacc.accounting.interval.functions;
 
 import java.util.Date;
 
-import de.nenick.quacc.database.AccountingInterval;
+import de.nenick.quacc.accounting.interval.AccountingInterval;
 import de.nenick.quacc.database.provider.interval.IntervalCursor;
 
 import static org.mockito.BDDMockito.given;
-import static org.mockito.BDDMockito.then;
 import static org.mockito.Mockito.mock;
 
 public class MockIntervalCursor {
@@ -38,6 +37,11 @@ public class MockIntervalCursor {
 
     public MockIntervalCursor withDateStart(Date date) {
         given(cursor.getDateStart()).willReturn(date);
+        return this;
+    }
+
+    public MockIntervalCursor withDateLast(Date date) {
+        given(cursor.getDateLast()).willReturn(date);
         return this;
     }
 }

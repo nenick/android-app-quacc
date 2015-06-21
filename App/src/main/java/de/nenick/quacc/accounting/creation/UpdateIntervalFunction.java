@@ -7,8 +7,8 @@ import org.joda.time.DateTime;
 import java.util.Date;
 
 import de.nenick.quacc.common.util.QuAccDateUtil;
-import de.nenick.quacc.database.AccountingInterval;
-import de.nenick.quacc.database.IntervalDb;
+import de.nenick.quacc.accounting.interval.AccountingInterval;
+import de.nenick.quacc.database.interval.IntervalDb;
 import de.nenick.quacc.database.provider.interval.IntervalCursor;
 
 @EBean

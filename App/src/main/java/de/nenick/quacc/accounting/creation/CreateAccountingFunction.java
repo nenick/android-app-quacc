@@ -5,9 +5,9 @@ import org.androidannotations.annotations.EBean;
 
 import java.util.Date;
 
-import de.nenick.quacc.database.AccountDb;
-import de.nenick.quacc.database.AccountingDb;
-import de.nenick.quacc.database.CategoryDb;
+import de.nenick.quacc.database.account.AccountDb;
+import de.nenick.quacc.database.accounting.AccountingDb;
+import de.nenick.quacc.database.category.CategoryDb;
 
 @EBean
 public class CreateAccountingFunction {

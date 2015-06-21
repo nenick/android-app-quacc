@@ -6,7 +6,7 @@ import org.androidannotations.annotations.EBean;
 import org.androidannotations.annotations.RootContext;
 
 import de.nenick.quacc.R;
-import de.nenick.quacc.database.AccountingInterval;
+import de.nenick.quacc.accounting.interval.AccountingInterval;
 
 @EBean
 public class RecognizeAccountingIntervalFunction {

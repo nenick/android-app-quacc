@@ -12,9 +12,11 @@ import android.util.Log;
 import de.nenick.quacc.database.BuildConfig;
 import de.nenick.quacc.database.provider.account.AccountColumns;
 import de.nenick.quacc.database.provider.accounting.AccountingColumns;
+import de.nenick.quacc.database.provider.accountingtemplate.AccountingTemplateColumns;
 import de.nenick.quacc.database.provider.category.CategoryColumns;
 import de.nenick.quacc.database.provider.interval.IntervalColumns;
 import de.nenick.quacc.database.provider.intervalaccounting.IntervalAccountingColumns;
+import de.nenick.quacc.database.provider.templatematching.TemplateMatchingColumns;
 
 public class QuAccSQLiteOpenHelper extends SQLiteOpenHelper {
     private static final String TAG = QuAccSQLiteOpenHelper.class.getSimpleName();
@@ -46,6 +48,24 @@ public class QuAccSQLiteOpenHelper extends SQLiteOpenHelper {
             + AccountingColumns.VALUE + " INTEGER NOT NULL "
             + ", CONSTRAINT fk_account_id FOREIGN KEY (" + AccountingColumns.ACCOUNT_ID + ") REFERENCES account (_id) ON DELETE CASCADE"
             + ", CONSTRAINT fk_category_id FOREIGN KEY (" + AccountingColumns.CATEGORY_ID + ") REFERENCES category (_id) ON DELETE CASCADE"
+            + ", CONSTRAINT empty_type CHECK(accounting__type <> '') ON CONFLICT FAIL"
+            + ", CONSTRAINT empty_interval CHECK(accounting__interval <> '') ON CONFLICT FAIL"
+            + ", CONSTRAINT given_value CHECK(accounting__value > 0) ON CONFLICT FAIL"
+            + " );";
+
+    public static final String SQL_CREATE_TABLE_ACCOUNTING_TEMPLATE = "CREATE TABLE IF NOT EXISTS "
+            + AccountingTemplateColumns.TABLE_NAME + " ( "
+            + AccountingTemplateColumns._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+            + AccountingTemplateColumns.ACCOUNT_ID + " INTEGER NOT NULL, "
+            + AccountingTemplateColumns.CATEGORY_ID + " INTEGER NOT NULL, "
+            + AccountingTemplateColumns.COMMENT + " TEXT, "
+            + AccountingTemplateColumns.INTERVAL + " TEXT NOT NULL, "
+            + AccountingTemplateColumns.TYPE + " TEXT NOT NULL, "
+            + AccountingTemplateColumns.VALUE + " INTEGER "
+            + ", CONSTRAINT fk_account_id FOREIGN KEY (" + AccountingTemplateColumns.ACCOUNT_ID + ") REFERENCES account (_id) ON DELETE CASCADE"
+            + ", CONSTRAINT fk_category_id FOREIGN KEY (" + AccountingTemplateColumns.CATEGORY_ID + ") REFERENCES category (_id) ON DELETE CASCADE"
+            + ", CONSTRAINT empty_type CHECK(accounting_template__type <> '') ON CONFLICT FAIL"
+            + ", CONSTRAINT empty_interval CHECK(accounting_template__interval <> '') ON CONFLICT FAIL"
             + " );";
 
     public static final String SQL_CREATE_TABLE_CATEGORY = "CREATE TABLE IF NOT EXISTS "
@@ -82,6 +102,15 @@ public class QuAccSQLiteOpenHelper extends SQLiteOpenHelper {
             + IntervalAccountingColumns.ACCOUNTING_ID + " INTEGER NOT NULL "
             + ", CONSTRAINT fk_interval_id FOREIGN KEY (" + IntervalAccountingColumns.INTERVAL_ID + ") REFERENCES interval (_id) ON DELETE CASCADE"
             + ", CONSTRAINT fk_accounting_id FOREIGN KEY (" + IntervalAccountingColumns.ACCOUNTING_ID + ") REFERENCES accounting (_id) ON DELETE CASCADE"
+            + " );";
+
+    public static final String SQL_CREATE_TABLE_TEMPLATE_MATCHING = "CREATE TABLE IF NOT EXISTS "
+            + TemplateMatchingColumns.TABLE_NAME + " ( "
+            + TemplateMatchingColumns._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+            + TemplateMatchingColumns.TEXT + " TEXT NOT NULL, "
+            + TemplateMatchingColumns.ACCOUNTING_TEMPLATE_ID + " INTEGER NOT NULL "
+            + ", CONSTRAINT fk_accounting_template_id FOREIGN KEY (" + TemplateMatchingColumns.ACCOUNTING_TEMPLATE_ID + ") REFERENCES accounting_template (_id) ON DELETE CASCADE"
+            + ", CONSTRAINT empty_text CHECK(text <> '') ON CONFLICT FAIL"
             + " );";
 
     // @formatter:on
@@ -140,9 +169,11 @@ public class QuAccSQLiteOpenHelper extends SQLiteOpenHelper {
         mOpenHelperCallbacks.onPreCreate(mContext, db);
         db.execSQL(SQL_CREATE_TABLE_ACCOUNT);
         db.execSQL(SQL_CREATE_TABLE_ACCOUNTING);
+        db.execSQL(SQL_CREATE_TABLE_ACCOUNTING_TEMPLATE);
         db.execSQL(SQL_CREATE_TABLE_CATEGORY);
         db.execSQL(SQL_CREATE_TABLE_INTERVAL);
         db.execSQL(SQL_CREATE_TABLE_INTERVAL_ACCOUNTING);
+        db.execSQL(SQL_CREATE_TABLE_TEMPLATE_MATCHING);
         mOpenHelperCallbacks.onPostCreate(mContext, db);
     }
 

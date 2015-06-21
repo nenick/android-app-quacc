@@ -8,7 +8,7 @@ import org.androidannotations.annotations.RootContext;
 import java.util.HashMap;
 import java.util.Map;
 
-import de.nenick.quacc.database.AccountingInterval;
+import de.nenick.quacc.accounting.interval.AccountingInterval;
 
 @EBean
 public class AccountingIntervalTranslator {

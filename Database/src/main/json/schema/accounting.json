@@ -44,5 +44,19 @@
       "type": "Integer",
       "nullable": false
     }
+  ],
+  "constraints": [
+    {
+      "name": "empty_type",
+      "definition": "CHECK(accounting__type <> '') ON CONFLICT FAIL"
+    },
+    {
+      "name": "empty_interval",
+      "definition": "CHECK(accounting__interval <> '') ON CONFLICT FAIL"
+    },
+    {
+      "name": "given_value",
+      "definition": "CHECK(accounting__value > 0) ON CONFLICT FAIL"
+    }
   ]
 }

@@ -7,7 +7,7 @@ import org.mockito.MockitoAnnotations;
 
 import java.util.Collection;
 
-import de.nenick.quacc.accounting.GetAccountingIntervalsFunction;
+import de.nenick.quacc.accounting.interval.GetAccountingIntervalsFunction;
 
 import static org.assertj.core.api.Assertions.assertThat;
 

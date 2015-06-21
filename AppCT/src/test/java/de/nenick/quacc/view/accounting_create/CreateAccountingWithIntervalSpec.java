@@ -10,12 +10,13 @@ import org.robolectric.RuntimeEnvironment;
 
 import de.nenick.quacc.accounting.creation.UpdateIntervalFunction_;
 import de.nenick.quacc.common.util.QuAccDateUtil;
-import de.nenick.quacc.database.AccountingDb;
-import de.nenick.quacc.database.AccountingDb_;
-import de.nenick.quacc.database.AccountingInterval;
-import de.nenick.quacc.database.AccountingType;
-import de.nenick.quacc.database.IntervalAccountingDb_;
-import de.nenick.quacc.database.IntervalDb_;
+import de.nenick.quacc.database.accounting.AccountingDb;
+
+import de.nenick.quacc.accounting.interval.AccountingInterval;
+import de.nenick.quacc.accounting.type.AccountingType;
+import de.nenick.quacc.database.accounting.AccountingDb_;
+import de.nenick.quacc.database.interval.IntervalAccountingDb_;
+import de.nenick.quacc.database.interval.IntervalDb_;
 import de.nenick.quacc.database.provider.accounting.AccountingCursor;
 import de.nenick.quacc.database.provider.interval.IntervalCursor;
 import de.nenick.robolectric.RoboComponentTestBase;

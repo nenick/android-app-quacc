@@ -11,7 +11,10 @@ import org.mockito.MockitoAnnotations;
 import java.util.ArrayList;
 
 import de.nenick.quacc.R;
+import de.nenick.quacc.speechrecognition.RecognizeAccountingIntervalFunction;
 import de.nenick.quacc.speechrecognition.RecognizeAccountingTypeFunction;
+import de.nenick.quacc.speechrecognition.RecognizeCategoryFunction;
+import de.nenick.quacc.speechrecognition.RecognizeValueFunction;
 import de.nenick.quacc.view.accounting_create.CreateAccountingView;
 import de.nenick.quacc.view.accounting_create.SpeechRecognitionFeature;
 import de.nenick.quacc.view.speechrecognition.SpeechRecognitionWrapper;
@@ -23,6 +26,8 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
 public class SpeechRecognitionFeatureTest {
+
+    ArrayList<String> speechResults = new ArrayList<>(1);
 
     @InjectMocks
     SpeechRecognitionFeature feature;
@@ -36,12 +41,22 @@ public class SpeechRecognitionFeatureTest {
     @Mock
     RecognizeAccountingTypeFunction recognizeAccountingTypeFunction;
 
+    @Mock
+    RecognizeAccountingIntervalFunction recognizeAccountingIntervalFunction;
+
+    @Mock
+    RecognizeCategoryFunction recognizeCategoryFunction;
+
+    @Mock
+    RecognizeValueFunction recognizeValueFunction;
+
     @Captor
     ArgumentCaptor<SpeechRecognitionWrapper.SpeechResultListener> speechResultListenerArgumentCaptor;
 
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
+        speechResults.add("my result");
     }
 
     @Test
@@ -94,7 +109,7 @@ public class SpeechRecognitionFeatureTest {
     public void shouldShowStartButtonOnSuccess() {
         feature.onAfterInject();
         verify(speechRecognitionWrapper).setSpeechResultListener(speechResultListenerArgumentCaptor.capture());
-        speechResultListenerArgumentCaptor.getValue().onResults(new ArrayList<String>());
+        speechResultListenerArgumentCaptor.getValue().onResults(speechResults);
         verify(view).showSpeechStartButton();
     }
 
@@ -104,8 +119,7 @@ public class SpeechRecognitionFeatureTest {
         verify(speechRecognitionWrapper).setSpeechResultListener(speechResultListenerArgumentCaptor.capture());
         ArrayList<String> texts = new ArrayList<>();
         texts.add("Eins");
-        texts.add("1");
         speechResultListenerArgumentCaptor.getValue().onResults(texts);
-        verify(view).showRecognizedText("[Eins] [1] ");
+        verify(view).showRecognizedText("[Eins]");
     }
 }

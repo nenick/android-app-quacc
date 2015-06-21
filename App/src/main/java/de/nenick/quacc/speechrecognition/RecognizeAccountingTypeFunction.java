@@ -5,10 +5,8 @@ import android.content.Context;
 import org.androidannotations.annotations.EBean;
 import org.androidannotations.annotations.RootContext;
 
-import java.util.List;
-
 import de.nenick.quacc.R;
-import de.nenick.quacc.database.AccountingType;
+import de.nenick.quacc.accounting.type.AccountingType;
 
 @EBean
 public class RecognizeAccountingTypeFunction {
@@ -18,9 +16,9 @@ public class RecognizeAccountingTypeFunction {
 
     public SpeechResult apply(String recognizedText) {
 
-        String incoming = context.getResources().getString(R.string.accounting_type_incoming);
-        String outgoing = context.getResources().getString(R.string.accounting_type_outgoing);
-        String transfer = context.getResources().getString(R.string.accounting_type_transfer);
+        String incoming = getHumanReadableString(R.string.accounting_type_incoming);
+        String outgoing = getHumanReadableString(R.string.accounting_type_outgoing);
+        String transfer = getHumanReadableString(R.string.accounting_type_transfer);
 
         if (recognizedText.toLowerCase().contains(incoming.toLowerCase())) {
             return new SpeechResult(AccountingType.incoming.name(), recognizedText.toLowerCase().indexOf(incoming.toLowerCase()), incoming.length());
@@ -33,6 +31,10 @@ public class RecognizeAccountingTypeFunction {
         }
 
         return null;
+    }
+
+    String getHumanReadableString(int accounting_type_incoming) {
+        return context.getString(accounting_type_incoming);
     }
 
 }

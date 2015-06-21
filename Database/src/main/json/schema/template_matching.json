@@ -1,0 +1,24 @@
+{
+  "fields": [
+    {
+      "name": "text",
+      "type": "String",
+      "nullable": false
+    },
+    {
+      "name": "accounting_template_id",
+      "type": "Long",
+      "nullable": false,
+      "foreignKey": {
+        "table": "accounting_template",
+        "onDelete": "CASCADE"
+      }
+    }
+  ],
+  "constraints": [
+    {
+      "name": "empty_text",
+      "definition": "CHECK(text <> '') ON CONFLICT FAIL"
+    }
+  ]
+}

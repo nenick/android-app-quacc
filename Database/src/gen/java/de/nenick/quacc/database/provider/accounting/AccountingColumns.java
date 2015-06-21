@@ -6,9 +6,11 @@ import android.provider.BaseColumns;
 import de.nenick.quacc.database.provider.QuAccProvider;
 import de.nenick.quacc.database.provider.account.AccountColumns;
 import de.nenick.quacc.database.provider.accounting.AccountingColumns;
+import de.nenick.quacc.database.provider.accountingtemplate.AccountingTemplateColumns;
 import de.nenick.quacc.database.provider.category.CategoryColumns;
 import de.nenick.quacc.database.provider.interval.IntervalColumns;
 import de.nenick.quacc.database.provider.intervalaccounting.IntervalAccountingColumns;
+import de.nenick.quacc.database.provider.templatematching.TemplateMatchingColumns;
 
 /**
  * Columns for the {@code accounting} table.

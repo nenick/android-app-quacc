@@ -3,10 +3,10 @@ package de.nenick.quacc.view.accounting_overview;
 import org.junit.Test;
 
 import de.nenick.quacc.R;
+import de.nenick.quacc.accounting.interval.AccountingInterval;
+import de.nenick.quacc.accounting.type.AccountingType;
 import de.nenick.quacc.common.util.QuAccDateUtil;
-import de.nenick.quacc.database.AccountingDb_;
-import de.nenick.quacc.database.AccountingInterval;
-import de.nenick.quacc.database.AccountingType;
+import de.nenick.quacc.database.accounting.AccountingDb_;
 import de.nenick.robolectric.RoboComponentTestBase;
 import de.nenick.robolectric.RoboSup;
 import jdk.nashorn.internal.ir.annotations.Ignore;

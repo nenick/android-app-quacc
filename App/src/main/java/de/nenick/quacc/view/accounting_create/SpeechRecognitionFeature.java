@@ -11,7 +11,6 @@ import org.androidannotations.annotations.RootContext;
 import java.util.ArrayList;
 
 import de.nenick.quacc.R;
-import de.nenick.quacc.database.AccountingType;
 import de.nenick.quacc.speechrecognition.RecognizeAccountingIntervalFunction;
 import de.nenick.quacc.speechrecognition.RecognizeAccountingTypeFunction;
 import de.nenick.quacc.speechrecognition.RecognizeCategoryFunction;

@@ -13,11 +13,11 @@ import java.util.Date;
 
 import de.nenick.quacc.accounting.creation.CreateIntervalAccountingFunction;
 import de.nenick.quacc.accounting.creation.UpdateIntervalFunction;
-import de.nenick.quacc.database.IntervalDb;
+import de.nenick.quacc.common.util.QuAccDateUtil;
+import de.nenick.quacc.database.interval.IntervalDb;
 import de.nenick.quacc.database.provider.interval.IntervalCursor;
 
-import static de.nenick.quacc.database.AccountingInterval.daily;
-import static org.mockito.BDDMockito.given;
+import static de.nenick.quacc.accounting.interval.AccountingInterval.daily;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
@@ -42,37 +42,36 @@ public class UpdateIntervalFunctionTest {
 
     @Test
     public void shouldCreateAccountingForRange_daily() {
-        Date intervalStartDate = new Date(2014, 12, 30);
-        Date updateUntil = new Date(2015, 1, 2);
+        DateTime intervalStartDate = QuAccDateUtil.toDateTime(30, 12, 2014);
+        DateTime updateUntil = QuAccDateUtil.toDateTime(2, 1, 2015);
 
         IntervalCursor cursor = MockIntervalCursor.create()
-                .withDateStart(intervalStartDate)
+                .withDateStart(intervalStartDate.toDate())
                 .withInterval(daily)
                 .withUpdatedUntil(IntervalDb.NO_DATE_GIVEN)
+                .withDateLast(IntervalDb.NO_DATE_GIVEN)
                 .get();
 
         updateIntervalFunction.apply(cursor, new DateTime(updateUntil));
 
-        verify(createIntervalAccountingFunction).apply(cursor, new Date(2014, 12, 30));
-        verify(createIntervalAccountingFunction).apply(cursor, new Date(2014, 12, 31));
-        verify(createIntervalAccountingFunction).apply(cursor, new Date(2015, 1, 1));
-        verify(createIntervalAccountingFunction).apply(cursor, new Date(2015, 1, 2));
+        verify(createIntervalAccountingFunction).apply(cursor, QuAccDateUtil.toDateTime(30, 12, 2014).toDate());
+        verify(createIntervalAccountingFunction).apply(cursor, QuAccDateUtil.toDateTime(31, 12, 2014).toDate());
+        verify(createIntervalAccountingFunction).apply(cursor, QuAccDateUtil.toDateTime(1, 1, 2015).toDate());
+        verify(createIntervalAccountingFunction).apply(cursor, QuAccDateUtil.toDateTime(2, 1, 2015).toDate());
         verifyNoMoreInteractions(createIntervalAccountingFunction);
     }
 
     @Test
     public void shouldUpdateIntervalState_dateUpdateUntil() {
-        Date updatedUntil = new Date(2015, 1, 2);
-
+        DateTime updateUntil = QuAccDateUtil.toDateTime(1, 2, 2015);
+        DateTime updatedUntil = updateUntil.minusDays(1);
         IntervalCursor cursor = MockIntervalCursor.create()
                 .withId(intervalId)
                 .withInterval(daily)
-                .withUpdatedUntil(updatedUntil)
+                .withUpdatedUntil(updatedUntil.toDate())
+                .withDateLast(updatedUntil.toDate())
                 .get();
-
-        DateTime updateUntil = new DateTime(new Date(2015, 1, 2));
         updateIntervalFunction.apply(cursor, updateUntil);
-
         verify(intervalDb).updatedUntil(intervalId, updateUntil.toDate(), updateUntil.toDate());
     }
 

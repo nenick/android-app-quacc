@@ -19,8 +19,8 @@ public class CreateAccountingSpeechSpec extends RoboComponentTestBase {
     @Test
     public void shouldShowMatches() {
         addAccountingPage.startPageWithSpeechMock(mock(SpeechRecognizer.class));
-        addAccountingPage.speechResult("1 2 3", "one two three");
-        assertThat(addAccountingPage.speechResultField().getText()).isEqualTo("[1 2 3] [one two three] ");
+        addAccountingPage.speechResult("1 2 3");
+        assertThat(addAccountingPage.speechResultField().getText()).isEqualTo("[1 2 3]");
     }
 
     // RuntimeEnvironment.getRobolectricPackageManager().addResolveInfoForIntent(new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH), new ResolveInfo());

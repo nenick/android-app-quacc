@@ -1,0 +1,53 @@
+{
+  "fields": [
+    {
+      "name": "account_id",
+      "type": "Long",
+      "nullable": false,
+      "foreignKey": {
+        "table": "account",
+        "onDelete": "CASCADE"
+      }
+    },
+    {
+      "name": "category_id",
+      "type": "Long",
+      "nullable": false,
+      "foreignKey": {
+        "table": "category",
+        "onDelete": "CASCADE"
+      }
+    },
+    {
+      "name": "comment",
+      "type": "String",
+      "nullable": true
+    },
+    {
+      "name": "interval",
+      "type": "String",
+      "nullable": false
+    },
+    {
+      "name": "type",
+      "type": "String",
+      "nullable": false
+    },
+    {
+      "documentation": "Values are stored in 100 cent.",
+      "name": "value",
+      "type": "Integer",
+      "nullable": true
+    }
+  ],
+  "constraints": [
+    {
+      "name": "empty_type",
+      "definition": "CHECK(accounting_template__type <> '') ON CONFLICT FAIL"
+    },
+    {
+      "name": "empty_interval",
+      "definition": "CHECK(accounting_template__interval <> '') ON CONFLICT FAIL"
+    }
+  ]
+}

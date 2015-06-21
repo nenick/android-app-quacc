@@ -2,7 +2,7 @@ package de.nenick.quacc.view.account;
 
 import org.junit.Test;
 
-import de.nenick.quacc.database.AccountDb_;
+import de.nenick.quacc.database.account.AccountDb_;
 import de.nenick.quacc.database.provider.account.AccountCursor;
 import de.nenick.quacc.database.provider.account.AccountSelection;
 import de.nenick.robolectric.RoboComponentTestBase;
