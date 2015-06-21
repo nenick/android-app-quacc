@@ -1,5 +1,6 @@
 package de.nenick.quacc.view.accounting_overview;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 import de.nenick.quacc.R;
@@ -9,7 +10,6 @@ import de.nenick.quacc.common.util.QuAccDateUtil;
 import de.nenick.quacc.database.accounting.AccountingDb_;
 import de.nenick.robolectric.RoboComponentTestBase;
 import de.nenick.robolectric.RoboSup;
-import jdk.nashorn.internal.ir.annotations.Ignore;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
