@@ -37,10 +37,13 @@ public class QuAccApplication extends Application {
     protected void setupInitialData() {
         if (pref.isFirstAppStart().get()) {
             SQLiteDatabase database = QuAccSQLiteOpenHelper.getInstance(this).getWritableDatabase();
-            //database.beginTransaction();
-            new DatabaseInitialData().insert(database);
-            //database.endTransaction();
-            //database.close();
+            database.beginTransaction();
+            try {
+                new DatabaseInitialData().insert(database);
+                database.setTransactionSuccessful();
+            } finally {
+                database.endTransaction();
+            }
             pref.isFirstAppStart().put(false);
         }
     }
