@@ -33,7 +33,7 @@ public class AccountingListInitialSpec extends RoboComponentTestBase {
     RoboAccountingListPage accountingListPage = new RoboAccountingListPage(robo);
 
     @Rule
-    public Timeout globalTimeout = Timeout.builder().withTimeout(300, TimeUnit.SECONDS).withLookingForStuckThread(true).build();
+    public Timeout globalTimeout = Timeout.builder().withTimeout(120, TimeUnit.SECONDS).withLookingForStuckThread(true).build();
 
     @Test
     public void shouldShowAccounting() throws InterruptedException {
