@@ -7,6 +7,7 @@ import org.junit.Test;
 import de.nenick.quacc.apptest.espresso.BaseEspressoSpec;
 import de.nenick.quacc.apptest.pages.EspressoAccountingListPage;
 import de.nenick.quacc.apptest.pages.EspressoAddAccountingPage;
+import de.nenick.quacc.common.util.QuAccDateUtil;
 
 public class AddAccountingUcSpec extends BaseEspressoSpec {
 
@@ -21,11 +22,11 @@ public class AddAccountingUcSpec extends BaseEspressoSpec {
 
         accountingListPage.clickAddButton();
         addAccountingPage.isActivePage();
-        addAccountingPage.chooseAccount("Bar");
+        addAccountingPage.chooseAccount("Girokonto");
         addAccountingPage.chooseAccountingInterval("Monatlich");
         addAccountingPage.chooseAccountingType("Einnahme");
         addAccountingPage.chooseAccountingCategory("Mieteinnahmen");
-        addAccountingPage.chooseAccountingDate("10.11.2012");
+        addAccountingPage.chooseAccountingDate(QuAccDateUtil.currentDate());
         addAccountingPage.chooseAccountingValue("3,50");
         addAccountingPage.actionbar().clickConfirmButton();
 

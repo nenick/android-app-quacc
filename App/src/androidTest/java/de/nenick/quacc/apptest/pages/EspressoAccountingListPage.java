@@ -23,7 +23,7 @@ import static android.support.test.espresso.matcher.ViewMatchers.withId;
 public class EspressoAccountingListPage {
 
     public void isActivePage() {
-        onView(withId(R.id.listView)).check(matches(isDisplayed()));
+        onView(withId(R.id.listViewExpandable)).check(matches(isDisplayed()));
     }
 
     public void clickAddButton() {
