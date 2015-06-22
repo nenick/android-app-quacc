@@ -6,12 +6,14 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.runner.RunWith;
 import org.robolectric.RuntimeEnvironment;
+import org.robolectric.annotation.Config;
 
 import java.lang.reflect.Field;
 
 import de.nenick.quacc.database.provider.QuAccSQLiteOpenHelper;
 
 @RunWith(AndroidStudioAwareRobolectricTestRunner.class)
+@Config(shadows = ShadowSQLiteDatabase.class)
 public abstract class RoboComponentTestBase {
 
     public Context context;

@@ -99,7 +99,6 @@ public class CreateAccountingSpec extends RoboComponentTestBase {
 
     @Test
     public void shouldGiveFeedbackForInvalidValues() {
-        ShadowSQLiteConnection.reset();
         addAccountingPage.startPage();
 
         whenValueIs("A");
