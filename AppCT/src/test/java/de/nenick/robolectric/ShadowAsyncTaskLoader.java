@@ -11,7 +11,9 @@ import org.robolectric.annotation.Implementation;
 import java.util.concurrent.Callable;
 
 /**
- * This class will be in next release (current is rc3) and can ten be removed.
+ * Fix an issue with endless running tests when using cursor loader.
+ *
+ * This class will be in next robolectric release (current is rc3) and can then be removed.
  */
 
 @Implements(AsyncTaskLoader.class)

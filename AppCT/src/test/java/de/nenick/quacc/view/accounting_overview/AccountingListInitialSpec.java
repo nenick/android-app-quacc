@@ -1,12 +1,9 @@
 package de.nenick.quacc.view.accounting_overview;
 
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.Timeout;
 
 import java.util.Date;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 import de.nenick.quacc.R;
 import de.nenick.quacc.accounting.interval.AccountingInterval;
@@ -31,9 +28,6 @@ public class AccountingListInitialSpec extends RoboComponentTestBase {
 
     RoboSup<AccountingListActivity_, AccountingListFragment_> robo = new RoboSup<>();
     RoboAccountingListPage accountingListPage = new RoboAccountingListPage(robo);
-
-    @Rule
-    public Timeout globalTimeout = Timeout.builder().withTimeout(120, TimeUnit.SECONDS).withLookingForStuckThread(true).build();
 
     @Test
     public void shouldShowAccounting() throws InterruptedException {
