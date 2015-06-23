@@ -34,9 +34,6 @@ public class AccountingPlainAdapter extends CursorAdapter {
     AccountingIntervalTranslator accountingIntervalTranslator;
 
     @Bean
-    AccountingTypeTranslator accountingTypeTranslator;
-
-    @Bean
     ParseValueFromIntegerFunction parseValueFromInteger;
 
     @Bean
