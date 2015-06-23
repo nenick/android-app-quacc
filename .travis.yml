@@ -38,6 +38,11 @@ cache:
     # Caching dependencies for faster builds
     - $HOME/.m2
     - $HOME/.gradle
+
+script:
+
+  # Build the code
+  - ./gradlew App:assembleDebug
   
 addons:
   coverity_scan:
