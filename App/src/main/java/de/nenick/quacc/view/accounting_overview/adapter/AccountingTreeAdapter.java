@@ -27,7 +27,7 @@ import de.nenick.quacc.database.provider.accounting.AccountingCursor;
 import de.nenick.quacc.view.i18n.AccountingIntervalTranslator;
 
 @EBean
-public class AccountingCursorAdapter extends CursorTreeAdapter implements LoaderManager.LoaderCallbacks<Cursor> {
+public class AccountingTreeAdapter extends CursorTreeAdapter implements LoaderManager.LoaderCallbacks<Cursor> {
 
     @Bean
     GetAccountingByGroupFunction getAccountingByGroupFunction;
@@ -62,7 +62,7 @@ public class AccountingCursorAdapter extends CursorTreeAdapter implements Loader
         }
     }
 
-    public AccountingCursorAdapter(Context context) {
+    public AccountingTreeAdapter(Context context) {
         super(null, context);
         this.context = (Activity)context;
     }
@@ -108,12 +108,12 @@ public class AccountingCursorAdapter extends CursorTreeAdapter implements Loader
 
     @Override
     protected View newGroupView(Context context, Cursor cursor, boolean b, ViewGroup viewGroup) {
-        return AccountingGroupItemView_.build(context);
+        return AccountingTreeGroupItemView_.build(context);
     }
 
     @Override
     protected void bindGroupView(View view, Context context, Cursor cursor, boolean b) {
-        AccountingGroupItemView accountingView = (AccountingGroupItemView) view;
+        AccountingTreeGroupItemView accountingView = (AccountingTreeGroupItemView) view;
         AccountingCursor accountingCursor = (AccountingCursor) cursor;
 
         Date minDate = accountingCursor.getDateOrNull("minDate");
@@ -135,12 +135,12 @@ public class AccountingCursorAdapter extends CursorTreeAdapter implements Loader
 
     @Override
     protected View newChildView(Context context, Cursor cursor, boolean b, ViewGroup viewGroup) {
-        return AccountingChildItemView_.build(context);
+        return AccountingTreeChildItemView_.build(context);
     }
 
     @Override
     protected void bindChildView(View view, Context context, Cursor cursor, boolean b) {
-        AccountingChildItemView accountingView = (AccountingChildItemView) view;
+        AccountingTreeChildItemView accountingView = (AccountingTreeChildItemView) view;
         AccountingCursor accountingCursor = (AccountingCursor) cursor;
 
         accountingView.setDate(QuAccDateUtil.toString(accountingCursor.getDate()));

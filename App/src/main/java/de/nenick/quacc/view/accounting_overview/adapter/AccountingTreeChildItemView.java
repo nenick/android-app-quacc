@@ -10,7 +10,7 @@ import org.androidannotations.annotations.ViewById;
 import de.nenick.quacc.R;
 
 @EViewGroup(R.layout.item_accounting_child)
-public class AccountingChildItemView extends RelativeLayout {
+public class AccountingTreeChildItemView extends RelativeLayout {
 
     @ViewById(R.id.date)
     TextView date;
@@ -27,7 +27,7 @@ public class AccountingChildItemView extends RelativeLayout {
     @ViewById(R.id.value)
     TextView value;
 
-    public AccountingChildItemView(Context context) {
+    public AccountingTreeChildItemView(Context context) {
         super(context);
     }
 

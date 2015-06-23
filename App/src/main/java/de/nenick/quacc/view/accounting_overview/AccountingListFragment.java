@@ -15,7 +15,8 @@ import org.androidannotations.annotations.OptionsItem;
 import org.joda.time.DateTime;
 
 import de.nenick.quacc.R;
-import de.nenick.quacc.view.accounting_overview.adapter.AccountingCursorAdapter;
+import de.nenick.quacc.view.accounting_overview.adapter.AccountingPlainAdapter;
+import de.nenick.quacc.view.accounting_overview.adapter.AccountingTreeAdapter;
 import de.nenick.quacc.view.accounting_overview.adapter.GroupingOptionAdapter;
 import de.nenick.quacc.view.accounting_overview.filter.GetDateForRangeEndFunction;
 import de.nenick.quacc.view.accounting_overview.filter.GetFilterRangesAsStringsFunction;
@@ -30,7 +31,6 @@ import de.nenick.quacc.view.accounting_create.CreateAccountingActivity_;
 import de.nenick.quacc.view.accounting_overview.grouping.GetGroupingOptionsAsStringsFunction;
 import de.nenick.quacc.view.accounting_overview.grouping.GroupingOption;
 import de.nenick.quacc.view.i18n.MonthTranslator;
-import de.nenick.quacc.view.accounting_overview.adapter.AccountingAdapter;
 import de.nenick.quacc.view.accounting_overview.filter.FilterRange;
 import de.nenick.quacc.view.accounting_overview.adapter.FilterRangeAdapter;
 
@@ -41,10 +41,10 @@ public class AccountingListFragment extends BasePresenterFragment {
     AccountingListView view;
 
     @Bean
-    AccountingAdapter accountingAdapter;
+    AccountingPlainAdapter accountingPlainAdapter;
 
     @Bean
-    AccountingCursorAdapter accountingCursorAdapter;
+    AccountingTreeAdapter accountingTreeAdapter;
 
     @Bean
     MonthTranslator monthTranslator;
@@ -106,8 +106,8 @@ public class AccountingListFragment extends BasePresenterFragment {
         filterRangeAdapter.addAll(getFilterRangesAsStringsFunction.apply());
         view.setFilterRanges(filterRangeAdapter);
 
-        accountingAdapter.setAccount(account);
-        accountingCursorAdapter.setAccount(account);
+        accountingPlainAdapter.setAccount(account);
+        accountingTreeAdapter.setAccount(account);
 
         resetFilter();
 
@@ -157,8 +157,8 @@ public class AccountingListFragment extends BasePresenterFragment {
             }
             DateTime startDate = getDateForRangeStartFunction.apply(filterRange, monthTranslator.translate(month), year);
             DateTime endDate = getDateForRangeEndFunction.apply(filterRange, startDate);
-            accountingAdapter.changeFor(startDate, endDate);
-            accountingCursorAdapter.changeFor(startDate, endDate);
+            accountingPlainAdapter.changeFor(startDate, endDate);
+            accountingTreeAdapter.changeFor(startDate, endDate);
         }
     }
 
@@ -175,9 +175,9 @@ public class AccountingListFragment extends BasePresenterFragment {
     protected void onGroupingOptionChanged() {
         String groupingString = view.getGroupingOption();
         if(GroupingOption.valueOf(groupingString) == GroupingOption.no_grouping) {
-            view.setListAdapter(accountingAdapter);
+            view.setListAdapter(accountingPlainAdapter);
         } else {
-            view.setListAdapter(accountingCursorAdapter);
+            view.setListAdapter(accountingTreeAdapter);
         }
     }
 
