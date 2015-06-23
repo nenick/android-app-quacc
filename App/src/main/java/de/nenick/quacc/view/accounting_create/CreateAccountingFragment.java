@@ -36,9 +36,6 @@ public class CreateAccountingFragment extends BasePresenterFragment {
     CreateAccountingView view;
 
     @Bean
-    GetAccountingCategoriesFilteredFunction getAccountingCategoriesFilteredFunction;
-
-    @Bean
     GetAccountingIntervalsFunction getAccountingIntervalsFunction;
 
     @Bean
