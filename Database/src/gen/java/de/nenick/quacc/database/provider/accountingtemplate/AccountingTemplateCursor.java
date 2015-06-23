@@ -164,11 +164,11 @@ public class AccountingTemplateCursor extends AbstractCursor implements Accounti
 
     /**
      * Values are stored in 100 cent.
-     * Can be {@code null}.
      */
-    @Nullable
-    public Integer getValue() {
+    public int getValue() {
         Integer res = getIntegerOrNull(AccountingTemplateColumns.VALUE);
+        if (res == null)
+            throw new NullPointerException("The value of 'value' in the database was null, which is not allowed according to the model definition");
         return res;
     }
 }

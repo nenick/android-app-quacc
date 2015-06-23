@@ -414,13 +414,13 @@ public class AccountingTemplateSelection extends AbstractSelection<AccountingTem
         return this;
     }
 
-    public AccountingTemplateSelection value(Integer... value) {
-        addEquals(AccountingTemplateColumns.VALUE, value);
+    public AccountingTemplateSelection value(int... value) {
+        addEquals(AccountingTemplateColumns.VALUE, toObjectArray(value));
         return this;
     }
 
-    public AccountingTemplateSelection valueNot(Integer... value) {
-        addNotEquals(AccountingTemplateColumns.VALUE, value);
+    public AccountingTemplateSelection valueNot(int... value) {
+        addNotEquals(AccountingTemplateColumns.VALUE, toObjectArray(value));
         return this;
     }
 

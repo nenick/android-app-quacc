@@ -31,4 +31,8 @@ public class AccountingTemplateDb {
     public AccountingTemplateCursor getById(long id) {
         return new AccountingTemplateSelection().id(id).query(context.getContentResolver());
     }
+
+    public AccountingTemplateCursor getAll() {
+        return new AccountingTemplateSelection().query(context.getContentResolver());
+    }
 }

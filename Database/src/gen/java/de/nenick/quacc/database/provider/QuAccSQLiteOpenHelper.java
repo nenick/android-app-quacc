@@ -61,7 +61,7 @@ public class QuAccSQLiteOpenHelper extends SQLiteOpenHelper {
             + AccountingTemplateColumns.COMMENT + " TEXT, "
             + AccountingTemplateColumns.INTERVAL + " TEXT NOT NULL, "
             + AccountingTemplateColumns.TYPE + " TEXT NOT NULL, "
-            + AccountingTemplateColumns.VALUE + " INTEGER "
+            + AccountingTemplateColumns.VALUE + " INTEGER NOT NULL "
             + ", CONSTRAINT fk_account_id FOREIGN KEY (" + AccountingTemplateColumns.ACCOUNT_ID + ") REFERENCES account (_id) ON DELETE CASCADE"
             + ", CONSTRAINT fk_category_id FOREIGN KEY (" + AccountingTemplateColumns.CATEGORY_ID + ") REFERENCES category (_id) ON DELETE CASCADE"
             + ", CONSTRAINT empty_type CHECK(accounting_template__type <> '') ON CONFLICT FAIL"

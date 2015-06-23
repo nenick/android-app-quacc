@@ -37,12 +37,27 @@
         <activity
             android:name=".view.category.CategoriesActivity_"
             android:label="@string/title_activity_categories"
-            android:parentActivityName="view.accounting_overview.AccountingListActivity_" >
+            android:parentActivityName=".view.accounting_overview.AccountingListActivity_" >
         </activity>
         <activity
             android:name=".view.account.AccountsActivity_"
             android:label="@string/title_activity_accounts"
-            android:parentActivityName="view.accounting_overview.AccountingListActivity_" >
+            android:parentActivityName=".view.accounting_overview.AccountingListActivity_" >
+        </activity>
+        <activity
+            android:name=".view.template.TemplateActivity_"
+            android:label="@string/title_activity_template"
+            android:parentActivityName=".view.accounting_overview.AccountingListActivity_" >
+        </activity>
+        <activity
+            android:name=".view.template_create.CreateTemplateActivity_"
+            android:label="@string/title_activity_template_create"
+            android:parentActivityName=".view.template.TemplateActivity_" >
+        </activity>
+        <activity
+            android:name=".view.template_speech.TemplateSpeechActivity_"
+            android:label="@string/title_activity_template_speech"
+            android:parentActivityName=".view.accounting_overview.AccountingListActivity_" >
         </activity>
     </application>
 

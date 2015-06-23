@@ -37,7 +37,7 @@
       "documentation": "Values are stored in 100 cent.",
       "name": "value",
       "type": "Integer",
-      "nullable": true
+      "nullable": false
     }
   ],
   "constraints": [

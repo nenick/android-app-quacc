@@ -1,0 +1,175 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:focusable="false">
+
+    <ScrollView
+        android:id="@android:id/content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:focusableInTouchMode="true">
+
+            <TextView
+                android:id="@+id/layout_center_ancor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true" />
+
+            <TextView
+                android:id="@+id/typeLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/account"
+                android:layout_marginTop="26dp"
+                android:text="Buchungsart" />
+
+            <Spinner
+                android:id="@+id/type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/typeLabel"
+                android:spinnerMode="dialog"
+                tools:listitem="@layout/support_simple_spinner_dropdown_item"
+                android:layout_alignEnd="@+id/account" />
+
+
+            <TextView
+                android:id="@+id/intervalLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/layout_center_ancor"
+                android:layout_alignParentTop="false"
+                android:layout_alignTop="@+id/accountLabel"
+                android:text="Interval" />
+
+
+            <Spinner
+                android:id="@+id/interval"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/intervalLabel"
+                android:layout_below="@+id/intervalLabel"
+                android:spinnerMode="dialog"
+                tools:listitem="@layout/support_simple_spinner_dropdown_item" />
+
+            <TextView
+                android:id="@+id/categoryLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/layout_center_ancor"
+                android:layout_alignTop="@+id/typeLabel"
+                android:layout_toEndOf="@+id/type"
+                android:text="Kategorie" />
+
+
+            <Spinner
+                android:id="@+id/category"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignEnd="@+id/interval"
+                android:layout_alignStart="@+id/categoryLabel"
+                android:layout_below="@+id/categoryLabel"
+                android:spinnerMode="dialog"
+                tools:listitem="@layout/support_simple_spinner_dropdown_item" />
+
+            <TextView
+                android:id="@+id/valueLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="26dp"
+                android:text="Betrag"
+                android:layout_below="@+id/category" />
+
+            <EditText
+                android:id="@+id/value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="end"
+                android:imeOptions="flagNoExtractUi"
+                android:inputType="numberDecimal"
+                android:text="@string/initial_value"
+                android:layout_below="@+id/valueLabel"
+                android:layout_alignStart="@+id/valueLabel"
+                android:layout_alignEnd="@+id/category" />
+
+            <TextView
+                android:id="@+id/accountLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignEnd="@+id/type"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="20dp"
+                android:text="Konto" />
+
+            <Spinner
+                android:id="@+id/account"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/accountLabel"
+                android:spinnerMode="dialog"
+                tools:listitem="@layout/support_simple_spinner_dropdown_item" />
+
+            <TextView
+                android:id="@+id/commentLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Kommantar (Optional)"
+                android:layout_below="@+id/value"
+                android:layout_alignParentStart="true"
+                android:layout_marginTop="26dp" />
+
+            <EditText
+                android:id="@+id/comment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/commentLabel"
+                android:imeOptions="flagNoExtractUi"
+                android:layout_toStartOf="@+id/category" />
+
+            <TextView
+                android:id="@+id/valueError"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#FF0000"
+                tools:text="Fehler Text fall der Wert nicht geparst werden kann."
+                android:layout_marginLeft="10dp"
+                android:layout_below="@+id/value" />
+
+        </RelativeLayout>
+    </ScrollView>
+
+    <com.melnykov.fab.FloatingActionButton
+        android:id="@+id/btn_speech_recognition"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_margin="16dp"
+        android:src="@drawable/ic_action_mic" />
+
+    <TextView
+        android:id="@+id/speechResult"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:text="..."
+        android:layout_alignTop="@+id/btn_speech_recognition"
+        android:layout_alignParentStart="true" />
+
+</RelativeLayout>

@@ -67,13 +67,9 @@ public class AccountingTemplateContentValues extends AbstractContentValues {
     /**
      * Values are stored in 100 cent.
      */
-    public AccountingTemplateContentValues putValue(@Nullable Integer value) {
+    public AccountingTemplateContentValues putValue(int value) {
         mContentValues.put(AccountingTemplateColumns.VALUE, value);
         return this;
     }
 
-    public AccountingTemplateContentValues putValueNull() {
-        mContentValues.putNull(AccountingTemplateColumns.VALUE);
-        return this;
-    }
 }

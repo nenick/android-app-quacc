@@ -45,8 +45,6 @@ public interface AccountingTemplateModel extends BaseModel {
 
     /**
      * Values are stored in 100 cent.
-     * Can be {@code null}.
      */
-    @Nullable
-    Integer getValue();
+    int getValue();
 }

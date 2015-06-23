@@ -1,0 +1,70 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    tools:context="de.nenick.quacc.view.category.CategoriesFragment">
+
+    <Spinner
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/accountingType"
+        android:spinnerMode="dialog"
+        tools:listitem="@layout/support_simple_spinner_dropdown_item"
+        android:visibility="gone"/>
+
+    <Spinner
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/interval"
+        android:spinnerMode="dialog"
+        tools:listitem="@layout/support_simple_spinner_dropdown_item"
+        android:layout_alignTop="@+id/accountingType"
+        android:layout_toEndOf="@+id/accountingType"
+        android:visibility="gone"/>
+
+    <Spinner
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/category"
+        android:spinnerMode="dialog"
+        tools:listitem="@layout/support_simple_spinner_dropdown_item"
+        android:layout_alignTop="@+id/interval"
+        android:layout_toEndOf="@+id/interval"
+        android:visibility="gone"/>
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/label"
+        android:layout_below="@+id/textView22"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Hinzufügen"
+        android:id="@+id/confirm"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true" />
+
+    <ListView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/list"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/label"
+        android:layout_above="@+id/confirm"
+        android:choiceMode="singleChoice" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Sprach Text"
+        android:id="@+id/textView22"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true" />
+
+</RelativeLayout>

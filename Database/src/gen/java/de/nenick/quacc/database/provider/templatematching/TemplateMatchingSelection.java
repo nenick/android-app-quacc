@@ -475,13 +475,13 @@ public class TemplateMatchingSelection extends AbstractSelection<TemplateMatchin
         return this;
     }
 
-    public TemplateMatchingSelection accountingTemplateValue(Integer... value) {
-        addEquals(AccountingTemplateColumns.VALUE, value);
+    public TemplateMatchingSelection accountingTemplateValue(int... value) {
+        addEquals(AccountingTemplateColumns.VALUE, toObjectArray(value));
         return this;
     }
 
-    public TemplateMatchingSelection accountingTemplateValueNot(Integer... value) {
-        addNotEquals(AccountingTemplateColumns.VALUE, value);
+    public TemplateMatchingSelection accountingTemplateValueNot(int... value) {
+        addNotEquals(AccountingTemplateColumns.VALUE, toObjectArray(value));
         return this;
     }
 

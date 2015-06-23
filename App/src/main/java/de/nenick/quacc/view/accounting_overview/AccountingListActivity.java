@@ -1,10 +1,10 @@
 package de.nenick.quacc.view.accounting_overview;
 
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
 import android.support.v4.app.FragmentManager;
-import android.view.Menu;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarActivity;
+import android.view.Menu;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Bean;
@@ -17,6 +17,8 @@ import de.nenick.quacc.R;
 import de.nenick.quacc.backup.WriteDataFunction;
 import de.nenick.quacc.view.account.AccountsActivity_;
 import de.nenick.quacc.view.category.CategoriesActivity_;
+import de.nenick.quacc.view.template.TemplateActivity_;
+import de.nenick.quacc.view.template_speech.TemplateSpeechActivity_;
 
 @EActivity(R.layout.activity_accounting_list)
 public class AccountingListActivity extends ActionBarActivity
@@ -115,6 +117,16 @@ public class AccountingListActivity extends ActionBarActivity
     @OptionsItem(R.id.account)
     protected void onAccountsEditor() {
         AccountsActivity_.intent(this).start();
+    }
+
+    @OptionsItem(R.id.template)
+    protected void onTemplates() {
+        TemplateActivity_.intent(this).start();
+    }
+
+    @OptionsItem(R.id.template_speech)
+    protected void onTemplatesSpeech() {
+        TemplateSpeechActivity_.intent(this).start();
     }
 
     @OptionsItem(R.id.import_data)
