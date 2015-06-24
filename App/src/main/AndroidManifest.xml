@@ -18,7 +18,7 @@
         android:theme="@style/AppTheme"
         tools:replace="android:name" >
         <activity
-            android:name=".view.main.MainActivity_"
+            android:name=".main.MainActivity_"
             android:finishOnTaskLaunch="true"
             android:label="@string/app_name"
             android:noHistory="true" >
@@ -28,36 +28,36 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".view.accounting_create.CreateAccountingActivity_"
+            android:name=".accounting_create.CreateAccountingActivity_"
             android:label="@string/title_activity_add_accounting"
-            android:parentActivityName=".view.accounting_overview.AccountingListActivity_" />
+            android:parentActivityName=".accounting_overview.AccountingListActivity_" />
         <activity
-            android:name=".view.accounting_overview.AccountingListActivity_"
+            android:name=".accounting_overview.AccountingListActivity_"
             android:label="@string/title_activity_accounting_list" />
         <activity
-            android:name=".view.category.CategoriesActivity_"
+            android:name=".category.CategoriesActivity_"
             android:label="@string/title_activity_categories"
-            android:parentActivityName=".view.accounting_overview.AccountingListActivity_" >
+            android:parentActivityName=".accounting_overview.AccountingListActivity_" >
         </activity>
         <activity
-            android:name=".view.account.AccountsActivity_"
+            android:name=".account.AccountsActivity_"
             android:label="@string/title_activity_accounts"
-            android:parentActivityName=".view.accounting_overview.AccountingListActivity_" >
+            android:parentActivityName=".accounting_overview.AccountingListActivity_" >
         </activity>
         <activity
-            android:name=".view.template.TemplateActivity_"
+            android:name=".template.TemplateActivity_"
             android:label="@string/title_activity_template"
-            android:parentActivityName=".view.accounting_overview.AccountingListActivity_" >
+            android:parentActivityName=".accounting_overview.AccountingListActivity_" >
         </activity>
         <activity
-            android:name=".view.template_create.CreateTemplateActivity_"
+            android:name=".template_create.CreateTemplateActivity_"
             android:label="@string/title_activity_template_create"
-            android:parentActivityName=".view.template.TemplateActivity_" >
+            android:parentActivityName=".template.TemplateActivity_" >
         </activity>
         <activity
-            android:name=".view.template_speech.TemplateSpeechActivity_"
+            android:name=".template_speech.TemplateSpeechActivity_"
             android:label="@string/title_activity_template_speech"
-            android:parentActivityName=".view.accounting_overview.AccountingListActivity_" >
+            android:parentActivityName=".accounting_overview.AccountingListActivity_" >
         </activity>
     </application>
 

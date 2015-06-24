@@ -49,24 +49,17 @@ android {
 apply from: "build.apt.gradle"
 apply from: "../build.androidannotations.gradle"
 apply from: "../build.robolectric.gradle"
-apply from: "../build.test-artifact.gradle"
 
 dependencies {
     // project dependencies
-    releaseCompile project(path: ':Database', configuration: 'release')
-    debugCompile project(path: ':Database', configuration: 'debug')
+    releaseCompile project(path: ':Core', configuration: 'release')
+    debugCompile project(path: ':Core', configuration: 'debug')
 
     // backward compatibility
     compile 'com.android.support:appcompat-v7:21.0.3'
 
     // style support
     compile 'com.melnykov:floatingactionbutton:1.2.0'
-
-    // better time handling
-    compile 'net.danlew:android.joda:2.7.2'
-
-    // unit test support
-    testCompile project(':RobolectricPages')
 
     // instrumented test support
     androidTestCompile 'com.android.support.test.espresso:espresso-core:2.0'

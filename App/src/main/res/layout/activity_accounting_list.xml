@@ -2,7 +2,7 @@
 <android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:id="@+id/drawer_layout"
     android:layout_width="match_parent" android:layout_height="match_parent"
-    tools:context="de.nenick.quacc.view.accounting_overview.AccountingListActivity">
+    tools:context="de.nenick.quacc.accounting_overview.AccountingListActivity">
 
     <!-- As the main content view, the view below consumes the entire
          space available using match_parent in both dimensions. -->
@@ -19,7 +19,7 @@
     <fragment android:id="@+id/navigation_drawer"
         android:layout_width="@dimen/navigation_drawer_width" android:layout_height="match_parent"
         android:layout_gravity="start"
-        android:name="de.nenick.quacc.view.accounting_overview.AccountingListDrawer"
+        android:name="de.nenick.quacc.accounting_overview.AccountingListDrawer"
         tools:layout= "@layout/fragment_navigation_drawer"/>
 
 </android.support.v4.widget.DrawerLayout>

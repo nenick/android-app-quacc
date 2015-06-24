@@ -1,8 +1,10 @@
-package de.nenick.quacc.view.speechrecognition;
+package de.nenick.quacc.speechrecognition;
 
 import android.os.Bundle;
 
 import org.junit.Test;
+
+import de.nenick.quacc.speechrecognition.RecognitionListenerWrapper;
 
 public class RecognitionListenerWrapperTest {
 

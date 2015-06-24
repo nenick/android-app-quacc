@@ -5,14 +5,10 @@ import org.junit.Test;
 import org.mockito.MockitoAnnotations;
 import org.mockito.Spy;
 
-import de.nenick.quacc.accounting.type.AccountingType;
-import de.nenick.quacc.speechrecognition.RecognizeAccountingTypeFunction;
-import de.nenick.quacc.speechrecognition.SpeechResult;
+import de.nenick.quacc.core.accounting.type.AccountingType;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.BDDMockito.given;
 import static org.mockito.Matchers.anyInt;
-import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.doReturn;
 
 public class RecognizeAccountingTypeFunctionTest {

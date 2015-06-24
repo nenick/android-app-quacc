@@ -6,7 +6,7 @@ import org.androidannotations.annotations.EBean;
 import org.androidannotations.annotations.RootContext;
 
 import de.nenick.quacc.R;
-import de.nenick.quacc.accounting.type.AccountingType;
+import de.nenick.quacc.core.accounting.type.AccountingType;
 
 @EBean
 public class RecognizeAccountingTypeFunction {

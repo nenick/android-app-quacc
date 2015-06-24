@@ -1,0 +1,38 @@
+package de.nenick.quacc.account;
+
+import android.content.Intent;
+
+import org.robolectric.RuntimeEnvironment;
+
+import de.nenick.quacc.R;
+import de.nenick.quacc.account.AccountsActivity;
+import de.nenick.quacc.account.AccountsActivity_;
+import de.nenick.quacc.account.AccountsFragment_;
+import de.nenick.robolectric.RoboSup;
+import de.nenick.robolectric.RoboSupPage;
+import de.nenick.robolectricpages.components.RoboButton;
+import de.nenick.robolectricpages.components.RoboSpinner;
+import de.nenick.robolectricpages.components.RoboTextView;
+
+public class RoboAccountsPage extends RoboSupPage<AccountsActivity_, AccountsFragment_> {
+
+    public RoboAccountsPage(RoboSup<AccountsActivity_, AccountsFragment_> robo) {
+        super(robo, AccountsActivity.TAG_FRAGMENT);
+    }
+
+    public static Intent Intent() {
+        return AccountsActivity_.intent(RuntimeEnvironment.application).get();
+    }
+
+    public RoboSpinner accounts() {
+        return new RoboSpinner(robo, R.id.account);
+    }
+
+    public RoboTextView initialValue() {
+        return new RoboTextView(robo, R.id.value);
+    }
+
+    public RoboButton save() {
+        return new RoboButton(robo, R.id.button);
+    }
+}

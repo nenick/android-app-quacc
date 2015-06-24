@@ -22,7 +22,7 @@ import de.nenick.quacc.database.provider.interval.IntervalSelection;
 @EBean
 public class IntervalDb {
 
-    public static final String[] ALL_COLUMN_AND_FROM_JOIN = ObjectArrays.concat(ObjectArrays.concat(IntervalColumns.ALL_COLUMNS, AccountColumns.ALL_COLUMNS, String.class), CategoryColumns.ALL_COLUMNS, String.class);
+    private final String[] ALL_COLUMN_AND_FROM_JOIN = ObjectArrays.concat(ObjectArrays.concat(IntervalColumns.ALL_COLUMNS, AccountColumns.ALL_COLUMNS, String.class), CategoryColumns.ALL_COLUMNS, String.class);
     public static Date NO_DATE_GIVEN = new Date(0);
 
     @RootContext

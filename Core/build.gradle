@@ -1,0 +1,75 @@
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        // support code generation (android annotaions, dagger, ...)
+        classpath 'com.neenbedankt.gradle.plugins:android-apt:1.4'
+    }
+}
+
+apply plugin: 'com.android.library'
+apply from: "../build.jacoco-already-instrumented-workaround.gradle"
+
+android {
+    compileSdkVersion 21
+    buildToolsVersion "22.0.1"
+    publishNonDefault true
+
+    defaultConfig {
+        minSdkVersion 17
+        targetSdkVersion 21
+        versionCode 1
+        versionName "1.0"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            buildConfigField "String", "MODULE_PATH", "\"$projectDir\"".replace('\\', '\\\\')
+        }
+        debug {
+            buildConfigField "String", "MODULE_PATH", "\"$projectDir\"".replace('\\', '\\\\')
+        }
+    }
+
+    lintOptions {
+        // robolectric does only support sdk v21 current
+        disable 'OldTargetApi'
+    }
+}
+
+
+apply from: "build.apt.gradle"
+apply from: "../build.androidannotations.gradle"
+apply from: "../build.robolectric.gradle"
+
+// add compile main sources for test runs https://github.com/nenick/AndroidStudioAndRobolectric/issues/7
+afterEvaluate { project ->
+    android.libraryVariants.each { variant ->
+        tasks.getByName("test${variant.name.capitalize()}") {
+            dependsOn "assemble${variant.name.capitalize()}"
+        }
+    }
+}
+
+dependencies {
+    // project dependencies
+    releaseCompile project(path: ':Database', configuration: 'release')
+    debugCompile project(path: ':Database', configuration: 'debug')
+
+    compile 'com.android.support:support-annotations:21.0.3'
+
+    // better time handling
+    compile 'net.danlew:android.joda:2.7.2'
+}
+
+afterEvaluate {
+    tasks.testDebug {
+        testLogging {
+            events "passed", "skipped", "failed", "standardOut", "standardError"
+        }
+        jvmArgs "-XX:MaxPermSize=512m"
+    }
+}

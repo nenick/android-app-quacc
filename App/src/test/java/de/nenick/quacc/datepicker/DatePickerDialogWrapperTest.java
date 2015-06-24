@@ -1,4 +1,4 @@
-package de.nenick.quacc.view.datepicker;
+package de.nenick.quacc.datepicker;
 
 
 import org.joda.time.DateTimeZone;
@@ -8,6 +8,8 @@ import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+
+import de.nenick.quacc.datepicker.DatePickerDialogWrapper;
 
 import static org.mockito.Mockito.verify;
 

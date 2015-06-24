@@ -10,6 +10,7 @@ def isTravis = project.isCircleCi
 task configureCoverageReport {
     doFirst {
         def includeAppSrc = false;
+        def includeCoreSrc = false;
         def includeDatabaseSrc = false;
         def coverageFiles = []
         def coverageSourceDirs = []
@@ -26,6 +27,7 @@ task configureCoverageReport {
         def currentCoverageFile = 'App/build/outputs/code-coverage/connected/coverage.ec'
         if (file(currentCoverageFile).exists()) {
             includeAppSrc = true;
+            includeCoreSrc = true;
             includeDatabaseSrc = true;
             coverageFiles += currentCoverageFile
         }
@@ -34,9 +36,15 @@ task configureCoverageReport {
             includeAppSrc = true;
             coverageFiles += currentCoverageFile
         }
+        currentCoverageFile = 'Cpre/build/jacoco/testDebug.exec'
+        if (file(currentCoverageFile).exists()) {
+            includeCoreSrc = true;
+            coverageFiles += currentCoverageFile
+        }
         currentCoverageFile = 'AppCT/build/jacoco/testDebug.exec'
         if (file(currentCoverageFile).exists()) {
             includeAppSrc = true;
+            includeCoreSrc = true;
             includeDatabaseSrc = true;
             coverageFiles += currentCoverageFile
         }
@@ -50,6 +58,10 @@ task configureCoverageReport {
         if (includeAppSrc) {
             coverageSourceDirs += 'App/src/main/java'
             tasks.jacocoTestReport.classDirectories += fileTree(dir: 'App/build/intermediates/classes/debug', excludes: defaultExcludes)
+        }
+        if (includeAppSrc) {
+            coverageSourceDirs += 'Core/src/main/java'
+            tasks.jacocoTestReport.classDirectories += fileTree(dir: 'Core/build/intermediates/classes/debug', excludes: defaultExcludes)
         }
         if (includeDatabaseSrc) {
             coverageSourceDirs += 'Database/src/gen/java'

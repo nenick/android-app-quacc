@@ -1,13 +1,17 @@
-package de.nenick.quacc.view.speechrecognition;
+package de.nenick.quacc.speechrecognition;
 
 import android.content.Intent;
 import android.speech.SpeechRecognizer;
 
+import org.assertj.core.api.Assertions;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+
+import de.nenick.quacc.speechrecognition.RecognitionListenerWrapper;
+import de.nenick.quacc.speechrecognition.SpeechRecognitionWrapper;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.verify;

@@ -7,7 +7,7 @@ import org.junit.Test;
 import de.nenick.quacc.apptest.espresso.BaseEspressoSpec;
 import de.nenick.quacc.apptest.pages.EspressoAccountingListPage;
 import de.nenick.quacc.apptest.pages.EspressoAddAccountingPage;
-import de.nenick.quacc.common.util.QuAccDateUtil;
+import de.nenick.quacc.core.common.util.QuAccDateUtil;
 
 public class AddAccountingUcSpec extends BaseEspressoSpec {
 

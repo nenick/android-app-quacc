@@ -13,7 +13,7 @@ import java.io.IOException;
 import java.util.logging.LogManager;
 
 import de.nenick.quacc.database.provider.QuAccSQLiteOpenHelper;
-import de.nenick.quacc.initialdata.DatabaseInitialData;
+import de.nenick.quacc.core.initialdata.DatabaseInitialData;
 import de.nenick.quacc.settings.QuAccPreferences_;
 
 @EApplication

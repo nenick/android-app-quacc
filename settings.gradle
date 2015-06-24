@@ -1,1 +1,1 @@
-include 'App', 'RobolectricPages', 'AppCT', 'Database'
+include 'App', 'RobolectricPages', 'AppCT', 'Database', 'Core'
