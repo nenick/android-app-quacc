@@ -10,8 +10,8 @@ import org.mockito.MockitoAnnotations;
 
 import java.util.ArrayList;
 
-import de.nenick.quacc.accounting_create.CreateAccountingView;
-import de.nenick.quacc.accounting_create.SpeechRecognitionFeature;
+import de.nenick.quacc.view.accounting_create.CreateAccountingView;
+import de.nenick.quacc.view.accounting_create.SpeechRecognitionFeature;
 import de.nenick.quacc.speechrecognition.RecognizeAccountingIntervalFunction;
 import de.nenick.quacc.speechrecognition.RecognizeAccountingTypeFunction;
 import de.nenick.quacc.speechrecognition.RecognizeCategoryFunction;

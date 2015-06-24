@@ -8,7 +8,7 @@ import org.androidannotations.annotations.RootContext;
 import java.util.HashMap;
 import java.util.Map;
 
-import de.nenick.quacc.accounting_overview.filter.FilterRange;
+import de.nenick.quacc.view.accounting_overview.filter.FilterRange;
 
 @EBean
 public class FilterRangeTranslator {

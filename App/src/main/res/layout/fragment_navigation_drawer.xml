@@ -7,4 +7,4 @@
     android:choiceMode="singleChoice"
     android:divider="@android:color/transparent"
     android:dividerHeight="0dp"
-    tools:context="de.nenick.quacc.accounting_overview.AccountingListDrawer" />
+    tools:context="de.nenick.quacc.view.accounting_overview.AccountingListDrawer" />

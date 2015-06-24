@@ -6,7 +6,7 @@ import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
 
 import de.nenick.quacc.R;
-import de.nenick.quacc.main.MainActivity_;
+import de.nenick.quacc.view.main.MainActivity_;
 
 /**
  * Emulates the android launcher for instrumentation tests.

@@ -8,7 +8,7 @@ import org.androidannotations.annotations.RootContext;
 import java.util.HashMap;
 import java.util.Map;
 
-import de.nenick.quacc.accounting_overview.grouping.GroupingOption;
+import de.nenick.quacc.view.accounting_overview.grouping.GroupingOption;
 
 @EBean
 public class GroupingOptionTranslator {
