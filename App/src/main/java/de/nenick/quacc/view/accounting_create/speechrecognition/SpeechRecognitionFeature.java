@@ -1,27 +1,16 @@
 package de.nenick.quacc.view.accounting_create.speechrecognition;
 
-import android.content.Context;
 import android.speech.SpeechRecognizer;
 
 import org.androidannotations.annotations.AfterInject;
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EBean;
-import org.androidannotations.annotations.RootContext;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import de.nenick.quacc.R;
-import de.nenick.quacc.StringPartUtil;
-import de.nenick.quacc.speechrecognition.RecognizeAccountingIntervalFunction;
-import de.nenick.quacc.speechrecognition.RecognizeAccountingTypeFunction;
-import de.nenick.quacc.speechrecognition.RecognizeCategoryFunction;
-import de.nenick.quacc.speechrecognition.RecognizeTemplateFunction;
-import de.nenick.quacc.speechrecognition.RecognizeValueFunction;
-import de.nenick.quacc.speechrecognition.SpeechResult;
 import de.nenick.quacc.speechrecognition.SpeechRecognitionWrapper;
-import de.nenick.quacc.valueparser.ParseValueFromIntegerFunction;
 import de.nenick.quacc.view.accounting_create.CreateAccountingView;
 
 @EBean

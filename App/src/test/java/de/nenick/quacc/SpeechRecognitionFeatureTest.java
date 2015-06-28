@@ -11,6 +11,8 @@ import org.mockito.MockitoAnnotations;
 import java.util.ArrayList;
 
 import de.nenick.quacc.view.accounting_create.CreateAccountingView;
+import de.nenick.quacc.view.accounting_create.speechrecognition.InterpretSpeechFunction;
+import de.nenick.quacc.view.accounting_create.speechrecognition.InterpretTemplateFunction;
 import de.nenick.quacc.view.accounting_create.speechrecognition.SpeechRecognitionFeature;
 import de.nenick.quacc.speechrecognition.RecognizeAccountingIntervalFunction;
 import de.nenick.quacc.speechrecognition.RecognizeAccountingTypeFunction;
@@ -45,6 +47,12 @@ public class SpeechRecognitionFeatureTest {
 
     @Mock
     RecognizeValueFunction recognizeValueFunction;
+
+    @Mock
+    InterpretSpeechFunction interpretSpeechFunction;
+
+    @Mock
+    InterpretTemplateFunction interpretTemplateFunction;
 
     @Captor
     ArgumentCaptor<SpeechRecognitionWrapper.SpeechResultListener> speechResultListenerArgumentCaptor;
@@ -116,6 +124,6 @@ public class SpeechRecognitionFeatureTest {
         ArrayList<String> texts = new ArrayList<>();
         texts.add("Eins");
         speechResultListenerArgumentCaptor.getValue().onResults(texts);
-        verify(view).showRecognizedText("[Eins]");
+        verify(view).showRecognizedText("[Eins] ");
     }
 }

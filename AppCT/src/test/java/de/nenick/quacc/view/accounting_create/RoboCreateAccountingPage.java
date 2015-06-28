@@ -14,6 +14,7 @@ import java.util.Collections;
 
 import de.nenick.quacc.R;
 import de.nenick.quacc.speechrecognition.RecognitionListenerWrapper;
+import de.nenick.quacc.view.accounting_create.speechrecognition.RoboSpeechRecognitionFeatureMockUtil;
 import de.nenick.robolectric.RoboSup;
 import de.nenick.robolectric.RoboSupPage;
 import de.nenick.robolectricpages.components.RoboImageButton;
@@ -38,7 +39,7 @@ public class RoboCreateAccountingPage extends RoboSupPage<CreateAccountingActivi
 
     public void startPageWithSpeechMock(SpeechRecognizer mockSpeechRecognizer) {
         createPage();
-        RoboCreateAccountingMocking.setSpeechRecognitionMock(robo.fragment, mockSpeechRecognizer);
+        RoboCreateAccountingFragmentMockUtil.setSpeechRecognitionMock(robo.fragment, mockSpeechRecognizer);
         verify(mockSpeechRecognizer).setRecognitionListener(speechRecognitionListenerArgumentCaptor.capture());
         startCreatedPage();
     }

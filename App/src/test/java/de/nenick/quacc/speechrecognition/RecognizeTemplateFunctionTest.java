@@ -7,7 +7,9 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import de.nenick.quacc.database.provider.accountingtemplate.AccountingTemplateCursor;
 import de.nenick.quacc.database.provider.templatematching.TemplateMatchingCursor;
+import de.nenick.quacc.database.template.AccountingTemplateDb;
 import de.nenick.quacc.database.template.TemplateMatchingDb;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -21,6 +23,12 @@ public class RecognizeTemplateFunctionTest {
 
     @Mock
     TemplateMatchingDb templateMatchingDb;
+
+    @Mock
+    AccountingTemplateDb accountingTemplateDb;
+
+    @Mock
+    AccountingTemplateCursor accountingTemplateCursor;
 
     @Mock
     TemplateMatchingCursor templateMatchingCursor;
@@ -41,6 +49,7 @@ public class RecognizeTemplateFunctionTest {
     public void setup() {
         MockitoAnnotations.initMocks(this);
         given(templateMatchingDb.getAll()).willReturn(templateMatchingCursor);
+        given(accountingTemplateDb.getById(templateId)).willReturn(accountingTemplateCursor);
     }
 
     @Test
@@ -58,12 +67,12 @@ public class RecognizeTemplateFunctionTest {
     @Test
     public void shouldReportMatch() {
         given(templateMatchingCursor.moveToNext()).willReturn(true).willReturn(false);
-        given(templateMatchingCursor.getId()).willReturn(templateId);
+        given(templateMatchingCursor.getAccountingTemplateId()).willReturn(templateId);
         given(templateMatchingCursor.getText()).willReturn(templateText);
         given(recognizeValueFunction.apply(recognizedText)).willReturn(new RecognizeValueFunction.SpeechValueResult(500, templateTextWithComment.length(), priceText.length()));
         whenApplyWith(recognizedText);
         assertThat(result).isNotNull();
-        assertThat(result.templateId).isEqualTo(templateId);
+        assertThat(result.accountingTemplateCursor).isEqualTo(accountingTemplateCursor);
         assertThat(result.value).isEqualTo(500);
         assertThat(result.comment).isEqualTo("Pizza");
     }

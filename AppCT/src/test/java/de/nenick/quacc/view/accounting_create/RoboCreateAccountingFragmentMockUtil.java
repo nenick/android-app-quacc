@@ -3,12 +3,12 @@ package de.nenick.quacc.view.accounting_create;
 import android.speech.SpeechRecognizer;
 
 import de.nenick.quacc.speechrecognition.RoboSpeechRecognitionMocking;
-import de.nenick.quacc.view.accounting_create.CreateAccountingFragment;
+import de.nenick.quacc.view.accounting_create.speechrecognition.RoboSpeechRecognitionFeatureMockUtil;
 
-public class RoboCreateAccountingMocking {
+public class RoboCreateAccountingFragmentMockUtil {
 
     public static void setSpeechRecognitionMock(CreateAccountingFragment fragment, SpeechRecognizer speechRecognizer) {
-        RoboSpeechRecognitionMocking.setMock(fragment.speechRecognitionFeature.speechRecognitionWrapper, speechRecognizer);
+        RoboSpeechRecognitionFeatureMockUtil.setSpeechRecognitionMock(fragment.speechRecognitionFeature, speechRecognizer);
         fragment.speechRecognitionFeature.onAfterInject();
     }
 }
