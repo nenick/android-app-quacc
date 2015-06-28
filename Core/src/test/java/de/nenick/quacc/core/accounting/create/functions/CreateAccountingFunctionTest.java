@@ -22,7 +22,6 @@ public class CreateAccountingFunctionTest {
     public static final String ACCOUNTING_INTERVAL = "Monatlich";
     Date DATE = new Date();
     public static final String ACCOUNT = "Bar";
-    public static final String CATEGORY_NAME = "Miete";
     public static final long CATEGORY_ID = 2l;
     public static final long ACCOUNT_ID = 1l;
     public static final String COMMENT = "money money";
@@ -32,9 +31,6 @@ public class CreateAccountingFunctionTest {
 
     @Mock
     AccountDb accountDb;
-
-    @Mock
-    CategoryDb categoryDb;
 
     @Mock
     AccountingDb accountingDb;
@@ -47,8 +43,7 @@ public class CreateAccountingFunctionTest {
     @Test
     public void shouldAddAccounting() {
         given(accountDb.getIdByName(ACCOUNT)).willReturn(ACCOUNT_ID);
-        given(categoryDb.getIdByName(CATEGORY_NAME)).willReturn(CATEGORY_ID);
-        function.apply(ACCOUNT, ACCOUNTING_TYPE, ACCOUNTING_INTERVAL, CATEGORY_NAME, DATE, VALUE, COMMENT);
+        function.apply(ACCOUNT, ACCOUNTING_TYPE, ACCOUNTING_INTERVAL, CATEGORY_ID, DATE, VALUE, COMMENT);
         verify(accountingDb).insert(ACCOUNT_ID, ACCOUNTING_TYPE, ACCOUNTING_INTERVAL, CATEGORY_ID, DATE, COMMENT, 1212);
     }
 

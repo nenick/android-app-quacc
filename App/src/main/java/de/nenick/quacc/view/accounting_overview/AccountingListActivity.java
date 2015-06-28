@@ -18,7 +18,6 @@ import de.nenick.quacc.core.backup.WriteDataFunction;
 import de.nenick.quacc.view.account.AccountsActivity_;
 import de.nenick.quacc.view.category.CategoriesActivity_;
 import de.nenick.quacc.view.template.TemplateActivity_;
-import de.nenick.quacc.view.template_speech.TemplateSpeechActivity_;
 
 @EActivity(R.layout.activity_accounting_list)
 public class AccountingListActivity extends ActionBarActivity
@@ -122,11 +121,6 @@ public class AccountingListActivity extends ActionBarActivity
     @OptionsItem(R.id.template)
     protected void onTemplates() {
         TemplateActivity_.intent(this).start();
-    }
-
-    @OptionsItem(R.id.template_speech)
-    protected void onTemplatesSpeech() {
-        TemplateSpeechActivity_.intent(this).start();
     }
 
     @OptionsItem(R.id.import_data)

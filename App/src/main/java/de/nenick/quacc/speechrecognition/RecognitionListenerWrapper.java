@@ -26,6 +26,7 @@ public abstract class RecognitionListenerWrapper implements RecognitionListener 
 
     @Override
     public void onPartialResults(Bundle partialResults) {
+        int i = 5;
     }
 
     @Override

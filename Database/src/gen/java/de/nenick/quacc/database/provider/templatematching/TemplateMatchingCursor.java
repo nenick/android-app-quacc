@@ -153,11 +153,13 @@ public class TemplateMatchingCursor extends AbstractCursor implements TemplateMa
 
     /**
      * Get the {@code comment} value.
-     * Can be {@code null}.
+     * Cannot be {@code null}.
      */
-    @Nullable
+    @NonNull
     public String getAccountingTemplateComment() {
         String res = getStringOrNull(AccountingTemplateColumns.COMMENT);
+        if (res == null)
+            throw new NullPointerException("The value of 'comment' in the database was null, which is not allowed according to the model definition");
         return res;
     }
 

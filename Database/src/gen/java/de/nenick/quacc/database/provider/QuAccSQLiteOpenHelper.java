@@ -58,7 +58,7 @@ public class QuAccSQLiteOpenHelper extends SQLiteOpenHelper {
             + AccountingTemplateColumns._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
             + AccountingTemplateColumns.ACCOUNT_ID + " INTEGER NOT NULL, "
             + AccountingTemplateColumns.CATEGORY_ID + " INTEGER NOT NULL, "
-            + AccountingTemplateColumns.COMMENT + " TEXT, "
+            + AccountingTemplateColumns.COMMENT + " TEXT NOT NULL, "
             + AccountingTemplateColumns.INTERVAL + " TEXT NOT NULL, "
             + AccountingTemplateColumns.TYPE + " TEXT NOT NULL, "
             + AccountingTemplateColumns.VALUE + " INTEGER NOT NULL "

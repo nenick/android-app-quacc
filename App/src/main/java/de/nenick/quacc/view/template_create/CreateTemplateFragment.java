@@ -7,9 +7,11 @@ import org.androidannotations.annotations.OptionsItem;
 import org.androidannotations.annotations.OptionsMenu;
 
 import de.nenick.quacc.R;
+import de.nenick.quacc.core.template.CreateTemplateMatchFunction;
+import de.nenick.quacc.database.provider.category.CategoryCursor;
 import de.nenick.quacc.view.accounting_create.adapter.CategoryAdapter;
-import de.nenick.quacc.view.accounting_create.adapter.IntervalAdapter;
-import de.nenick.quacc.view.accounting_create.adapter.TypeAdapter;
+import de.nenick.quacc.view.common.adapter.IntervalAdapter;
+import de.nenick.quacc.view.common.adapter.TypeAdapter;
 import de.nenick.quacc.core.account.GetAccountsFunction;
 import de.nenick.quacc.core.accounting.interval.AccountingInterval;
 import de.nenick.quacc.core.accounting.interval.GetAccountingIntervalsFunction;
@@ -19,8 +21,6 @@ import de.nenick.quacc.view.mvp.BasePresenterFragment;
 import de.nenick.quacc.view.mvp.BaseView;
 import de.nenick.quacc.valueparser.ParseValueFromStringFunction;
 import de.nenick.quacc.core.template.CreateAccountingTemplateFunction;
-
-import static de.nenick.quacc.valueparser.ParseValueFromStringFunction.ParseResult.Successful;
 
 @EFragment(R.layout.fragment_create_accounting_template)
 @OptionsMenu(R.menu.menu_create_account)
@@ -43,6 +43,10 @@ public class CreateTemplateFragment extends BasePresenterFragment {
 
     @Bean
     ParseValueFromStringFunction parseValueFromStringFunction;
+
+    @Bean
+    CreateTemplateMatchFunction createTemplateMatchFunction;
+
     @Bean
     IntervalAdapter intervalAdapter;
 
@@ -77,39 +81,18 @@ public class CreateTemplateFragment extends BasePresenterFragment {
     @OptionsItem(R.id.confirm)
     protected void onConfirmNewAccounting() {
         view.closeSoftKeyboard();
-        String value = view.getValue();
-        ParseValueFromStringFunction.Result valueResult = parseValueFromStringFunction.apply(value);
-        if (valueResult.report == Successful) {
-            String account = view.getAccount();
-            String accountingType = view.getAccountingType();
-            String accountingInterval = view.getAccountingInterval();
-            String accountingCategory = view.getAccountingCategory();
-            String comment = view.getComment();
-            view.finish();
-                createAccountingTemplateFunction.apply(account, accountingType, accountingInterval, accountingCategory, comment, valueResult.value);
 
-        } else {
-            showParsingError(valueResult);
-        }
-    }
+        String account = view.getAccount();
+        String accountingType = view.getAccountingType();
+        String accountingInterval = view.getAccountingInterval();
+        CategoryCursor accountingCategory = view.getAccountingCategory();
+        String comment = view.getComment();
+        view.finish();
+        long templateId = createAccountingTemplateFunction.apply(account, accountingType, accountingInterval, accountingCategory.getId(), comment, 0);
 
-    private void showParsingError(ParseValueFromStringFunction.Result valueResult) {
-        switch (valueResult.report) {
-            case EmptyInput:
-                view.showValueParsingError(R.string.parse_error_missing_value);
-                break;
-            case ZeroValue:
-                view.showValueParsingError(R.string.parse_error_missing_value);
-                break;
-            case InvalidChar:
-                view.showValueParsingError(R.string.parse_error_invalid_char);
-                break;
-            case InvalidFormat:
-                view.showValueParsingError(R.string.parse_error_invalid_format);
-                break;
-            case UnknownError:
-            default:
-                view.showValueParsingError(R.string.parse_error_unknown);
+        String speechText = view.getSpeechText();
+        if(!speechText.isEmpty()) {
+            createTemplateMatchFunction.apply(speechText, templateId);
         }
     }
 

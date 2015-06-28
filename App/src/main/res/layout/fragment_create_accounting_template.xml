@@ -87,26 +87,6 @@
                 tools:listitem="@layout/support_simple_spinner_dropdown_item" />
 
             <TextView
-                android:id="@+id/valueLabel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="26dp"
-                android:text="Betrag"
-                android:layout_below="@+id/category" />
-
-            <EditText
-                android:id="@+id/value"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="end"
-                android:imeOptions="flagNoExtractUi"
-                android:inputType="numberDecimal"
-                android:text="@string/initial_value"
-                android:layout_below="@+id/valueLabel"
-                android:layout_alignStart="@+id/valueLabel"
-                android:layout_alignEnd="@+id/category" />
-
-            <TextView
                 android:id="@+id/accountLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -129,8 +109,8 @@
                 android:id="@+id/commentLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Kommantar (Optional)"
-                android:layout_below="@+id/value"
+                android:text="Notiz (Optional)"
+                android:layout_below="@+id/type"
                 android:layout_alignParentStart="true"
                 android:layout_marginTop="26dp" />
 
@@ -144,13 +124,21 @@
                 android:layout_toStartOf="@+id/category" />
 
             <TextView
-                android:id="@+id/valueError"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="#FF0000"
-                tools:text="Fehler Text fall der Wert nicht geparst werden kann."
-                android:layout_marginLeft="10dp"
-                android:layout_below="@+id/value" />
+                android:text="Sprachkürzel (Optional)"
+                android:id="@+id/speechLabel"
+                android:layout_marginTop="26dp"
+                android:layout_below="@id/comment"
+                android:layout_alignParentStart="true" />
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/speechText"
+                android:layout_below="@id/speechLabel"
+                android:layout_alignParentStart="true"
+                android:layout_alignEnd="@+id/comment" />
 
         </RelativeLayout>
     </ScrollView>

@@ -24,9 +24,9 @@ public interface AccountingTemplateModel extends BaseModel {
 
     /**
      * Get the {@code comment} value.
-     * Can be {@code null}.
+     * Cannot be {@code null}.
      */
-    @Nullable
+    @NonNull
     String getComment();
 
     /**

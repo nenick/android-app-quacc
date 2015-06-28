@@ -5,7 +5,7 @@ import android.content.Context;
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EBean;
 
-import de.nenick.quacc.view.category.GetAccountingCategoriesFilteredFunction;
+import de.nenick.quacc.core.category.GetAccountingCategoriesFilteredFunction;
 import de.nenick.quacc.database.provider.category.CategoryCursor;
 import de.nenick.quacc.i18n.AccountingIntervalTranslator;
 import de.nenick.quacc.view.mvp.BaseCursorPresenterAdapter;
@@ -24,9 +24,9 @@ public class CategoryAdapter extends BaseCursorPresenterAdapter<CategoryCursor, 
     }
 
     @Override
-    public Object getItem(int i) {
+    public CategoryCursor getItem(int i) {
         cursor.moveToPosition(i);
-        return cursor.getName();
+        return cursor;
     }
 
     @Override

@@ -14,6 +14,7 @@ import org.androidannotations.annotations.RootContext;
 import de.nenick.quacc.core.accounting.type.AccountingType;
 import de.nenick.quacc.core.template.GetAccountingTemplatesFunction;
 import de.nenick.quacc.database.provider.accountingtemplate.AccountingTemplateCursor;
+import de.nenick.quacc.database.template.TemplateMatchingDb;
 import de.nenick.quacc.i18n.AccountingIntervalTranslator;
 import de.nenick.quacc.valueparser.ParseValueFromIntegerFunction;
 
@@ -31,6 +32,9 @@ public class TemplatePlainAdapter extends CursorAdapter {
 
     @Bean
     ParseValueFromIntegerFunction parseValueFromInteger;
+
+    @Bean
+    TemplateMatchingDb templateMatchingDb;
 
     public TemplatePlainAdapter() {
         super(null, null, true);
@@ -53,8 +57,8 @@ public class TemplatePlainAdapter extends CursorAdapter {
         bindView((TemplatePlainItemView) view, (AccountingTemplateCursor) cursor);
     }
 
-    private void bindView(TemplatePlainItemView view, AccountingTemplateCursor accountingCursor) {
-        AccountingType accountingType = AccountingType.valueOf(accountingCursor.getType());
+    private void bindView(TemplatePlainItemView view, AccountingTemplateCursor accountingTemplateCursor) {
+        AccountingType accountingType = AccountingType.valueOf(accountingTemplateCursor.getType());
         switch (accountingType) {
             case incoming:
                 view.showAsIncome();
@@ -63,14 +67,11 @@ public class TemplatePlainAdapter extends CursorAdapter {
                 view.showAsOutgoing();
         }
 
-        view.setInterval(accountingIntervalTranslator.translate(accountingCursor.getInterval()));
-        view.setCategory(accountingCursor.getCategoryName());
-        view.setComment(accountingCursor.getComment());
-        view.setValue(createValueString(accountingCursor));
-    }
-
-    private String createValueString(AccountingTemplateCursor accountingCursor) {
-        int value = accountingCursor.getValue();
-        return parseValueFromInteger.apply(value);
+        view.setInterval(accountingIntervalTranslator.translate(accountingTemplateCursor.getInterval()));
+        view.setCategory(accountingTemplateCursor.getCategoryName());
+        view.setComment(accountingTemplateCursor.getComment());
+        view.setAccount(accountingTemplateCursor.getAccountName());
+        String speechText = templateMatchingDb.getSpeechTextForTemplate(accountingTemplateCursor.getId());
+        view.setSpeechText(speechText);
     }
 }

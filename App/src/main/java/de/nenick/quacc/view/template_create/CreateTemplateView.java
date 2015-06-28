@@ -29,14 +29,11 @@ public class CreateTemplateView extends BaseView {
     @ViewById(R.id.category)
     Spinner accountingCategorySpinner;
 
-    @ViewById(R.id.value)
-    EditText valueField;
-
-    @ViewById(R.id.valueError)
-    TextView valueError;
-
     @ViewById(R.id.comment)
     EditText comment;
+
+    @ViewById(R.id.speechText)
+    EditText speechText;
 
     @ViewById(R.id.btn_speech_recognition)
     FloatingActionButton speechButton;
@@ -73,24 +70,17 @@ public class CreateTemplateView extends BaseView {
         accountingCategorySpinner.setAdapter(adapter);
     }
 
-    public String getAccountingCategory() {
-        return accountingCategorySpinner.getSelectedItem().toString();
+    public <T> T getAccountingCategory() {
+        //noinspection unchecked the caller should now what kind of item he expect
+        return (T) accountingCategorySpinner.getSelectedItem();
     }
 
     public void showRecognizedText(String recognizedText) {
         ((TextView) context.findViewById(R.id.speechResult)).setText(recognizedText);
     }
 
-    public String getValue() {
-        return valueField.getText().toString();
-    }
-
     public String getComment() {
         return comment.getText().toString();
-    }
-
-    public void showValueParsingError(int resourceId) {
-        valueError.setText(resourceId);
     }
 
     public void showSpeechStartButton() {
@@ -132,7 +122,7 @@ public class CreateTemplateView extends BaseView {
         comment.setText(text);
     }
 
-    public void setValue(String value) {
-        valueField.setText(value);
+    public String getSpeechText() {
+        return speechText.getText().toString();
     }
 }

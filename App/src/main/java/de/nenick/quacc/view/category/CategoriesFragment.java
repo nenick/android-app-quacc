@@ -5,6 +5,13 @@ import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EFragment;
 
 import de.nenick.quacc.R;
+import de.nenick.quacc.core.category.CreateCategoryFunction;
+import de.nenick.quacc.core.category.GetAccountingCategoriesFilteredFunction;
+import de.nenick.quacc.database.provider.category.CategoryColumns;
+import de.nenick.quacc.database.provider.category.CategoryCursor;
+import de.nenick.quacc.view.category.adapter.SectionAdapter;
+import de.nenick.quacc.view.common.adapter.IntervalAdapter;
+import de.nenick.quacc.view.common.adapter.TypeAdapter;
 import de.nenick.quacc.view.category.adapter.CategoryListAdapter;
 import de.nenick.quacc.core.accounting.interval.GetAccountingIntervalsFunction;
 import de.nenick.quacc.core.accounting.type.GetAccountingTypesFunction;
@@ -27,6 +34,15 @@ public class CategoriesFragment extends BasePresenterFragment {
     GetAccountingCategoriesFilteredFunction getAccountingCategoriesFilteredFunction;
 
     @Bean
+    TypeAdapter typeAdapter;
+
+    @Bean
+    IntervalAdapter intervalAdapter;
+
+    @Bean
+    SectionAdapter sectionAdapter;
+
+    @Bean
     CategoryListAdapter categoryListAdapter;
 
     @Bean
@@ -39,14 +55,20 @@ public class CategoriesFragment extends BasePresenterFragment {
 
     @Override
     protected void onViewStart() {
-        //view.setAccountingTypes(getAccountingTypesFunction.apply());
-        //view.setAccountingCategories(getAccountingCategoriesFunction.apply());
-        //view.setAccountingIntervals(getAccountingIntervalsFunction.apply());
-        view.setListAdapter(categoryListAdapter);
+        view.setCategories(categoryListAdapter);
+
+        typeAdapter.addAll(getAccountingTypesFunction.apply());
+        view.setTypes(typeAdapter);
+
+        intervalAdapter.addAll(getAccountingIntervalsFunction.apply());
+        view.setIntervals(intervalAdapter);
+
+        view.setSections(sectionAdapter);
     }
 
     @Click(R.id.confirm)
     protected void onConfirmNewCategory() {
-        createCategoryFunction.apply(view.getAndClearLabel());
+        CategoryCursor categoryCursor = view.getSection();
+        createCategoryFunction.apply(categoryCursor.getSection(), view.getAndClearName(), view.getInterval(), view.getType());
     }
 }

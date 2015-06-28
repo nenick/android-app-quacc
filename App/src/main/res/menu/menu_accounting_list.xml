@@ -24,11 +24,6 @@
         android:orderInCategory="150"
         app:showAsAction="never" />
     <item
-        android:id="@+id/template_speech"
-        android:title="@string/action_template_speech"
-        android:orderInCategory="150"
-        app:showAsAction="never" />
-    <item
         android:id="@+id/export_data"
         android:title="export"
         android:orderInCategory="200"

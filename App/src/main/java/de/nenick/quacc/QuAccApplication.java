@@ -12,8 +12,8 @@ import org.androidannotations.annotations.sharedpreferences.Pref;
 import java.io.IOException;
 import java.util.logging.LogManager;
 
+import de.nenick.quacc.core.initialdata.DatabaseInitialData_;
 import de.nenick.quacc.database.provider.QuAccSQLiteOpenHelper;
-import de.nenick.quacc.core.initialdata.DatabaseInitialData;
 import de.nenick.quacc.settings.QuAccPreferences_;
 
 @EApplication
@@ -39,7 +39,7 @@ public class QuAccApplication extends Application {
             SQLiteDatabase database = QuAccSQLiteOpenHelper.getInstance(this).getWritableDatabase();
             database.beginTransaction();
             try {
-                new DatabaseInitialData().insert(database);
+                DatabaseInitialData_.getInstance_(this).insert(database);
                 database.setTransactionSuccessful();
             } finally {
                 database.endTransaction();

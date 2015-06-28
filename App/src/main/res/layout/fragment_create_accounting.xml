@@ -92,7 +92,7 @@
                 android:layout_alignStart="@+id/layout_center_ancor"
                 android:layout_alignTop="@+id/typeLabel"
                 android:layout_toEndOf="@+id/type"
-                android:text="Kategorie" />
+                android:text="Kategorie (" />
 
 
             <Spinner
@@ -149,7 +149,7 @@
                 android:id="@+id/commentLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Kommantar (Optional)"
+                android:text="Notiz (Optional)"
                 android:layout_below="@+id/date"
                 android:layout_alignParentStart="true"
                 android:layout_marginTop="26dp" />
@@ -202,6 +202,22 @@
                 android:layout_alignBaseline="@+id/endDateLabel"
                 android:layout_alignBottom="@+id/endDateLabel"
                 android:layout_toStartOf="@+id/category" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Sektion"
+                android:id="@+id/section"
+                android:layout_alignTop="@+id/categoryLabel"
+                android:layout_toEndOf="@+id/categoryLabel" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=")"
+                android:id="@+id/textView23"
+                android:layout_alignTop="@+id/section"
+                android:layout_toEndOf="@+id/section" />
 
         </RelativeLayout>
     </ScrollView>

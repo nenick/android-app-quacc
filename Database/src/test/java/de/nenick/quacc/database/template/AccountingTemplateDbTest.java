@@ -120,6 +120,38 @@ public class AccountingTemplateDbTest extends RoboDatabaseTest {
         whenAccountingTemplateIsCreated();
     }
 
+    @Test
+    public void getById_shouldReturnCorrectId() {
+        whenAccountingTemplateIsCreated();
+        whenAccountingTemplateIsCreated();
+        assertThat(id).isNotEqualTo(accountId);
+        assertThat(id).isNotEqualTo(accountingCategoryId);
+
+        accountingTemplateCursor = accountingTemplateDb.getById(id);
+        accountingTemplateCursor.moveToNext();
+
+        assertThat(accountingTemplateCursor.getId()).isEqualTo(id);
+        assertThat(accountingTemplateCursor.getAccountId()).isEqualTo(accountId);
+        assertThat(accountingTemplateCursor.getCategoryId()).isEqualTo(accountingCategoryId);
+    }
+
+    @Test
+    public void getAll_shouldReturnCorrectId() {
+        whenAccountingTemplateIsCreated();
+        whenAccountingTemplateIsCreated();
+        assertThat(id).isNotEqualTo(accountId);
+        assertThat(id).isNotEqualTo(accountingCategoryId);
+
+        accountingTemplateCursor = accountingTemplateDb.getAll();
+        accountingTemplateCursor.moveToNext();
+        accountingTemplateCursor.moveToNext();
+
+        assertThat(accountingTemplateCursor.getId()).isEqualTo(id);
+        assertThat(accountingTemplateCursor.getAccountId()).isEqualTo(accountId);
+        assertThat(accountingTemplateCursor.getCategoryId()).isEqualTo(accountingCategoryId);
+
+    }
+
     private void expectSQLiteException() {
         exception.expect(SQLiteException.class);
         exception.expectMessage("Cannot execute for last inserted row ID, base error code: 19");

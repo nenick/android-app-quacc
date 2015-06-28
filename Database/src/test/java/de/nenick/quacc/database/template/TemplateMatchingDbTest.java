@@ -73,6 +73,19 @@ public class TemplateMatchingDbTest extends RoboDatabaseTest {
         whenTemplateMatchingIsCreated();
     }
 
+    @Test
+    public void getById_shouldReturnCorrectId() {
+        whenTemplateMatchingIsCreated();
+        whenTemplateMatchingIsCreated();
+        assertThat(id).isNotEqualTo(templateId);
+
+        templateMatchingCursor = templateMatchingDb.getById(id);
+        templateMatchingCursor.moveToNext();
+
+        assertThat(templateMatchingCursor.getId()).isEqualTo(id);
+        assertThat(templateMatchingCursor.getAccountingTemplateId()).isEqualTo(templateId);
+    }
+
     private void expectSQLiteException() {
         exception.expect(SQLiteException.class);
         exception.expectMessage("Cannot execute for last inserted row ID, base error code: 19");

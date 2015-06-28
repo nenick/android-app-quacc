@@ -22,7 +22,7 @@ public class CreateIntervalAccountingFunction {
     CreateAccountingFunction createAccountingFunction;
 
     public void apply(IntervalCursor intervalCursor, Date date) {
-        long accountingId = createAccountingFunction.apply(intervalCursor.getAccountName(), intervalCursor.getType(), intervalCursor.getInterval(), intervalCursor.getCategoryName(), date, intervalCursor.getValue(), intervalCursor.getComment());
+        long accountingId = createAccountingFunction.apply(intervalCursor.getAccountName(), intervalCursor.getType(), intervalCursor.getInterval(), intervalCursor.getCategoryId(), date, intervalCursor.getValue(), intervalCursor.getComment());
         intervalAccountingDb.insert(intervalCursor.getId(), accountingId);
     }
 

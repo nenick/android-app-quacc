@@ -17,9 +17,6 @@ public class CreateIntervalFunction {
     AccountDb accountDb;
 
     @Bean
-    CategoryDb categoryDb;
-
-    @Bean
     IntervalDb intervalDb;
 
     @Bean
@@ -28,13 +25,12 @@ public class CreateIntervalFunction {
     @Bean
     CreateAccountingFunction createAccountingFunction;
 
-    public void apply(String account, String accountingType, String accountingInterval, String accountingCategory, Date startDate, int value, String comment) {
-        applyWithEndDate(account, accountingType, accountingInterval, accountingCategory, startDate, IntervalDb.NO_DATE_GIVEN, value, comment);
+    public void apply(String account, String accountingType, String accountingInterval, long categoryId, Date startDate, int value, String comment) {
+        applyWithEndDate(account, accountingType, accountingInterval, categoryId, startDate, IntervalDb.NO_DATE_GIVEN, value, comment);
     }
 
-    public long applyWithEndDate(String account, String accountingType, String accountingInterval, String accountingCategory, Date startDate, Date endDate, int value, String comment) {
+    public long applyWithEndDate(String account, String accountingType, String accountingInterval, long categoryId, Date startDate, Date endDate, int value, String comment) {
         long accountId = accountDb.getIdByName(account);
-        long accountingCategoryId = categoryDb.getIdByName(accountingCategory);
-        return intervalDb.insert(accountId, accountingType, accountingInterval, accountingCategoryId, startDate, endDate, comment, value);
+        return intervalDb.insert(accountId, accountingType, accountingInterval, categoryId, startDate, endDate, comment, value);
     }
 }

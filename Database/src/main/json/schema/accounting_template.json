@@ -21,7 +21,7 @@
     {
       "name": "comment",
       "type": "String",
-      "nullable": true
+      "nullable": false
     },
     {
       "name": "interval",

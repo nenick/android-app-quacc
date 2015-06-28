@@ -7,6 +7,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.melnykov.fab.FloatingActionButton;
 
@@ -15,6 +16,7 @@ import org.androidannotations.annotations.EBean;
 import org.androidannotations.annotations.ViewById;
 
 import de.nenick.quacc.R;
+import de.nenick.quacc.database.provider.category.CategoryCursor;
 import de.nenick.quacc.datepicker.DatePickerDialogWrapper;
 import de.nenick.quacc.datepicker.DatePickerDialogWrapper_;
 import de.nenick.quacc.view.mvp.BaseView;
@@ -33,6 +35,9 @@ public class CreateAccountingView extends BaseView {
 
     @ViewById(R.id.category)
     Spinner accountingCategorySpinner;
+
+    @ViewById(R.id.section)
+    TextView sectionField;
 
     @ViewById(R.id.date)
     TextView date;
@@ -90,8 +95,9 @@ public class CreateAccountingView extends BaseView {
         accountingCategorySpinner.setAdapter(adapter);
     }
 
-    public String getAccountingCategory() {
-        return accountingCategorySpinner.getSelectedItem().toString();
+    public <T> T getAccountingCategory() {
+        //noinspection unchecked the caller should now what kind of item he expect
+        return (T) accountingCategorySpinner.getSelectedItem();
     }
 
     public void showRecognizedText(String recognizedText) {
@@ -201,9 +207,18 @@ public class CreateAccountingView extends BaseView {
 
     public void setAccountingCategory(String value) {
         for (int position = 0; position < accountingCategorySpinner.getAdapter().getCount(); position++) {
-            String item = (String) accountingCategorySpinner.getAdapter().getItem(position);
-            if(item.equals(value)) {
+            CategoryCursor item = (CategoryCursor) accountingCategorySpinner.getAdapter().getItem(position);
+            if(item.getName().equals(value)) {
                 accountingCategorySpinner.setSelection(position);
+            }
+        }
+    }
+
+    public void setAccount(String value) {
+        for (int position = 0; position < accountSpinner.getAdapter().getCount(); position++) {
+            String item = (String) accountSpinner.getAdapter().getItem(position);
+            if(item.equals(value)) {
+                accountSpinner.setSelection(position);
             }
         }
     }
@@ -214,5 +229,13 @@ public class CreateAccountingView extends BaseView {
 
     public void setValue(String value) {
         valueField.setText(value);
+    }
+
+    public void setSection(String value) {
+        sectionField.setText(value);
+    }
+
+    public void showSpeechError(String text) {
+        Toast.makeText(context, text, Toast.LENGTH_SHORT).show();
     }
 }

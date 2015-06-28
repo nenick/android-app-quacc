@@ -10,20 +10,22 @@ import org.androidannotations.annotations.OptionsMenu;
 import java.util.Date;
 
 import de.nenick.quacc.R;
-import de.nenick.quacc.view.accounting_create.adapter.IntervalAdapter;
+import de.nenick.quacc.database.provider.category.CategoryCursor;
+import de.nenick.quacc.view.common.adapter.IntervalAdapter;
 import de.nenick.quacc.core.accounting.creation.CreateAccountingFunction;
 import de.nenick.quacc.core.accounting.creation.CreateIntervalFunction;
 import de.nenick.quacc.core.accounting.interval.GetAccountingIntervalsFunction;
 import de.nenick.quacc.core.accounting.type.GetAccountingTypesFunction;
 import de.nenick.quacc.core.account.GetAccountsFunction;
 import de.nenick.quacc.valueparser.ParseValueFromStringFunction;
+import de.nenick.quacc.view.accounting_create.speechrecognition.SpeechRecognitionFeature;
 import de.nenick.quacc.view.mvp.BasePresenterFragment;
 import de.nenick.quacc.view.mvp.BaseView;
 import de.nenick.quacc.core.common.util.QuAccDateUtil;
 import de.nenick.quacc.core.accounting.interval.AccountingInterval;
 import de.nenick.quacc.core.accounting.type.AccountingType;
 import de.nenick.quacc.view.accounting_create.adapter.CategoryAdapter;
-import de.nenick.quacc.view.accounting_create.adapter.TypeAdapter;
+import de.nenick.quacc.view.common.adapter.TypeAdapter;
 
 import static de.nenick.quacc.valueparser.ParseValueFromStringFunction.ParseResult.Successful;
 
@@ -110,21 +112,21 @@ public class CreateAccountingFragment extends BasePresenterFragment {
             String account = view.getAccount();
             String accountingType = view.getAccountingType();
             String accountingInterval = view.getAccountingInterval();
-            String accountingCategory = view.getAccountingCategory();
+            CategoryCursor accountingCategory = view.getAccountingCategory();
             String dateString = view.getDate();
             String comment = view.getComment();
             view.finish();
             Date date = QuAccDateUtil.toDate(dateString);
             if(accountingInterval.equals(AccountingInterval.once.name())) {
-                createAccountingFunction.apply(account, accountingType, accountingInterval, accountingCategory, date, valueResult.value, comment);
+                createAccountingFunction.apply(account, accountingType, accountingInterval, accountingCategory.getId(), date, valueResult.value, comment);
             } else {
                 if(view.isEndDateActive()) {
                     String endDateString = view.getEndDate();
                     Date endDate = QuAccDateUtil.toDate(endDateString);
-                    createIntervalFunction.applyWithEndDate(account, accountingType, accountingInterval, accountingCategory, date, endDate
+                    createIntervalFunction.applyWithEndDate(account, accountingType, accountingInterval, accountingCategory.getId(), date, endDate
                             , valueResult.value, comment);
                 } else {
-                    createIntervalFunction.apply(account, accountingType, accountingInterval, accountingCategory, date, valueResult.value, comment);
+                    createIntervalFunction.apply(account, accountingType, accountingInterval, accountingCategory.getId(), date, valueResult.value, comment);
                 }
             }
         } else {
@@ -169,6 +171,12 @@ public class CreateAccountingFragment extends BasePresenterFragment {
             view.showEndDate();
         }
         reloadCategories();
+    }
+
+    @ItemSelect(R.id.category)
+    public void onCategorySelection(boolean selected, int position) {
+        CategoryCursor item = categoryAdapter.getItem(position);
+        view.setSection(item.getSection());
     }
 
     @ItemSelect(R.id.type)

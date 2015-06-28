@@ -8,57 +8,93 @@ import java.util.regex.Pattern;
 @EBean
 public class RecognizeValueFunction {
 
-    public SpeechResult apply(String recognizedText) {
+    Pattern euroPattern = Pattern.compile("[0-9]+ +euro");
+    Pattern centPattern = Pattern.compile("[0-9]+ +cent");
 
-        int euroStart = 0;
-        int euroNumber = 0;
-        int euroNumberStart = 0;
-        if (recognizedText.toLowerCase().contains("Euro".toLowerCase())) {
-            euroStart = recognizedText.indexOf("Euro");
-        }
+    public static class SpeechValueResult {
+        public final int value;
+        public final int start;
+        public final int length;
 
-        int centStart = 0;
-        int centNumber = 0;
-        int centNumberStart = 0;
-        if (recognizedText.toLowerCase().contains("Cent".toLowerCase())) {
-            centStart = recognizedText.indexOf("Cent");
-        }
-
-        if (euroStart == 0 && centStart == 0) {
-            return null;
-        }
-
-        Pattern p = Pattern.compile("[0-9]+");
-        Matcher m = p.matcher(recognizedText);
-        while (m.find()) {
-            String numberString = m.group();
-            int number = Integer.parseInt(numberString);
-            int numberIndex = recognizedText.indexOf(numberString);
-
-            if (numberIndex < euroStart) {
-                euroNumber = number;
-                euroNumberStart = numberIndex;
-            } else if (numberIndex < centStart) {
-                centNumber = number;
-                centNumberStart = numberIndex;
-            }
-        }
-
-        String centString = ",";
-        if (centNumber < 10) {
-            centString += "0" + centNumber;
-        } else {
-            centString += centNumber;
-        }
-
-        String value = euroNumber + centString;
-        if (euroStart > 0 && centStart > 0) {
-            return new SpeechResult(value, euroNumberStart, centStart + "cent".length() - euroNumberStart);
-        } if (euroStart > 0) {
-            return new SpeechResult(value, euroNumberStart, euroStart + "euro".length() - euroNumberStart);
-        } else {
-            return new SpeechResult(value, centNumberStart, centStart + "cent".length() - centNumberStart);
+        public SpeechValueResult(int value, int start, int length) {
+            this.start = start;
+            this.length = length;
+            this.value = value;
         }
     }
 
+    public SpeechValueResult apply(String recognizedText) {
+        String recognizedTextLowerCase = recognizedText.toLowerCase();
+
+        String euroString = extractEuroStringFrom(recognizedTextLowerCase);
+        String centString = extractCentStringFrom(recognizedTextLowerCase);
+        if (euroString == null && centString == null) {
+            return null;
+        }
+
+        int euroValue = extractEuroValue(euroString);
+        int centValue = extractCentValue(centString);
+        int value = calculateValueBasedOnCent(euroValue, centValue);
+
+        if (euroString != null && centString != null) {
+            return new SpeechValueResult(value, recognizedTextLowerCase.indexOf(euroString), lengthFromEuroStartToCentEnd(recognizedTextLowerCase, euroString, centString));
+        } if (euroString != null) {
+            return new SpeechValueResult(value, recognizedTextLowerCase.indexOf(euroString), euroString.length());
+        } else {
+            return new SpeechValueResult(value, recognizedTextLowerCase.indexOf(centString), centString.length());
+        }
+    }
+
+    private int calculateValueBasedOnCent(int euroValue, int centValue) {
+        int value = euroValue * 100;
+        value += centValue;
+        return value;
+    }
+
+    private int extractCentValue(String centString) {
+        int centValue = 0;
+        if (foundMatchFor(centString)) {
+            String centWithoutLabel = centString.replace("cent", "").trim();
+            centValue = Integer.parseInt(centWithoutLabel);
+        }
+        return centValue;
+    }
+
+    private int extractEuroValue(String euroString) {
+        int euroValue = 0;
+        if (foundMatchFor(euroString)) {
+            String euroWithoutLabel = euroString.replace("euro", "").trim();
+            euroValue = Integer.parseInt(euroWithoutLabel);
+        }
+        return euroValue;
+    }
+
+    private int lengthFromEuroStartToCentEnd(String recognizedTextLowerCase, String euroString, String centString) {
+        return recognizedTextLowerCase.indexOf(centString) + centString.length() - recognizedTextLowerCase.indexOf(euroString);
+    }
+
+    private boolean foundMatchFor(String euroString) {
+        return euroString != null;
+    }
+
+    private String extractEuroStringFrom(String recognizedText) {
+        Matcher matcher = euroPattern.matcher(recognizedText.toLowerCase());
+        if(notMatch(matcher)) {
+            return null;
+        }
+        return matcher.group();
+    }
+
+    private String extractCentStringFrom(String recognizedText) {
+        Matcher matcher = centPattern.matcher(recognizedText.toLowerCase());
+        if(notMatch(matcher)) {
+            return null;
+        }
+        return matcher.group();
+    }
+
+
+    private boolean notMatch(Matcher matcher) {
+        return !matcher.find();
+    }
 }

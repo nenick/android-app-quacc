@@ -15,6 +15,9 @@ public class CategoryListItem extends RelativeLayout {
     @ViewById(R.id.type)
     TextView type;
 
+    @ViewById(R.id.section)
+    TextView section;
+
     @ViewById(R.id.interval)
     TextView interval;
 
@@ -25,12 +28,16 @@ public class CategoryListItem extends RelativeLayout {
         super(context);
     }
 
-    public void setType(String txt) {
-        type.setText(txt);
-    }
-
     public void setInterval(String txt) {
         interval.setText(txt);
+    }
+
+    public void setSection(String txt) {
+        section.setText(txt);
+    }
+
+    public void setType(String txt) {
+        type.setText(txt);
     }
 
     public void setCategory(String txt) {

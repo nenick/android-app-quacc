@@ -2,8 +2,10 @@ package de.nenick.quacc.view.category;
 
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.Spinner;
+import android.widget.SpinnerAdapter;
 
 import org.androidannotations.annotations.EBean;
 import org.androidannotations.annotations.ViewById;
@@ -27,46 +29,54 @@ public class CategoriesView extends BaseView {
     @ViewById(R.id.list)
     ListView categoryList;
 
+    @ViewById(R.id.type)
+    Spinner typeSpinner;
+
+    @ViewById(R.id.interval)
+    Spinner intervalSpinner;
+
+    @ViewById(R.id.section)
+    Spinner sectionSpinner;
+
     @ViewById(R.id.label)
     EditText label;
-
-    public void showAccountingTypes(CharSequence[] stringArray) {
-        ArrayAdapter<CharSequence> adapter = new ArrayAdapter<>(context, android.R.layout.simple_spinner_item, stringArray);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        accountingTypeSpinner.setAdapter(adapter);
-    }
 
     public String getAccountingType() {
         return accountingTypeSpinner.getSelectedItem().toString();
     }
 
-    public void showAccountingCategories(CharSequence[] stringArray) {
-        ArrayAdapter<CharSequence> adapter = new ArrayAdapter<>(context, android.R.layout.simple_spinner_item, stringArray);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        accountingCategorySpinner.setAdapter(adapter);
+    public void setCategories(ListAdapter adapter) {
+        categoryList.setAdapter(adapter);
     }
 
-    public String getAccountingCategory() {
-        return accountingCategorySpinner.getSelectedItem().toString();
+    public void setTypes(SpinnerAdapter adapter) {
+        typeSpinner.setAdapter(adapter);
     }
 
-    public void showAccountingIntervals(CharSequence[] stringArray) {
-        ArrayAdapter<CharSequence> adapter = new ArrayAdapter<>(context, android.R.layout.simple_spinner_item, stringArray);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        accountingIntervalSpinner.setAdapter(adapter);
+    public void setIntervals(SpinnerAdapter adapter) {
+        intervalSpinner.setAdapter(adapter);
     }
 
-    public String getAccountingInterval() {
-        return accountingIntervalSpinner.getSelectedItem().toString();
+    public void setSections(SpinnerAdapter adapter) {
+        sectionSpinner.setAdapter(adapter);
     }
 
-    public void setListAdapter(CategoryListAdapter listAdapter) {
-        categoryList.setAdapter(listAdapter);
-    }
-
-    public String getAndClearLabel() {
+    public String getAndClearName() {
         String text = label.getText().toString();
         label.setText("");
         return text;
+    }
+
+    public String getInterval() {
+        return intervalSpinner.getSelectedItem().toString();
+    }
+
+    public String getType() {
+        return typeSpinner.getSelectedItem().toString();
+    }
+
+    public <T> T getSection() {
+        //noinspection unchecked the caller should now what kind of item he expect
+        return (T) sectionSpinner.getSelectedItem();
     }
 }

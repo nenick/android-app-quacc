@@ -3,8 +3,10 @@ package de.nenick.quacc.view.category.adapter;
 import android.content.Context;
 import android.database.Cursor;
 import android.support.v4.widget.CursorAdapter;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import org.androidannotations.annotations.AfterInject;
 import org.androidannotations.annotations.Bean;
@@ -12,41 +14,35 @@ import org.androidannotations.annotations.EBean;
 import org.androidannotations.annotations.RootContext;
 
 import de.nenick.quacc.core.category.GetAccountingCategoriesCursorFunction;
+import de.nenick.quacc.core.category.GetCategorySectionsFunction;
 import de.nenick.quacc.database.provider.category.CategoryCursor;
 
 @EBean
-public class CategoryListAdapter extends CursorAdapter {
+public class SectionAdapter extends CursorAdapter {
 
     @RootContext
     Context context;
 
     @Bean
-    GetAccountingCategoriesCursorFunction getAccountingCategoriesCursorFunction;
+    GetCategorySectionsFunction getCategorySectionsFunction;
 
-    public CategoryListAdapter() {
+    public SectionAdapter() {
         super(null, null, true);
     }
 
     @AfterInject
     protected void afterInject() {
         mContext = context;
-        swapCursor(getAccountingCategoriesCursorFunction.apply());
+        swapCursor(getCategorySectionsFunction.apply());
     }
 
     @Override
     public View newView(Context context, Cursor cursor, ViewGroup parent) {
-        return CategoryListItem_.build(context);
+        return LayoutInflater.from(context).inflate(android.R.layout.simple_list_item_1, parent, false);
     }
 
     @Override
     public void bindView(View view, Context context, Cursor cursor) {
-        bindView((CategoryListItem) view, (CategoryCursor) cursor);
-    }
-
-    private void bindView(CategoryListItem view, CategoryCursor cursor) {
-        view.setInterval(cursor.getInterval());
-        view.setSection(cursor.getSection());
-        view.setType(cursor.getType());
-        view.setCategory(cursor.getName());
+        ((TextView)view.findViewById(android.R.id.text1)).setText(((CategoryCursor)cursor).getSection());
     }
 }

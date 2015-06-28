@@ -21,10 +21,8 @@ public class CreateAccountingFunction {
     @Bean
     AccountingDb accountingDb;
 
-    public long apply(String account, String accountingType, String accountingInterval, String accountingCategory, Date date, int value, String comment) {
+    public long apply(String account, String accountingType, String accountingInterval, long categoryId, Date date, int value, String comment) {
         long accountId = accountDb.getIdByName(account);
-        long accountingCategoryId = categoryDb.getIdByName(accountingCategory);
-
-        return accountingDb.insert(accountId, accountingType, accountingInterval, accountingCategoryId, date, comment, value);
+        return accountingDb.insert(accountId, accountingType, accountingInterval, categoryId, date, comment, value);
     }
 }

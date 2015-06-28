@@ -9,11 +9,11 @@ import org.androidannotations.annotations.ViewById;
 
 import de.nenick.quacc.R;
 
-@EViewGroup(R.layout.item_accounting)
+@EViewGroup(R.layout.item_accounting_template)
 public class TemplatePlainItemView extends RelativeLayout {
 
-    @ViewById(R.id.date)
-    TextView date;
+    @ViewById(R.id.account)
+    TextView account;
 
     @ViewById(R.id.interval)
     TextView interval;
@@ -24,15 +24,11 @@ public class TemplatePlainItemView extends RelativeLayout {
     @ViewById(R.id.comment)
     TextView comment;
 
-    @ViewById(R.id.value)
-    TextView value;
+    @ViewById(R.id.speechText)
+    TextView speechText;
 
     public TemplatePlainItemView(Context context) {
         super(context);
-    }
-
-    public void setDate(String txt) {
-        date.setText(txt);
     }
 
     public void setInterval(String txt) {
@@ -47,36 +43,35 @@ public class TemplatePlainItemView extends RelativeLayout {
         comment.setText(txt);
     }
 
-    public void setValue(String txt) {
-        value.setText(txt);
+    public void setSpeechText(String txt) {
+        speechText.setText(txt);
+    }
+
+    public void setAccount(String txt) {
+        account.setText(txt);
     }
 
     public void showAsIncome() {
-        setDate("");
         setBackgroundColor(getResources().getColor(R.color.positiveBackground));
-        date.setTextColor(getResources().getColor(R.color.positiveTextSmall));
         interval.setTextColor(getResources().getColor(R.color.positiveText));
+        account.setTextColor(getResources().getColor(R.color.positiveText));
         category.setTextColor(getResources().getColor(R.color.positiveText));
         comment.setTextColor(getResources().getColor(R.color.positiveTextSmall));
-        value.setTextColor(getResources().getColor(R.color.positiveText));
     }
 
     public void showAsOutgoing() {
-        setDate("");
         setBackgroundColor(getResources().getColor(R.color.negativeBackground));
-        date.setTextColor(getResources().getColor(R.color.negativeTextSmall));
         interval.setTextColor(getResources().getColor(R.color.negativeText));
+        account.setTextColor(getResources().getColor(R.color.negativeText));
         category.setTextColor(getResources().getColor(R.color.negativeText));
         comment.setTextColor(getResources().getColor(R.color.negativeTextSmall));
-        value.setTextColor(getResources().getColor(R.color.negativeText));
     }
 
     public void showAsTransfer() {
         setBackgroundColor(getResources().getColor(R.color.neutralBackground));
-        date.setTextColor(getResources().getColor(R.color.neutralBackground));
         interval.setTextColor(getResources().getColor(R.color.neutralBackground));
+        account.setTextColor(getResources().getColor(R.color.neutralBackground));
         category.setTextColor(getResources().getColor(R.color.neutralBackground));
         comment.setTextColor(getResources().getColor(R.color.neutralBackground));
-        value.setTextColor(getResources().getColor(R.color.neutralBackground));
     }
 }

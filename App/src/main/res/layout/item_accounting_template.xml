@@ -1,0 +1,59 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:orientation="horizontal">
+
+    <TextView
+        android:id="@+id/account"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceListItem"
+        android:text="Account" />
+
+    <TextView
+        android:id="@+id/interval"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="12dp"
+        android:layout_toEndOf="@id/account"
+        android:textAppearance="?android:attr/textAppearanceListItem"
+        android:text="Interval" />
+
+    <TextView
+        android:id="@+id/category"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="12dp"
+        android:textAppearance="?android:attr/textAppearanceListItem"
+        android:text="Category"
+        android:layout_toEndOf="@+id/interval" />
+
+    <TextView
+        android:id="@+id/comment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceListItem"
+        android:text="Comment"
+        android:layout_toRightOf="@+id/category"
+        android:layout_marginLeft="12dp" />
+
+    <TextView
+        android:id="@+id/speechLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceListItem"
+        android:text="Sprachkürzel:"
+        android:layout_below="@+id/interval"
+        />
+
+    <TextView
+        android:id="@+id/speechText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceListItem"
+        android:text="Speech"
+        android:layout_toRightOf="@+id/speechLabel"
+        android:layout_marginLeft="12dp"
+        android:layout_alignTop="@+id/speechLabel" />
+
+</RelativeLayout>

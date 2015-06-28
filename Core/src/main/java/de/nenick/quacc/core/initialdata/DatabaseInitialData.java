@@ -2,18 +2,26 @@ package de.nenick.quacc.core.initialdata;
 
 import android.database.sqlite.SQLiteDatabase;
 
+import org.androidannotations.annotations.Bean;
+import org.androidannotations.annotations.EBean;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import de.nenick.quacc.core.accounting.interval.AccountingInterval;
 import de.nenick.quacc.core.accounting.type.AccountingType;
+import de.nenick.quacc.core.category.CreateCategoryFunction;
 import de.nenick.quacc.database.provider.account.AccountColumns;
 import de.nenick.quacc.database.provider.account.AccountContentValues;
 import de.nenick.quacc.database.provider.base.AbstractContentValues;
 import de.nenick.quacc.database.provider.category.CategoryColumns;
-import de.nenick.quacc.database.provider.category.CategoryContentValues;
 
+@EBean
 public class DatabaseInitialData {
+
+    @Bean
+    CreateCategoryFunction categoryFunction;
+
     public void insert(SQLiteDatabase database) {
         addAccountData(database);
         addCategoryData(database);
@@ -23,157 +31,126 @@ public class DatabaseInitialData {
 
     private void addCategoryData(SQLiteDatabase database) {
 
-        addMainCategory(AccountingType.all, AccountingInterval.all, "Allgemein");
-        addSubCategory(AccountingType.transfer, AccountingInterval.all, "Allgemein", "Kontoausgleich");
-        addSubCategory(AccountingType.outgoing, AccountingInterval.all, "Allgemein", "Barauszahlung");
-        addSubCategory(AccountingType.all, AccountingInterval.all, "Allgemein", "Sonstiges");
-        addSubCategory(AccountingType.incoming, AccountingInterval.all, "Allgemein", "Bareinzahlung");
+        addCategory(AccountingType.transfer, AccountingInterval.all, "Allgemein", "Kontoausgleich");
+        addCategory(AccountingType.outgoing, AccountingInterval.all, "Allgemein", "Barauszahlung");
+        addCategory(AccountingType.all, AccountingInterval.all, "Allgemein", "Sonstiges");
+        addCategory(AccountingType.incoming, AccountingInterval.all, "Allgemein", "Bareinzahlung");
 
-        addMainCategory(AccountingType.all, AccountingInterval.all, "Alltag");
-        addSubCategory(AccountingType.outgoing, AccountingInterval.once, "Alltag", "Accessoirs");
-        addSubCategory(AccountingType.outgoing, AccountingInterval.once, "Alltag", "Kleidung");
-        addSubCategory(AccountingType.outgoing, AccountingInterval.all, "Alltag", "Schuhe");
+        addCategory(AccountingType.outgoing, AccountingInterval.once, "Alltag", "Accessoirs");
+        addCategory(AccountingType.outgoing, AccountingInterval.once, "Alltag", "Kleidung");
+        addCategory(AccountingType.outgoing, AccountingInterval.all, "Alltag", "Schuhe");
 
-        addMainCategory(AccountingType.all, AccountingInterval.all, "Auktionen");
-        addSubCategory(AccountingType.incoming, AccountingInterval.all, "Auktionen", "eBay");
+        addCategory(AccountingType.incoming, AccountingInterval.all, "Auktionen", "eBay");
 
-        addMainCategory(AccountingType.all, AccountingInterval.all, "Auto");
-        addSubCategory(AccountingType.outgoing, AccountingInterval.all, "Auto", "Benzin");
-        addSubCategory(AccountingType.outgoing, AccountingInterval.once, "Auto", "Werkstatt");
-        addSubCategory(AccountingType.outgoing, AccountingInterval.once, "Auto", "Zubehörteile");
-        addSubCategory(AccountingType.outgoing, AccountingInterval.all, "Auto", "Kfz-Versicherung");
-        addSubCategory(AccountingType.outgoing, AccountingInterval.all, "Auto", "Kredit");
-        addSubCategory(AccountingType.outgoing, AccountingInterval.all, "Auto", "Kfz-Steuer");
-        addSubCategory(AccountingType.outgoing, AccountingInterval.once, "Auto", "Bußgeld");
-        addSubCategory(AccountingType.outgoing, AccountingInterval.all, "Auto", "Automobilclub");
+        addCategory(AccountingType.outgoing, AccountingInterval.all, "Auto", "Benzin");
+        addCategory(AccountingType.outgoing, AccountingInterval.once, "Auto", "Werkstatt");
+        addCategory(AccountingType.outgoing, AccountingInterval.once, "Auto", "Zubehörteile");
+        addCategory(AccountingType.outgoing, AccountingInterval.all, "Auto", "Kfz-Versicherung");
+        addCategory(AccountingType.outgoing, AccountingInterval.all, "Auto", "Kredit");
+        addCategory(AccountingType.outgoing, AccountingInterval.all, "Auto", "Kfz-Steuer");
+        addCategory(AccountingType.outgoing, AccountingInterval.once, "Auto", "Bußgeld");
+        addCategory(AccountingType.outgoing, AccountingInterval.all, "Auto", "Automobilclub");
 
-        addMainCategory(AccountingType.all, AccountingInterval.all, "Bank");
-        addSubCategory(AccountingType.outgoing, AccountingInterval.all, "Bank", "Kontoführungsgebühren");
-        addSubCategory(AccountingType.outgoing, AccountingInterval.all, "Bank", "Zinsen");
+        addCategory(AccountingType.outgoing, AccountingInterval.all, "Bank", "Kontoführungsgebühren");
+        addCategory(AccountingType.outgoing, AccountingInterval.all, "Bank", "Zinsen");
 
-        addMainCategory(AccountingType.all, AccountingInterval.all, "Beruf");
-        addSubCategory(AccountingType.outgoing, AccountingInterval.all, "Beruf", "Fahrkosten");
-        addSubCategory(AccountingType.outgoing, AccountingInterval.all, "Beruf", "Werbungskosten");
-        addSubCategory(AccountingType.outgoing, AccountingInterval.all, "Beruf", "Serverkosten");
-        addSubCategory(AccountingType.outgoing, AccountingInterval.all, "Beruf", "Fachbücher");
-        addSubCategory(AccountingType.outgoing, AccountingInterval.all, "Beruf", "Sonstiges");
+        addCategory(AccountingType.outgoing, AccountingInterval.all, "Beruf", "Fahrkosten");
+        addCategory(AccountingType.outgoing, AccountingInterval.all, "Beruf", "Werbungskosten");
+        addCategory(AccountingType.outgoing, AccountingInterval.all, "Beruf", "Serverkosten");
+        addCategory(AccountingType.outgoing, AccountingInterval.all, "Beruf", "Fachbücher");
+        addCategory(AccountingType.outgoing, AccountingInterval.all, "Beruf", "Sonstiges");
 
-        addMainCategory(AccountingType.all, AccountingInterval.all, "Einkommen");
-        addSubCategory(AccountingType.incoming, AccountingInterval.all, "Einkommen", "Lohn / Gehalt");
-        addSubCategory(AccountingType.incoming, AccountingInterval.all, "Einkommen", "Mieteinnahmen");
-        addSubCategory(AccountingType.incoming, AccountingInterval.monthly, "Einkommen", "Unterhalt");
-        addSubCategory(AccountingType.incoming, AccountingInterval.monthly, "Einkommen", "Kindergeld");
-        addSubCategory(AccountingType.incoming, AccountingInterval.once, "Einkommen", "Schenkung");
-        addSubCategory(AccountingType.incoming, AccountingInterval.all, "Einkommen", "Taschengeld");
-        addSubCategory(AccountingType.incoming, AccountingInterval.all, "Einkommen", "Freiberuflich");
+        addCategory(AccountingType.incoming, AccountingInterval.all, "Einkommen", "Lohn / Gehalt");
+        addCategory(AccountingType.incoming, AccountingInterval.all, "Einkommen", "Mieteinnahmen");
+        addCategory(AccountingType.incoming, AccountingInterval.monthly, "Einkommen", "Unterhalt");
+        addCategory(AccountingType.incoming, AccountingInterval.monthly, "Einkommen", "Kindergeld");
+        addCategory(AccountingType.incoming, AccountingInterval.once, "Einkommen", "Schenkung");
+        addCategory(AccountingType.incoming, AccountingInterval.all, "Einkommen", "Taschengeld");
+        addCategory(AccountingType.incoming, AccountingInterval.all, "Einkommen", "Freiberuflich");
 
-        addMainCategory(AccountingType.all, AccountingInterval.all, "Fortbildung");
-        addSubCategory(AccountingType.outgoing, AccountingInterval.once, "Fortbildung", "Literatur");
-        addSubCategory(AccountingType.outgoing, AccountingInterval.all, "Fortbildung", "Studiengebühren");
-        addSubCategory(AccountingType.outgoing, AccountingInterval.once, "Fortbildung", "Fahrtkosten");
-        addSubCategory(AccountingType.outgoing, AccountingInterval.once, "Fortbildung", "Anschaffungen");
-        addSubCategory(AccountingType.outgoing, AccountingInterval.once, "Fortbildung", "Bücher und Schreibmaterial");
+        addCategory(AccountingType.outgoing, AccountingInterval.once, "Fortbildung", "Literatur");
+        addCategory(AccountingType.outgoing, AccountingInterval.all, "Fortbildung", "Studiengebühren");
+        addCategory(AccountingType.outgoing, AccountingInterval.once, "Fortbildung", "Fahrtkosten");
+        addCategory(AccountingType.outgoing, AccountingInterval.once, "Fortbildung", "Anschaffungen");
+        addCategory(AccountingType.outgoing, AccountingInterval.once, "Fortbildung", "Bücher und Schreibmaterial");
 
-        addMainCategory(AccountingType.all, AccountingInterval.all, "Freizeit");
-        addSubCategory(AccountingType.outgoing, AccountingInterval.once, "Freizeit", "Urlaub");
-        addSubCategory(AccountingType.outgoing, AccountingInterval.once, "Freizeit", "Bücher");
-        addSubCategory(AccountingType.outgoing, AccountingInterval.once, "Freizeit", "Kino / Theater");
-        addSubCategory(AccountingType.outgoing, AccountingInterval.all, "Freizeit", "Zeitschriften");
-        addSubCategory(AccountingType.outgoing, AccountingInterval.all, "Freizeit", "Fitnessstudio");
-        addSubCategory(AccountingType.outgoing, AccountingInterval.all, "Freizeit", "Sport");
-        addSubCategory(AccountingType.outgoing, AccountingInterval.once, "Freizeit", "Geschenke");
-        addSubCategory(AccountingType.outgoing, AccountingInterval.once, "Freizeit", "Musik / Video");
-        addSubCategory(AccountingType.outgoing, AccountingInterval.once, "Freizeit", "Software / Spiele");
-        addSubCategory(AccountingType.outgoing, AccountingInterval.once, "Freizeit", "Computer");
-        addSubCategory(AccountingType.outgoing, AccountingInterval.all, "Freizeit", "Vereinsbeträge");
-        addSubCategory(AccountingType.outgoing, AccountingInterval.once, "Freizeit", "Frisör");
-        addSubCategory(AccountingType.outgoing, AccountingInterval.all, "Freizeit", "Zigaretten");
-        addSubCategory(AccountingType.outgoing, AccountingInterval.once, "Freizeit", "Glücksspiel");
-        addSubCategory(AccountingType.outgoing, AccountingInterval.once, "Freizeit", "Anschaffungen");
-        addSubCategory(AccountingType.outgoing, AccountingInterval.once, "Freizeit", "Sportgeräte / Sportbekleidung");
-        addSubCategory(AccountingType.outgoing, AccountingInterval.once, "Freizeit", "Restaurant / Café");
+        addCategory(AccountingType.outgoing, AccountingInterval.once, "Freizeit", "Urlaub");
+        addCategory(AccountingType.outgoing, AccountingInterval.once, "Freizeit", "Bücher");
+        addCategory(AccountingType.outgoing, AccountingInterval.once, "Freizeit", "Kino / Theater");
+        addCategory(AccountingType.outgoing, AccountingInterval.all, "Freizeit", "Zeitschriften");
+        addCategory(AccountingType.outgoing, AccountingInterval.all, "Freizeit", "Fitnessstudio");
+        addCategory(AccountingType.outgoing, AccountingInterval.all, "Freizeit", "Sport");
+        addCategory(AccountingType.outgoing, AccountingInterval.once, "Freizeit", "Geschenke");
+        addCategory(AccountingType.outgoing, AccountingInterval.once, "Freizeit", "Musik / Video");
+        addCategory(AccountingType.outgoing, AccountingInterval.once, "Freizeit", "Software / Spiele");
+        addCategory(AccountingType.outgoing, AccountingInterval.once, "Freizeit", "Computer");
+        addCategory(AccountingType.outgoing, AccountingInterval.all, "Freizeit", "Vereinsbeträge");
+        addCategory(AccountingType.outgoing, AccountingInterval.once, "Freizeit", "Frisör");
+        addCategory(AccountingType.outgoing, AccountingInterval.all, "Freizeit", "Zigaretten");
+        addCategory(AccountingType.outgoing, AccountingInterval.once, "Freizeit", "Glücksspiel");
+        addCategory(AccountingType.outgoing, AccountingInterval.once, "Freizeit", "Anschaffungen");
+        addCategory(AccountingType.outgoing, AccountingInterval.once, "Freizeit", "Sportgeräte / Sportbekleidung");
+        addCategory(AccountingType.outgoing, AccountingInterval.once, "Freizeit", "Restaurant / Café");
 
-        addMainCategory(AccountingType.all, AccountingInterval.all, "Geldeinlage");
-        addSubCategory(AccountingType.incoming, AccountingInterval.once, "Geldanlage", "Zinseinkünfte");
-        addSubCategory(AccountingType.incoming, AccountingInterval.once, "Geldanlage", "Dividende");
-        addSubCategory(AccountingType.outgoing, AccountingInterval.all, "Geldanlage", "Bausparen");
-        addSubCategory(AccountingType.outgoing, AccountingInterval.all, "Geldanlage", "Andere Geldanlagen");
+        addCategory(AccountingType.incoming, AccountingInterval.once, "Geldanlage", "Zinseinkünfte");
+        addCategory(AccountingType.incoming, AccountingInterval.once, "Geldanlage", "Dividende");
+        addCategory(AccountingType.outgoing, AccountingInterval.all, "Geldanlage", "Bausparen");
+        addCategory(AccountingType.outgoing, AccountingInterval.all, "Geldanlage", "Andere Geldanlagen");
 
-        addMainCategory(AccountingType.all, AccountingInterval.all, "Gesundheit");
-        addSubCategory(AccountingType.outgoing, AccountingInterval.all, "Gesundheit", "Medizin");
-        addSubCategory(AccountingType.outgoing, AccountingInterval.all, "Gesundheit", "Krankenkasse");
-        addSubCategory(AccountingType.outgoing, AccountingInterval.all, "Gesundheit", "Zuzahlung Krankenkasse");
+        addCategory(AccountingType.outgoing, AccountingInterval.all, "Gesundheit", "Medizin");
+        addCategory(AccountingType.outgoing, AccountingInterval.all, "Gesundheit", "Krankenkasse");
+        addCategory(AccountingType.outgoing, AccountingInterval.all, "Gesundheit", "Zuzahlung Krankenkasse");
 
-        addMainCategory(AccountingType.all, AccountingInterval.all, "Haushalt");
-        addSubCategory(AccountingType.outgoing, AccountingInterval.all, "Haushalt", "Taschengeld");
-        addSubCategory(AccountingType.outgoing, AccountingInterval.once, "Haushalt", "Anschaffungen");
-        addSubCategory(AccountingType.outgoing, AccountingInterval.all, "Haushalt", "Getränke");
-        addSubCategory(AccountingType.outgoing, AccountingInterval.once, "Haushalt", "Körperpflege");
-        addSubCategory(AccountingType.outgoing, AccountingInterval.once, "Haushalt", "Lebensmittel");
-        addSubCategory(AccountingType.outgoing, AccountingInterval.once, "Haushalt", "Medikamente");
-        addSubCategory(AccountingType.outgoing, AccountingInterval.once, "Haushalt", "Genussmittel");
-        addSubCategory(AccountingType.outgoing, AccountingInterval.once, "Haushalt", "Schule");
-        addSubCategory(AccountingType.outgoing, AccountingInterval.all, "Haushalt", "Tiernahrung");
-        addSubCategory(AccountingType.outgoing, AccountingInterval.once, "Haushalt", "Porto");
-        addSubCategory(AccountingType.outgoing, AccountingInterval.all, "Haushalt", "Wasch und Putzmittel");
+        addCategory(AccountingType.outgoing, AccountingInterval.all, "Haushalt", "Taschengeld");
+        addCategory(AccountingType.outgoing, AccountingInterval.once, "Haushalt", "Anschaffungen");
+        addCategory(AccountingType.outgoing, AccountingInterval.all, "Haushalt", "Getränke");
+        addCategory(AccountingType.outgoing, AccountingInterval.once, "Haushalt", "Körperpflege");
+        addCategory(AccountingType.outgoing, AccountingInterval.once, "Haushalt", "Lebensmittel");
+        addCategory(AccountingType.outgoing, AccountingInterval.once, "Haushalt", "Medikamente");
+        addCategory(AccountingType.outgoing, AccountingInterval.once, "Haushalt", "Genussmittel");
+        addCategory(AccountingType.outgoing, AccountingInterval.once, "Haushalt", "Schule");
+        addCategory(AccountingType.outgoing, AccountingInterval.all, "Haushalt", "Tiernahrung");
+        addCategory(AccountingType.outgoing, AccountingInterval.once, "Haushalt", "Porto");
+        addCategory(AccountingType.outgoing, AccountingInterval.all, "Haushalt", "Wasch und Putzmittel");
 
-        addMainCategory(AccountingType.all, AccountingInterval.all, "Sonstiges");
-        addSubCategory(AccountingType.incoming, AccountingInterval.once, "Sonstiges", "Geldgeschenke");
-        addSubCategory(AccountingType.incoming, AccountingInterval.once, "Sonstiges", "Geldgewinne");
-        addSubCategory(AccountingType.incoming, AccountingInterval.once, "Sonstiges", "Fehlbetrag");
-        addSubCategory(AccountingType.incoming, AccountingInterval.all, "Sonstiges", "Mietrückzahlung");
+        addCategory(AccountingType.incoming, AccountingInterval.once, "Sonstiges", "Geldgeschenke");
+        addCategory(AccountingType.incoming, AccountingInterval.once, "Sonstiges", "Geldgewinne");
+        addCategory(AccountingType.incoming, AccountingInterval.once, "Sonstiges", "Fehlbetrag");
+        addCategory(AccountingType.incoming, AccountingInterval.all, "Sonstiges", "Mietrückzahlung");
 
-        addMainCategory(AccountingType.all, AccountingInterval.all, "Staat");
-        addSubCategory(AccountingType.incoming, AccountingInterval.monthly, "Staat", "Rente");
-        addSubCategory(AccountingType.incoming, AccountingInterval.monthly, "Staat", "Wohngeld");
-        addSubCategory(AccountingType.incoming, AccountingInterval.monthly, "Staat", "Arbeitslosengeld");
-        addSubCategory(AccountingType.incoming, AccountingInterval.once, "Staat", "Steuererstattung");
+        addCategory(AccountingType.incoming, AccountingInterval.monthly, "Staat", "Rente");
+        addCategory(AccountingType.incoming, AccountingInterval.monthly, "Staat", "Wohngeld");
+        addCategory(AccountingType.incoming, AccountingInterval.monthly, "Staat", "Arbeitslosengeld");
+        addCategory(AccountingType.incoming, AccountingInterval.once, "Staat", "Steuererstattung");
 
-        addMainCategory(AccountingType.all, AccountingInterval.all, "Steuer");
-        addSubCategory(AccountingType.outgoing, AccountingInterval.all, "Steuer", "Hundesteuer");
-        addSubCategory(AccountingType.outgoing, AccountingInterval.all, "Steuer", "Kirchensteuer");
-        addSubCategory(AccountingType.outgoing, AccountingInterval.all, "Steuer", "Lohn / Einkommensteuer");
+        addCategory(AccountingType.outgoing, AccountingInterval.all, "Steuer", "Hundesteuer");
+        addCategory(AccountingType.outgoing, AccountingInterval.all, "Steuer", "Kirchensteuer");
+        addCategory(AccountingType.outgoing, AccountingInterval.all, "Steuer", "Lohn / Einkommensteuer");
 
-        addMainCategory(AccountingType.all, AccountingInterval.all, "Versicherung");
-        addSubCategory(AccountingType.outgoing, AccountingInterval.all, "Versicherung", "Haftpflicht");
-        addSubCategory(AccountingType.outgoing, AccountingInterval.all, "Versicherung", "Hausratversicherung");
-        addSubCategory(AccountingType.outgoing, AccountingInterval.all, "Versicherung", "Lebensversicherung");
-        addSubCategory(AccountingType.outgoing, AccountingInterval.all, "Versicherung", "Zusatzversicherung");
-        addSubCategory(AccountingType.outgoing, AccountingInterval.all, "Versicherung", "Berufsunfähigkeitsversicherung");
-        addSubCategory(AccountingType.outgoing, AccountingInterval.all, "Versicherung", "Sonstige");
+        addCategory(AccountingType.outgoing, AccountingInterval.all, "Versicherung", "Haftpflicht");
+        addCategory(AccountingType.outgoing, AccountingInterval.all, "Versicherung", "Hausratversicherung");
+        addCategory(AccountingType.outgoing, AccountingInterval.all, "Versicherung", "Lebensversicherung");
+        addCategory(AccountingType.outgoing, AccountingInterval.all, "Versicherung", "Zusatzversicherung");
+        addCategory(AccountingType.outgoing, AccountingInterval.all, "Versicherung", "Berufsunfähigkeitsversicherung");
+        addCategory(AccountingType.outgoing, AccountingInterval.all, "Versicherung", "Sonstige");
 
-        addMainCategory(AccountingType.all, AccountingInterval.all, "Wohnung");
-        addSubCategory(AccountingType.outgoing, AccountingInterval.all, "Wohnung", "GEZ-Gebühren");
-        addSubCategory(AccountingType.outgoing, AccountingInterval.monthly, "Wohnung", "Kaltmiete");
-        addSubCategory(AccountingType.outgoing, AccountingInterval.monthly, "Wohnung", "Nebenkosten");
-        addSubCategory(AccountingType.outgoing, AccountingInterval.monthly, "Wohnung", "Grundsteuer");
-        addSubCategory(AccountingType.outgoing, AccountingInterval.monthly, "Wohnung", "Heizung");
-        addSubCategory(AccountingType.outgoing, AccountingInterval.all, "Wohnung", "Internet und Telefon");
-        addSubCategory(AccountingType.outgoing, AccountingInterval.all, "Wohnung", "Kreditabzahlung");
-        addSubCategory(AccountingType.outgoing, AccountingInterval.all, "Wohnung", "Strom");
-        addSubCategory(AccountingType.outgoing, AccountingInterval.all, "Wohnung", "Wasser");
-        addSubCategory(AccountingType.outgoing, AccountingInterval.all, "Wohnung", "Miete");
-        addSubCategory(AccountingType.outgoing, AccountingInterval.all, "Wohnung", "Reparaturen");
+        addCategory(AccountingType.outgoing, AccountingInterval.all, "Wohnung", "GEZ-Gebühren");
+        addCategory(AccountingType.outgoing, AccountingInterval.monthly, "Wohnung", "Kaltmiete");
+        addCategory(AccountingType.outgoing, AccountingInterval.monthly, "Wohnung", "Nebenkosten");
+        addCategory(AccountingType.outgoing, AccountingInterval.monthly, "Wohnung", "Grundsteuer");
+        addCategory(AccountingType.outgoing, AccountingInterval.monthly, "Wohnung", "Heizung");
+        addCategory(AccountingType.outgoing, AccountingInterval.all, "Wohnung", "Internet und Telefon");
+        addCategory(AccountingType.outgoing, AccountingInterval.all, "Wohnung", "Kreditabzahlung");
+        addCategory(AccountingType.outgoing, AccountingInterval.all, "Wohnung", "Strom");
+        addCategory(AccountingType.outgoing, AccountingInterval.all, "Wohnung", "Wasser");
+        addCategory(AccountingType.outgoing, AccountingInterval.all, "Wohnung", "Miete");
+        addCategory(AccountingType.outgoing, AccountingInterval.all, "Wohnung", "Reparaturen");
 
         insert(database, CategoryColumns.TABLE_NAME);
     }
 
-    private void addSubCategory(AccountingType type, AccountingInterval interval, String section, String name) {
-        data.add(new CategoryContentValues()
-                .putName(name)
-                .putInterval(interval.name())
-                .putType(type.name())
-                .putSection(section)
-                .putLevel(1));
-    }
-
-    private void addMainCategory(AccountingType type, AccountingInterval interval, String section) {
-        data.add(new CategoryContentValues()
-                .putName(section)
-                .putInterval(interval.name())
-                .putType(type.name())
-                .putSection(section)
-                .putLevel(0));
+    private void addCategory(AccountingType type, AccountingInterval interval, String section, String name) {
+        categoryFunction.apply(section, name, interval.name(), type.name());
     }
 
     private void addAccountData(SQLiteDatabase database) {

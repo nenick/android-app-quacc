@@ -6,6 +6,7 @@ import android.database.Cursor;
 import org.androidannotations.annotations.EBean;
 import org.androidannotations.annotations.RootContext;
 
+import de.nenick.quacc.database.provider.accounting.AccountingColumns;
 import de.nenick.quacc.database.provider.category.CategoryColumns;
 import de.nenick.quacc.database.provider.category.CategoryContentValues;
 import de.nenick.quacc.database.provider.category.CategoryCursor;
@@ -35,8 +36,8 @@ public class CategoryDb {
         return new CategorySelection().query(context.getContentResolver());
     }
 
-    public void insert(String name) {
-        new CategoryContentValues().putName(name).insert(context.getContentResolver());
+    public CategoryCursor getAllSections() {
+        return new CategorySelection().groupBy(CategoryColumns.SECTION).query(context.getContentResolver());
     }
 
     public void insert(String section, String name, String interval, String type, int level) {
@@ -47,5 +48,12 @@ public class CategoryDb {
         CategorySelection where = new CategorySelection();
         return where.interval(intervals).and().type(types)
                 .query(context.getContentResolver(), null, sortOrder);
+    }
+
+    public boolean existSection(String section) {
+        CategoryCursor query = new CategorySelection().section(section).query(context.getContentResolver());
+        boolean exist = query.getCount() > 0;
+        query.close();
+        return exist;
     }
 }

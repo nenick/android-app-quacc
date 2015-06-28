@@ -9,10 +9,9 @@
     <Spinner
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/accountingType"
+        android:id="@+id/type"
         android:spinnerMode="dialog"
-        tools:listitem="@layout/support_simple_spinner_dropdown_item"
-        android:visibility="gone"/>
+        tools:listitem="@layout/support_simple_spinner_dropdown_item"/>
 
     <Spinner
         android:layout_width="wrap_content"
@@ -20,25 +19,23 @@
         android:id="@+id/interval"
         android:spinnerMode="dialog"
         tools:listitem="@layout/support_simple_spinner_dropdown_item"
-        android:layout_alignTop="@+id/accountingType"
-        android:layout_toEndOf="@+id/accountingType"
-        android:visibility="gone"/>
+        android:layout_alignTop="@+id/type"
+        android:layout_toEndOf="@+id/type"/>
 
     <Spinner
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/category"
+        android:id="@+id/section"
         android:spinnerMode="dialog"
         tools:listitem="@layout/support_simple_spinner_dropdown_item"
         android:layout_alignTop="@+id/interval"
-        android:layout_toEndOf="@+id/interval"
-        android:visibility="gone"/>
+        android:layout_toEndOf="@+id/interval"/>
 
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/label"
-        android:layout_below="@+id/category"
+        android:layout_below="@+id/section"
         android:layout_alignParentStart="true"
         android:layout_toStartOf="@+id/confirm" />
 
@@ -47,7 +44,7 @@
         android:layout_height="wrap_content"
         android:text="Hinzufügen"
         android:id="@+id/confirm"
-        android:layout_below="@+id/category"
+        android:layout_below="@+id/section"
         android:layout_alignParentEnd="true" />
 
     <ListView

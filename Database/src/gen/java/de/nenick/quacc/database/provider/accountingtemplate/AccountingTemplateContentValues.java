@@ -40,15 +40,12 @@ public class AccountingTemplateContentValues extends AbstractContentValues {
     }
 
 
-    public AccountingTemplateContentValues putComment(@Nullable String value) {
+    public AccountingTemplateContentValues putComment(@NonNull String value) {
+        if (value == null) throw new IllegalArgumentException("comment must not be null");
         mContentValues.put(AccountingTemplateColumns.COMMENT, value);
         return this;
     }
 
-    public AccountingTemplateContentValues putCommentNull() {
-        mContentValues.putNull(AccountingTemplateColumns.COMMENT);
-        return this;
-    }
 
     public AccountingTemplateContentValues putInterval(@NonNull String value) {
         if (value == null) throw new IllegalArgumentException("interval must not be null");
