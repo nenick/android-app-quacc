@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.io.InputStream;
 
 import de.nenick.quacc.database.provider.QuAccSQLiteOpenHelper;
+import de.nenick.quacc.database.provider.accounting.AccountingColumns;
 
 @EBean
 public class WriteDataFunction {
@@ -32,7 +33,21 @@ public class WriteDataFunction {
 
     public void importDatabase() {
 
-        copyFileToLocation(backupDatabase, appDatabase);
+       // copyFileToLocation(backupDatabase, appDatabase);
+        QuAccSQLiteOpenHelper sqlite = QuAccSQLiteOpenHelper.getInstance(context);
+
+        // Close the SQLiteOpenHelper so it will commit the created empty
+        // database to internal storage.
+        sqlite.close();
+
+        try {
+            copyFile(backupDatabase, appDatabase);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        // Access the copied database so SQLiteHelper will cache it and mark
+        // it as created.
+        sqlite.getWritableDatabase().close();
     }
 
     public void exportDatabase() {
@@ -45,7 +60,8 @@ public class WriteDataFunction {
 
         // Close the SQLiteOpenHelper so it will commit the created empty
         // database to internal storage.
-        sqlite.close();
+        //sqlite.close();
+
             try {
                 copyFile(sourceFile, targetFile);
             } catch (Exception e) {
@@ -53,7 +69,8 @@ public class WriteDataFunction {
             }
             // Access the copied database so SQLiteHelper will cache it and mark
             // it as created.
-            sqlite.getWritableDatabase().close();
+            //sqlite.getWritableDatabase().close();
+
     }
 
     // original from package android.os.FileUtils;

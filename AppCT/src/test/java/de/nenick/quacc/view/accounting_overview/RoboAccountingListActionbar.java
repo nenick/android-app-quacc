@@ -25,8 +25,21 @@ public class RoboAccountingListActionbar extends RoboActionbar {
         return new RoboActionbarMenuItem(robo, R.id.account, null);
     }
 
+    public RoboActionbarMenuItem exportData() {
+        return new RoboActionbarMenuItem(robo, R.id.export_data, null);
+    }
+
+    public RoboActionbarMenuItem importData() {
+        return new RoboActionbarMenuItem(robo, R.id.import_data, null);
+    }
+
     @Override
     public String title() {
-        return ((ActionBarActivity)robo.activity).getSupportActionBar().getTitle().toString();
+        CharSequence title = ((ActionBarActivity) robo.activity).getSupportActionBar().getTitle();
+        if(title != null) {
+            return title.toString();
+        } else {
+            return null;
+        }
     }
 }

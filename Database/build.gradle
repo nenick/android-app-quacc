@@ -68,9 +68,8 @@ afterEvaluate { project ->
 
 dependencies {
     compile 'com.android.support:support-annotations:21.0.3'
-    compile 'com.getbase.android.forger:forger:0.1'
-    //testCompile 'org.chalup.microorm:microorm:0.5'
-    //testCompile 'org.chalup.thneed:thneed:0.7'
+    compile 'com.google.guava:guava:18.0'
+    testCompile 'com.getbase.android.forger:forger:0.1'
 }
 
 task generateDatabaseFiles << {

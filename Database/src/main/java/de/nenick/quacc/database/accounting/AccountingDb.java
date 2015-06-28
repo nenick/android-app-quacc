@@ -42,7 +42,9 @@ public class AccountingDb {
         where.accountId(accountId)
                 .and().dateAfter(startDate)
                 .and().dateBefore(endDate);
-        return where.query(context.getContentResolver(), null, AccountingColumns.DATE);
+        AccountingCursor query = where.query(context.getContentResolver(), null, AccountingColumns.DATE);
+        query.setNotificationUri(context.getContentResolver(), AccountingColumns.CONTENT_URI);
+        return query;
     }
 
     public AccountingCursor getGroupsBetween(long accountId, Date startDate, Date endDate) {
@@ -54,7 +56,9 @@ public class AccountingDb {
                 .and().dateAfter(startDate)
                 .and().dateBefore(endDate)
                 .groupBy(AccountingColumns.CATEGORY_ID + " , " + AccountingColumns.TYPE);
-        return where.query(context.getContentResolver(), projection, AccountingColumns.DATE);
+        AccountingCursor query = where.query(context.getContentResolver(), projection, AccountingColumns.DATE);
+        query.setNotificationUri(context.getContentResolver(), AccountingColumns.CONTENT_URI);
+        return query;
     }
 
     public AccountingCursor getForGroupBetween(long accountId, long categoryId, String type, Date startDate, Date endDate) {
@@ -64,16 +68,17 @@ public class AccountingDb {
                 .and().dateBefore(endDate)
                 .and().categoryId(categoryId)
                 .and().type(type);
-        return where.query(context.getContentResolver(), null, AccountingColumns.DATE);
-    }
-
-    public void delete(long accountingId) {
-        AccountingSelection where = new AccountingSelection();
-        where.accountId(accountingId);
-        where.delete(context.getContentResolver());
+        AccountingCursor query = where.query(context.getContentResolver(), null, AccountingColumns.DATE);
+        query.setNotificationUri(context.getContentResolver(), AccountingColumns.CONTENT_URI);
+        return query;
     }
 
     public AccountingCursor getById(long id) {
         return new AccountingSelection().id(id).query(context.getContentResolver());
+    }
+
+    public void deleteById(long accountingId) {
+        new AccountingSelection().id(accountingId).delete(context.getContentResolver());
+        context.getContentResolver().notifyChange(AccountingColumns.CONTENT_URI, null);
     }
 }

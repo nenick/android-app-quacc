@@ -126,6 +126,7 @@ public class AccountingListActivity extends ActionBarActivity
     @OptionsItem(R.id.import_data)
     protected void onImport() {
         writeDataFunction.importDatabase();
+        replaceFragmentForCurrentAccount();
     }
 
     @OptionsItem(R.id.export_data)
