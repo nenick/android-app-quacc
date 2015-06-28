@@ -88,7 +88,7 @@ public class CreateTemplateFragment extends BasePresenterFragment {
         CategoryCursor accountingCategory = view.getAccountingCategory();
         String comment = view.getComment();
         view.finish();
-        long templateId = createAccountingTemplateFunction.apply(account, accountingType, accountingInterval, accountingCategory.getId(), comment, 0);
+        long templateId = createAccountingTemplateFunction.apply(account, accountingType, accountingInterval, accountingCategory.getId(), comment);
 
         String speechText = view.getSpeechText();
         if(!speechText.isEmpty()) {

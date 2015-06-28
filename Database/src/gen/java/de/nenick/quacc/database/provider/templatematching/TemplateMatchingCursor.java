@@ -186,14 +186,4 @@ public class TemplateMatchingCursor extends AbstractCursor implements TemplateMa
             throw new NullPointerException("The value of 'type' in the database was null, which is not allowed according to the model definition");
         return res;
     }
-
-    /**
-     * Values are stored in 100 cent.
-     */
-    public int getAccountingTemplateValue() {
-        Integer res = getIntegerOrNull(AccountingTemplateColumns.VALUE);
-        if (res == null)
-            throw new NullPointerException("The value of 'value' in the database was null, which is not allowed according to the model definition");
-        return res;
-    }
 }

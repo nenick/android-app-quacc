@@ -19,8 +19,8 @@ public class CreateAccountingTemplateFunction {
     @Bean
     CategoryDb categoryDb;
 
-    public long apply(String accountName, String type, String interval, long categoryId, String comment, int value) {
+    public long apply(String accountName, String type, String interval, long categoryId, String comment) {
         long accountId = accountDb.getIdByName(accountName);
-        return accountingTemplateDb.insert(accountId, type, interval, categoryId, comment, value);
+        return accountingTemplateDb.insert(accountId, type, interval, categoryId, comment);
     }
 }

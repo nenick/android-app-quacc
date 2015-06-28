@@ -47,4 +47,8 @@ public class TemplateMatchingDb {
         query.close();
         return result;
     }
+
+    public void deleteAll() {
+        new TemplateMatchingSelection().delete(context.getContentResolver());
+    }
 }

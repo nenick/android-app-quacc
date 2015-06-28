@@ -30,7 +30,7 @@ public class AccountingListBackupSpec extends RoboComponentTestBase {
         accountingListPage.list().count();
         accountingListPage.actionbar().exportData().click();
 
-        File backupDatabase = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), "/database-quacc.db");
+        File backupDatabase = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS),  "/QuAcc-Backup.json");
         assertThat(backupDatabase).exists();
     }
 
@@ -38,7 +38,7 @@ public class AccountingListBackupSpec extends RoboComponentTestBase {
     public void shouldImportData() {
         accountingListPage.startPage();
         assertThat(accountingListPage.list().count()).isEqualTo(0);
-        long accountingId = CreateAccountingFunction_.getInstance_(context).apply("Girokonto", AccountingType.incoming.name(), AccountingInterval.daily.name(), 1, DateTime.now().toDate(), 50, "");
+        long accountingId = CreateAccountingFunction_.getInstance_(context).apply("Girokonto", AccountingType.incoming.name(), AccountingInterval.once.name(), 1, DateTime.now().toDate(), 50, "");
         assertThat(accountingListPage.list().count()).isEqualTo(1);
         accountingListPage.actionbar().exportData().click();
 
@@ -48,6 +48,7 @@ public class AccountingListBackupSpec extends RoboComponentTestBase {
         assertThat(accountingListPage.list().count()).isEqualTo(0);
 
         accountingListPage.actionbar().importData().click();
+        assertThat(AccountingDb_.getInstance_(context).getAll().getCount()).isEqualTo(1);
         assertThat(accountingListPage.list().count()).isEqualTo(1);
     }
 }

@@ -413,34 +413,4 @@ public class AccountingTemplateSelection extends AbstractSelection<AccountingTem
         addEndsWith(AccountingTemplateColumns.TYPE, value);
         return this;
     }
-
-    public AccountingTemplateSelection value(int... value) {
-        addEquals(AccountingTemplateColumns.VALUE, toObjectArray(value));
-        return this;
-    }
-
-    public AccountingTemplateSelection valueNot(int... value) {
-        addNotEquals(AccountingTemplateColumns.VALUE, toObjectArray(value));
-        return this;
-    }
-
-    public AccountingTemplateSelection valueGt(int value) {
-        addGreaterThan(AccountingTemplateColumns.VALUE, value);
-        return this;
-    }
-
-    public AccountingTemplateSelection valueGtEq(int value) {
-        addGreaterThanOrEquals(AccountingTemplateColumns.VALUE, value);
-        return this;
-    }
-
-    public AccountingTemplateSelection valueLt(int value) {
-        addLessThan(AccountingTemplateColumns.VALUE, value);
-        return this;
-    }
-
-    public AccountingTemplateSelection valueLtEq(int value) {
-        addLessThanOrEquals(AccountingTemplateColumns.VALUE, value);
-        return this;
-    }
 }

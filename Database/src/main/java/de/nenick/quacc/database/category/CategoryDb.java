@@ -1,7 +1,9 @@
 package de.nenick.quacc.database.category;
 
+import android.content.ContentUris;
 import android.content.Context;
 import android.database.Cursor;
+import android.net.Uri;
 
 import org.androidannotations.annotations.EBean;
 import org.androidannotations.annotations.RootContext;
@@ -40,7 +42,12 @@ public class CategoryDb {
         return new CategorySelection().groupBy(CategoryColumns.SECTION).query(context.getContentResolver());
     }
 
-    public void insert(String section, String name, String interval, String type, int level) {
+    public long insert(String section, String name, String interval, String type, int level) {
+        Uri uri = new CategoryContentValues().putName(name).putInterval(interval).putSection(section).putType(type).putLevel(level).insert(context.getContentResolver());
+        return ContentUris.parseId(uri);
+    }
+
+    public void insertWithId(long id, String section, String name, String interval, String type, int level) {
         new CategoryContentValues().putName(name).putInterval(interval).putSection(section).putType(type).putLevel(level).insert(context.getContentResolver());
     }
 
@@ -55,5 +62,9 @@ public class CategoryDb {
         boolean exist = query.getCount() > 0;
         query.close();
         return exist;
+    }
+
+    public void deleteAll() {
+        new CategorySelection().delete(context.getContentResolver());
     }
 }

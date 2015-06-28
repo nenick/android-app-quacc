@@ -1,6 +1,8 @@
 package de.nenick.quacc.database.account;
 
+import android.content.ContentUris;
 import android.content.Context;
+import android.net.Uri;
 
 import org.androidannotations.annotations.EBean;
 import org.androidannotations.annotations.RootContext;
@@ -27,11 +29,20 @@ public class AccountDb {
         return new AccountSelection().query(context.getContentResolver());
     }
 
-    public void setInitialValue(String account, int value) {
-        new AccountContentValues().putInitialvalue(value).update(context.getContentResolver(), new AccountSelection().name(account));
+    public long insert(String name, int initialValue) {
+        Uri uri = new AccountContentValues().putName(name).putInitialvalue(initialValue).insert(context.getContentResolver());
+        return ContentUris.parseId(uri);
+    }
+
+    public void updateInitialValue(String account, int intialValue) {
+        new AccountContentValues().putInitialvalue(intialValue).update(context.getContentResolver(), new AccountSelection().name(account));
     }
 
     public AccountCursor getAccountByName(String account) {
         return new AccountSelection().name(account).query(context.getContentResolver());
+    }
+
+    public void deleteAll() {
+        new AccountSelection().delete(context.getContentResolver());
     }
 }

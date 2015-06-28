@@ -81,4 +81,13 @@ public class AccountingDb {
         new AccountingSelection().id(accountingId).delete(context.getContentResolver());
         context.getContentResolver().notifyChange(AccountingColumns.CONTENT_URI, null);
     }
+
+    public void deleteAll() {
+        new AccountingSelection().delete(context.getContentResolver());
+    }
+
+
+    public AccountingCursor getAllByInterval(String interval) {
+        return new AccountingSelection().interval(interval).query(context.getContentResolver());
+    }
 }

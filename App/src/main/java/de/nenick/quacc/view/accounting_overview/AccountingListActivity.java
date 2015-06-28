@@ -1,6 +1,7 @@
 package de.nenick.quacc.view.accounting_overview;
 
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
@@ -14,7 +15,8 @@ import org.androidannotations.annotations.OptionsItem;
 import org.androidannotations.annotations.ViewById;
 
 import de.nenick.quacc.R;
-import de.nenick.quacc.core.backup.WriteDataFunction;
+import de.nenick.quacc.core.backup.BackupFromJsonFileFunction;
+import de.nenick.quacc.core.backup.BackupToJsonFileFunction;
 import de.nenick.quacc.view.account.AccountsActivity_;
 import de.nenick.quacc.view.category.CategoriesActivity_;
 import de.nenick.quacc.view.template.TemplateActivity_;
@@ -35,7 +37,12 @@ public class AccountingListActivity extends ActionBarActivity
     AccountingListDrawer accountingListDrawer;
 
     @Bean
-    WriteDataFunction writeDataFunction;
+    BackupFromJsonFileFunction backupFromJsonFileFunction;
+
+    @Bean
+    BackupToJsonFileFunction backupToJsonFileFunction;
+
+    String backupPath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).getPath() + "/QuAcc-Backup.json";
 
     @AfterViews
     protected void onCreateView() {
@@ -125,12 +132,12 @@ public class AccountingListActivity extends ActionBarActivity
 
     @OptionsItem(R.id.import_data)
     protected void onImport() {
-        writeDataFunction.importDatabase();
+        backupFromJsonFileFunction.apply(backupPath);
         replaceFragmentForCurrentAccount();
     }
 
     @OptionsItem(R.id.export_data)
     protected void onExport() {
-        writeDataFunction.exportDatabase();
+        backupToJsonFileFunction.apply(backupPath);
     }
 }

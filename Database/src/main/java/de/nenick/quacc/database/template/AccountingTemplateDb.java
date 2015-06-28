@@ -25,14 +25,14 @@ public class AccountingTemplateDb {
     @RootContext
     Context context;
 
-    public long insert(long accountId, String accountingType, String accountingInterval, long accountingCategoryId, String comment, int value) {
+    public long insert(long accountId, String accountingType, String accountingInterval, long accountingCategoryId, String comment) {
         Uri uri = new AccountingTemplateContentValues()
                 .putAccountId(accountId)
                 .putType(accountingType)
                 .putInterval(accountingInterval)
                 .putCategoryId(accountingCategoryId)
                 .putComment(comment)
-                .putValue(value).insert(context.getContentResolver());
+                .insert(context.getContentResolver());
         return ContentUris.parseId(uri);
     }
 
@@ -42,5 +42,9 @@ public class AccountingTemplateDb {
 
     public AccountingTemplateCursor getAll() {
         return new AccountingTemplateSelection().query(context.getContentResolver(), ALL_COLUMN_AND_FROM_JOIN);
+    }
+
+    public void deleteAll() {
+        new AccountingTemplateSelection().delete(context.getContentResolver());
     }
 }

@@ -29,7 +29,7 @@ public class AccountsEditSpec extends RoboComponentTestBase {
 
     @Test
     public void shouldShowInitialValue() {
-        AccountDb_.getInstance_(context).setInitialValue("Bar", 599);
+        AccountDb_.getInstance_(context).updateInitialValue("Bar", 599);
 
         accountsPage.startPage();
         accountsPage.accounts().entry("Bar").select();

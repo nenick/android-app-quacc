@@ -60,13 +60,4 @@ public class AccountingTemplateContentValues extends AbstractContentValues {
         return this;
     }
 
-
-    /**
-     * Values are stored in 100 cent.
-     */
-    public AccountingTemplateContentValues putValue(int value) {
-        mContentValues.put(AccountingTemplateColumns.VALUE, value);
-        return this;
-    }
-
 }

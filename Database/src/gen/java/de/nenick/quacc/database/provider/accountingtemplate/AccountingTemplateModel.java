@@ -42,9 +42,4 @@ public interface AccountingTemplateModel extends BaseModel {
      */
     @NonNull
     String getType();
-
-    /**
-     * Values are stored in 100 cent.
-     */
-    int getValue();
 }

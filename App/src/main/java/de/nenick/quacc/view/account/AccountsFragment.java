@@ -46,7 +46,7 @@ public class AccountsFragment extends BasePresenterFragment {
     protected void onSave() {
         ParseValueFromStringFunction.Result apply = parseValueFromStringFunction.apply(view.getInitialValue());
         if(apply.report == ParseValueFromStringFunction.ParseResult.Successful) {
-            accountDb.setInitialValue(view.getAccount(), apply.value);
+            accountDb.updateInitialValue(view.getAccount(), apply.value);
         }
     }
 

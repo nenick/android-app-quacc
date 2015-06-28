@@ -34,11 +34,6 @@ public class AccountingTemplateColumns implements BaseColumns {
 
     public static final String TYPE = "accounting_template__type";
 
-    /**
-     * Values are stored in 100 cent.
-     */
-    public static final String VALUE = "value";
-
 
     public static final String DEFAULT_ORDER = TABLE_NAME + "." +_ID;
 
@@ -49,8 +44,7 @@ public class AccountingTemplateColumns implements BaseColumns {
             CATEGORY_ID,
             COMMENT,
             INTERVAL,
-            TYPE,
-            VALUE
+            TYPE
     };
     // @formatter:on
 
@@ -62,7 +56,6 @@ public class AccountingTemplateColumns implements BaseColumns {
             if (c.equals(COMMENT) || c.contains("." + COMMENT)) return true;
             if (c.equals(INTERVAL) || c.contains("." + INTERVAL)) return true;
             if (c.equals(TYPE) || c.contains("." + TYPE)) return true;
-            if (c.equals(VALUE) || c.contains("." + VALUE)) return true;
         }
         return false;
     }

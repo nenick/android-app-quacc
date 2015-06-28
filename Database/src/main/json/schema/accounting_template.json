@@ -32,12 +32,6 @@
       "name": "type",
       "type": "String",
       "nullable": false
-    },
-    {
-      "documentation": "Values are stored in 100 cent.",
-      "name": "value",
-      "type": "Integer",
-      "nullable": false
     }
   ],
   "constraints": [

@@ -163,14 +163,4 @@ public class AccountingTemplateCursor extends AbstractCursor implements Accounti
             throw new NullPointerException("The value of 'type' in the database was null, which is not allowed according to the model definition");
         return res;
     }
-
-    /**
-     * Values are stored in 100 cent.
-     */
-    public int getValue() {
-        Integer res = getIntegerOrNull(AccountingTemplateColumns.VALUE);
-        if (res == null)
-            throw new NullPointerException("The value of 'value' in the database was null, which is not allowed according to the model definition");
-        return res;
-    }
 }

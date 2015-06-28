@@ -474,34 +474,4 @@ public class TemplateMatchingSelection extends AbstractSelection<TemplateMatchin
         addEndsWith(AccountingTemplateColumns.TYPE, value);
         return this;
     }
-
-    public TemplateMatchingSelection accountingTemplateValue(int... value) {
-        addEquals(AccountingTemplateColumns.VALUE, toObjectArray(value));
-        return this;
-    }
-
-    public TemplateMatchingSelection accountingTemplateValueNot(int... value) {
-        addNotEquals(AccountingTemplateColumns.VALUE, toObjectArray(value));
-        return this;
-    }
-
-    public TemplateMatchingSelection accountingTemplateValueGt(int value) {
-        addGreaterThan(AccountingTemplateColumns.VALUE, value);
-        return this;
-    }
-
-    public TemplateMatchingSelection accountingTemplateValueGtEq(int value) {
-        addGreaterThanOrEquals(AccountingTemplateColumns.VALUE, value);
-        return this;
-    }
-
-    public TemplateMatchingSelection accountingTemplateValueLt(int value) {
-        addLessThan(AccountingTemplateColumns.VALUE, value);
-        return this;
-    }
-
-    public TemplateMatchingSelection accountingTemplateValueLtEq(int value) {
-        addLessThanOrEquals(AccountingTemplateColumns.VALUE, value);
-        return this;
-    }
 }

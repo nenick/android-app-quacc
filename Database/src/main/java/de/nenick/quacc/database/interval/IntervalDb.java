@@ -70,4 +70,8 @@ public class IntervalDb {
     public IntervalCursor getAllForAccountNotUpdatedUntil(long accountId, Date updatedUntil) {
         return new IntervalSelection().accountId(accountId).and().dateUpdatedUntilBefore(updatedUntil).query(context.getContentResolver(), ALL_COLUMN_AND_FROM_JOIN);
     }
+
+    public void deleteAll() {
+        new IntervalSelection().delete(context.getContentResolver());
+    }
 }
