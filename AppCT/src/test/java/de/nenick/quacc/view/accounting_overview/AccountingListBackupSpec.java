@@ -38,6 +38,9 @@ public class AccountingListBackupSpec extends RoboComponentTestBase {
     public void shouldImportData() {
         accountingListPage.startPage();
         assertThat(accountingListPage.list().count()).isEqualTo(0);
+
+        //TODO create more data
+        //TODO also don't miss interval data
         long accountingId = CreateAccountingFunction_.getInstance_(context).apply("Girokonto", AccountingType.incoming.name(), AccountingInterval.once.name(), 1, DateTime.now().toDate(), 50, "");
         assertThat(accountingListPage.list().count()).isEqualTo(1);
         accountingListPage.actionbar().exportData().click();
@@ -48,6 +51,8 @@ public class AccountingListBackupSpec extends RoboComponentTestBase {
         assertThat(accountingListPage.list().count()).isEqualTo(0);
 
         accountingListPage.actionbar().importData().click();
+
+        //TODO check more data
         assertThat(AccountingDb_.getInstance_(context).getAll().getCount()).isEqualTo(1);
         assertThat(accountingListPage.list().count()).isEqualTo(1);
     }

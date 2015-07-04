@@ -7,11 +7,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import de.nenick.quacc.StringPartUtil;
-import de.nenick.quacc.speechrecognition.RecognizeAccountingIntervalFunction;
-import de.nenick.quacc.speechrecognition.RecognizeAccountingTypeFunction;
-import de.nenick.quacc.speechrecognition.RecognizeCategoryFunction;
-import de.nenick.quacc.speechrecognition.RecognizeValueFunction;
-import de.nenick.quacc.speechrecognition.SpeechResult;
+import de.nenick.quacc.speechinterpreter.RecognizeAccountingIntervalFunction;
+import de.nenick.quacc.speechinterpreter.RecognizeAccountingTypeFunction;
+import de.nenick.quacc.speechinterpreter.RecognizeCategoryFunction;
+import de.nenick.quacc.speechinterpreter.RecognizeValueFunction;
+import de.nenick.quacc.speechinterpreter.SpeechResult;
 import de.nenick.quacc.valueparser.ParseValueFromIntegerFunction;
 import de.nenick.quacc.view.accounting_create.CreateAccountingView;
 

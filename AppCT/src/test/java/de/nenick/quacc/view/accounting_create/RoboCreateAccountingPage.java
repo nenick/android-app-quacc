@@ -13,8 +13,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 import de.nenick.quacc.R;
-import de.nenick.quacc.speechrecognition.RecognitionListenerWrapper;
-import de.nenick.quacc.view.accounting_create.speechrecognition.RoboSpeechRecognitionFeatureMockUtil;
+import de.nenick.quacc.speechrecognition.QuAccSpeechRecognizerListener;
 import de.nenick.robolectric.RoboSup;
 import de.nenick.robolectric.RoboSupPage;
 import de.nenick.robolectricpages.components.RoboImageButton;
@@ -26,7 +25,7 @@ import static org.mockito.Mockito.verify;
 public class RoboCreateAccountingPage extends RoboSupPage<CreateAccountingActivity_, CreateAccountingFragment> {
 
     @Captor
-    ArgumentCaptor<RecognitionListenerWrapper> speechRecognitionListenerArgumentCaptor;
+    ArgumentCaptor<QuAccSpeechRecognizerListener> speechRecognitionListenerArgumentCaptor;
 
     public RoboCreateAccountingPage(RoboSup<CreateAccountingActivity_, CreateAccountingFragment> robo) {
         super(robo, CreateAccountingActivity.TAG_FRAGMENT);

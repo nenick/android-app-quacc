@@ -11,31 +11,30 @@ import org.androidannotations.annotations.AfterInject;
 import org.androidannotations.annotations.EBean;
 import org.androidannotations.annotations.RootContext;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+/**
+ * Wrapper for the android speech recognition.
+ * <p/>
+ * Works online and offline but offline its less effective and reports only one variant.
+ */
 @EBean
-public class SpeechRecognitionWrapper {
-
-    public interface SpeechResultListener {
-
-        void onError(int error);
-
-        void onResults(ArrayList<String> speechResults);
-    }
+public class QuAccSpeechRecognizer {
 
     @RootContext
     Context context;
 
+    // package public for component test mocking
     SpeechRecognizer speechRecognizer;
-    Intent speechRecognizerIntent;
-    boolean isListening;
+    private Intent speechRecognizerIntent;
+    private boolean isListening;
 
     @AfterInject
     protected void afterInject() {
         speechRecognizer = SpeechRecognizer.createSpeechRecognizer(context);
-        speechRecognizerIntent = createSpeechIntent();
+        speechRecognizerIntent = new Intent();
+        setSpeechRecognitionIntentValues();
     }
 
     public void startListening() {
@@ -53,28 +52,26 @@ public class SpeechRecognitionWrapper {
     }
 
     public void setSpeechResultListener(final SpeechResultListener speechResultListener) {
-        speechRecognizer.setRecognitionListener(new RecognitionListenerWrapper() {
+        speechRecognizer.setRecognitionListener(new QuAccSpeechRecognizerListener(speechResultListener) {
             @Override
             public void onError(int error) {
                 isListening = false;
-                speechResultListener.onError(error);
+                super.onError(error);
             }
 
             @Override
             public void onResults(Bundle results) {
                 isListening = false;
-                speechResultListener.onResults(results.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION));
+                super.onResults(results);
             }
         });
     }
 
-    /**
-     * http://stackoverflow.com/questions/4770835/how-to-detect-if-speech-to-text-is-available-on-android
-     */
     public boolean isSpeechRecognitionAvailable() {
+        // see also http://stackoverflow.com/questions/4770835/how-to-detect-if-speech-to-text-is-available-on-android
         PackageManager pm = context.getPackageManager();
         List activities = pm.queryIntentActivities(new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH), 0);
-        return activities.size() != 0;
+        return activities.size() > 0;
     }
 
     public void destroy() {
@@ -85,13 +82,11 @@ public class SpeechRecognitionWrapper {
         return isListening;
     }
 
-    private Intent createSpeechIntent() {
-        Intent mSpeechRecognizerIntent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
-        mSpeechRecognizerIntent.putExtra(RecognizerIntent.EXTRA_PROMPT, "Sprackerkennung aktiv");
-        mSpeechRecognizerIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
-        mSpeechRecognizerIntent.putExtra(RecognizerIntent.EXTRA_CALLING_PACKAGE, context.getPackageName());
-        mSpeechRecognizerIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.GERMAN);
-        mSpeechRecognizerIntent.putExtra(RecognizerIntent.EXTRA_MAX_RESULTS, 10);
-        return mSpeechRecognizerIntent;
+    void setSpeechRecognitionIntentValues() {
+        speechRecognizerIntent.setAction(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+        speechRecognizerIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
+        speechRecognizerIntent.putExtra(RecognizerIntent.EXTRA_CALLING_PACKAGE, context.getPackageName());
+        speechRecognizerIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.GERMAN);
+        speechRecognizerIntent.putExtra(RecognizerIntent.EXTRA_PARTIAL_RESULTS, true);
     }
 }

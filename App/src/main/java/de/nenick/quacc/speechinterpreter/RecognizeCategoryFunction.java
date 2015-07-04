@@ -1,4 +1,4 @@
-package de.nenick.quacc.speechrecognition;
+package de.nenick.quacc.speechinterpreter;
 
 import android.content.Context;
 

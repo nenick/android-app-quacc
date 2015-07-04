@@ -1,5 +1,10 @@
 package de.nenick.quacc.core.backup;
 
+import android.content.ContentResolver;
+import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
+import android.net.Uri;
+
 import org.apache.commons.io.IOUtils;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.junit.Before;
@@ -27,15 +32,29 @@ import de.nenick.quacc.database.template.AccountingTemplateDb;
 import de.nenick.quacc.database.template.TemplateMatchingDb;
 
 import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
 public class BackupFromJsonFileFunctionTest {
 
     @InjectMocks
-    BackupFromJsonFileFunction backupFromJsonFileFunction;
+    BackupFromJsonFileFunction backupFromJsonFileFunction = new BackupFromJsonFileFunction() {
+        @Override
+        protected SQLiteDatabase getDatabase() {
+            return mock(SQLiteDatabase.class);
+        }
+
+        @Override
+        protected Uri getContentUri() {
+            return mock(Uri.class);
+        }
+    };
 
     @Mock
     GetInputStreamForFileFunction getInputStreamForFileFunction;
+
+    @Mock
+    Context context;
 
     @Mock
     AccountDb accountDb;
@@ -61,6 +80,7 @@ public class BackupFromJsonFileFunctionTest {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
+        given(context.getContentResolver()).willReturn(mock(ContentResolver.class));
     }
 
     @Test

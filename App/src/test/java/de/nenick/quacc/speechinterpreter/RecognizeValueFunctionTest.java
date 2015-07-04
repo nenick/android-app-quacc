@@ -1,6 +1,8 @@
-package de.nenick.quacc.speechrecognition;
+package de.nenick.quacc.speechinterpreter;
 
 import org.junit.Test;
+
+import de.nenick.quacc.speechinterpreter.RecognizeValueFunction;
 
 import static org.assertj.core.api.Assertions.assertThat;
 

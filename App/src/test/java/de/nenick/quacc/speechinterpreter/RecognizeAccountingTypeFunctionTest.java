@@ -1,4 +1,4 @@
-package de.nenick.quacc.speechrecognition;
+package de.nenick.quacc.speechinterpreter;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -13,7 +13,8 @@ import static org.mockito.Mockito.doReturn;
 
 public class RecognizeAccountingTypeFunctionTest {
 
-    private final String einnahme = "Einnahme";
+    private final String incoming = "Einnahme";
+    
     @Spy
     RecognizeAccountingTypeFunction recognizeAccountingTypeFunction;
 
@@ -24,8 +25,8 @@ public class RecognizeAccountingTypeFunctionTest {
 
     @Test
     public void testApply() throws Exception {
-        doReturn(einnahme).when(recognizeAccountingTypeFunction).getHumanReadableString(anyInt());
-        SpeechResult apply = recognizeAccountingTypeFunction.apply(einnahme);
+        doReturn(incoming).when(recognizeAccountingTypeFunction).getHumanReadableString(anyInt());
+        SpeechResult apply = recognizeAccountingTypeFunction.apply(incoming);
         assertThat(apply.value).isEqualTo(AccountingType.incoming.name());
     }
 }

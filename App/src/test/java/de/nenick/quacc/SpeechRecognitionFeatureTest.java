@@ -10,15 +10,16 @@ import org.mockito.MockitoAnnotations;
 
 import java.util.ArrayList;
 
+import de.nenick.quacc.speechrecognition.SpeechResultListener;
 import de.nenick.quacc.view.accounting_create.CreateAccountingView;
 import de.nenick.quacc.view.accounting_create.speechrecognition.InterpretSpeechFunction;
 import de.nenick.quacc.view.accounting_create.speechrecognition.InterpretTemplateFunction;
 import de.nenick.quacc.view.accounting_create.speechrecognition.SpeechRecognitionFeature;
-import de.nenick.quacc.speechrecognition.RecognizeAccountingIntervalFunction;
-import de.nenick.quacc.speechrecognition.RecognizeAccountingTypeFunction;
-import de.nenick.quacc.speechrecognition.RecognizeCategoryFunction;
-import de.nenick.quacc.speechrecognition.RecognizeValueFunction;
-import de.nenick.quacc.speechrecognition.SpeechRecognitionWrapper;
+import de.nenick.quacc.speechinterpreter.RecognizeAccountingIntervalFunction;
+import de.nenick.quacc.speechinterpreter.RecognizeAccountingTypeFunction;
+import de.nenick.quacc.speechinterpreter.RecognizeCategoryFunction;
+import de.nenick.quacc.speechinterpreter.RecognizeValueFunction;
+import de.nenick.quacc.speechrecognition.QuAccSpeechRecognizer;
 
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
@@ -34,7 +35,7 @@ public class SpeechRecognitionFeatureTest {
     CreateAccountingView view;
 
     @Mock
-    SpeechRecognitionWrapper speechRecognitionWrapper;
+    QuAccSpeechRecognizer quAccSpeechRecognizer;
 
     @Mock
     RecognizeAccountingTypeFunction recognizeAccountingTypeFunction;
@@ -55,7 +56,7 @@ public class SpeechRecognitionFeatureTest {
     InterpretTemplateFunction interpretTemplateFunction;
 
     @Captor
-    ArgumentCaptor<SpeechRecognitionWrapper.SpeechResultListener> speechResultListenerArgumentCaptor;
+    ArgumentCaptor<SpeechResultListener> speechResultListenerArgumentCaptor;
 
     @Before
     public void setUp() {
@@ -66,37 +67,37 @@ public class SpeechRecognitionFeatureTest {
     @Test
     public void shouldReleaseResourcesOnViewFinish() {
         feature.onViewFinish();
-        verify(speechRecognitionWrapper).destroy();
+        verify(quAccSpeechRecognizer).destroy();
     }
 
     @Test
     public void shouldStopListeningOnViewPause() {
         feature.onViewPause();
-        verify(speechRecognitionWrapper).stopListening();
+        verify(quAccSpeechRecognizer).stopListening();
         verify(view).showSpeechStartButton();
     }
 
     @Test
     public void shouldActivateSpeechRecognitionOnClick() {
-        given(speechRecognitionWrapper.isSpeechRecognitionAvailable()).willReturn(true);
-        given(speechRecognitionWrapper.isListening()).willReturn(false);
+        given(quAccSpeechRecognizer.isSpeechRecognitionAvailable()).willReturn(true);
+        given(quAccSpeechRecognizer.isListening()).willReturn(false);
         feature.onToggleSpeechRecognitionClick();
-        verify(speechRecognitionWrapper).startListening();
+        verify(quAccSpeechRecognizer).startListening();
         verify(view).showSpeechStopButton();
     }
 
     @Test
     public void shouldDeactivateSpeechRecognitionOnClick() {
-        given(speechRecognitionWrapper.isSpeechRecognitionAvailable()).willReturn(true);
-        given(speechRecognitionWrapper.isListening()).willReturn(true);
+        given(quAccSpeechRecognizer.isSpeechRecognitionAvailable()).willReturn(true);
+        given(quAccSpeechRecognizer.isListening()).willReturn(true);
         feature.onToggleSpeechRecognitionClick();
-        verify(speechRecognitionWrapper).stopListening();
+        verify(quAccSpeechRecognizer).stopListening();
         verify(view).showSpeechStartButton();
     }
 
     @Test
     public void shouldShowHintIfSpeechRecognitionNotAvailable() {
-        given(speechRecognitionWrapper.isSpeechRecognitionAvailable()).willReturn(false);
+        given(quAccSpeechRecognizer.isSpeechRecognitionAvailable()).willReturn(false);
         feature.onToggleSpeechRecognitionClick();
         verify(view).showToast(R.string.speech_recognition_not_available);
     }
@@ -104,7 +105,7 @@ public class SpeechRecognitionFeatureTest {
     @Test
     public void shouldShowStartButtonOnError() {
         feature.onAfterInject();
-        verify(speechRecognitionWrapper).setSpeechResultListener(speechResultListenerArgumentCaptor.capture());
+        verify(quAccSpeechRecognizer).setSpeechResultListener(speechResultListenerArgumentCaptor.capture());
         speechResultListenerArgumentCaptor.getValue().onError(0);
         verify(view).showSpeechStartButton();
     }
@@ -112,7 +113,7 @@ public class SpeechRecognitionFeatureTest {
     @Test
     public void shouldShowStartButtonOnSuccess() {
         feature.onAfterInject();
-        verify(speechRecognitionWrapper).setSpeechResultListener(speechResultListenerArgumentCaptor.capture());
+        verify(quAccSpeechRecognizer).setSpeechResultListener(speechResultListenerArgumentCaptor.capture());
         speechResultListenerArgumentCaptor.getValue().onResults(speechResults);
         verify(view).showSpeechStartButton();
     }
@@ -120,7 +121,7 @@ public class SpeechRecognitionFeatureTest {
     @Test
     public void shouldShowRecognizedText() {
         feature.onAfterInject();
-        verify(speechRecognitionWrapper).setSpeechResultListener(speechResultListenerArgumentCaptor.capture());
+        verify(quAccSpeechRecognizer).setSpeechResultListener(speechResultListenerArgumentCaptor.capture());
         ArrayList<String> texts = new ArrayList<>();
         texts.add("Eins");
         speechResultListenerArgumentCaptor.getValue().onResults(texts);

@@ -10,14 +10,15 @@ import org.androidannotations.annotations.EBean;
 import java.util.ArrayList;
 
 import de.nenick.quacc.R;
-import de.nenick.quacc.speechrecognition.SpeechRecognitionWrapper;
+import de.nenick.quacc.speechrecognition.QuAccSpeechRecognizer;
+import de.nenick.quacc.speechrecognition.SpeechResultListener;
 import de.nenick.quacc.view.accounting_create.CreateAccountingView;
 
 @EBean
 public class SpeechRecognitionFeature {
 
     @Bean
-    SpeechRecognitionWrapper speechRecognitionWrapper;
+    QuAccSpeechRecognizer quAccSpeechRecognizer;
 
     @Bean
     InterpretTemplateFunction interpretTemplateFunction;
@@ -32,17 +33,17 @@ public class SpeechRecognitionFeature {
     }
 
     public void onViewFinish() {
-        speechRecognitionWrapper.destroy();
+        quAccSpeechRecognizer.destroy();
     }
 
     public void onViewPause() {
-        speechRecognitionWrapper.stopListening();
+        quAccSpeechRecognizer.stopListening();
         view.showSpeechStartButton();
     }
 
     @AfterInject
     public void onAfterInject() {
-        speechRecognitionWrapper.setSpeechResultListener(new SpeechRecognitionWrapper.SpeechResultListener() {
+        quAccSpeechRecognizer.setSpeechResultListener(new SpeechResultListener() {
             @Override
             public void onError(int error) {
                 view.showSpeechStartButton();
@@ -64,15 +65,15 @@ public class SpeechRecognitionFeature {
 
     @Click(R.id.btn_speech_recognition)
     public void onToggleSpeechRecognitionClick() {
-        if (!speechRecognitionWrapper.isSpeechRecognitionAvailable()) {
+        if (!quAccSpeechRecognizer.isSpeechRecognitionAvailable()) {
             view.showToast(R.string.speech_recognition_not_available);
             return;
         }
-        if (speechRecognitionWrapper.isListening()) {
-            speechRecognitionWrapper.stopListening();
+        if (quAccSpeechRecognizer.isListening()) {
+            quAccSpeechRecognizer.stopListening();
             view.showSpeechStartButton();
         } else {
-            speechRecognitionWrapper.startListening();
+            quAccSpeechRecognizer.startListening();
             view.showSpeechStopButton();
         }
     }

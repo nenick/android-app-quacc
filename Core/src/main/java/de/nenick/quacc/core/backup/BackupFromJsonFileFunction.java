@@ -1,6 +1,8 @@
 package de.nenick.quacc.core.backup;
 
 import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
+import android.net.Uri;
 
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EBean;
@@ -22,6 +24,7 @@ import de.nenick.quacc.database.account.AccountDb;
 import de.nenick.quacc.database.accounting.AccountingDb;
 import de.nenick.quacc.database.category.CategoryDb;
 import de.nenick.quacc.database.interval.IntervalDb;
+import de.nenick.quacc.database.provider.QuAccSQLiteOpenHelper;
 import de.nenick.quacc.database.provider.accounting.AccountingColumns;
 import de.nenick.quacc.database.template.AccountingTemplateDb;
 import de.nenick.quacc.database.template.TemplateMatchingDb;
@@ -55,14 +58,27 @@ public class BackupFromJsonFileFunction {
 
     public void apply(String sourceLocation) {
         BackupJson backupJson = readBackupFile(sourceLocation);
+
+        SQLiteDatabase writableDatabase = getDatabase();
+        writableDatabase.beginTransaction();
         HashMap<Long, Long> accountsIdOriginalToCurrent = backupAccounts(backupJson);
         HashMap<Long, Long> categoriesIdOriginalToCurrent = backupCategories(backupJson);
         HashMap<Long, Long> accountingIdOriginalToCurrent = backupAccounting(backupJson, accountsIdOriginalToCurrent, categoriesIdOriginalToCurrent);
         HashMap<Long, Long> intervalsIdOriginalToCurrent = backupInterval(backupJson, accountsIdOriginalToCurrent, categoriesIdOriginalToCurrent);
         HashMap<Long, Long> templatesIdOriginalToCurrent = backupTemplates(backupJson, accountsIdOriginalToCurrent, categoriesIdOriginalToCurrent);
         backupTemplateMatches(backupJson, templatesIdOriginalToCurrent);
+        writableDatabase.setTransactionSuccessful();
+        writableDatabase.endTransaction();
 
-        context.getContentResolver().notifyChange(AccountingColumns.CONTENT_URI, null);
+        context.getContentResolver().notifyChange(getContentUri(), null);
+    }
+
+    protected Uri getContentUri() {
+        return AccountingColumns.CONTENT_URI;
+    }
+
+    protected SQLiteDatabase getDatabase() {
+        return QuAccSQLiteOpenHelper.getInstance(context).getWritableDatabase();
     }
 
     private HashMap<Long, Long> backupAccounts(BackupJson backupJson) {
