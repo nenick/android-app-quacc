@@ -26,7 +26,6 @@ public class AccountingTemplateDbTest extends RoboDatabaseTest {
     String accountingInterval = "Interval";
     long accountingCategoryId;
     String comment = "comment";
-    int value = 130;
     long id;
 
     AccountingTemplateCursor accountingTemplateCursor;
@@ -57,7 +56,6 @@ public class AccountingTemplateDbTest extends RoboDatabaseTest {
 
     @Test
     public void insertShouldAcceptZeroValue() {
-        value = zero;
         whenAccountingTemplateIsCreated();
         thenAccountingIsCreatedWithGivenValue();
     }
@@ -158,7 +156,7 @@ public class AccountingTemplateDbTest extends RoboDatabaseTest {
     }
 
     private void whenAccountingTemplateIsCreated() {
-        id = accountingTemplateDb.insert(accountId, accountingType, accountingInterval, accountingCategoryId, comment, value);
+        id = accountingTemplateDb.insert(accountId, accountingType, accountingInterval, accountingCategoryId, comment);
     }
 
     private void thenAccountingTemplateHasGivenContent() {
@@ -170,13 +168,11 @@ public class AccountingTemplateDbTest extends RoboDatabaseTest {
         assertThat(accountingTemplateCursor.getComment()).isEqualTo(comment);
         assertThat(accountingTemplateCursor.getInterval()).isEqualTo(accountingInterval);
         assertThat(accountingTemplateCursor.getType()).isEqualTo(accountingType);
-        assertThat(accountingTemplateCursor.getValue()).isEqualTo(value);
     }
 
     private void thenAccountingIsCreatedWithGivenValue() {
         accountingTemplateCursor = accountingTemplateDb.getById(id);
         accountingTemplateCursor.moveToFirst();
-        assertThat(accountingTemplateCursor.getValue()).isEqualTo(value);
     }
 
     private void thenAccountingTemplateIsCreatedWithGivenComment() {

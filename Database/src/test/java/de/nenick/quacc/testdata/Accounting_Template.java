@@ -23,7 +23,4 @@ public class Accounting_Template extends BaseModel {
     @Column(AccountingTemplateColumns.TYPE)
     String TYPE;
 
-    @Column(AccountingTemplateColumns.VALUE)
-    int VALUE;
-
 }
