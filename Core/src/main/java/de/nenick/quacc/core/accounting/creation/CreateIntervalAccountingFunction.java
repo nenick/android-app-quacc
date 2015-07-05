@@ -21,9 +21,10 @@ public class CreateIntervalAccountingFunction {
     @Bean
     CreateAccountingFunction createAccountingFunction;
 
-    public void apply(IntervalCursor intervalCursor, Date date) {
+    public long apply(IntervalCursor intervalCursor, Date date) {
         long accountingId = createAccountingFunction.apply(intervalCursor.getAccountName(), intervalCursor.getType(), intervalCursor.getInterval(), intervalCursor.getCategoryId(), date, intervalCursor.getValue(), intervalCursor.getComment());
         intervalAccountingDb.insert(intervalCursor.getId(), accountingId);
+        return accountingId;
     }
 
 }

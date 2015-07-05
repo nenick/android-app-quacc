@@ -47,4 +47,11 @@ public class IntervalChangeDb {
     public IntervalChangeCursor getById(long id) {
         return new IntervalChangeSelection().id(id).query(context.getContentResolver(), ALL_COLUMN_AND_FROM_JOIN);
     }
+
+    public IntervalChangeCursor getAllForIntervalUntil(long intervalId, Date date) {
+        return new IntervalChangeSelection()
+                .intervalId(intervalId)
+                .and().dateBeforeEq(date)
+                .query(context.getContentResolver(), ALL_COLUMN_AND_FROM_JOIN);
+    }
 }

@@ -94,4 +94,14 @@ public class AccountingDb {
     public AccountingCursor getAllForInterval(String interval) {
         return new AccountingSelection().interval(interval).query(context.getContentResolver(), ALL_COLUMN_AND_FROM_JOIN);
     }
+
+    public void updateComment(long id, String comment) {
+        AccountingSelection forId = new AccountingSelection().id(id);
+        new AccountingContentValues().putComment(comment).update(context.getContentResolver(), forId);
+    }
+
+    public void updateValue(long id, int valuee) {
+        AccountingSelection forId = new AccountingSelection().id(id);
+        new AccountingContentValues().putValue(valuee).update(context.getContentResolver(), forId);
+    }
 }

@@ -93,6 +93,21 @@ public class IntervalChangeDbTest extends RoboDatabaseTest {
         assertThat(intervalChangeCursor.getIntervalId()).isEqualTo(intervalId);
     }
 
+    @Test
+    public void getAllForIntervalUntil() {
+        date = new Date();
+        whenIntervalChangeIsCreated();
+        date = new Date(date.getTime() - 300000);
+        whenIntervalChangeIsCreated();
+        assertThat(id).isNotEqualTo(intervalId);
+
+        intervalChangeCursor = intervalChangeDb.getAllForIntervalUntil(intervalId, date);
+
+        intervalChangeCursor.moveToNext();
+        assertThat(intervalChangeCursor.getId()).isEqualTo(id);
+        assertThat(intervalChangeCursor.getIntervalId()).isEqualTo(intervalId);
+    }
+
     private void whenIntervalChangeIsCreated() {
         id = intervalChangeDb.insert(intervalId, date, change, comment, value);
     }

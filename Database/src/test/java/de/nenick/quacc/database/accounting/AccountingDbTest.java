@@ -261,6 +261,22 @@ public class AccountingDbTest extends RoboDatabaseTest {
         assertThat(accountingCursor.getCount()).isZero();
     }
 
+    @Test
+    public void updateComment_shouldAcceptDefaultEntry() {
+        whenAccountingIsCreated();
+        comment = "changed";
+        accountingDb.updateComment(id, comment);
+        thenAccountingHasGivenContent();
+    }
+
+    @Test
+    public void updateValue_shouldAcceptDefaultEntry() {
+        whenAccountingIsCreated();
+        value = 1100;
+        accountingDb.updateValue(id, value);
+        thenAccountingHasGivenContent();
+    }
+
     private void expectSQLiteException() {
         exception.expect(SQLiteException.class);
         exception.expectMessage("Cannot execute for last inserted row ID, base error code: 19");
