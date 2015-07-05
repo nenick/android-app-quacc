@@ -10,6 +10,7 @@ import de.nenick.quacc.database.provider.accountingtemplate.AccountingTemplateCo
 import de.nenick.quacc.database.provider.category.CategoryColumns;
 import de.nenick.quacc.database.provider.interval.IntervalColumns;
 import de.nenick.quacc.database.provider.intervalaccounting.IntervalAccountingColumns;
+import de.nenick.quacc.database.provider.intervalchange.IntervalChangeColumns;
 import de.nenick.quacc.database.provider.templatematching.TemplateMatchingColumns;
 
 /**

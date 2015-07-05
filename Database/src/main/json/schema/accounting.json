@@ -55,7 +55,7 @@
       "definition": "CHECK(accounting__interval <> '') ON CONFLICT FAIL"
     },
     {
-      "name": "given_value",
+      "name": "zero_value",
       "definition": "CHECK(accounting__value > 0) ON CONFLICT FAIL"
     }
   ]

@@ -21,6 +21,6 @@ public class GetAccountingByGroupFunction {
         long accountId = accountDb.getIdByName(account);
         startDate = startDate.minusDays(1);
         endDate = endDate.plus(1);
-        return accountingDb.getForGroupBetween(accountId, categoryId, type, startDate.toDate(), endDate.toDate());
+        return accountingDb.getAllForGroupBetween(accountId, categoryId, type, startDate.toDate(), endDate.toDate());
     }
 }

@@ -18,6 +18,7 @@ import de.nenick.quacc.database.provider.accountingtemplate.AccountingTemplateCo
 import de.nenick.quacc.database.provider.category.CategoryColumns;
 import de.nenick.quacc.database.provider.interval.IntervalColumns;
 import de.nenick.quacc.database.provider.intervalaccounting.IntervalAccountingColumns;
+import de.nenick.quacc.database.provider.intervalchange.IntervalChangeColumns;
 import de.nenick.quacc.database.provider.templatematching.TemplateMatchingColumns;
 
 public class QuAccProvider extends BaseContentProvider {
@@ -49,8 +50,11 @@ public class QuAccProvider extends BaseContentProvider {
     private static final int URI_TYPE_INTERVAL_ACCOUNTING = 10;
     private static final int URI_TYPE_INTERVAL_ACCOUNTING_ID = 11;
 
-    private static final int URI_TYPE_TEMPLATE_MATCHING = 12;
-    private static final int URI_TYPE_TEMPLATE_MATCHING_ID = 13;
+    private static final int URI_TYPE_INTERVAL_CHANGE = 12;
+    private static final int URI_TYPE_INTERVAL_CHANGE_ID = 13;
+
+    private static final int URI_TYPE_TEMPLATE_MATCHING = 14;
+    private static final int URI_TYPE_TEMPLATE_MATCHING_ID = 15;
 
 
 
@@ -69,6 +73,8 @@ public class QuAccProvider extends BaseContentProvider {
         URI_MATCHER.addURI(AUTHORITY, IntervalColumns.TABLE_NAME + "/#", URI_TYPE_INTERVAL_ID);
         URI_MATCHER.addURI(AUTHORITY, IntervalAccountingColumns.TABLE_NAME, URI_TYPE_INTERVAL_ACCOUNTING);
         URI_MATCHER.addURI(AUTHORITY, IntervalAccountingColumns.TABLE_NAME + "/#", URI_TYPE_INTERVAL_ACCOUNTING_ID);
+        URI_MATCHER.addURI(AUTHORITY, IntervalChangeColumns.TABLE_NAME, URI_TYPE_INTERVAL_CHANGE);
+        URI_MATCHER.addURI(AUTHORITY, IntervalChangeColumns.TABLE_NAME + "/#", URI_TYPE_INTERVAL_CHANGE_ID);
         URI_MATCHER.addURI(AUTHORITY, TemplateMatchingColumns.TABLE_NAME, URI_TYPE_TEMPLATE_MATCHING);
         URI_MATCHER.addURI(AUTHORITY, TemplateMatchingColumns.TABLE_NAME + "/#", URI_TYPE_TEMPLATE_MATCHING_ID);
     }
@@ -116,6 +122,11 @@ public class QuAccProvider extends BaseContentProvider {
                 return TYPE_CURSOR_DIR + IntervalAccountingColumns.TABLE_NAME;
             case URI_TYPE_INTERVAL_ACCOUNTING_ID:
                 return TYPE_CURSOR_ITEM + IntervalAccountingColumns.TABLE_NAME;
+
+            case URI_TYPE_INTERVAL_CHANGE:
+                return TYPE_CURSOR_DIR + IntervalChangeColumns.TABLE_NAME;
+            case URI_TYPE_INTERVAL_CHANGE_ID:
+                return TYPE_CURSOR_ITEM + IntervalChangeColumns.TABLE_NAME;
 
             case URI_TYPE_TEMPLATE_MATCHING:
                 return TYPE_CURSOR_DIR + TemplateMatchingColumns.TABLE_NAME;
@@ -248,6 +259,23 @@ public class QuAccProvider extends BaseContentProvider {
                 res.orderBy = IntervalAccountingColumns.DEFAULT_ORDER;
                 break;
 
+            case URI_TYPE_INTERVAL_CHANGE:
+            case URI_TYPE_INTERVAL_CHANGE_ID:
+                res.table = IntervalChangeColumns.TABLE_NAME;
+                res.idColumn = IntervalChangeColumns._ID;
+                res.tablesWithJoins = IntervalChangeColumns.TABLE_NAME;
+                if (IntervalColumns.hasColumns(projection) || AccountColumns.hasColumns(projection) || CategoryColumns.hasColumns(projection)) {
+                    res.tablesWithJoins += " LEFT OUTER JOIN " + IntervalColumns.TABLE_NAME + " AS " + IntervalChangeColumns.PREFIX_INTERVAL + " ON " + IntervalChangeColumns.TABLE_NAME + "." + IntervalChangeColumns.INTERVAL_ID + "=" + IntervalChangeColumns.PREFIX_INTERVAL + "." + IntervalColumns._ID;
+                }
+                if (AccountColumns.hasColumns(projection)) {
+                    res.tablesWithJoins += " LEFT OUTER JOIN " + AccountColumns.TABLE_NAME + " AS " + IntervalColumns.PREFIX_ACCOUNT + " ON " + IntervalChangeColumns.PREFIX_INTERVAL + "." + IntervalColumns.ACCOUNT_ID + "=" + IntervalColumns.PREFIX_ACCOUNT + "." + AccountColumns._ID;
+                }
+                if (CategoryColumns.hasColumns(projection)) {
+                    res.tablesWithJoins += " LEFT OUTER JOIN " + CategoryColumns.TABLE_NAME + " AS " + IntervalColumns.PREFIX_CATEGORY + " ON " + IntervalChangeColumns.PREFIX_INTERVAL + "." + IntervalColumns.CATEGORY_ID + "=" + IntervalColumns.PREFIX_CATEGORY + "." + CategoryColumns._ID;
+                }
+                res.orderBy = IntervalChangeColumns.DEFAULT_ORDER;
+                break;
+
             case URI_TYPE_TEMPLATE_MATCHING:
             case URI_TYPE_TEMPLATE_MATCHING_ID:
                 res.table = TemplateMatchingColumns.TABLE_NAME;
@@ -276,6 +304,7 @@ public class QuAccProvider extends BaseContentProvider {
             case URI_TYPE_CATEGORY_ID:
             case URI_TYPE_INTERVAL_ID:
             case URI_TYPE_INTERVAL_ACCOUNTING_ID:
+            case URI_TYPE_INTERVAL_CHANGE_ID:
             case URI_TYPE_TEMPLATE_MATCHING_ID:
                 id = uri.getLastPathSegment();
         }

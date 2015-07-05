@@ -1,5 +1,6 @@
 package de.nenick.quacc.database.category;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -22,14 +23,22 @@ public class CategoryDbTest extends RoboDatabaseTest {
     public static final int subCategory = 1;
     public static final int mainCategory = 0;
     CategoryDb categoryDb;
+    CategoryCursor categoryResult;
 
     @Before
     public void setup() {
         categoryDb = CategoryDb_.getInstance_(context);
     }
 
+    @After
+    public void teardown() {
+        if(categoryResult != null) {
+            categoryResult.close();
+        }
+    }
+
     @Test
-    public void shouldFilterCategories() {
+    public void getAllFor_shouldFilterCategories() {
         categoryDb.insert("SectionB", "SectionB", testIntervalAll, testTypeAll, mainCategory);
         categoryDb.insert("SectionA", "SectionA", testIntervalAll, testTypeAll, mainCategory);
         categoryDb.insert("SectionA", "AllIncoming", testIntervalAll, testTypeIncoming, subCategory);
@@ -44,7 +53,7 @@ public class CategoryDbTest extends RoboDatabaseTest {
 
         String[] intervals = {testIntervalOnce, testIntervalAll};
         String[] types = {testTypeIncoming, testTypeAll};
-        CategoryCursor categoryResult = categoryDb.getAllFor(intervals, types, CategoryDb.sortBySectionAndName);
+        categoryResult = categoryDb.getAllFor(intervals, types, CategoryDb.sortBySectionAndName);
 
         List<String> expected = new ArrayList<>();
         expected.add("SectionA");
@@ -61,7 +70,7 @@ public class CategoryDbTest extends RoboDatabaseTest {
     }
 
     @Test
-    public void shouldOrderCategories() {
+    public void getAllFor_shouldOrderCategories() {
         categoryDb.insert("SectionB", "SectionB", testIntervalAll, testTypeAll, mainCategory);
         categoryDb.insert("SectionA", "SectionA", testIntervalAll, testTypeAll, mainCategory);
         categoryDb.insert("SectionB", "A", testIntervalOnce, testTypeIncoming, subCategory);
@@ -71,7 +80,7 @@ public class CategoryDbTest extends RoboDatabaseTest {
 
         String[] intervals = {testIntervalOnce, testIntervalAll};
         String[] types = {testTypeIncoming, testTypeAll};
-        CategoryCursor categoryResult = categoryDb.getAllFor(intervals, types, CategoryDb.sortBySectionAndName);
+        categoryResult = categoryDb.getAllFor(intervals, types, CategoryDb.sortBySectionAndName);
 
         assertThatNextResultIs("SectionA", "SectionA", categoryResult);
         assertThatNextResultIs("SectionA", "A", categoryResult);
@@ -79,6 +88,38 @@ public class CategoryDbTest extends RoboDatabaseTest {
         assertThatNextResultIs("SectionB", "A", categoryResult);
         assertThatNextResultIs("SectionB", "B", categoryResult);
         assertThatNextResultIs("SectionB", "C", categoryResult);
+    }
+
+    @Test
+    public void getAll() {
+        categoryDb.insert("SectionB", "SectionB", testIntervalAll, testTypeAll, mainCategory);
+        categoryResult = categoryDb.getAll();
+        assertThat(categoryResult.getCount()).isPositive();
+    }
+
+    @Test
+    public void getAllSections() {
+        categoryDb.insert("SectionB", "SectionB", testIntervalAll, testTypeAll, mainCategory);
+        categoryDb.insert("SectionA", "SectionA", testIntervalAll, testTypeAll, mainCategory);
+        categoryDb.insert("SectionB", "A", testIntervalOnce, testTypeIncoming, subCategory);
+        categoryDb.insert("SectionB", "C", testIntervalOnce, testTypeIncoming, subCategory);
+        categoryResult = categoryDb.getAllSections();
+        assertThat(categoryResult.getCount()).isEqualTo(2);
+    }
+
+    @Test
+    public void existSection() {
+        categoryDb.insert("SectionA", "SectionA", testIntervalAll, testTypeAll, mainCategory);
+        assertThat(categoryDb.existSection("SectionA")).isTrue();
+        assertThat(categoryDb.existSection("SectionB")).isFalse();
+    }
+
+    @Test
+    public void deleteAll() {
+        categoryDb.insert("SectionA", "SectionA", testIntervalAll, testTypeAll, mainCategory);
+        categoryDb.deleteAll();
+        categoryResult = categoryDb.getAll();
+        assertThat(categoryResult.getCount()).isZero();
     }
 
     private void assertThatNextResultIs(String section, String name, CategoryCursor categoryResult) {

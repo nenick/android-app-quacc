@@ -7,6 +7,7 @@ import org.chalup.thneed.ModelGraph;
 
 import de.nenick.quacc.database.provider.accounting.AccountingColumns;
 import de.nenick.quacc.database.provider.accountingtemplate.AccountingTemplateColumns;
+import de.nenick.quacc.database.provider.interval.IntervalColumns;
 import de.nenick.quacc.database.provider.templatematching.TemplateMatchingColumns;
 import de.nenick.quacc.testdata.base.BaseTestModel;
 import de.nenick.quacc.testdata.base.DataModel;
@@ -17,6 +18,7 @@ public class TestDataGraph {
     public static BaseTestModel ACCOUNTING_CATEGORY = new BaseTestModel(Category.class);
     public static BaseTestModel ACCOUNTING_TEMPLATE = new BaseTestModel(Accounting_Template.class);
     public static BaseTestModel TEMPLATE_MATCHING = new BaseTestModel(Template_Matching.class);
+    public static BaseTestModel INTERVAL = new BaseTestModel(Interval.class);
 
     public static ModelGraph<DataModel> MODEL_GRAPH = ModelGraph.of(DataModel.class)
             .identifiedByDefault().by("_id")
@@ -26,6 +28,8 @@ public class TestDataGraph {
             .the(ACCOUNTING_TEMPLATE).references(ACCOUNT).by(AccountingTemplateColumns.ACCOUNT_ID)
             .the(ACCOUNTING_TEMPLATE).references(ACCOUNTING_CATEGORY).by(AccountingTemplateColumns.CATEGORY_ID)
             .the(TEMPLATE_MATCHING).references(ACCOUNTING_TEMPLATE).by(TemplateMatchingColumns.ACCOUNTING_TEMPLATE_ID)
+            .the(INTERVAL).references(ACCOUNT).by(IntervalColumns.ACCOUNT_ID)
+            .the(INTERVAL).references(ACCOUNTING_CATEGORY).by(IntervalColumns.CATEGORY_ID)
             .build();
 
     public static Forger<DataModel> access() {

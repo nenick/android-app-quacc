@@ -60,11 +60,11 @@ public class IntervalDb {
         where.accountId(accountId)
                 .and().dateStartAfter(startDate)
                 .and().dateEndBefore(endDate).or().dateEnd(NO_DATE_GIVEN);
-        return where.query(context.getContentResolver(), ALL_COLUMN_AND_FROM_JOIN, AccountingColumns.DATE);
+        return where.query(context.getContentResolver(), ALL_COLUMN_AND_FROM_JOIN, IntervalColumns.DATE_START);
     }
 
     public IntervalCursor getById(long intervalId) {
-        return new IntervalSelection().id(intervalId).query(context.getContentResolver());
+        return new IntervalSelection().id(intervalId).query(context.getContentResolver(), ALL_COLUMN_AND_FROM_JOIN);
     }
 
     public IntervalCursor getAllForAccountNotUpdatedUntil(long accountId, Date updatedUntil) {
@@ -73,5 +73,9 @@ public class IntervalDb {
 
     public void deleteAll() {
         new IntervalSelection().delete(context.getContentResolver());
+    }
+
+    public void deleteById(long id) {
+        new IntervalSelection().id(id).delete(context.getContentResolver());
     }
 }

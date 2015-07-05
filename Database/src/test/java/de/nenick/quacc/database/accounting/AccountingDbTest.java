@@ -53,13 +53,13 @@ public class AccountingDbTest extends RoboDatabaseTest {
     }
 
     @Test
-    public void insertShouldAcceptDefaultEntry() {
+    public void insert_shouldAcceptDefaultEntry() {
         whenAccountingIsCreated();
         thenAccountingHasGivenContent();
     }
 
     @Test
-    public void insertShouldRejectZeroValue() {
+    public void insert_shouldRejectZeroValue() {
         expectSQLiteException();
         value = zero;
         whenAccountingIsCreated();
@@ -67,7 +67,7 @@ public class AccountingDbTest extends RoboDatabaseTest {
     }
 
     @Test
-    public void insertShouldRejectNegativeValue() {
+    public void insert_shouldRejectNegativeValue() {
         expectSQLiteException();
         value = -1;
         whenAccountingIsCreated();
@@ -75,21 +75,21 @@ public class AccountingDbTest extends RoboDatabaseTest {
     }
 
     @Test
-    public void insertShouldAcceptEmptyComment() {
+    public void insert_shouldAcceptEmptyComment() {
         comment = empty;
         whenAccountingIsCreated();
         thenAccountingIsCreatedWithGivenComment();
     }
 
     @Test
-    public void insertShouldAcceptNullComment() {
+    public void insert_shouldAcceptNullComment() {
         comment = null;
         whenAccountingIsCreated();
         thenAccountingIsCreatedWithGivenComment();
     }
 
     @Test
-    public void insertShouldRejectNullDate() {
+    public void insert_shouldRejectNullDate() {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("date must not be null");
         date = null;
@@ -97,28 +97,28 @@ public class AccountingDbTest extends RoboDatabaseTest {
     }
 
     @Test
-    public void insertShouldRejectMissingAccount() {
+    public void insert_shouldRejectMissingAccount() {
         expectSQLiteException();
         accountId = zero;
         whenAccountingIsCreated();
     }
 
     @Test
-    public void insertShouldRejectMissingCategory() {
+    public void insert_shouldRejectMissingCategory() {
         expectSQLiteException();
         accountingCategoryId = zero;
         whenAccountingIsCreated();
     }
 
     @Test
-    public void insertShouldRejectEmptyType() {
+    public void insert_shouldRejectEmptyType() {
         expectSQLiteException();
         accountingType = empty;
         whenAccountingIsCreated();
     }
 
     @Test
-    public void insertShouldRejectNullType() {
+    public void insert_shouldRejectNullType() {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("type must not be null");
         accountingType = null;
@@ -126,18 +126,139 @@ public class AccountingDbTest extends RoboDatabaseTest {
     }
 
     @Test
-    public void insertShouldRejectEmptyInterval() {
+    public void insert_shouldRejectEmptyInterval() {
         expectSQLiteException();
         accountingInterval = empty;
         whenAccountingIsCreated();
     }
 
     @Test
-    public void insertShouldRejectNullInterval() {
+    public void insert_shouldRejectNullInterval() {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("interval must not be null");
         accountingInterval = null;
         whenAccountingIsCreated();
+    }
+
+    @Test
+    public void getAll_shouldReturnCorrectId() {
+        whenAccountingIsCreated();
+        whenAccountingIsCreated();
+        assertThat(id).isNotEqualTo(accountId);
+        assertThat(id).isNotEqualTo(accountingCategoryId);
+
+        accountingCursor = accountingDb.getAll();
+
+        accountingCursor.moveToNext();
+        assertThat(accountingCursor.getId()).isNotEqualTo(id);
+
+        accountingCursor.moveToNext();
+        assertThat(accountingCursor.getId()).isEqualTo(id);
+        assertThat(accountingCursor.getAccountId()).isEqualTo(accountId);
+        assertThat(accountingCursor.getCategoryId()).isEqualTo(accountingCategoryId);
+    }
+
+    @Test
+    public void getById_shouldReturnCorrectId() {
+        whenAccountingIsCreated();
+        whenAccountingIsCreated();
+        assertThat(id).isNotEqualTo(accountId);
+        assertThat(id).isNotEqualTo(accountingCategoryId);
+
+        accountingCursor = accountingDb.getById(id);
+        accountingCursor.moveToNext();
+
+        assertThat(accountingCursor.getId()).isEqualTo(id);
+        assertThat(accountingCursor.getAccountId()).isEqualTo(accountId);
+        assertThat(accountingCursor.getCategoryId()).isEqualTo(accountingCategoryId);
+    }
+
+    @Test
+    public void getAllForInterval_shouldReturnCorrectId() {
+        accountingInterval = "one";
+        whenAccountingIsCreated();
+        accountingInterval = "two";
+        whenAccountingIsCreated();
+        assertThat(id).isNotEqualTo(accountId);
+        assertThat(id).isNotEqualTo(accountingCategoryId);
+
+        accountingCursor = accountingDb.getAllForInterval("two");
+        accountingCursor.moveToNext();
+
+        assertThat(accountingCursor.getId()).isEqualTo(id);
+        assertThat(accountingCursor.getAccountId()).isEqualTo(accountId);
+        assertThat(accountingCursor.getCategoryId()).isEqualTo(accountingCategoryId);
+    }
+
+    @Test
+    public void getAllBetween_shouldReturnCorrectId() {
+        date = new Date(new Date().getTime() - 300000);
+        whenAccountingIsCreated();
+        date = new Date();
+        whenAccountingIsCreated();
+        assertThat(id).isNotEqualTo(accountId);
+        assertThat(id).isNotEqualTo(accountingCategoryId);
+
+        accountingCursor = accountingDb.getAllBetween(accountId, new Date(new Date().getTime() - 100000), new Date());
+        assertThat(accountingCursor.getCount()).isEqualTo(1);
+        accountingCursor.moveToNext();
+
+        assertThat(accountingCursor.getId()).isEqualTo(id);
+        assertThat(accountingCursor.getAccountId()).isEqualTo(accountId);
+        assertThat(accountingCursor.getCategoryId()).isEqualTo(accountingCategoryId);
+    }
+
+    @Test
+    public void getGroupsBetween_shouldReturnCorrectId() {
+        date = new Date(new Date().getTime() - 300000);
+        whenAccountingIsCreated();
+        date = new Date();
+        whenAccountingIsCreated();
+        assertThat(id).isNotEqualTo(accountId);
+        assertThat(id).isNotEqualTo(accountingCategoryId);
+
+        accountingCursor = accountingDb.getGroupsBetween(accountId, new Date(new Date().getTime() - 100000), new Date());
+        assertThat(accountingCursor.getCount()).isEqualTo(1);
+        accountingCursor.moveToNext();
+
+        assertThat(accountingCursor.getId()).isEqualTo(id);
+        // account is not joined here assertThat(accountingCursor.getAccountId()).isEqualTo(accountId);
+        assertThat(accountingCursor.getCategoryId()).isEqualTo(accountingCategoryId);
+    }
+
+    @Test
+    public void getAllForGroupBetween_shouldReturnCorrectId() {
+        date = new Date(new Date().getTime() - 300000);
+        whenAccountingIsCreated();
+        date = new Date();
+        whenAccountingIsCreated();
+        assertThat(id).isNotEqualTo(accountId);
+        assertThat(id).isNotEqualTo(accountingCategoryId);
+
+        accountingCursor = accountingDb.getAllForGroupBetween(accountId, accountingCategoryId, accountingType, new Date(new Date().getTime() - 100000), new Date());
+        assertThat(accountingCursor.getCount()).isEqualTo(1);
+        accountingCursor.moveToNext();
+
+        assertThat(accountingCursor.getId()).isEqualTo(id);
+        assertThat(accountingCursor.getAccountId()).isEqualTo(accountId);
+        assertThat(accountingCursor.getCategoryId()).isEqualTo(accountingCategoryId);
+    }
+
+    @Test
+    public void deleteById() {
+        whenAccountingIsCreated();
+        accountingDb.deleteById(id);
+        accountingCursor = accountingDb.getAll();
+        assertThat(accountingCursor.getCount()).isZero();
+    }
+
+    @Test
+    public void deleteAll() {
+        whenAccountingIsCreated();
+        whenAccountingIsCreated();
+        accountingDb.deleteAll();
+        accountingCursor = accountingDb.getAll();
+        assertThat(accountingCursor.getCount()).isZero();
     }
 
     private void expectSQLiteException() {

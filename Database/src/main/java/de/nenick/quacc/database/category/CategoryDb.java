@@ -22,18 +22,6 @@ public class CategoryDb {
     @RootContext
     Context context;
 
-    public long getIdByName(String categoryName) {
-        CategoryCursor query = new CategorySelection().name(categoryName).query(context.getContentResolver(), new String[]{CategoryColumns._ID});
-        query.moveToNext();
-
-        Cursor query1 = context.getContentResolver().query(CategoryColumns.CONTENT_URI, null, null, null, null);
-        query1.moveToNext();
-
-        long id = query.getId();
-        query.close();
-        return id;
-    }
-
     public CategoryCursor getAll() {
         return new CategorySelection().query(context.getContentResolver());
     }
@@ -45,10 +33,6 @@ public class CategoryDb {
     public long insert(String section, String name, String interval, String type, int level) {
         Uri uri = new CategoryContentValues().putName(name).putInterval(interval).putSection(section).putType(type).putLevel(level).insert(context.getContentResolver());
         return ContentUris.parseId(uri);
-    }
-
-    public void insertWithId(long id, String section, String name, String interval, String type, int level) {
-        new CategoryContentValues().putName(name).putInterval(interval).putSection(section).putType(type).putLevel(level).insert(context.getContentResolver());
     }
 
     public CategoryCursor getAllFor(String[] intervals, String[] types, String sortOrder) {

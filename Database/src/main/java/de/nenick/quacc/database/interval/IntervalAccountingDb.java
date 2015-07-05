@@ -1,7 +1,9 @@
 package de.nenick.quacc.database.interval;
 
+import android.content.ContentUris;
 import android.content.Context;
 import android.database.Cursor;
+import android.net.Uri;
 
 import org.androidannotations.annotations.EBean;
 import org.androidannotations.annotations.RootContext;
@@ -22,14 +24,19 @@ public class IntervalAccountingDb {
     @RootContext
     Context context;
 
-    public void insert(long intervalId, long accountingId) {
-        new IntervalAccountingContentValues()
+    public long insert(long intervalId, long accountingId) {
+        Uri uri = new IntervalAccountingContentValues()
                 .putIntervalId(intervalId)
                 .putAccountingId(accountingId)
                 .insert(context.getContentResolver());
+        return ContentUris.parseId(uri);
     }
 
     public IntervalAccountingCursor getAll() {
         return new IntervalAccountingSelection().query(context.getContentResolver());
+    }
+
+    public IntervalAccountingCursor getById(long id) {
+        return new IntervalAccountingSelection().id(id).query(context.getContentResolver());
     }
 }

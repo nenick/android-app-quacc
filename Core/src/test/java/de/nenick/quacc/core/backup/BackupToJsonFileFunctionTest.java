@@ -91,7 +91,7 @@ public class BackupToJsonFileFunctionTest {
         MockitoAnnotations.initMocks(this);
         given(accountDb.getAll()).willReturn(accountCursor);
         given(categoryDb.getAll()).willReturn(categoryCursor);
-        given(accountingDb.getAllByInterval(anyString())).willReturn(accountingCursor);
+        given(accountingDb.getAllForInterval(anyString())).willReturn(accountingCursor);
         given(accountingTemplateDb.getAll()).willReturn(accountingTemplateCursor);
         given(templateMatchingDb.getAll()).willReturn(templateMatchingCursor);
         given(intervalDb.getAll()).willReturn(intervalCursor);
@@ -222,7 +222,7 @@ public class BackupToJsonFileFunctionTest {
     @Test
     public void shouldBackupAccountingOnlyIfNotFromInterval() throws IOException {
         backupToJsonFileFunction.apply(backLocation);
-        verify(accountingDb).getAllByInterval(AccountingInterval.once.name());
+        verify(accountingDb).getAllForInterval(AccountingInterval.once.name());
     }
 
     @Test

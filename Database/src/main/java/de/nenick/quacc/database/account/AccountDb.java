@@ -45,4 +45,8 @@ public class AccountDb {
     public void deleteAll() {
         new AccountSelection().delete(context.getContentResolver());
     }
+
+    public AccountCursor getById(long id) {
+        return new AccountSelection().id(id).query(context.getContentResolver());
+    }
 }

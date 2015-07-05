@@ -46,20 +46,20 @@ public class TemplateMatchingDbTest extends RoboDatabaseTest {
     }
 
     @Test
-    public void insertShouldAcceptDefaultEntry() {
+    public void insert_shouldAcceptDefaultEntry() {
         whenTemplateMatchingIsCreated();
         thenTemplateMatchingHasGivenContent();
     }
 
     @Test
-    public void insertShouldRejectEmptyText() {
+    public void insert_shouldRejectEmptyText() {
         expectSQLiteException();
         text = "";
         whenTemplateMatchingIsCreated();
     }
 
     @Test
-    public void insertShouldRejectNullText() {
+    public void insert_shouldRejectNullText() {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("text must not be null");
         text = null;
@@ -67,7 +67,7 @@ public class TemplateMatchingDbTest extends RoboDatabaseTest {
     }
 
     @Test
-    public void insertShouldRejectMissingAccountingTemplate() {
+    public void insert_shouldRejectMissingAccountingTemplate() {
         expectSQLiteException();
         templateId = 0;
         whenTemplateMatchingIsCreated();
@@ -84,6 +84,39 @@ public class TemplateMatchingDbTest extends RoboDatabaseTest {
 
         assertThat(templateMatchingCursor.getId()).isEqualTo(id);
         assertThat(templateMatchingCursor.getAccountingTemplateId()).isEqualTo(templateId);
+    }
+
+    @Test
+    public void getAll_shouldReturnCorrectId() {
+        whenTemplateMatchingIsCreated();
+        whenTemplateMatchingIsCreated();
+        assertThat(id).isNotEqualTo(templateId);
+
+        templateMatchingCursor = templateMatchingDb.getAll();
+
+        templateMatchingCursor.moveToNext();
+        assertThat(templateMatchingCursor.getId()).isNotEqualTo(id);
+
+        templateMatchingCursor.moveToNext();
+        assertThat(templateMatchingCursor.getId()).isEqualTo(id);
+        assertThat(templateMatchingCursor.getAccountingTemplateId()).isEqualTo(templateId);
+    }
+
+    @Test
+    public void getSpeechTextForTemplate() {
+        whenTemplateMatchingIsCreated();
+        assertThat(templateMatchingDb.getSpeechTextForTemplate(templateId)).isEqualTo(text);
+    }
+
+    @Test
+    public void deleteAll() {
+        whenTemplateMatchingIsCreated();
+        whenTemplateMatchingIsCreated();
+
+        templateMatchingDb.deleteAll();
+
+        templateMatchingCursor = templateMatchingDb.getAll();
+        assertThat(templateMatchingCursor.getCount()).isEqualTo(0);
     }
 
     private void expectSQLiteException() {

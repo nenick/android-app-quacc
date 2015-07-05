@@ -83,7 +83,7 @@ public class BackupToJsonFileFunction {
     }
 
     private void backupAccounting(BackupJson backupJson) {
-        AccountingCursor all = accountingDb.getAllByInterval(AccountingInterval.once.name());
+        AccountingCursor all = accountingDb.getAllForInterval(AccountingInterval.once.name());
         while (all.moveToNext()) {
             backupJson.accounting.add(new AccountingJson(all.getId(), all.getAccountId(), all.getCategoryId(), all.getComment(), all.getInterval(), all.getType(), all.getDate(), all.getValue()));
         }

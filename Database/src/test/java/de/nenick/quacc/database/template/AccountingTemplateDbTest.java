@@ -49,54 +49,54 @@ public class AccountingTemplateDbTest extends RoboDatabaseTest {
     }
 
     @Test
-    public void insertShouldAcceptDefaultEntry() {
+    public void insert_shouldAcceptDefaultEntry() {
         whenAccountingTemplateIsCreated();
         thenAccountingTemplateHasGivenContent();
     }
 
     @Test
-    public void insertShouldAcceptZeroValue() {
+    public void insert_shouldAcceptZeroValue() {
         whenAccountingTemplateIsCreated();
         thenAccountingIsCreatedWithGivenValue();
     }
 
     @Test
-    public void insertShouldAcceptEmptyComment() {
+    public void insert_shouldAcceptEmptyComment() {
         comment = empty;
         whenAccountingTemplateIsCreated();
         thenAccountingTemplateIsCreatedWithGivenComment();
     }
 
     @Test
-    public void insertShouldAcceptNullComment() {
+    public void insert_shouldAcceptNullComment() {
         comment = empty;
         whenAccountingTemplateIsCreated();
         thenAccountingTemplateIsCreatedWithGivenComment();
     }
 
     @Test
-    public void insertShouldRejectMissingAccount() {
+    public void insert_shouldRejectMissingAccount() {
         expectSQLiteException();
         accountId = zero;
         whenAccountingTemplateIsCreated();
     }
 
     @Test
-    public void insertShouldRejectMissingCategory() {
+    public void insert_shouldRejectMissingCategory() {
         expectSQLiteException();
         accountingCategoryId = zero;
         whenAccountingTemplateIsCreated();
     }
 
     @Test
-    public void insertShouldRejectEmptyType() {
+    public void insert_shouldRejectEmptyType() {
         expectSQLiteException();
         accountingType = empty;
         whenAccountingTemplateIsCreated();
     }
 
     @Test
-    public void insertShouldRejectNullType() {
+    public void insert_shouldRejectNullType() {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("type must not be null");
         accountingType = null;
@@ -104,14 +104,14 @@ public class AccountingTemplateDbTest extends RoboDatabaseTest {
     }
 
     @Test
-    public void insertShouldRejectEmptyInterval() {
+    public void insert_shouldRejectEmptyInterval() {
         expectSQLiteException();
         accountingInterval = empty;
         whenAccountingTemplateIsCreated();
     }
 
     @Test
-    public void insertShouldRejectNullInterval() {
+    public void insert_shouldRejectNullInterval() {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("interval must not be null");
         accountingInterval = null;
@@ -149,6 +149,15 @@ public class AccountingTemplateDbTest extends RoboDatabaseTest {
         assertThat(accountingTemplateCursor.getCategoryId()).isEqualTo(accountingCategoryId);
 
     }
+
+    @Test
+    public void deleteAll() {
+        whenAccountingTemplateIsCreated();
+        accountingTemplateDb.deleteAll();
+        accountingTemplateCursor = accountingTemplateDb.getAll();
+        assertThat(accountingTemplateCursor.getCount()).isEqualTo(0);
+    }
+
 
     private void expectSQLiteException() {
         exception.expect(SQLiteException.class);

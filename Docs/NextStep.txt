@@ -1,0 +1,9 @@
+Interval Change
+
+* edit single entry
+    * comment
+    * value
+
+* import
+* export
+* interval update function
