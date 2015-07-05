@@ -1,10 +1,13 @@
-package de.nenick.quacc.view.accounting_create;
+package de.nenick.quacc.specs.accounting_create;
 
 
 import android.speech.SpeechRecognizer;
 
 import org.junit.Test;
 
+import de.nenick.quacc.view.accounting_create.CreateAccountingActivity_;
+import de.nenick.quacc.view.accounting_create.CreateAccountingFragment;
+import de.nenick.quacc.view.accounting_create.RoboCreateAccountingPage;
 import de.nenick.robolectric.RoboComponentTestBase;
 import de.nenick.robolectric.RoboSup;
 
@@ -13,8 +16,7 @@ import static org.mockito.Mockito.mock;
 
 public class CreateAccountingSpeechSpec extends RoboComponentTestBase {
 
-    RoboSup<CreateAccountingActivity_, CreateAccountingFragment> robo = new RoboSup<>();
-    RoboCreateAccountingPage addAccountingPage = new RoboCreateAccountingPage(robo);
+    RoboCreateAccountingPage addAccountingPage = new RoboCreateAccountingPage();
 
     @Test
     public void shouldShowMatches() {

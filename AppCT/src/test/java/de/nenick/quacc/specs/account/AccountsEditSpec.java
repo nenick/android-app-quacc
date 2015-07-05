@@ -1,10 +1,13 @@
-package de.nenick.quacc.view.account;
+package de.nenick.quacc.specs.account;
 
 import org.junit.Test;
 
 import de.nenick.quacc.database.account.AccountDb_;
 import de.nenick.quacc.database.provider.account.AccountCursor;
 import de.nenick.quacc.database.provider.account.AccountSelection;
+import de.nenick.quacc.view.account.AccountsActivity_;
+import de.nenick.quacc.view.account.AccountsFragment_;
+import de.nenick.quacc.view.account.RoboAccountsPage;
 import de.nenick.robolectric.RoboComponentTestBase;
 import de.nenick.robolectric.RoboSup;
 

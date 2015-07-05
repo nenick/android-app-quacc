@@ -1,8 +1,11 @@
-package de.nenick.quacc.view.main;
+package de.nenick.quacc.specs.main;
 
 import org.junit.Test;
 
 import de.nenick.quacc.view.accounting_overview.RoboAccountingListPage;
+import de.nenick.quacc.view.main.MainActivity_;
+import de.nenick.quacc.view.main.MainFragment_;
+import de.nenick.quacc.view.main.RoboMainPage;
 import de.nenick.robolectric.RoboComponentTestBase;
 import de.nenick.robolectric.RoboSup;
 

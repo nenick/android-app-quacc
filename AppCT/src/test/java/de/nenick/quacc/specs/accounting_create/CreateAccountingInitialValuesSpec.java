@@ -1,4 +1,4 @@
-package de.nenick.quacc.view.accounting_create;
+package de.nenick.quacc.specs.accounting_create;
 
 import android.os.Bundle;
 import android.speech.SpeechRecognizer;
@@ -9,8 +9,8 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.List;
 
+import de.nenick.quacc.view.accounting_create.RoboCreateAccountingPage;
 import de.nenick.robolectric.RoboComponentTestBase;
-import de.nenick.robolectric.RoboSup;
 import de.nenick.robolectricpages.components.RoboSpinnerEntry;
 
 import static de.nenick.quacc.TestDateUtil.day;
@@ -20,8 +20,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class CreateAccountingInitialValuesSpec extends RoboComponentTestBase {
 
-    RoboSup<CreateAccountingActivity_, CreateAccountingFragment> robo = new RoboSup<>();
-    RoboCreateAccountingPage addAccountingPage = new RoboCreateAccountingPage(robo);
+    RoboCreateAccountingPage addAccountingPage = new RoboCreateAccountingPage();
 
     List<RoboSpinnerEntry> entries;
 

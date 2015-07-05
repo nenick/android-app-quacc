@@ -1,4 +1,4 @@
-package de.nenick.quacc.view.accounting_overview;
+package de.nenick.quacc.specs.accounting_overview;
 
 import org.junit.Test;
 
@@ -8,6 +8,9 @@ import java.util.List;
 import de.nenick.quacc.R;
 import de.nenick.quacc.view.account.RoboAccountsPage;
 import de.nenick.quacc.view.accounting_create.RoboCreateAccountingPage;
+import de.nenick.quacc.view.accounting_overview.AccountingListActivity_;
+import de.nenick.quacc.view.accounting_overview.AccountingListFragment_;
+import de.nenick.quacc.view.accounting_overview.RoboAccountingListPage;
 import de.nenick.quacc.view.category.RoboCategoriesPage;
 import de.nenick.quacc.core.accounting.interval.AccountingInterval;
 import de.nenick.quacc.core.accounting.type.AccountingType;
@@ -26,8 +29,7 @@ public class AccountingListInitialSpec extends RoboComponentTestBase {
     String defaultMonth = "Mai";
     Date defaultDate = QuAccDateUtil.toDate("5.5." + defaultYear);
 
-    RoboSup<AccountingListActivity_, AccountingListFragment_> robo = new RoboSup<>();
-    RoboAccountingListPage accountingListPage = new RoboAccountingListPage(robo);
+    RoboAccountingListPage accountingListPage = new RoboAccountingListPage();
 
     @Test
     public void shouldShowAccounting() throws InterruptedException {

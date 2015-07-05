@@ -1,4 +1,4 @@
-package de.nenick.quacc.view.accounting_overview;
+package de.nenick.quacc.specs.accounting_overview;
 
 import android.os.Environment;
 
@@ -14,6 +14,9 @@ import de.nenick.quacc.core.accounting.interval.AccountingInterval;
 import de.nenick.quacc.core.accounting.type.AccountingType;
 import de.nenick.quacc.database.accounting.AccountingDb;
 import de.nenick.quacc.database.accounting.AccountingDb_;
+import de.nenick.quacc.view.accounting_overview.AccountingListActivity_;
+import de.nenick.quacc.view.accounting_overview.AccountingListFragment_;
+import de.nenick.quacc.view.accounting_overview.RoboAccountingListPage;
 import de.nenick.robolectric.RoboComponentTestBase;
 import de.nenick.robolectric.RoboSup;
 
@@ -21,8 +24,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class AccountingListBackupSpec extends RoboComponentTestBase {
 
-    RoboSup<AccountingListActivity_, AccountingListFragment_> robo = new RoboSup<>();
-    RoboAccountingListPage accountingListPage = new RoboAccountingListPage(robo);
+    RoboAccountingListPage accountingListPage = new RoboAccountingListPage();
 
     @Test
     public void shouldExportData() {

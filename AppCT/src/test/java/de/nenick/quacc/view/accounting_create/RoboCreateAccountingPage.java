@@ -27,8 +27,8 @@ public class RoboCreateAccountingPage extends RoboSupPage<CreateAccountingActivi
     @Captor
     ArgumentCaptor<QuAccSpeechRecognizerListener> speechRecognitionListenerArgumentCaptor;
 
-    public RoboCreateAccountingPage(RoboSup<CreateAccountingActivity_, CreateAccountingFragment> robo) {
-        super(robo, CreateAccountingActivity.TAG_FRAGMENT);
+    public RoboCreateAccountingPage() {
+        super(new RoboSup<CreateAccountingActivity_, CreateAccountingFragment>(), CreateAccountingActivity.TAG_FRAGMENT);
         MockitoAnnotations.initMocks(this);
     }
 

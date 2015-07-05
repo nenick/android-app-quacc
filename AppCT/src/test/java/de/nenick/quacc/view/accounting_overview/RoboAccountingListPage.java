@@ -13,8 +13,8 @@ import de.nenick.robolectricpages.components.RoboTextView;
 
 public class RoboAccountingListPage extends RoboSupPage<AccountingListActivity_, AccountingListFragment_> {
 
-    public RoboAccountingListPage(RoboSup<AccountingListActivity_, AccountingListFragment_> robo) {
-        super(robo, AccountingListActivity.TAG_FRAGMENT);
+    public RoboAccountingListPage() {
+        super(new RoboSup<AccountingListActivity_, AccountingListFragment_>(), AccountingListActivity.TAG_FRAGMENT);
     }
 
     @Override

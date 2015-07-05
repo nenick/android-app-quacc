@@ -1,4 +1,4 @@
-package de.nenick.quacc.view.accounting_create;
+package de.nenick.quacc.specs.accounting_create;
 
 import android.app.Application;
 
@@ -17,6 +17,9 @@ import de.nenick.quacc.database.interval.IntervalAccountingDb_;
 import de.nenick.quacc.database.interval.IntervalDb_;
 import de.nenick.quacc.database.provider.accounting.AccountingCursor;
 import de.nenick.quacc.database.provider.interval.IntervalCursor;
+import de.nenick.quacc.view.accounting_create.CreateAccountingActivity_;
+import de.nenick.quacc.view.accounting_create.CreateAccountingFragment;
+import de.nenick.quacc.view.accounting_create.RoboCreateAccountingPage;
 import de.nenick.robolectric.RoboComponentTestBase;
 import de.nenick.robolectric.RoboSup;
 
@@ -24,8 +27,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class CreateAccountingWithIntervalSpec extends RoboComponentTestBase {
 
-    RoboSup<CreateAccountingActivity_, CreateAccountingFragment> robo = new RoboSup<>();
-    RoboCreateAccountingPage addAccountingPage = new RoboCreateAccountingPage(robo);
+    RoboCreateAccountingPage addAccountingPage = new RoboCreateAccountingPage();
     AccountingDb accountingDb;
 
     final String defaultDate = "21.12.2012";
@@ -106,7 +108,7 @@ public class CreateAccountingWithIntervalSpec extends RoboComponentTestBase {
         addAccountingPage.dialog().datePicker().clickOk();
 
         // instead of picking the date whe set it direct until the issue is fixed
-        robo.fragment.view.setDate(date);
+        addAccountingPage.dateField().setText(date);
     }
 
     private void whenPickEndDate(String date) {
@@ -120,6 +122,6 @@ public class CreateAccountingWithIntervalSpec extends RoboComponentTestBase {
         addAccountingPage.dialog().datePicker().clickOk();
 
         // instead of picking the date whe set it direct until the issue is fixed
-        robo.fragment.view.setEndDate(date);
+        addAccountingPage.endDateField().setText(date);
     }
 }

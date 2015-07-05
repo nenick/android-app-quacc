@@ -47,4 +47,8 @@ public class RoboListViewEntry extends RoboBaseComponent {
     public boolean isSelected() {
         return listView.getSelectedItemPosition() == position;
     }
+
+    public View getView() {
+        return listChildView;
+    }
 }

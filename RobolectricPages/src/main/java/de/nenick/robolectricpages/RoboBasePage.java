@@ -10,7 +10,7 @@ import java.lang.reflect.ParameterizedType;
 
 public class RoboBasePage<T extends Activity, B extends Robo<T>> {
 
-    protected B robo;
+    public B robo;
 
     public RoboBasePage(B robo) {
         this.robo = robo;
@@ -19,6 +19,11 @@ public class RoboBasePage<T extends Activity, B extends Robo<T>> {
     public void startPage() {
         robo.activityController = Robolectric.buildActivity(getActivityClass());
         robo.activity = robo.activityController.setup().get();
+    }
+
+    public void finishPage() {
+        robo.activityController.destroy();
+        robo.activity = null;
     }
 
     public void startPage(Intent intent) {
