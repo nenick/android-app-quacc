@@ -9,7 +9,7 @@ import android.widget.TextView;
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EBean;
 
-import de.nenick.quacc.i18n.FilterRangeTranslator;
+import de.nenick.quacc.view.accounting_overview.filter.FilterRangeTranslator;
 
 @EBean
 public class FilterRangeAdapter extends ArrayAdapter<String> {

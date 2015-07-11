@@ -5,7 +5,7 @@ import org.junit.Test;
 
 import de.nenick.quacc.core.accounting.interval.AccountingInterval;
 import de.nenick.quacc.core.common.util.QuAccDateUtil;
-import de.nenick.quacc.i18n.AccountingIntervalTranslator_;
+import de.nenick.quacc.core.i18n.AccountingIntervalTranslator_;
 import de.nenick.quacc.view.accounting_create.RoboCreateAccountingPage;
 import de.nenick.quacc.view.accounting_overview.RoboAccountingListPage;
 import de.nenick.robolectric.RoboComponentTestBase;

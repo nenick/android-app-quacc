@@ -15,7 +15,7 @@ import de.nenick.quacc.core.accounting.type.AccountingType;
 import de.nenick.quacc.core.template.GetAccountingTemplatesFunction;
 import de.nenick.quacc.database.provider.accountingtemplate.AccountingTemplateCursor;
 import de.nenick.quacc.database.template.TemplateMatchingDb;
-import de.nenick.quacc.i18n.AccountingIntervalTranslator;
+import de.nenick.quacc.core.i18n.AccountingIntervalTranslator;
 import de.nenick.quacc.valueparser.ParseValueFromIntegerFunction;
 
 @EBean

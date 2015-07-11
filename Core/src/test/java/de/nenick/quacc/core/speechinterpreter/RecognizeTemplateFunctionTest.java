@@ -1,4 +1,4 @@
-package de.nenick.quacc.speechinterpreter;
+package de.nenick.quacc.core.speechinterpreter;
 
 
 import org.junit.Before;
@@ -11,8 +11,8 @@ import de.nenick.quacc.database.provider.accountingtemplate.AccountingTemplateCu
 import de.nenick.quacc.database.provider.templatematching.TemplateMatchingCursor;
 import de.nenick.quacc.database.template.AccountingTemplateDb;
 import de.nenick.quacc.database.template.TemplateMatchingDb;
-import de.nenick.quacc.speechinterpreter.RecognizeTemplateFunction;
-import de.nenick.quacc.speechinterpreter.RecognizeValueFunction;
+import de.nenick.quacc.core.speechinterpreter.RecognizeTemplateFunction;
+import de.nenick.quacc.core.speechinterpreter.RecognizeValueFunction;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.BDDMockito.given;

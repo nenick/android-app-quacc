@@ -1,4 +1,4 @@
-package de.nenick.quacc;
+package de.nenick.quacc.core.utils;
 
 
 public abstract class StringPartUtil {

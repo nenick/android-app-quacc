@@ -7,7 +7,7 @@ import org.androidannotations.annotations.EBean;
 
 import de.nenick.quacc.core.category.GetAccountingCategoriesFilteredFunction;
 import de.nenick.quacc.database.provider.category.CategoryCursor;
-import de.nenick.quacc.i18n.AccountingIntervalTranslator;
+import de.nenick.quacc.core.i18n.AccountingIntervalTranslator;
 import de.nenick.quacc.view.mvp.BaseCursorPresenterAdapter;
 
 @EBean

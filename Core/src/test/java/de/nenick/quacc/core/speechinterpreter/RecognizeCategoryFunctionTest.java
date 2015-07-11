@@ -1,4 +1,4 @@
-package de.nenick.quacc.speechinterpreter;
+package de.nenick.quacc.core.speechinterpreter;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -6,6 +6,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import de.nenick.quacc.core.speechinterpreter.RecognizeCategoryFunction;
+import de.nenick.quacc.core.speechinterpreter.SpeechResult;
 import de.nenick.quacc.database.category.CategoryDb;
 import de.nenick.quacc.database.provider.category.CategoryCursor;
 

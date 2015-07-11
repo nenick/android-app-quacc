@@ -9,7 +9,7 @@ import android.widget.TextView;
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EBean;
 
-import de.nenick.quacc.i18n.AccountingIntervalTranslator;
+import de.nenick.quacc.core.i18n.AccountingIntervalTranslator;
 
 @EBean
 public class IntervalAdapter extends ArrayAdapter<String> {

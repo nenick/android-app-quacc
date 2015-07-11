@@ -6,19 +6,16 @@ import java.util.Date;
 import java.util.List;
 
 import de.nenick.quacc.R;
-import de.nenick.quacc.view.account.RoboAccountsPage;
-import de.nenick.quacc.view.accounting_create.RoboCreateAccountingPage;
-import de.nenick.quacc.view.accounting_overview.AccountingListActivity_;
-import de.nenick.quacc.view.accounting_overview.AccountingListFragment_;
-import de.nenick.quacc.view.accounting_overview.RoboAccountingListPage;
-import de.nenick.quacc.view.category.RoboCategoriesPage;
 import de.nenick.quacc.core.accounting.interval.AccountingInterval;
 import de.nenick.quacc.core.accounting.type.AccountingType;
 import de.nenick.quacc.core.common.util.QuAccDateUtil;
+import de.nenick.quacc.core.i18n.MonthTranslator_;
 import de.nenick.quacc.database.accounting.AccountingDb_;
-import de.nenick.quacc.i18n.MonthTranslator_;
+import de.nenick.quacc.view.account.RoboAccountsPage;
+import de.nenick.quacc.view.accounting_create.RoboCreateAccountingPage;
+import de.nenick.quacc.view.accounting_overview.RoboAccountingListPage;
+import de.nenick.quacc.view.category.RoboCategoriesPage;
 import de.nenick.robolectric.RoboComponentTestBase;
-import de.nenick.robolectric.RoboSup;
 import de.nenick.robolectricpages.components.RoboListViewEntry;
 
 import static org.assertj.core.api.Assertions.assertThat;

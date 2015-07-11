@@ -29,7 +29,7 @@ import de.nenick.quacc.view.accounting_overview.grouping.GroupingOption;
 import de.nenick.quacc.core.common.util.QuAccDateUtil;
 import de.nenick.quacc.database.account.AccountDb;
 import de.nenick.quacc.database.provider.account.AccountCursor;
-import de.nenick.quacc.i18n.MonthTranslator;
+import de.nenick.quacc.core.i18n.MonthTranslator;
 import de.nenick.quacc.view.mvp.BasePresenterFragment;
 import de.nenick.quacc.view.mvp.BaseView;
 import de.nenick.quacc.valueparser.ParseValueFromIntegerFunction;

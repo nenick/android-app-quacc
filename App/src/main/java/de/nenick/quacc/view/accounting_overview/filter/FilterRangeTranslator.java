@@ -1,4 +1,4 @@
-package de.nenick.quacc.i18n;
+package de.nenick.quacc.view.accounting_overview.filter;
 
 import android.content.Context;
 

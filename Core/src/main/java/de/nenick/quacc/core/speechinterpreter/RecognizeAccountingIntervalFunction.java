@@ -1,11 +1,11 @@
-package de.nenick.quacc.speechinterpreter;
+package de.nenick.quacc.core.speechinterpreter;
 
 import android.content.Context;
 
 import org.androidannotations.annotations.EBean;
 import org.androidannotations.annotations.RootContext;
 
-import de.nenick.quacc.R;
+import de.nenick.quacc.core.R;
 import de.nenick.quacc.core.accounting.interval.AccountingInterval;
 
 @EBean

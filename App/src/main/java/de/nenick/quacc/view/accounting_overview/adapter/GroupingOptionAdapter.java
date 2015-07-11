@@ -9,7 +9,7 @@ import android.widget.TextView;
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EBean;
 
-import de.nenick.quacc.i18n.GroupingOptionTranslator;
+import de.nenick.quacc.view.accounting_overview.grouping.GroupingOptionTranslator;
 
 @EBean
 public class GroupingOptionAdapter extends ArrayAdapter<String> {

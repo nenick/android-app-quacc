@@ -7,8 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import de.nenick.quacc.database.provider.accountingtemplate.AccountingTemplateCursor;
-import de.nenick.quacc.speechinterpreter.RecognizeTemplateFunction;
-import de.nenick.quacc.speechinterpreter.RecognizeTemplateFunction.SpeechTemplateResult;
+import de.nenick.quacc.core.speechinterpreter.RecognizeTemplateFunction;
+import de.nenick.quacc.core.speechinterpreter.RecognizeTemplateFunction.SpeechTemplateResult;
 import de.nenick.quacc.valueparser.ParseValueFromIntegerFunction;
 import de.nenick.quacc.view.accounting_create.CreateAccountingView;
 

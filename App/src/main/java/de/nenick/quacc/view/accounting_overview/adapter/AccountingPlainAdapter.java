@@ -17,7 +17,7 @@ import de.nenick.quacc.core.accounting.creation.UpdateIntervalsFunction;
 import de.nenick.quacc.core.accounting.type.AccountingType;
 import de.nenick.quacc.core.common.util.QuAccDateUtil;
 import de.nenick.quacc.database.provider.accounting.AccountingCursor;
-import de.nenick.quacc.i18n.AccountingIntervalTranslator;
+import de.nenick.quacc.core.i18n.AccountingIntervalTranslator;
 import de.nenick.quacc.valueparser.ParseValueFromIntegerFunction;
 
 @EBean

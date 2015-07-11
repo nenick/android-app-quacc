@@ -1,4 +1,4 @@
-package de.nenick.quacc.i18n;
+package de.nenick.quacc.core.i18n;
 
 import android.content.Context;
 

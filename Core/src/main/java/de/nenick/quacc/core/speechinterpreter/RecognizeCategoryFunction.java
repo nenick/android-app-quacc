@@ -1,4 +1,4 @@
-package de.nenick.quacc.speechinterpreter;
+package de.nenick.quacc.core.speechinterpreter;
 
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EBean;

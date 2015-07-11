@@ -1,4 +1,4 @@
-package de.nenick.quacc.speechinterpreter;
+package de.nenick.quacc.core.speechinterpreter;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -6,6 +6,8 @@ import org.mockito.MockitoAnnotations;
 import org.mockito.Spy;
 
 import de.nenick.quacc.core.accounting.type.AccountingType;
+import de.nenick.quacc.core.speechinterpreter.RecognizeAccountingTypeFunction;
+import de.nenick.quacc.core.speechinterpreter.SpeechResult;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Matchers.anyInt;

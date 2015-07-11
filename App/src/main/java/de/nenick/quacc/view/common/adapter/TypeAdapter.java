@@ -9,7 +9,7 @@ import android.widget.TextView;
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EBean;
 
-import de.nenick.quacc.i18n.AccountingTypeTranslator;
+import de.nenick.quacc.core.i18n.AccountingTypeTranslator;
 
 @EBean
 public class TypeAdapter extends ArrayAdapter<String> {

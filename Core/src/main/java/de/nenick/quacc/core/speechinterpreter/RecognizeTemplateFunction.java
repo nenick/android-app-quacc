@@ -1,9 +1,9 @@
-package de.nenick.quacc.speechinterpreter;
+package de.nenick.quacc.core.speechinterpreter;
 
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EBean;
 
-import de.nenick.quacc.StringPartUtil;
+import de.nenick.quacc.core.utils.StringPartUtil;
 import de.nenick.quacc.database.provider.accountingtemplate.AccountingTemplateCursor;
 import de.nenick.quacc.database.provider.templatematching.TemplateMatchingCursor;
 import de.nenick.quacc.database.template.AccountingTemplateDb;

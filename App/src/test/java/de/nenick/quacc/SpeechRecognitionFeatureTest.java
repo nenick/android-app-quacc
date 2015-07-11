@@ -15,10 +15,10 @@ import de.nenick.quacc.view.accounting_create.CreateAccountingView;
 import de.nenick.quacc.view.accounting_create.speechrecognition.InterpretSpeechFunction;
 import de.nenick.quacc.view.accounting_create.speechrecognition.InterpretTemplateFunction;
 import de.nenick.quacc.view.accounting_create.speechrecognition.SpeechRecognitionFeature;
-import de.nenick.quacc.speechinterpreter.RecognizeAccountingIntervalFunction;
-import de.nenick.quacc.speechinterpreter.RecognizeAccountingTypeFunction;
-import de.nenick.quacc.speechinterpreter.RecognizeCategoryFunction;
-import de.nenick.quacc.speechinterpreter.RecognizeValueFunction;
+import de.nenick.quacc.core.speechinterpreter.RecognizeAccountingIntervalFunction;
+import de.nenick.quacc.core.speechinterpreter.RecognizeAccountingTypeFunction;
+import de.nenick.quacc.core.speechinterpreter.RecognizeCategoryFunction;
+import de.nenick.quacc.core.speechinterpreter.RecognizeValueFunction;
 import de.nenick.quacc.speechrecognition.QuAccSpeechRecognizer;
 
 import static org.mockito.BDDMockito.given;
