@@ -7,7 +7,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.robolectric.RuntimeEnvironment;
 
-import de.nenick.quacc.core.accounting.creation.UpdateIntervalFunction_;
+import de.nenick.quacc.core.accounting.creation.CreateAccountingFromIntervalFunction_;
 import de.nenick.quacc.core.accounting.interval.AccountingInterval;
 import de.nenick.quacc.core.accounting.type.AccountingType;
 import de.nenick.quacc.core.common.util.QuAccDateUtil;
@@ -91,7 +91,7 @@ public class CreateAccountingWithIntervalSpec extends RoboComponentTestBase {
     private void andUpdateIntervalDataAtDatabase() {
         IntervalCursor intervalCursor = IntervalDb_.getInstance_(context).getAll();
         intervalCursor.moveToFirst();
-        UpdateIntervalFunction_.getInstance_(context).apply(intervalCursor, new DateTime(QuAccDateUtil.toDate(updateUntilDate)));
+        CreateAccountingFromIntervalFunction_.getInstance_(context).apply(intervalCursor, new DateTime(QuAccDateUtil.toDate(updateUntilDate)));
     }
 
     private void givenDate(String date) {

@@ -16,7 +16,7 @@ import de.nenick.quacc.database.provider.interval.IntervalCursor;
 import de.nenick.quacc.database.provider.intervalchange.IntervalChangeCursor;
 
 @EBean
-public class UpdateIntervalFunction {
+public class CreateAccountingFromIntervalFunction {
 
     @Bean
     IntervalDb intervalDb;

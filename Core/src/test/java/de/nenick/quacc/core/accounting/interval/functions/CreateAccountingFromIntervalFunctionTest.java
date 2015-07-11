@@ -12,8 +12,8 @@ import org.mockito.MockitoAnnotations;
 import java.util.Date;
 
 import de.nenick.quacc.core.accounting.change.IntervalChange;
+import de.nenick.quacc.core.accounting.creation.CreateAccountingFromIntervalFunction;
 import de.nenick.quacc.core.accounting.creation.CreateIntervalAccountingFunction;
-import de.nenick.quacc.core.accounting.creation.UpdateIntervalFunction;
 import de.nenick.quacc.core.common.util.QuAccDateUtil;
 import de.nenick.quacc.database.accounting.AccountingDb;
 import de.nenick.quacc.database.interval.IntervalChangeDb;
@@ -30,7 +30,7 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 
-public class UpdateIntervalFunctionTest {
+public class CreateAccountingFromIntervalFunctionTest {
 
     public static final long intervalId = 42l;
 
@@ -47,7 +47,7 @@ public class UpdateIntervalFunctionTest {
     CreateIntervalAccountingFunction createIntervalAccountingFunction;
 
     @InjectMocks
-    UpdateIntervalFunction updateIntervalFunction;
+    CreateAccountingFromIntervalFunction createAccountingFromIntervalFunction;
 
     @Before
     public void setup() {
@@ -70,7 +70,7 @@ public class UpdateIntervalFunctionTest {
         given(intervalChangeDb.getAllForInterval(anyLong())).willReturn(intervalChangeCursor);
         given(intervalChangeDb.getAllForIntervalUntil(anyLong(), any(Date.class))).willReturn(intervalChangeCursor);
 
-        updateIntervalFunction.apply(cursor, new DateTime(updateUntil));
+        createAccountingFromIntervalFunction.apply(cursor, new DateTime(updateUntil));
 
         verify(createIntervalAccountingFunction).apply(cursor, QuAccDateUtil.toDateTime(30, 12, 2014).toDate());
         verify(createIntervalAccountingFunction).apply(cursor, QuAccDateUtil.toDateTime(31, 12, 2014).toDate());
@@ -93,7 +93,7 @@ public class UpdateIntervalFunctionTest {
         given(intervalChangeDb.getAllForInterval(anyLong())).willReturn(intervalChangeCursor);
         given(intervalChangeDb.getAllForIntervalUntil(anyLong(), any(Date.class))).willReturn(intervalChangeCursor);
 
-        updateIntervalFunction.apply(cursor, updateUntil);
+        createAccountingFromIntervalFunction.apply(cursor, updateUntil);
         verify(intervalDb).updatedUntil(intervalId, updateUntil.toDate(), updateUntil.toDate());
     }
 
@@ -121,7 +121,7 @@ public class UpdateIntervalFunctionTest {
         given(createIntervalAccountingFunction.apply(cursor, QuAccDateUtil.toDateTime(1, 1, 2015).toDate())).willReturn(11l);
 
 
-        updateIntervalFunction.apply(cursor, new DateTime(updateUntil));
+        createAccountingFromIntervalFunction.apply(cursor, new DateTime(updateUntil));
 
         verify(createIntervalAccountingFunction).apply(cursor, QuAccDateUtil.toDateTime(30, 12, 2014).toDate());
         verify(createIntervalAccountingFunction).apply(cursor, QuAccDateUtil.toDateTime(31, 12, 2014).toDate());
@@ -164,7 +164,7 @@ public class UpdateIntervalFunctionTest {
         given(createIntervalAccountingFunction.apply(cursor, QuAccDateUtil.toDateTime(1, 1, 2015).toDate())).willReturn(11l);
         given(createIntervalAccountingFunction.apply(cursor, QuAccDateUtil.toDateTime(2, 1, 2015).toDate())).willReturn(12l);
 
-        updateIntervalFunction.apply(cursor, new DateTime(updateUntil));
+        createAccountingFromIntervalFunction.apply(cursor, new DateTime(updateUntil));
 
         verify(createIntervalAccountingFunction).apply(cursor, QuAccDateUtil.toDateTime(30, 12, 2014).toDate());
         verify(createIntervalAccountingFunction).apply(cursor, QuAccDateUtil.toDateTime(31, 12, 2014).toDate());
@@ -214,7 +214,7 @@ public class UpdateIntervalFunctionTest {
 
         given(createIntervalAccountingFunction.apply(cursor, QuAccDateUtil.toDateTime(2, 1, 2015).toDate())).willReturn(11l);
 
-        updateIntervalFunction.apply(cursor, new DateTime(updateUntil));
+        createAccountingFromIntervalFunction.apply(cursor, new DateTime(updateUntil));
 
         verify(createIntervalAccountingFunction).apply(cursor, QuAccDateUtil.toDateTime(2, 1, 2015).toDate());
         verify(accountingDb).updateComment(11, "blub");

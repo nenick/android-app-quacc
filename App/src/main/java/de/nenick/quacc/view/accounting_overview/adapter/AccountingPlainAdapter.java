@@ -12,8 +12,8 @@ import org.androidannotations.annotations.EBean;
 import org.androidannotations.annotations.RootContext;
 import org.joda.time.DateTime;
 
-import de.nenick.quacc.core.accounting.content.GetAccountingFunction;
-import de.nenick.quacc.core.accounting.creation.UpdateIntervalsFunction;
+import de.nenick.quacc.core.accounting.content.GetAccountingByRangeFunction;
+import de.nenick.quacc.core.accounting.creation.CreateAccountingFromIntervalsFunction;
 import de.nenick.quacc.core.accounting.type.AccountingType;
 import de.nenick.quacc.core.common.util.QuAccDateUtil;
 import de.nenick.quacc.database.provider.accounting.AccountingCursor;
@@ -27,7 +27,7 @@ public class AccountingPlainAdapter extends CursorAdapter {
     Context context;
 
     @Bean
-    GetAccountingFunction getAccountingFunction;
+    GetAccountingByRangeFunction getAccountingByRangeFunction;
 
     @Bean
     AccountingIntervalTranslator accountingIntervalTranslator;
@@ -36,7 +36,7 @@ public class AccountingPlainAdapter extends CursorAdapter {
     ParseValueFromIntegerFunction parseValueFromInteger;
 
     @Bean
-    UpdateIntervalsFunction updateIntervalsFunction;
+    CreateAccountingFromIntervalsFunction createAccountingFromIntervalsFunction;
 
     private String account;
 
@@ -82,8 +82,8 @@ public class AccountingPlainAdapter extends CursorAdapter {
     }
 
     public void changeFor(DateTime startDate, DateTime endDate) {
-        updateIntervalsFunction.apply(account, endDate);
-        AccountingCursor apply = getAccountingFunction.apply(account, startDate, endDate);
+        createAccountingFromIntervalsFunction.apply(account, endDate);
+        AccountingCursor apply = getAccountingByRangeFunction.apply(account, startDate, endDate);
         changeCursor(apply);
     }
 

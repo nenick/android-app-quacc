@@ -7,16 +7,12 @@ import java.util.Date;
 
 import de.nenick.quacc.database.account.AccountDb;
 import de.nenick.quacc.database.accounting.AccountingDb;
-import de.nenick.quacc.database.category.CategoryDb;
 
 @EBean
 public class CreateAccountingFunction {
 
     @Bean
     AccountDb accountDb;
-
-    @Bean
-    CategoryDb categoryDb;
 
     @Bean
     AccountingDb accountingDb;

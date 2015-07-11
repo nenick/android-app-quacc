@@ -2,6 +2,8 @@ package de.nenick.quacc.view.accounting_overview;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ExpandableListView;
 
 import com.google.common.base.Strings;
 
@@ -10,11 +12,13 @@ import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.FragmentArg;
+import org.androidannotations.annotations.ItemClick;
 import org.androidannotations.annotations.ItemSelect;
 import org.androidannotations.annotations.OptionsItem;
 import org.joda.time.DateTime;
 
 import de.nenick.quacc.R;
+import de.nenick.quacc.database.provider.accounting.AccountingCursor;
 import de.nenick.quacc.view.accounting_edit.EditAccountingActivity_;
 import de.nenick.quacc.view.accounting_overview.adapter.AccountingPlainAdapter;
 import de.nenick.quacc.view.accounting_overview.adapter.AccountingTreeAdapter;
@@ -114,6 +118,14 @@ public class AccountingListFragment extends BasePresenterFragment {
         AccountCursor accountCursor = accountDb.getAccountByName(account);
         accountCursor.moveToFirst();
         view.setAccountValue(parseValueFromIntegerFunction.apply(accountCursor.getInitialvalue()));
+
+        view.accountingListExpandable.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
+            @Override
+            public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
+                onItemClick((AccountingCursor) accountingTreeAdapter.getChild(groupPosition, childPosition));
+                return true;
+            }
+        });
     }
 
     @Override
@@ -205,6 +217,11 @@ public class AccountingListFragment extends BasePresenterFragment {
     protected void onToggleFilterView() {
         view.showFilterVisibility(extended = !extended);
         resetFilter();
+    }
+
+    @ItemClick(R.id.listView)
+    protected void onItemClick(AccountingCursor accountingCursor) {
+        EditAccountingActivity_.intent(this).accountingId(accountingCursor.getId()).start();
     }
 
     private void resetFilter() {

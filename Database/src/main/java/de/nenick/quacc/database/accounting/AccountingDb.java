@@ -104,4 +104,16 @@ public class AccountingDb {
         AccountingSelection forId = new AccountingSelection().id(id);
         new AccountingContentValues().putValue(valuee).update(context.getContentResolver(), forId);
     }
+
+    public void update(long accountingId, long accountId, String accountingType, long categoryId, Date date, String comment, int value) {
+        AccountingSelection forId = new AccountingSelection().id(accountingId);
+        new AccountingContentValues()
+                .putAccountId(accountId)
+                .putComment(comment)
+                .putDate(date)
+                .putValue(value)
+                .putCategoryId(categoryId)
+                .putType(accountingType)
+                .update(context.getContentResolver(), forId);
+    }
 }

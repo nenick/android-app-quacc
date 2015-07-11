@@ -5,6 +5,7 @@ import android.support.v7.app.ActionBarActivity;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EActivity;
+import org.androidannotations.annotations.Extra;
 
 import de.nenick.quacc.R;
 
@@ -12,6 +13,9 @@ import de.nenick.quacc.R;
 public class EditAccountingActivity extends ActionBarActivity {
 
     public static final String TAG_FRAGMENT = EditAccountingFragment.class.getSimpleName();
+
+    @Extra
+    long accountingId;
 
     @AfterViews
     protected void onAfterViews() {
@@ -23,7 +27,7 @@ public class EditAccountingActivity extends ActionBarActivity {
         // If the Fragment is non-null, then it is currently being
         // retained across a configuration change.
         if (fragmentManager.findFragmentByTag(TAG_FRAGMENT) == null) {
-            fragmentManager.beginTransaction().add(R.id.container, EditAccountingFragment_.builder().build(), TAG_FRAGMENT).commit();
+            fragmentManager.beginTransaction().add(R.id.container, EditAccountingFragment_.builder().accountingId(accountingId).build(), TAG_FRAGMENT).commit();
         }
     }
 }

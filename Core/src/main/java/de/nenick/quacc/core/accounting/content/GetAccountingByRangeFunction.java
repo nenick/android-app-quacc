@@ -12,7 +12,7 @@ import de.nenick.quacc.database.accounting.AccountingDb;
 import de.nenick.quacc.database.provider.accounting.AccountingCursor;
 
 @EBean
-public class GetAccountingFunction {
+public class GetAccountingByRangeFunction {
 
     @RootContext
     Context context;

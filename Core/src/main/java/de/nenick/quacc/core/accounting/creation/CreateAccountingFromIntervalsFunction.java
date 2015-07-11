@@ -10,7 +10,7 @@ import de.nenick.quacc.database.provider.account.AccountCursor;
 import de.nenick.quacc.database.provider.interval.IntervalCursor;
 
 @EBean
-public class UpdateIntervalsFunction {
+public class CreateAccountingFromIntervalsFunction {
 
     @Bean
     AccountDb accountDb;
@@ -19,7 +19,7 @@ public class UpdateIntervalsFunction {
     IntervalDb intervalDb;
 
     @Bean
-    UpdateIntervalFunction updateIntervalFunction;
+    CreateAccountingFromIntervalFunction createAccountingFromIntervalFunction;
 
     public void apply(String account, DateTime updateUntil) {
         AccountCursor accountByName = accountDb.getAccountByName(account);
@@ -27,7 +27,7 @@ public class UpdateIntervalsFunction {
 
         IntervalCursor intervalCursor = intervalDb.getAllForAccountNotUpdatedUntil(accountByName.getId(), updateUntil.toDate());
         while (intervalCursor.moveToNext()) {
-            updateIntervalFunction.apply(intervalCursor, updateUntil);
+            createAccountingFromIntervalFunction.apply(intervalCursor, updateUntil);
         }
         accountByName.close();
     }

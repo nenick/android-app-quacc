@@ -1,4 +1,4 @@
-package de.nenick.quacc.specs.account;
+package de.nenick.quacc.view.account;
 
 import org.junit.Test;
 
@@ -6,6 +6,7 @@ import de.nenick.quacc.database.account.AccountDb_;
 import de.nenick.quacc.database.provider.account.AccountCursor;
 import de.nenick.quacc.database.provider.account.AccountSelection;
 import de.nenick.quacc.view.account.AccountsActivity_;
+import de.nenick.quacc.view.account.AccountsFragment;
 import de.nenick.quacc.view.account.AccountsFragment_;
 import de.nenick.quacc.view.account.RoboAccountsPage;
 import de.nenick.robolectric.RoboComponentTestBase;
@@ -15,8 +16,11 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class AccountsEditSpec extends RoboComponentTestBase {
 
+
+
     RoboSup<AccountsActivity_, AccountsFragment_> robo = new RoboSup<>();
     RoboAccountsPage accountsPage = new RoboAccountsPage(robo);
+
 
     @Test
     public void shouldSetInitialValue() {

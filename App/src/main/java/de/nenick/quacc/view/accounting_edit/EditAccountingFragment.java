@@ -3,6 +3,7 @@ package de.nenick.quacc.view.accounting_edit;
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.CheckedChange;
 import org.androidannotations.annotations.EFragment;
+import org.androidannotations.annotations.FragmentArg;
 import org.androidannotations.annotations.ItemSelect;
 import org.androidannotations.annotations.OptionsItem;
 import org.androidannotations.annotations.OptionsMenu;
@@ -10,7 +11,11 @@ import org.androidannotations.annotations.OptionsMenu;
 import java.util.Date;
 
 import de.nenick.quacc.R;
+import de.nenick.quacc.core.accounting.update.UpdateOnceOnlyAccountingFunction;
+import de.nenick.quacc.database.accounting.AccountingDb;
+import de.nenick.quacc.database.provider.accounting.AccountingCursor;
 import de.nenick.quacc.database.provider.category.CategoryCursor;
+import de.nenick.quacc.valueparser.ParseValueFromIntegerFunction;
 import de.nenick.quacc.view.common.adapter.IntervalAdapter;
 import de.nenick.quacc.core.accounting.creation.CreateAccountingFunction;
 import de.nenick.quacc.core.accounting.creation.CreateIntervalFunction;
@@ -28,10 +33,15 @@ import de.nenick.quacc.view.accounting_edit.adapter.CategoryAdapter;
 import de.nenick.quacc.view.common.adapter.TypeAdapter;
 
 import static de.nenick.quacc.valueparser.ParseValueFromStringFunction.ParseResult.Successful;
+import static java.lang.Enum.valueOf;
 
 @EFragment(R.layout.fragment_create_accounting)
 @OptionsMenu(R.menu.menu_create_account)
 public class EditAccountingFragment extends BasePresenterFragment {
+
+    @FragmentArg
+    long accountingId;
+    String accountingIntervalInitial;
 
     @Bean
     EditAccountingView view;
@@ -51,8 +61,13 @@ public class EditAccountingFragment extends BasePresenterFragment {
     @Bean
     CreateIntervalFunction createIntervalFunction;
 
+    UpdateOnceOnlyAccountingFunction updateOnceOnlyAccountingFunction;
+
     @Bean
     ParseValueFromStringFunction parseValueFromStringFunction;
+
+    @Bean
+    ParseValueFromIntegerFunction parseValueFromIntegerFunction;
 
     @Bean
     SpeechRecognitionFeature speechRecognitionFeature;
@@ -65,6 +80,9 @@ public class EditAccountingFragment extends BasePresenterFragment {
 
     @Bean
     CategoryAdapter categoryAdapter;
+
+    @Bean
+    AccountingDb accountingDb;
 
     @Override
     protected BaseView getBaseView() {
@@ -91,6 +109,23 @@ public class EditAccountingFragment extends BasePresenterFragment {
         view.setAccountingCategories(categoryAdapter);
         reloadCategories();
 
+
+        if(accountingId != 0) {
+            loadAccountingProperties();
+        }
+    }
+
+    private void loadAccountingProperties() {
+        AccountingCursor accountingCursor = accountingDb.getById(accountingId);
+        accountingCursor.moveToNext();
+        view.setAccount(accountingCursor.getAccountName());
+        String accountingIntervalInitial = accountingCursor.getInterval();
+        view.setAccountingInterval(accountingIntervalInitial);
+        view.setAccountingType(accountingCursor.getType());
+        view.setDate(QuAccDateUtil.toString(accountingCursor.getDate()));
+        view.setValue(parseValueFromIntegerFunction.apply(accountingCursor.getValue()));
+        view.setComment(accountingCursor.getComment());
+        accountingCursor.close();
     }
 
     @Override
@@ -109,28 +144,50 @@ public class EditAccountingFragment extends BasePresenterFragment {
         String value = view.getValue();
         ParseValueFromStringFunction.Result valueResult = parseValueFromStringFunction.apply(value);
         if (valueResult.report == Successful) {
-            String account = view.getAccount();
-            String accountingType = view.getAccountingType();
-            String accountingInterval = view.getAccountingInterval();
-            CategoryCursor accountingCategory = view.getAccountingCategory();
-            String dateString = view.getDate();
-            String comment = view.getComment();
-            view.finish();
-            Date date = QuAccDateUtil.toDate(dateString);
-            if(accountingInterval.equals(AccountingInterval.once.name())) {
-                createAccountingFunction.apply(account, accountingType, accountingInterval, accountingCategory.getId(), date, valueResult.value, comment);
+            if(accountingId == 0) {
+                createNewAccounting(valueResult);
             } else {
-                if(view.isEndDateActive()) {
-                    String endDateString = view.getEndDate();
-                    Date endDate = QuAccDateUtil.toDate(endDateString);
-                    createIntervalFunction.applyWithEndDate(account, accountingType, accountingInterval, accountingCategory.getId(), date, endDate
-                            , valueResult.value, comment);
-                } else {
-                    createIntervalFunction.apply(account, accountingType, accountingInterval, accountingCategory.getId(), date, valueResult.value, comment);
-                }
+                updateAccounting(valueResult);
             }
         } else {
             showParsingError(valueResult);
+        }
+    }
+
+    private void updateAccounting(ParseValueFromStringFunction.Result valueResult) {
+        String account = view.getAccount();
+        String accountingType = view.getAccountingType();
+        String accountingInterval = view.getAccountingInterval();
+        CategoryCursor accountingCategory = view.getAccountingCategory();
+        String dateString = view.getDate();
+        String comment = view.getComment();
+        view.finish();
+        Date date = QuAccDateUtil.toDate(dateString);
+        if(accountingInterval.equals(AccountingInterval.once.name()) && accountingIntervalInitial.equals(AccountingInterval.once.name())) {
+           updateOnceOnlyAccountingFunction.apply(accountingId, account, accountingType, accountingCategory.getId(), date, valueResult.value, comment);
+        }
+    }
+
+    private void createNewAccounting(ParseValueFromStringFunction.Result valueResult) {
+        String account = view.getAccount();
+        String accountingType = view.getAccountingType();
+        String accountingInterval = view.getAccountingInterval();
+        CategoryCursor accountingCategory = view.getAccountingCategory();
+        String dateString = view.getDate();
+        String comment = view.getComment();
+        view.finish();
+        Date date = QuAccDateUtil.toDate(dateString);
+        if(accountingInterval.equals(AccountingInterval.once.name())) {
+            createAccountingFunction.apply(account, accountingType, accountingInterval, accountingCategory.getId(), date, valueResult.value, comment);
+        } else {
+            if(view.isEndDateActive()) {
+                String endDateString = view.getEndDate();
+                Date endDate = QuAccDateUtil.toDate(endDateString);
+                createIntervalFunction.applyWithEndDate(account, accountingType, accountingInterval, accountingCategory.getId(), date, endDate
+                        , valueResult.value, comment);
+            } else {
+                createIntervalFunction.apply(account, accountingType, accountingInterval, accountingCategory.getId(), date, valueResult.value, comment);
+            }
         }
     }
 
