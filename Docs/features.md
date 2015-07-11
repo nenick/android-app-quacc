@@ -80,7 +80,22 @@
     * (done) set initial value
 
 ## Import/Export
-    * (half) export as json (Change with more data)
+
+* Import
     * (half) import from json (Change with more data)
-    * (open) select target (Current its downloads folder)
     * (open) select source (Current its downloads folder)
+* Export
+    * (open) select target (Current its downloads folder)
+    * (half) export as json (Change with more data)
+
+## Tablet optimization
+
+* Views
+    * (open) Accounting Overview
+    * (open) Create Accounting
+    * (open) Create Accounting Template
+    * (open) Accounting Editor
+    * (open) Categories Editor
+    * (open) Account Editor
+    * (open) Interval Accounting Editor
+    * ... add not listed views ...
