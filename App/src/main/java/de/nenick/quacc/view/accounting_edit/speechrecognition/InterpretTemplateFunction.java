@@ -1,4 +1,4 @@
-package de.nenick.quacc.view.accounting_create.speechrecognition;
+package de.nenick.quacc.view.accounting_edit.speechrecognition;
 
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EBean;
@@ -10,7 +10,7 @@ import de.nenick.quacc.database.provider.accountingtemplate.AccountingTemplateCu
 import de.nenick.quacc.core.speechinterpreter.RecognizeTemplateFunction;
 import de.nenick.quacc.core.speechinterpreter.RecognizeTemplateFunction.SpeechTemplateResult;
 import de.nenick.quacc.valueparser.ParseValueFromIntegerFunction;
-import de.nenick.quacc.view.accounting_create.CreateAccountingView;
+import de.nenick.quacc.view.accounting_edit.EditAccountingView;
 
 @EBean
 public class InterpretTemplateFunction {
@@ -21,7 +21,7 @@ public class InterpretTemplateFunction {
     @Bean
     ParseValueFromIntegerFunction parseValueFromIntegerFunction;
 
-    public boolean apply(CreateAccountingView view, ArrayList<String> matches) {
+    public boolean apply(EditAccountingView view, ArrayList<String> matches) {
         List<SpeechTemplateResult> speechTemplateResults = searchForTemplateMatches(matches);
         if (speechTemplateResults.isEmpty()) {
             return false;
@@ -49,7 +49,7 @@ public class InterpretTemplateFunction {
         return speechTemplateResults;
     }
 
-    private void showTemplateValues(CreateAccountingView view, SpeechTemplateResult speechTemplateResult) {
+    private void showTemplateValues(EditAccountingView view, SpeechTemplateResult speechTemplateResult) {
         AccountingTemplateCursor accountingTemplateCursor = speechTemplateResult.accountingTemplateCursor;
         accountingTemplateCursor.moveToNext();
 

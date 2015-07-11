@@ -1,4 +1,4 @@
-package de.nenick.quacc.view.accounting_create.speechrecognition;
+package de.nenick.quacc.view.accounting_edit.speechrecognition;
 
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EBean;
@@ -13,7 +13,7 @@ import de.nenick.quacc.core.speechinterpreter.RecognizeCategoryFunction;
 import de.nenick.quacc.core.speechinterpreter.RecognizeValueFunction;
 import de.nenick.quacc.core.speechinterpreter.SpeechResult;
 import de.nenick.quacc.valueparser.ParseValueFromIntegerFunction;
-import de.nenick.quacc.view.accounting_create.CreateAccountingView;
+import de.nenick.quacc.view.accounting_edit.EditAccountingView;
 
 @EBean
 public class InterpretSpeechFunction {
@@ -33,7 +33,7 @@ public class InterpretSpeechFunction {
     @Bean
     ParseValueFromIntegerFunction parseValueFromIntegerFunction;
 
-    public void apply(CreateAccountingView view, ArrayList<String> matches) {
+    public void apply(EditAccountingView view, ArrayList<String> matches) {
         List<RecognitionResult> recognitionResults = new ArrayList<>();
         for (String match : matches) {
             RecognitionResult recognitionResult = new RecognitionResult();
@@ -88,7 +88,7 @@ public class InterpretSpeechFunction {
         return recognisedText;
     }
 
-    private void showRecognizedValues(CreateAccountingView view, RecognitionResult recognitionResult) {
+    private void showRecognizedValues(EditAccountingView view, RecognitionResult recognitionResult) {
         if(recognitionResult.interval != null) {
             view.setAccountingInterval(recognitionResult.interval);
         }

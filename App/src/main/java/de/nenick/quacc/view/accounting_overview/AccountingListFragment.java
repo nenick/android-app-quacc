@@ -15,7 +15,7 @@ import org.androidannotations.annotations.OptionsItem;
 import org.joda.time.DateTime;
 
 import de.nenick.quacc.R;
-import de.nenick.quacc.view.accounting_create.CreateAccountingActivity_;
+import de.nenick.quacc.view.accounting_edit.EditAccountingActivity_;
 import de.nenick.quacc.view.accounting_overview.adapter.AccountingPlainAdapter;
 import de.nenick.quacc.view.accounting_overview.adapter.AccountingTreeAdapter;
 import de.nenick.quacc.view.accounting_overview.adapter.FilterRangeAdapter;
@@ -84,7 +84,7 @@ public class AccountingListFragment extends BasePresenterFragment {
 
     @Click(R.id.btn_add_accounting)
     protected void onAddAccounting() {
-        CreateAccountingActivity_.intent(this).start();
+        EditAccountingActivity_.intent(this).start();
     }
 
     @Override

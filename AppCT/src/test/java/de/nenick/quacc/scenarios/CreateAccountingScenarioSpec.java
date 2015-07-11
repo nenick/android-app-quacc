@@ -6,7 +6,7 @@ import org.junit.Test;
 import de.nenick.quacc.core.accounting.interval.AccountingInterval;
 import de.nenick.quacc.core.common.util.QuAccDateUtil;
 import de.nenick.quacc.core.i18n.AccountingIntervalTranslator_;
-import de.nenick.quacc.view.accounting_create.RoboCreateAccountingPage;
+import de.nenick.quacc.view.accounting_edit.RoboEditAccountingPage;
 import de.nenick.quacc.view.accounting_overview.RoboAccountingListPage;
 import de.nenick.robolectric.RoboComponentTestBase;
 
@@ -14,7 +14,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class CreateAccountingScenarioSpec extends RoboComponentTestBase {
 
-    RoboCreateAccountingPage roboCreateAccountingPage = new RoboCreateAccountingPage();
+    RoboEditAccountingPage roboEditAccountingPage = new RoboEditAccountingPage();
     RoboAccountingListPage roboAccountingListPage = new RoboAccountingListPage();
 
     @Test
@@ -30,12 +30,12 @@ public class CreateAccountingScenarioSpec extends RoboComponentTestBase {
     }
 
     private void whenCreateAccounting(DateTime dateTime) {
-        roboCreateAccountingPage.startPage();
-        roboCreateAccountingPage.intervalSpinner().entry(AccountingIntervalTranslator_.getInstance_(context).translate(AccountingInterval.once)).select();
-        roboCreateAccountingPage.dateField().setText(QuAccDateUtil.toString(dateTime));
-        roboCreateAccountingPage.valueField().setText("5,00");
-        roboCreateAccountingPage.actionbar().confirmMenuItem().click();
-        roboCreateAccountingPage.finishPage();
+        roboEditAccountingPage.startPage();
+        roboEditAccountingPage.intervalSpinner().entry(AccountingIntervalTranslator_.getInstance_(context).translate(AccountingInterval.once)).select();
+        roboEditAccountingPage.dateField().setText(QuAccDateUtil.toString(dateTime));
+        roboEditAccountingPage.valueField().setText("5,00");
+        roboEditAccountingPage.actionbar().confirmMenuItem().click();
+        roboEditAccountingPage.finishPage();
     }
     private void thenOverviewForCurrentMonthShowAccounting(int expected) {
         roboAccountingListPage.startPage();

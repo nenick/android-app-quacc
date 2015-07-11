@@ -1,4 +1,4 @@
-package de.nenick.quacc.view.accounting_create;
+package de.nenick.quacc.view.accounting_edit;
 
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.CheckedChange;
@@ -18,23 +18,23 @@ import de.nenick.quacc.core.accounting.interval.GetAccountingIntervalsFunction;
 import de.nenick.quacc.core.accounting.type.GetAccountingTypesFunction;
 import de.nenick.quacc.core.account.GetAccountsFunction;
 import de.nenick.quacc.valueparser.ParseValueFromStringFunction;
-import de.nenick.quacc.view.accounting_create.speechrecognition.SpeechRecognitionFeature;
+import de.nenick.quacc.view.accounting_edit.speechrecognition.SpeechRecognitionFeature;
 import de.nenick.quacc.view.mvp.BasePresenterFragment;
 import de.nenick.quacc.view.mvp.BaseView;
 import de.nenick.quacc.core.common.util.QuAccDateUtil;
 import de.nenick.quacc.core.accounting.interval.AccountingInterval;
 import de.nenick.quacc.core.accounting.type.AccountingType;
-import de.nenick.quacc.view.accounting_create.adapter.CategoryAdapter;
+import de.nenick.quacc.view.accounting_edit.adapter.CategoryAdapter;
 import de.nenick.quacc.view.common.adapter.TypeAdapter;
 
 import static de.nenick.quacc.valueparser.ParseValueFromStringFunction.ParseResult.Successful;
 
 @EFragment(R.layout.fragment_create_accounting)
 @OptionsMenu(R.menu.menu_create_account)
-public class CreateAccountingFragment extends BasePresenterFragment {
+public class EditAccountingFragment extends BasePresenterFragment {
 
     @Bean
-    CreateAccountingView view;
+    EditAccountingView view;
 
     @Bean
     GetAccountingIntervalsFunction getAccountingIntervalsFunction;

@@ -11,10 +11,10 @@ import org.mockito.MockitoAnnotations;
 import java.util.ArrayList;
 
 import de.nenick.quacc.speechrecognition.SpeechResultListener;
-import de.nenick.quacc.view.accounting_create.CreateAccountingView;
-import de.nenick.quacc.view.accounting_create.speechrecognition.InterpretSpeechFunction;
-import de.nenick.quacc.view.accounting_create.speechrecognition.InterpretTemplateFunction;
-import de.nenick.quacc.view.accounting_create.speechrecognition.SpeechRecognitionFeature;
+import de.nenick.quacc.view.accounting_edit.EditAccountingView;
+import de.nenick.quacc.view.accounting_edit.speechrecognition.InterpretSpeechFunction;
+import de.nenick.quacc.view.accounting_edit.speechrecognition.InterpretTemplateFunction;
+import de.nenick.quacc.view.accounting_edit.speechrecognition.SpeechRecognitionFeature;
 import de.nenick.quacc.core.speechinterpreter.RecognizeAccountingIntervalFunction;
 import de.nenick.quacc.core.speechinterpreter.RecognizeAccountingTypeFunction;
 import de.nenick.quacc.core.speechinterpreter.RecognizeCategoryFunction;
@@ -32,7 +32,7 @@ public class SpeechRecognitionFeatureTest {
     SpeechRecognitionFeature feature;
 
     @Mock
-    CreateAccountingView view;
+    EditAccountingView view;
 
     @Mock
     QuAccSpeechRecognizer quAccSpeechRecognizer;

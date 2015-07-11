@@ -12,7 +12,7 @@ import de.nenick.quacc.core.common.util.QuAccDateUtil;
 import de.nenick.quacc.core.i18n.MonthTranslator_;
 import de.nenick.quacc.database.accounting.AccountingDb_;
 import de.nenick.quacc.view.account.RoboAccountsPage;
-import de.nenick.quacc.view.accounting_create.RoboCreateAccountingPage;
+import de.nenick.quacc.view.accounting_edit.RoboEditAccountingPage;
 import de.nenick.quacc.view.accounting_overview.RoboAccountingListPage;
 import de.nenick.quacc.view.category.RoboCategoriesPage;
 import de.nenick.robolectric.RoboComponentTestBase;
@@ -60,7 +60,7 @@ public class AccountingListInitialSpec extends RoboComponentTestBase {
     public void shouldStartAddAccountingPage() {
         whenPageIsStarted();
         accountingListPage.addAccountingButton().click();
-        assertThat(accountingListPage.nextStartedPage()).isEqualTo(RoboCreateAccountingPage.Intent());
+        assertThat(accountingListPage.nextStartedPage()).isEqualTo(RoboEditAccountingPage.Intent());
     }
 
     @Test

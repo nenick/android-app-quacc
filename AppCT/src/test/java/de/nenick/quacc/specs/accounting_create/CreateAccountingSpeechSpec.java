@@ -5,18 +5,15 @@ import android.speech.SpeechRecognizer;
 
 import org.junit.Test;
 
-import de.nenick.quacc.view.accounting_create.CreateAccountingActivity_;
-import de.nenick.quacc.view.accounting_create.CreateAccountingFragment;
-import de.nenick.quacc.view.accounting_create.RoboCreateAccountingPage;
+import de.nenick.quacc.view.accounting_edit.RoboEditAccountingPage;
 import de.nenick.robolectric.RoboComponentTestBase;
-import de.nenick.robolectric.RoboSup;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
 
 public class CreateAccountingSpeechSpec extends RoboComponentTestBase {
 
-    RoboCreateAccountingPage addAccountingPage = new RoboCreateAccountingPage();
+    RoboEditAccountingPage addAccountingPage = new RoboEditAccountingPage();
 
     @Test
     public void shouldShowMatches() {

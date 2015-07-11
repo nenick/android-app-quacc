@@ -1,4 +1,4 @@
-package de.nenick.quacc.view.accounting_create.speechrecognition;
+package de.nenick.quacc.view.accounting_edit.speechrecognition;
 
 import android.speech.SpeechRecognizer;
 
@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import de.nenick.quacc.R;
 import de.nenick.quacc.speechrecognition.QuAccSpeechRecognizer;
 import de.nenick.quacc.speechrecognition.SpeechResultListener;
-import de.nenick.quacc.view.accounting_create.CreateAccountingView;
+import de.nenick.quacc.view.accounting_edit.EditAccountingView;
 
 @EBean
 public class SpeechRecognitionFeature {
@@ -26,9 +26,9 @@ public class SpeechRecognitionFeature {
     @Bean
     InterpretSpeechFunction interpretSpeechFunction;
 
-    CreateAccountingView view;
+    EditAccountingView view;
 
-    public void setView(CreateAccountingView view) {
+    public void setView(EditAccountingView view) {
         this.view = view;
     }
 

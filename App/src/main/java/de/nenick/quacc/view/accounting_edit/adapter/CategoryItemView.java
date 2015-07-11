@@ -1,4 +1,4 @@
-package de.nenick.quacc.view.accounting_create.adapter;
+package de.nenick.quacc.view.accounting_edit.adapter;
 
 import android.content.Context;
 import android.widget.RelativeLayout;

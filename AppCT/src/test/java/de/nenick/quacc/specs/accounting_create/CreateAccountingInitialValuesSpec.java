@@ -9,7 +9,7 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.List;
 
-import de.nenick.quacc.view.accounting_create.RoboCreateAccountingPage;
+import de.nenick.quacc.view.accounting_edit.RoboEditAccountingPage;
 import de.nenick.robolectric.RoboComponentTestBase;
 import de.nenick.robolectricpages.components.RoboSpinnerEntry;
 
@@ -20,7 +20,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class CreateAccountingInitialValuesSpec extends RoboComponentTestBase {
 
-    RoboCreateAccountingPage addAccountingPage = new RoboCreateAccountingPage();
+    RoboEditAccountingPage addAccountingPage = new RoboEditAccountingPage();
 
     List<RoboSpinnerEntry> entries;
 

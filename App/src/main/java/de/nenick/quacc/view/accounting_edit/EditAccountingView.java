@@ -1,4 +1,4 @@
-package de.nenick.quacc.view.accounting_create;
+package de.nenick.quacc.view.accounting_edit;
 
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -22,7 +22,7 @@ import de.nenick.quacc.datepicker.DatePickerDialogWrapper_;
 import de.nenick.quacc.view.mvp.BaseView;
 
 @EBean
-public class CreateAccountingView extends BaseView {
+public class EditAccountingView extends BaseView {
 
     @ViewById(R.id.account)
     Spinner accountSpinner;

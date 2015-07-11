@@ -1,4 +1,4 @@
-package de.nenick.quacc.view.accounting_create.speechrecognition;
+package de.nenick.quacc.view.accounting_edit.speechrecognition;
 
 import android.speech.SpeechRecognizer;
 

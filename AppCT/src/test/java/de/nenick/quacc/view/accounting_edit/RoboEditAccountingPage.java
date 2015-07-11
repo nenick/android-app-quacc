@@ -1,4 +1,4 @@
-package de.nenick.quacc.view.accounting_create;
+package de.nenick.quacc.view.accounting_edit;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -22,23 +22,23 @@ import de.nenick.robolectricpages.components.RoboTextView;
 
 import static org.mockito.Mockito.verify;
 
-public class RoboCreateAccountingPage extends RoboSupPage<CreateAccountingActivity_, CreateAccountingFragment> {
+public class RoboEditAccountingPage extends RoboSupPage<EditAccountingActivity_, EditAccountingFragment> {
 
     @Captor
     ArgumentCaptor<QuAccSpeechRecognizerListener> speechRecognitionListenerArgumentCaptor;
 
-    public RoboCreateAccountingPage() {
-        super(new RoboSup<CreateAccountingActivity_, CreateAccountingFragment>(), CreateAccountingActivity.TAG_FRAGMENT);
+    public RoboEditAccountingPage() {
+        super(new RoboSup<EditAccountingActivity_, EditAccountingFragment>(), EditAccountingActivity.TAG_FRAGMENT);
         MockitoAnnotations.initMocks(this);
     }
 
     public static Intent Intent() {
-        return CreateAccountingActivity_.intent(RuntimeEnvironment.application).get();
+        return EditAccountingActivity_.intent(RuntimeEnvironment.application).get();
     }
 
     public void startPageWithSpeechMock(SpeechRecognizer mockSpeechRecognizer) {
         createPage();
-        RoboCreateAccountingFragmentMockUtil.setSpeechRecognitionMock(robo.fragment, mockSpeechRecognizer);
+        RoboEditAccountingFragmentMockUtil.setSpeechRecognitionMock(robo.fragment, mockSpeechRecognizer);
         verify(mockSpeechRecognizer).setRecognitionListener(speechRecognitionListenerArgumentCaptor.capture());
         startCreatedPage();
     }
@@ -79,16 +79,16 @@ public class RoboCreateAccountingPage extends RoboSupPage<CreateAccountingActivi
         speechRecognitionListenerArgumentCaptor.getValue().onResults(bundle);
     }
 
-    public RoboCreateAccountingDialogs dialog() {
-        return new RoboCreateAccountingDialogs();
+    public RoboEditAccountingDialogs dialog() {
+        return new RoboEditAccountingDialogs();
     }
 
     public void speechError(int error) {
         speechRecognitionListenerArgumentCaptor.getValue().onError(error);
     }
 
-    public RoboCreateAccountingActionbar actionbar() {
-        return new RoboCreateAccountingActionbar(robo);
+    public RoboEditAccountingActionbar actionbar() {
+        return new RoboEditAccountingActionbar(robo);
     }
 
     public RoboTextView valueField() {

@@ -13,17 +13,14 @@ import de.nenick.quacc.core.common.util.QuAccDateUtil;
 import de.nenick.quacc.database.accounting.AccountingDb;
 import de.nenick.quacc.database.accounting.AccountingDb_;
 import de.nenick.quacc.database.provider.accounting.AccountingCursor;
-import de.nenick.quacc.view.accounting_create.CreateAccountingActivity_;
-import de.nenick.quacc.view.accounting_create.CreateAccountingFragment;
-import de.nenick.quacc.view.accounting_create.RoboCreateAccountingPage;
+import de.nenick.quacc.view.accounting_edit.RoboEditAccountingPage;
 import de.nenick.robolectric.RoboComponentTestBase;
-import de.nenick.robolectric.RoboSup;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class CreateAccountingSpec extends RoboComponentTestBase {
 
-    RoboCreateAccountingPage addAccountingPage = new RoboCreateAccountingPage();
+    RoboEditAccountingPage addAccountingPage = new RoboEditAccountingPage();
     AccountingDb accountingDb;
 
     final String defaultDate = "21.12.2012";

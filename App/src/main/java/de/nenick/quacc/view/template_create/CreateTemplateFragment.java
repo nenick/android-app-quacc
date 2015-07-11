@@ -9,7 +9,7 @@ import org.androidannotations.annotations.OptionsMenu;
 import de.nenick.quacc.R;
 import de.nenick.quacc.core.template.CreateTemplateMatchFunction;
 import de.nenick.quacc.database.provider.category.CategoryCursor;
-import de.nenick.quacc.view.accounting_create.adapter.CategoryAdapter;
+import de.nenick.quacc.view.accounting_edit.adapter.CategoryAdapter;
 import de.nenick.quacc.view.common.adapter.IntervalAdapter;
 import de.nenick.quacc.view.common.adapter.TypeAdapter;
 import de.nenick.quacc.core.account.GetAccountsFunction;
