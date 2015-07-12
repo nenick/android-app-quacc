@@ -1,6 +1,7 @@
 <resources>
     <string name="parse_error_invalid_format">"Nutze als Format z.B. 4500,00</string>
     <string name="parse_error_missing_value">Gebe noch einen Betrag an</string>
+    <string name="parse_error_zero_value">Gebe noch einen Betrag an</string>
     <string name="parse_error_invalid_char">Zugelassene zeichen sind 0 bis 9 und ","</string>
     <string name="parse_error_unknown">Ein unbekannter Fehler im Betrag wurde erkannt.</string>
 </resources>
