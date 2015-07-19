@@ -5,6 +5,7 @@
 
     <!-- Use audio record for speech recognition -->
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS"/>
 
     <!-- use read/write storage for backup -->
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />

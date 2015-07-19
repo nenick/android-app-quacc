@@ -10,7 +10,7 @@ import org.mockito.MockitoAnnotations;
 
 import java.util.ArrayList;
 
-import de.nenick.quacc.speechrecognition.SpeechResultListener;
+import de.nenick.quacc.speechrecognition.speech.SpeechResultListener;
 import de.nenick.quacc.view.accounting_edit.EditAccountingView;
 import de.nenick.quacc.view.accounting_edit.speechrecognition.InterpretSpeechFunction;
 import de.nenick.quacc.view.accounting_edit.speechrecognition.InterpretTemplateFunction;
@@ -19,7 +19,7 @@ import de.nenick.quacc.core.speechinterpreter.RecognizeAccountingIntervalFunctio
 import de.nenick.quacc.core.speechinterpreter.RecognizeAccountingTypeFunction;
 import de.nenick.quacc.core.speechinterpreter.RecognizeCategoryFunction;
 import de.nenick.quacc.core.speechinterpreter.RecognizeValueFunction;
-import de.nenick.quacc.speechrecognition.QuAccSpeechRecognizer;
+import de.nenick.quacc.speechrecognition.speech.QuAccSpeechRecognizer;
 
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;

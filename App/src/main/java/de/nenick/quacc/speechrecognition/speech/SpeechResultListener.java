@@ -1,4 +1,4 @@
-package de.nenick.quacc.speechrecognition;
+package de.nenick.quacc.speechrecognition.speech;
 
 import java.util.ArrayList;
 

@@ -10,8 +10,8 @@ import org.androidannotations.annotations.EBean;
 import java.util.ArrayList;
 
 import de.nenick.quacc.R;
-import de.nenick.quacc.speechrecognition.QuAccSpeechRecognizer;
-import de.nenick.quacc.speechrecognition.SpeechResultListener;
+import de.nenick.quacc.speechrecognition.speech.QuAccSpeechRecognizer;
+import de.nenick.quacc.speechrecognition.speech.SpeechResultListener;
 import de.nenick.quacc.view.accounting_edit.EditAccountingView;
 
 @EBean

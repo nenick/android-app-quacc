@@ -1,4 +1,4 @@
-package de.nenick.quacc.speechrecognition;
+package de.nenick.quacc.speechrecognition.speech;
 
 import android.content.Context;
 import android.content.Intent;
@@ -19,6 +19,10 @@ import org.mockito.MockitoAnnotations;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+
+import de.nenick.quacc.speechrecognition.speech.QuAccSpeechRecognizer;
+import de.nenick.quacc.speechrecognition.speech.RecognizerListenerWithOfflineWorkaround;
+import de.nenick.quacc.speechrecognition.speech.SpeechResultListener;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.BDDMockito.given;
@@ -47,9 +51,9 @@ public class QuAccSpeechRecognizerTest {
     QuAccSpeechRecognizer quAccSpeechRecognizer;
 
     @Captor
-    ArgumentCaptor<QuAccSpeechRecognizerListener> recognitionListenerWrapperArgumentCaptor;
+    ArgumentCaptor<RecognizerListenerWithOfflineWorkaround> recognitionListenerWrapperArgumentCaptor;
 
-    QuAccSpeechRecognizerListener quAccSpeechRecognizerListener;
+    RecognizerListenerWithOfflineWorkaround recognizerListenerWithOfflineWorkaround;
 
     @Mock
     Bundle resultBundle;
@@ -119,63 +123,63 @@ public class QuAccSpeechRecognizerTest {
 
     @Test
     public void shouldIgnorePartialResult() {
-        quAccSpeechRecognizerListener.onPartialResults(partialResultBundle);
-        quAccSpeechRecognizerListener.onResults(resultBundle);
+        recognizerListenerWithOfflineWorkaround.onPartialResults(partialResultBundle);
+        recognizerListenerWithOfflineWorkaround.onResults(resultBundle);
         verify(speechResultListener).onResults(speechRecognitionResult);
     }
 
     @Test
     public void shouldReportPartialResult() {
-        quAccSpeechRecognizerListener.onPartialResults(partialResultBundle);
-        quAccSpeechRecognizerListener.onError(SpeechRecognizer.ERROR_NO_MATCH);
+        recognizerListenerWithOfflineWorkaround.onPartialResults(partialResultBundle);
+        recognizerListenerWithOfflineWorkaround.onError(SpeechRecognizer.ERROR_NO_MATCH);
         verify(speechResultListener).onResults(partialSpeechRecognizerResult);
     }
 
     @Test
     public void shouldReportErrorNoMatch() {
-        quAccSpeechRecognizerListener.onError(SpeechRecognizer.ERROR_NO_MATCH);
+        recognizerListenerWithOfflineWorkaround.onError(SpeechRecognizer.ERROR_NO_MATCH);
         verify(speechResultListener).onError(SpeechRecognizer.ERROR_NO_MATCH);
     }
 
     @Test
     public void shouldResetPartialResults() {
-        quAccSpeechRecognizerListener.onPartialResults(partialResultBundle);
-        quAccSpeechRecognizerListener.onBeginningOfSpeech();
-        quAccSpeechRecognizerListener.onError(SpeechRecognizer.ERROR_NO_MATCH);
+        recognizerListenerWithOfflineWorkaround.onPartialResults(partialResultBundle);
+        recognizerListenerWithOfflineWorkaround.onBeginningOfSpeech();
+        recognizerListenerWithOfflineWorkaround.onError(SpeechRecognizer.ERROR_NO_MATCH);
         verify(speechResultListener).onError(SpeechRecognizer.ERROR_NO_MATCH);
     }
 
     @Test
     public void shouldReportOnlyOneOnce() {
-        quAccSpeechRecognizerListener.onPartialResults(resultBundle);
-        quAccSpeechRecognizerListener.onPartialResults(partialResultBundle);
-        quAccSpeechRecognizerListener.onError(SpeechRecognizer.ERROR_NO_MATCH);
+        recognizerListenerWithOfflineWorkaround.onPartialResults(resultBundle);
+        recognizerListenerWithOfflineWorkaround.onPartialResults(partialResultBundle);
+        recognizerListenerWithOfflineWorkaround.onError(SpeechRecognizer.ERROR_NO_MATCH);
         verify(speechResultListener).onResults(partialSpeechRecognizerResult);
 
-        quAccSpeechRecognizerListener.onPartialResults(partialResultBundle);
-        quAccSpeechRecognizerListener.onError(SpeechRecognizer.ERROR_NO_MATCH);
+        recognizerListenerWithOfflineWorkaround.onPartialResults(partialResultBundle);
+        recognizerListenerWithOfflineWorkaround.onError(SpeechRecognizer.ERROR_NO_MATCH);
         verifyNoMoreInteractions(speechResultListener);
     }
 
     @Test
     public void shouldReportAfterRestart() {
-        quAccSpeechRecognizerListener.onPartialResults(partialResultBundle);
-        quAccSpeechRecognizerListener.onError(SpeechRecognizer.ERROR_NO_MATCH);
+        recognizerListenerWithOfflineWorkaround.onPartialResults(partialResultBundle);
+        recognizerListenerWithOfflineWorkaround.onError(SpeechRecognizer.ERROR_NO_MATCH);
         verify(speechResultListener).onResults(partialSpeechRecognizerResult);
         reset(speechResultListener);
 
-        quAccSpeechRecognizerListener.onBeginningOfSpeech();
+        recognizerListenerWithOfflineWorkaround.onBeginningOfSpeech();
 
-        quAccSpeechRecognizerListener.onPartialResults(partialResultBundle);
-        quAccSpeechRecognizerListener.onError(SpeechRecognizer.ERROR_NO_MATCH);
+        recognizerListenerWithOfflineWorkaround.onPartialResults(partialResultBundle);
+        recognizerListenerWithOfflineWorkaround.onError(SpeechRecognizer.ERROR_NO_MATCH);
         verify(speechResultListener).onResults(partialSpeechRecognizerResult);
     }
 
     @Test
     public void shouldReportLastPartialResults() {
-        quAccSpeechRecognizerListener.onPartialResults(resultBundle);
-        quAccSpeechRecognizerListener.onPartialResults(partialResultBundle);
-        quAccSpeechRecognizerListener.onError(SpeechRecognizer.ERROR_NO_MATCH);
+        recognizerListenerWithOfflineWorkaround.onPartialResults(resultBundle);
+        recognizerListenerWithOfflineWorkaround.onPartialResults(partialResultBundle);
+        recognizerListenerWithOfflineWorkaround.onError(SpeechRecognizer.ERROR_NO_MATCH);
         verify(speechResultListener).onResults(partialSpeechRecognizerResult);
     }
 
@@ -241,7 +245,7 @@ public class QuAccSpeechRecognizerTest {
     private void initialiseListener() {
         quAccSpeechRecognizer.setSpeechResultListener(speechResultListener);
         verify(_speechRecognizer).setRecognitionListener(recognitionListenerWrapperArgumentCaptor.capture());
-        quAccSpeechRecognizerListener = recognitionListenerWrapperArgumentCaptor.getValue();
+        recognizerListenerWithOfflineWorkaround = recognitionListenerWrapperArgumentCaptor.getValue();
     }
 
     private void thenEnablePartialResultsForOfflineRecognition() {

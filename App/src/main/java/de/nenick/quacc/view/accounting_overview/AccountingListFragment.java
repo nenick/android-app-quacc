@@ -1,9 +1,11 @@
 package de.nenick.quacc.view.accounting_overview;
 
+import android.content.Context;
+import android.media.AudioManager;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ExpandableListView;
+import android.widget.Toast;
 
 import com.google.common.base.Strings;
 
@@ -18,7 +20,14 @@ import org.androidannotations.annotations.OptionsItem;
 import org.joda.time.DateTime;
 
 import de.nenick.quacc.R;
+import de.nenick.quacc.core.common.util.QuAccDateUtil;
+import de.nenick.quacc.core.i18n.MonthTranslator;
+import de.nenick.quacc.database.account.AccountDb;
+import de.nenick.quacc.database.provider.account.AccountCursor;
 import de.nenick.quacc.database.provider.accounting.AccountingCursor;
+import de.nenick.quacc.speechrecognition.hotword.HotwordListener;
+import de.nenick.quacc.speechrecognition.hotword.QuAccHotwordRecognizer;
+import de.nenick.quacc.valueparser.ParseValueFromIntegerFunction;
 import de.nenick.quacc.view.accounting_edit.EditAccountingActivity_;
 import de.nenick.quacc.view.accounting_overview.adapter.AccountingPlainAdapter;
 import de.nenick.quacc.view.accounting_overview.adapter.AccountingTreeAdapter;
@@ -30,13 +39,8 @@ import de.nenick.quacc.view.accounting_overview.filter.GetDateForRangeStartFunct
 import de.nenick.quacc.view.accounting_overview.filter.GetFilterRangesAsStringsFunction;
 import de.nenick.quacc.view.accounting_overview.grouping.GetGroupingOptionsAsStringsFunction;
 import de.nenick.quacc.view.accounting_overview.grouping.GroupingOption;
-import de.nenick.quacc.core.common.util.QuAccDateUtil;
-import de.nenick.quacc.database.account.AccountDb;
-import de.nenick.quacc.database.provider.account.AccountCursor;
-import de.nenick.quacc.core.i18n.MonthTranslator;
 import de.nenick.quacc.view.mvp.BasePresenterFragment;
 import de.nenick.quacc.view.mvp.BaseView;
-import de.nenick.quacc.valueparser.ParseValueFromIntegerFunction;
 
 @EFragment(R.layout.fragment_accounting_list)
 public class AccountingListFragment extends BasePresenterFragment {
@@ -77,9 +81,13 @@ public class AccountingListFragment extends BasePresenterFragment {
     @Bean
     GetGroupingOptionsAsStringsFunction getGroupingOptionsAsStringsFunction;
 
+    @Bean
+    QuAccHotwordRecognizer quAccHotwordRecognizer;
+
     @FragmentArg
     String account;
     private boolean extended;
+    int streamVolume;
 
     @Override
     protected BaseView getBaseView() {
@@ -94,7 +102,7 @@ public class AccountingListFragment extends BasePresenterFragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        if(savedInstanceState != null ) {
+        if (savedInstanceState != null) {
             extended = savedInstanceState.getBoolean("extended");
         }
     }
@@ -131,6 +139,48 @@ public class AccountingListFragment extends BasePresenterFragment {
     @Override
     protected void onViewResume() {
         view.showFilterVisibility(extended);
+
+        quAccHotwordRecognizer.setHotwordListener(new HotwordListener() {
+            @Override
+            public void onError(int error) {
+                // current ignored
+            }
+
+            @Override
+            public void onHotword(String hotword) {
+                Toast.makeText(getActivity(), hotword, Toast.LENGTH_SHORT).show();
+                if ("Neuer Eintrag".equals(hotword)) {
+                    onAddAccounting();
+                }
+            }
+        }, "Hallo", "Neuer Eintrag", "Neu");
+        quAccHotwordRecognizer.startListening();
+
+        AudioManager amanager = (AudioManager) getActivity().getSystemService(Context.AUDIO_SERVICE);
+        // avoid beep and save current values
+        streamVolume = amanager.getStreamVolume(AudioManager.STREAM_MUSIC);
+        amanager.setStreamVolume(AudioManager.STREAM_MUSIC, 0, AudioManager.FLAG_PLAY_SOUND);
+        // not tested but should be necessary to avoid beep at some android sdk versions http://stackoverflow.com/questions/16370360/jelly-bean-beep-in-speech-recognition
+        //amanager.setStreamMute(AudioManager.STREAM_SYSTEM, true);
+    }
+
+    @Override
+    protected void onViewPause() {
+        quAccHotwordRecognizer.stopListening();
+        quAccHotwordRecognizer.destroy();
+
+        AudioManager amanager = (AudioManager) getActivity().getSystemService(Context.AUDIO_SERVICE);
+        amanager.setStreamVolume(AudioManager.STREAM_MUSIC, streamVolume, 0);
+        //amanager.setStreamMute(AudioManager.STREAM_SYSTEM, false);
+    }
+
+    @Override
+    protected void onViewFinish() {
+        quAccHotwordRecognizer.destroy();
+
+        AudioManager amanager = (AudioManager) getActivity().getSystemService(Context.AUDIO_SERVICE);
+        amanager.setStreamVolume(AudioManager.STREAM_MUSIC, streamVolume, 0);
+        //amanager.setStreamMute(AudioManager.STREAM_SYSTEM, false);
     }
 
     @Override
@@ -144,12 +194,12 @@ public class AccountingListFragment extends BasePresenterFragment {
         String month = monthTranslator.translate(QuAccDateUtil.currentMonth());
 
         // avoid not necessary reload events
-        if(!view.getYear().equals(year)) {
+        if (!view.getYear().equals(year)) {
             view.setYear(year);
         }
 
         // avoid not necessary reload events
-        if(!view.getMonth().equals(month)) {
+        if (!view.getMonth().equals(month)) {
             view.setMonth(month);
         }
     }
@@ -162,7 +212,7 @@ public class AccountingListFragment extends BasePresenterFragment {
 
         if (isViewFullInitialised(month, year, filterRangeString)) {
             FilterRange filterRange = FilterRange.valueOf(filterRangeString);
-            if(filterRange == FilterRange.free) {
+            if (filterRange == FilterRange.free) {
                 view.showFilterFreeRange();
             } else {
                 view.hideFilterFreeRange();
@@ -186,7 +236,7 @@ public class AccountingListFragment extends BasePresenterFragment {
 
     protected void onGroupingOptionChanged() {
         String groupingString = view.getGroupingOption();
-        if(GroupingOption.valueOf(groupingString) == GroupingOption.no_grouping) {
+        if (GroupingOption.valueOf(groupingString) == GroupingOption.no_grouping) {
             view.setListAdapter(accountingPlainAdapter);
         } else {
             view.setListAdapter(accountingTreeAdapter);

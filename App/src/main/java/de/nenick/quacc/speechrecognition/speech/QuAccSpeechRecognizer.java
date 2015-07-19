@@ -1,9 +1,11 @@
-package de.nenick.quacc.speechrecognition;
+package de.nenick.quacc.speechrecognition.speech;
 
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.media.AudioManager;
 import android.os.Bundle;
+import android.speech.RecognitionListener;
 import android.speech.RecognizerIntent;
 import android.speech.SpeechRecognizer;
 
@@ -16,8 +18,10 @@ import java.util.Locale;
 
 /**
  * Wrapper for the android speech recognition.
- * <p/>
- * Works online and offline but offline its less effective and reports only one variant.
+ * <p>
+ * Works online and offline but offline it reports only one variant.
+ * <p>
+ * Add possibility to check if speech recognition is listening.
  */
 @EBean
 public class QuAccSpeechRecognizer {
@@ -27,6 +31,7 @@ public class QuAccSpeechRecognizer {
 
     // package public for component test mocking
     SpeechRecognizer speechRecognizer;
+
     private Intent speechRecognizerIntent;
     private boolean isListening;
 
@@ -35,6 +40,27 @@ public class QuAccSpeechRecognizer {
         speechRecognizer = SpeechRecognizer.createSpeechRecognizer(context);
         speechRecognizerIntent = new Intent();
         setSpeechRecognitionIntentValues();
+    }
+
+    public void setSpeechResultListener(final SpeechResultListener speechResultListener) {
+        setRecognitionListener(new RecognizerListenerToSpeechResultListener(speechResultListener));
+    }
+
+    public void setRecognitionListener(RecognitionListener recognitionListener) {
+        speechRecognizer.setRecognitionListener(
+                new RecognizerListenerWithOfflineWorkaround(recognitionListener) {
+                    @Override
+                    public void onError(int error) {
+                        isListening = false;
+                        super.onError(error);
+                    }
+
+                    @Override
+                    public void onResults(Bundle results) {
+                        isListening = false;
+                        super.onResults(results);
+                    }
+                });
     }
 
     public void startListening() {
@@ -47,24 +73,8 @@ public class QuAccSpeechRecognizer {
     public void stopListening() {
         if (isListening) {
             isListening = false;
-            speechRecognizer.stopListening();
+            speechRecognizer.cancel();
         }
-    }
-
-    public void setSpeechResultListener(final SpeechResultListener speechResultListener) {
-        speechRecognizer.setRecognitionListener(new QuAccSpeechRecognizerListener(speechResultListener) {
-            @Override
-            public void onError(int error) {
-                isListening = false;
-                super.onError(error);
-            }
-
-            @Override
-            public void onResults(Bundle results) {
-                isListening = false;
-                super.onResults(results);
-            }
-        });
     }
 
     public boolean isSpeechRecognitionAvailable() {
@@ -84,7 +94,7 @@ public class QuAccSpeechRecognizer {
 
     void setSpeechRecognitionIntentValues() {
         speechRecognizerIntent.setAction(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
-        speechRecognizerIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
+        speechRecognizerIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_WEB_SEARCH);
         speechRecognizerIntent.putExtra(RecognizerIntent.EXTRA_CALLING_PACKAGE, context.getPackageName());
         speechRecognizerIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.GERMAN);
         speechRecognizerIntent.putExtra(RecognizerIntent.EXTRA_PARTIAL_RESULTS, true);
