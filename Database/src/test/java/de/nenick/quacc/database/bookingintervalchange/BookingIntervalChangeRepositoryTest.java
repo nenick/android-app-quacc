@@ -9,17 +9,14 @@ import java.util.Date;
 import de.nenick.quacc.database.DbConstantValues;
 import de.nenick.quacc.database.provider.account.AccountContentValues;
 import de.nenick.quacc.database.provider.account.AccountCursor;
-import de.nenick.quacc.database.provider.account.AccountSelection;
 import de.nenick.quacc.database.provider.bookinginterval.BookingIntervalContentValues;
 import de.nenick.quacc.database.provider.bookinginterval.BookingIntervalCursor;
-import de.nenick.quacc.database.provider.bookinginterval.BookingIntervalSelection;
+import de.nenick.quacc.database.provider.bookingintervalchange.BookingIntervalChangeColumns;
 import de.nenick.quacc.database.provider.bookingintervalchange.BookingIntervalChangeContentValues;
-import de.nenick.quacc.database.provider.bookingintervalchange.BookingIntervalChangeSelection;
+import de.nenick.quacc.database.provider.bookingintervalchange.BookingIntervalChangeCursor;
 import de.nenick.quacc.database.provider.category.CategoryColumns;
 import de.nenick.quacc.database.provider.category.CategoryContentValues;
 import de.nenick.quacc.database.provider.category.CategoryCursor;
-import de.nenick.quacc.database.provider.category.CategorySelection;
-import de.nenick.quacc.database.testsupport.testdata.GenericQueryAllSpecification;
 import de.nenick.quacc.database.testsupport.testdata.TestDbData;
 
 import static de.nenick.quacc.database.testsupport.CauseMatcher.containsMessage;
@@ -118,7 +115,7 @@ public class BookingIntervalChangeRepositoryTest extends BookingIntervalChangeTe
     }
 
     private void whenQueryAll() {
-        result = bookingIntervalChangeRepository.query(new GenericQueryAllSpecification<>(BookingIntervalChangeSelection.class));
+        result = bookingIntervalChangeRepository.query(new BookingIntervalChangeSpecAll());
     }
 
     private void thenEntryIsInserted() {
@@ -148,9 +145,9 @@ public class BookingIntervalChangeRepositoryTest extends BookingIntervalChangeTe
     private void givenMandatoryContent(boolean withBookingInterval, boolean withDate, boolean withFollowUp) {
         values = new BookingIntervalChangeContentValues();
         if (withBookingInterval) {
-            referencedAccount = TestDbData.iNeed(AccountContentValues.class).in(accountRepository, AccountSelection.class, AccountCursor.class).get(0);
-            referencedCategory = TestDbData.iNeed(CategoryContentValues.class).with(CategoryColumns.LEVEL, 1).in(categoryRepository, CategorySelection.class, CategoryCursor.class).get(0);
-            referencedBookingInterval = TestDbData.iNeed(BookingIntervalContentValues.class).relatedTo(referencedAccount, referencedCategory).in(bookingIntervalRepository, BookingIntervalSelection.class, BookingIntervalCursor.class).get(0);
+            referencedAccount = TestDbData.iNeed(AccountContentValues.class).in(accountRepository, AccountCursor.class).get(0);
+            referencedCategory = TestDbData.iNeed(CategoryContentValues.class).with(CategoryColumns.LEVEL, 1).in(categoryRepository, CategoryCursor.class).get(0);
+            referencedBookingInterval = TestDbData.iNeed(BookingIntervalContentValues.class).relatedTo(referencedAccount, referencedCategory).in(bookingIntervalRepository, BookingIntervalCursor.class).get(0);
             values.putBookingIntervalId(referencedBookingInterval.getId());
         }
         if (withFollowUp) values.putFollowUp(true);

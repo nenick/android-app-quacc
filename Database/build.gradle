@@ -57,13 +57,13 @@ apply from: "../build.robolectric.gradle"
 apply from: "../build.test-artifact.gradle"
 
 // add compile main sources for test runs https://github.com/nenick/AndroidStudioAndRobolectric/issues/7
-afterEvaluate { project ->
+/*afterEvaluate { project ->
     android.libraryVariants.each { variant ->
         tasks.getByName("test${variant.name.capitalize()}") {
             dependsOn "assemble${variant.name.capitalize()}"
         }
     }
-}
+}*/
 
 dependencies {
     compile 'com.android.support:support-annotations:21.0.3'
@@ -85,11 +85,11 @@ task generateDatabaseFiles << {
     }
 }
 
-afterEvaluate {
+/*afterEvaluate {
     tasks.testDebug {
         testLogging {
             events "passed", "skipped", "failed", "standardOut", "standardError"
         }
         jvmArgs "-XX:MaxPermSize=512m"
     }
-}
+}*/

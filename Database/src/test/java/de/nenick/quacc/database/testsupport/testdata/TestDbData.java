@@ -1,7 +1,9 @@
 package de.nenick.quacc.database.testsupport.testdata;
 
 
+import android.content.ContentUris;
 import android.database.Cursor;
+import android.net.Uri;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -10,10 +12,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import de.nenick.quacc.database.base.Repository;
+import de.nenick.quacc.database.BaseRepository;
 import de.nenick.quacc.database.provider.base.AbstractContentValues;
 import de.nenick.quacc.database.provider.base.AbstractCursor;
-import de.nenick.quacc.database.provider.base.AbstractSelection;
 
 public class TestDbData {
 
@@ -51,13 +52,13 @@ public class TestDbData {
         return this;
     }
 
-    public <T extends AbstractCursor> List<T> in(Repository repository, Class<? extends AbstractSelection> selection, Class<? extends AbstractCursor> cursorWrapper) {
+    public <T extends AbstractCursor> List<T> in(BaseRepository repository, Class<? extends AbstractCursor> cursorWrapper) {
         for (int i = 1; i <= count; i++) {
             try {
                 createContentValuesObject();
                 insertDummyValues();
                 storeContentIn(repository);
-                readStoredData(repository, selection, cursorWrapper);
+                readStoredData(repository, cursorWrapper);
             } catch (Exception e) {
                 throw new RuntimeException("Failure for " + i + ". entry.", e);
             }
@@ -148,15 +149,18 @@ public class TestDbData {
         throw new RuntimeException("No generator found for " + parameterType);
     }
 
-    private void storeContentIn(Repository repository) throws Exception {
+    private void storeContentIn(BaseRepository repository) throws Exception {
         if (repository == null) throw new IllegalArgumentException("null repository");
         //noinspection unchecked
         lastEntryId = repository.insert(contentValues);
     }
 
-    private void readStoredData(Repository repository, final Class<? extends AbstractSelection> selection, Class<? extends AbstractCursor> cursorWrapper) throws Exception {
-        //noinspection unchecked
-        Cursor query = repository.query(new GenericQueryByIdSpecification(lastEntryId, selection));
+    private void readStoredData(BaseRepository repository, Class<? extends AbstractCursor> cursorWrapper) throws Exception {
+        Uri uri = ContentUris.withAppendedId(repository.uri(), lastEntryId);
+        Cursor query = repository.getContext().getContentResolver().query(uri, null, null, null, null);
+        if(query == null) {
+            throw new IllegalStateException("could not query " + uri);
+        }
         query.moveToNext();
         created.add(cursorWrapper.getDeclaredConstructor(Cursor.class).newInstance(query));
     }

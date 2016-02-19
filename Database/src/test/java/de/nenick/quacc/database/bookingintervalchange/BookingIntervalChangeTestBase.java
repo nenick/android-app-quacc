@@ -15,18 +15,14 @@ import de.nenick.quacc.database.category.CategoryRepository;
 import de.nenick.quacc.database.category.CategoryRepository_;
 import de.nenick.quacc.database.provider.account.AccountContentValues;
 import de.nenick.quacc.database.provider.account.AccountCursor;
-import de.nenick.quacc.database.provider.account.AccountSelection;
 import de.nenick.quacc.database.provider.base.AbstractCursor;
 import de.nenick.quacc.database.provider.bookinginterval.BookingIntervalContentValues;
 import de.nenick.quacc.database.provider.bookinginterval.BookingIntervalCursor;
-import de.nenick.quacc.database.provider.bookinginterval.BookingIntervalSelection;
 import de.nenick.quacc.database.provider.bookingintervalchange.BookingIntervalChangeContentValues;
 import de.nenick.quacc.database.provider.bookingintervalchange.BookingIntervalChangeCursor;
-import de.nenick.quacc.database.provider.bookingintervalchange.BookingIntervalChangeSelection;
 import de.nenick.quacc.database.provider.category.CategoryColumns;
 import de.nenick.quacc.database.provider.category.CategoryContentValues;
 import de.nenick.quacc.database.provider.category.CategoryCursor;
-import de.nenick.quacc.database.provider.category.CategorySelection;
 import de.nenick.quacc.database.testsupport.RoboDatabaseTest;
 import de.nenick.quacc.database.testsupport.testdata.TestDbData;
 
@@ -57,14 +53,14 @@ public abstract class BookingIntervalChangeTestBase extends RoboDatabaseTest {
     }
 
     public void givenReferences() {
-        referencedAccount = TestDbData.iNeed(AccountContentValues.class).in(accountRepository, AccountSelection.class, AccountCursor.class).get(0);
-        referencedCategory = TestDbData.iNeed(CategoryContentValues.class).with(CategoryColumns.LEVEL, 1).in(categoryRepository, CategorySelection.class, CategoryCursor.class).get(0);
-        referencedBookingInterval = TestDbData.iNeed(BookingIntervalContentValues.class).relatedTo(referencedAccount, referencedCategory).in(bookingIntervalRepository, BookingIntervalSelection.class, BookingIntervalCursor.class).get(0);
+        referencedAccount = TestDbData.iNeed(AccountContentValues.class).in(accountRepository, AccountCursor.class).get(0);
+        referencedCategory = TestDbData.iNeed(CategoryContentValues.class).with(CategoryColumns.LEVEL, 1).in(categoryRepository, CategoryCursor.class).get(0);
+        referencedBookingInterval = TestDbData.iNeed(BookingIntervalContentValues.class).relatedTo(referencedAccount, referencedCategory).in(bookingIntervalRepository, BookingIntervalCursor.class).get(0);
     }
 
     public void givenEntriesCount(int count) {
         givenReferences();
-        created = TestDbData.iNeed(count, BookingIntervalChangeContentValues.class).relatedTo(referencedBookingInterval).in(bookingIntervalChangeRepository, BookingIntervalChangeSelection.class, BookingIntervalChangeCursor.class);
+        created = TestDbData.iNeed(count, BookingIntervalChangeContentValues.class).relatedTo(referencedBookingInterval).in(bookingIntervalChangeRepository, BookingIntervalChangeCursor.class);
     }
 
     public void thenQueryResultCountIs(int expected) {

@@ -17,21 +17,16 @@ import de.nenick.quacc.database.category.CategoryRepository;
 import de.nenick.quacc.database.category.CategoryRepository_;
 import de.nenick.quacc.database.provider.account.AccountContentValues;
 import de.nenick.quacc.database.provider.account.AccountCursor;
-import de.nenick.quacc.database.provider.account.AccountSelection;
 import de.nenick.quacc.database.provider.base.AbstractCursor;
 import de.nenick.quacc.database.provider.bookingentry.BookingEntryContentValues;
 import de.nenick.quacc.database.provider.bookingentry.BookingEntryCursor;
-import de.nenick.quacc.database.provider.bookingentry.BookingEntrySelection;
 import de.nenick.quacc.database.provider.bookinginterval.BookingIntervalContentValues;
 import de.nenick.quacc.database.provider.bookinginterval.BookingIntervalCursor;
-import de.nenick.quacc.database.provider.bookinginterval.BookingIntervalSelection;
 import de.nenick.quacc.database.provider.bookingintervalentry.BookingIntervalEntryContentValues;
 import de.nenick.quacc.database.provider.bookingintervalentry.BookingIntervalEntryCursor;
-import de.nenick.quacc.database.provider.bookingintervalentry.BookingIntervalEntrySelection;
 import de.nenick.quacc.database.provider.category.CategoryColumns;
 import de.nenick.quacc.database.provider.category.CategoryContentValues;
 import de.nenick.quacc.database.provider.category.CategoryCursor;
-import de.nenick.quacc.database.provider.category.CategorySelection;
 import de.nenick.quacc.database.testsupport.RoboDatabaseTest;
 import de.nenick.quacc.database.testsupport.testdata.TestDbData;
 
@@ -65,16 +60,16 @@ public abstract class BookingIntervalEntryTestBase extends RoboDatabaseTest {
     }
 
     public void givenReferences() {
-        referencedAccount = TestDbData.iNeed(AccountContentValues.class).in(accountRepository, AccountSelection.class, AccountCursor.class).get(0);
-        referencedCategory = TestDbData.iNeed(CategoryContentValues.class).with(CategoryColumns.LEVEL, 1).in(categoryRepository, CategorySelection.class, CategoryCursor.class).get(0);
-        referencedBookingEntry = TestDbData.iNeed(BookingEntryContentValues.class).relatedTo(referencedAccount, referencedCategory).in(bookingEntryRepository, BookingEntrySelection.class, BookingEntryCursor.class).get(0);
-        referencedBookingInterval = TestDbData.iNeed(BookingIntervalContentValues.class).relatedTo(referencedAccount, referencedCategory).in(bookingIntervalRepository, BookingIntervalSelection.class, BookingIntervalCursor.class).get(0);
+        referencedAccount = TestDbData.iNeed(AccountContentValues.class).in(accountRepository, AccountCursor.class).get(0);
+        referencedCategory = TestDbData.iNeed(CategoryContentValues.class).with(CategoryColumns.LEVEL, 1).in(categoryRepository, CategoryCursor.class).get(0);
+        referencedBookingEntry = TestDbData.iNeed(BookingEntryContentValues.class).relatedTo(referencedAccount, referencedCategory).in(bookingEntryRepository, BookingEntryCursor.class).get(0);
+        referencedBookingInterval = TestDbData.iNeed(BookingIntervalContentValues.class).relatedTo(referencedAccount, referencedCategory).in(bookingIntervalRepository, BookingIntervalCursor.class).get(0);
 
     }
 
     public void givenEntriesCount(int count) {
         givenReferences();
-        created = TestDbData.iNeed(count, BookingIntervalEntryContentValues.class).relatedTo(referencedBookingEntry, referencedBookingInterval).in(bookingIntervalEntryRepository, BookingIntervalEntrySelection.class, BookingIntervalEntryCursor.class);
+        created = TestDbData.iNeed(count, BookingIntervalEntryContentValues.class).relatedTo(referencedBookingEntry, referencedBookingInterval).in(bookingIntervalEntryRepository, BookingIntervalEntryCursor.class);
     }
 
     public void thenQueryResultCountIs(int expected) {

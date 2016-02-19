@@ -6,17 +6,14 @@ import org.junit.Test;
 
 import de.nenick.quacc.database.provider.account.AccountContentValues;
 import de.nenick.quacc.database.provider.account.AccountCursor;
-import de.nenick.quacc.database.provider.account.AccountSelection;
 import de.nenick.quacc.database.provider.bookingtemplate.BookingTemplateContentValues;
 import de.nenick.quacc.database.provider.bookingtemplate.BookingTemplateCursor;
-import de.nenick.quacc.database.provider.bookingtemplate.BookingTemplateSelection;
+import de.nenick.quacc.database.provider.bookingtemplatekeyword.BookingTemplateKeywordColumns;
 import de.nenick.quacc.database.provider.bookingtemplatekeyword.BookingTemplateKeywordContentValues;
-import de.nenick.quacc.database.provider.bookingtemplatekeyword.BookingTemplateKeywordSelection;
+import de.nenick.quacc.database.provider.bookingtemplatekeyword.BookingTemplateKeywordCursor;
 import de.nenick.quacc.database.provider.category.CategoryColumns;
 import de.nenick.quacc.database.provider.category.CategoryContentValues;
 import de.nenick.quacc.database.provider.category.CategoryCursor;
-import de.nenick.quacc.database.provider.category.CategorySelection;
-import de.nenick.quacc.database.testsupport.testdata.GenericQueryAllSpecification;
 import de.nenick.quacc.database.testsupport.testdata.TestDbData;
 
 import static de.nenick.quacc.database.testsupport.CauseMatcher.containsMessage;
@@ -112,7 +109,7 @@ public class BookingTemplateKeywordRepositoryTest extends BookingTemplateKeyword
     }
 
     private void whenQueryAll() {
-        result = bookingTemplateKeywordRepository.query(new GenericQueryAllSpecification<>(BookingTemplateKeywordSelection.class));
+        result = bookingTemplateKeywordRepository.query(new BookingTemplateKeywordSpecAll());
     }
 
     private void thenEntryIsInserted() {
@@ -135,9 +132,9 @@ public class BookingTemplateKeywordRepositoryTest extends BookingTemplateKeyword
         values = new BookingTemplateKeywordContentValues();
         values.putText("some text");
         if (withBookingTemplateId) {
-            referencedAccount = TestDbData.iNeed(AccountContentValues.class).in(accountRepository, AccountSelection.class, AccountCursor.class).get(0);
-            referencedCategory = TestDbData.iNeed(CategoryContentValues.class).with(CategoryColumns.LEVEL, 1).in(categoryRepository, CategorySelection.class, CategoryCursor.class).get(0);
-            referencedBookingTemplate = TestDbData.iNeed(BookingTemplateContentValues.class).relatedTo(referencedAccount, referencedCategory).in(bookingTemplateRepository, BookingTemplateSelection.class, BookingTemplateCursor.class).get(0);
+            referencedAccount = TestDbData.iNeed(AccountContentValues.class).in(accountRepository, AccountCursor.class).get(0);
+            referencedCategory = TestDbData.iNeed(CategoryContentValues.class).with(CategoryColumns.LEVEL, 1).in(categoryRepository, CategoryCursor.class).get(0);
+            referencedBookingTemplate = TestDbData.iNeed(BookingTemplateContentValues.class).relatedTo(referencedAccount, referencedCategory).in(bookingTemplateRepository, BookingTemplateCursor.class).get(0);
             values.putBookingTemplateId(referencedBookingTemplate.getId());
         }
     }

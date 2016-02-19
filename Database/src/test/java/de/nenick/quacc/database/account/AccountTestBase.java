@@ -8,7 +8,6 @@ import java.util.List;
 
 import de.nenick.quacc.database.provider.account.AccountContentValues;
 import de.nenick.quacc.database.provider.account.AccountCursor;
-import de.nenick.quacc.database.provider.account.AccountSelection;
 import de.nenick.quacc.database.testsupport.RoboDatabaseTest;
 import de.nenick.quacc.database.testsupport.testdata.TestDbData;
 
@@ -31,7 +30,7 @@ public abstract class AccountTestBase extends RoboDatabaseTest {
     }
 
     public void givenEntriesCount(int count) {
-        created = TestDbData.iNeed(count, AccountContentValues.class).in(accountRepository, AccountSelection.class, AccountCursor.class);
+        created = TestDbData.iNeed(count, AccountContentValues.class).in(accountRepository, AccountCursor.class);
     }
 
     public void thenQueryResultCountIs(int expected) {

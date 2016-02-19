@@ -2,11 +2,11 @@ package de.nenick.quacc.database.bookingintervalchange;
 
 import de.nenick.quacc.database.provider.bookingintervalchange.BookingIntervalChangeSelection;
 
-public class BookingIntervalChangeSpecByInterval extends BookingIntervalChangeSpec {
+public class BookingIntervalChangeSpecByIntervalId extends BookingIntervalChangeSpec {
 
     private long intervalId;
 
-    public BookingIntervalChangeSpecByInterval(long intervalId) {
+    public BookingIntervalChangeSpecByIntervalId(long intervalId) {
         this.intervalId = intervalId;
     }
 

@@ -7,7 +7,6 @@ import java.util.Date;
 import de.nenick.quacc.database.provider.bookingentry.BookingEntryColumns;
 import de.nenick.quacc.database.provider.bookingentry.BookingEntryContentValues;
 import de.nenick.quacc.database.provider.bookingentry.BookingEntryCursor;
-import de.nenick.quacc.database.provider.bookingentry.BookingEntrySelection;
 import de.nenick.quacc.database.testsupport.testdata.TestDbData;
 
 public class BookingEntrySpecCategoryEntriesByRangeTest extends BookingEntryTestBase {
@@ -40,6 +39,6 @@ public class BookingEntrySpecCategoryEntriesByRangeTest extends BookingEntryTest
                 .with(BookingEntryColumns.DATE, date)
                 .with(BookingEntryColumns.DIRECTION, direction)
                 .relatedTo(referencedAccount, referencedCategory)
-                .in(bookingEntryRepository, BookingEntrySelection.class, BookingEntryCursor.class);
+                .in(bookingEntryRepository, BookingEntryCursor.class);
     }
 }

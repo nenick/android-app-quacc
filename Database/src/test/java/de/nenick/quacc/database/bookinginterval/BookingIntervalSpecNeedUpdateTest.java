@@ -7,7 +7,6 @@ import java.util.Date;
 import de.nenick.quacc.database.provider.bookinginterval.BookingIntervalColumns;
 import de.nenick.quacc.database.provider.bookinginterval.BookingIntervalContentValues;
 import de.nenick.quacc.database.provider.bookinginterval.BookingIntervalCursor;
-import de.nenick.quacc.database.provider.bookinginterval.BookingIntervalSelection;
 import de.nenick.quacc.database.testsupport.testdata.TestDbData;
 
 public class BookingIntervalSpecNeedUpdateTest extends BookingIntervalTestBase {
@@ -41,6 +40,6 @@ public class BookingIntervalSpecNeedUpdateTest extends BookingIntervalTestBase {
         TestDbData.iNeed(BookingIntervalContentValues.class)
                 .with(BookingIntervalColumns.DATE_UPDATED_UNTIL, date)
                 .relatedTo(referencedAccount, referencedCategory)
-                .in(bookingIntervalRepository, BookingIntervalSelection.class, BookingIntervalCursor.class);
+                .in(bookingIntervalRepository, BookingIntervalCursor.class);
     }
 }

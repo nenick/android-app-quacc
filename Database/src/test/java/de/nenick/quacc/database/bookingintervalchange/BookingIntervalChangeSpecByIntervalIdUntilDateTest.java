@@ -4,9 +4,9 @@ import org.junit.Test;
 
 import java.util.Date;
 
-public class BookingIntervalChangeSpecByIntervalUntilDateTest extends BookingIntervalChangeTestBase {
+public class BookingIntervalChangeSpecByIntervalIdUntilDateTest extends BookingIntervalChangeTestBase {
 
-    BookingIntervalChangeSpecByIntervalUntilDate spec;
+    BookingIntervalChangeSpecByIntervalIdUntilDate spec;
 
     @Test
     public void testSelection() {
@@ -18,7 +18,7 @@ public class BookingIntervalChangeSpecByIntervalUntilDateTest extends BookingInt
     }
 
     private void whenQuery(long id, Date date) {
-        spec = new BookingIntervalChangeSpecByIntervalUntilDate(id, date);
+        spec = new BookingIntervalChangeSpecByIntervalIdUntilDate(id, date);
         result = bookingIntervalChangeRepository.query(spec);
     }
 }

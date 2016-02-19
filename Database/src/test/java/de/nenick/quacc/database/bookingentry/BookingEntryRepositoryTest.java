@@ -9,14 +9,13 @@ import java.util.Date;
 import de.nenick.quacc.database.DbConstantValues;
 import de.nenick.quacc.database.provider.account.AccountContentValues;
 import de.nenick.quacc.database.provider.account.AccountCursor;
-import de.nenick.quacc.database.provider.account.AccountSelection;
+import de.nenick.quacc.database.provider.bookingentry.BookingEntryColumns;
 import de.nenick.quacc.database.provider.bookingentry.BookingEntryContentValues;
+import de.nenick.quacc.database.provider.bookingentry.BookingEntryCursor;
 import de.nenick.quacc.database.provider.bookingentry.BookingEntrySelection;
 import de.nenick.quacc.database.provider.category.CategoryColumns;
 import de.nenick.quacc.database.provider.category.CategoryContentValues;
 import de.nenick.quacc.database.provider.category.CategoryCursor;
-import de.nenick.quacc.database.provider.category.CategorySelection;
-import de.nenick.quacc.database.testsupport.testdata.GenericQueryAllSpecification;
 import de.nenick.quacc.database.testsupport.testdata.TestDbData;
 
 import static de.nenick.quacc.database.testsupport.CauseMatcher.containsMessage;
@@ -204,7 +203,7 @@ public class BookingEntryRepositoryTest extends BookingEntryTestBase {
     }
 
     private void whenQueryAll() {
-        result = bookingEntryRepository.query(new GenericQueryAllSpecification<>(BookingEntrySelection.class));
+        result = bookingEntryRepository.query(new BookingEntrySpecAll());
     }
 
     private void thenEntryIsInserted() {
@@ -238,11 +237,11 @@ public class BookingEntryRepositoryTest extends BookingEntryTestBase {
     private void givenMandatoryContent(boolean withAccountId, boolean withCategoryId, boolean withDate, boolean withValue) {
         values = new BookingEntryContentValues();
         if (withAccountId) {
-            referencedAccount = TestDbData.iNeed(AccountContentValues.class).in(accountRepository, AccountSelection.class, AccountCursor.class).get(0);
+            referencedAccount = TestDbData.iNeed(AccountContentValues.class).in(accountRepository, AccountCursor.class).get(0);
             values.putAccountId(referencedAccount.getId());
         }
         if (withCategoryId) {
-            referencedCategory = TestDbData.iNeed(CategoryContentValues.class).with(CategoryColumns.LEVEL, 1).in(categoryRepository, CategorySelection.class, CategoryCursor.class).get(0);
+            referencedCategory = TestDbData.iNeed(CategoryContentValues.class).with(CategoryColumns.LEVEL, 1).in(categoryRepository, CategoryCursor.class).get(0);
             values.putCategoryId(referencedCategory.getId());
         }
         values.putInterval("this interval");

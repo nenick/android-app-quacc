@@ -2,9 +2,9 @@ package de.nenick.quacc.database.bookingintervalchange;
 
 import org.junit.Test;
 
-public class BookingIntervalChangeSpecByIntervalTest extends BookingIntervalChangeTestBase {
+public class BookingIntervalChangeSpecByIntervalIdTest extends BookingIntervalChangeTestBase {
 
-    BookingIntervalChangeSpecByInterval spec;
+    BookingIntervalChangeSpecByIntervalId spec;
 
     @Test
     public void testSelection() {
@@ -15,7 +15,7 @@ public class BookingIntervalChangeSpecByIntervalTest extends BookingIntervalChan
     }
 
     private void whenQuery(long id) {
-        spec = new BookingIntervalChangeSpecByInterval(id);
+        spec = new BookingIntervalChangeSpecByIntervalId(id);
         result = bookingIntervalChangeRepository.query(spec);
     }
 

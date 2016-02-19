@@ -14,7 +14,7 @@ Often used by calling modules:
 
 * **<>Repository** - the gateway to retrieve and modify data
 * **<>ContentValues** - to transport data for create or update entries
-* **<>Spec** - specify the selection for queries, updates and deletions
+* **<>Spec<>** - specify the selection for queries, updates and deletions
 * **<>Cursor** - to read data of queried entries
 
 Rarely used:

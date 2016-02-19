@@ -12,15 +12,12 @@ import de.nenick.quacc.database.category.CategoryRepository;
 import de.nenick.quacc.database.category.CategoryRepository_;
 import de.nenick.quacc.database.provider.account.AccountContentValues;
 import de.nenick.quacc.database.provider.account.AccountCursor;
-import de.nenick.quacc.database.provider.account.AccountSelection;
 import de.nenick.quacc.database.provider.base.AbstractCursor;
 import de.nenick.quacc.database.provider.bookingentry.BookingEntryContentValues;
 import de.nenick.quacc.database.provider.bookingentry.BookingEntryCursor;
-import de.nenick.quacc.database.provider.bookingentry.BookingEntrySelection;
 import de.nenick.quacc.database.provider.category.CategoryColumns;
 import de.nenick.quacc.database.provider.category.CategoryContentValues;
 import de.nenick.quacc.database.provider.category.CategoryCursor;
-import de.nenick.quacc.database.provider.category.CategorySelection;
 import de.nenick.quacc.database.testsupport.RoboDatabaseTest;
 import de.nenick.quacc.database.testsupport.testdata.TestDbData;
 
@@ -54,12 +51,12 @@ public abstract class BookingEntryTestBase extends RoboDatabaseTest {
     }
 
     public void givenReferences() {
-        referencedAccount = TestDbData.iNeed(AccountContentValues.class).in(accountRepository, AccountSelection.class, AccountCursor.class).get(0);
-        referencedCategory = TestDbData.iNeed(CategoryContentValues.class).with(CategoryColumns.LEVEL, 1).in(categoryRepository, CategorySelection.class, CategoryCursor.class).get(0);
+        referencedAccount = TestDbData.iNeed(AccountContentValues.class).in(accountRepository, AccountCursor.class).get(0);
+        referencedCategory = TestDbData.iNeed(CategoryContentValues.class).with(CategoryColumns.LEVEL, 1).in(categoryRepository, CategoryCursor.class).get(0);
     }
 
     public void givenEntriesCount(int count) {
         givenReferences();
-        created = TestDbData.iNeed(count, BookingEntryContentValues.class).relatedTo(referencedAccount, referencedCategory).in(bookingEntryRepository, BookingEntrySelection.class, BookingEntryCursor.class);
+        created = TestDbData.iNeed(count, BookingEntryContentValues.class).relatedTo(referencedAccount, referencedCategory).in(bookingEntryRepository, BookingEntryCursor.class);
     }
 }
