@@ -1,0 +1,45 @@
+{
+  "documentation": "History booking interval change.",
+  "fields": [
+    {
+      "documentation": "Referenced booking interval.",
+      "name": "booking_interval_id",
+      "type": "Long",
+      "nullable": false,
+      "foreignKey": {
+        "table": "booking_interval",
+        "onDelete": "CASCADE"
+      }
+    },
+    {
+      "documentation": "Mark if the change applies for all following up (true) or once for a single (false) booking entries.",
+      "name": "follow_up",
+      "type": "Boolean",
+      "nullable": false
+    },
+    {
+      "documentation": "Date for the single entry change or for all entries since this date.",
+      "name": "date",
+      "type": "Date",
+      "nullable": false
+    },
+    {
+      "documentation": "Optional description for the single entry change or for all entries since this date.",
+      "name": "comment",
+      "type": "String",
+      "nullable": true
+    },
+    {
+      "documentation": "Values are stored in positive cents.",
+      "name": "amount",
+      "type": "Integer",
+      "nullable": true
+    }
+  ],
+  "constraints": [
+    {
+      "name": "date_positive",
+      "definition": "CHECK(date > 0) ON CONFLICT FAIL"
+    }
+  ]
+}

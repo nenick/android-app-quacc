@@ -1,0 +1,53 @@
+{
+  "documentation": "Prepared booking entry.",
+  "fields": [
+    {
+      "documentation": "Referenced account.",
+      "name": "account_id",
+      "type": "Long",
+      "nullable": false,
+      "foreignKey": {
+        "table": "account",
+        "onDelete": "CASCADE"
+      }
+    },
+    {
+      "documentation": "Referenced category.",
+      "name": "category_id",
+      "type": "Long",
+      "nullable": false,
+      "foreignKey": {
+        "table": "category",
+        "onDelete": "CASCADE"
+      }
+    },
+    {
+      "documentation": "Optional description for this template.",
+      "name": "comment",
+      "type": "String",
+      "nullable": true
+    },
+    {
+      "documentation": "Possible booking interval for this template.",
+      "name": "interval",
+      "type": "String",
+      "nullable": false
+    },
+    {
+      "documentation": "Possible booking direction for this template.",
+      "name": "direction",
+      "type": "String",
+      "nullable": false
+    }
+  ],
+  "constraints": [
+    {
+      "name": "direction_empty",
+      "definition": "CHECK(booking_template__direction <> '') ON CONFLICT FAIL"
+    },
+    {
+      "name": "interval_empty",
+      "definition": "CHECK(booking_template__interval <> '') ON CONFLICT FAIL"
+    }
+  ]
+}

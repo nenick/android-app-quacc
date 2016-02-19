@@ -29,7 +29,7 @@ public class AccountContentValues extends AbstractContentValues {
     }
 
     /**
-     * The name of the account set by the user.
+     * The name of the account.
      */
     public AccountContentValues putName(@NonNull String value) {
         if (value == null) throw new IllegalArgumentException("name must not be null");
@@ -39,7 +39,7 @@ public class AccountContentValues extends AbstractContentValues {
 
 
     /**
-     * The base to calculate the current amount of money. Values are stored in 100 cent.
+     * The base to calculate the current amount of money. Values are stored in cents.
      */
     public AccountContentValues putInitialvalue(int value) {
         mContentValues.put(AccountColumns.INITIALVALUE, value);

@@ -28,6 +28,9 @@ public class CategoryContentValues extends AbstractContentValues {
         return contentResolver.update(uri(), values(), where == null ? null : where.sel(), where == null ? null : where.args());
     }
 
+    /**
+     * Name of the category.
+     */
     public CategoryContentValues putName(@NonNull String value) {
         if (value == null) throw new IllegalArgumentException("name must not be null");
         mContentValues.put(CategoryColumns.NAME, value);
@@ -35,6 +38,9 @@ public class CategoryContentValues extends AbstractContentValues {
     }
 
 
+    /**
+     * Main group of the category.
+     */
     public CategoryContentValues putSection(@NonNull String value) {
         if (value == null) throw new IllegalArgumentException("section must not be null");
         mContentValues.put(CategoryColumns.SECTION, value);
@@ -42,6 +48,9 @@ public class CategoryContentValues extends AbstractContentValues {
     }
 
 
+    /**
+     * Possible booking interval for this category.
+     */
     public CategoryContentValues putInterval(@NonNull String value) {
         if (value == null) throw new IllegalArgumentException("interval must not be null");
         mContentValues.put(CategoryColumns.INTERVAL, value);
@@ -49,13 +58,19 @@ public class CategoryContentValues extends AbstractContentValues {
     }
 
 
-    public CategoryContentValues putType(@NonNull String value) {
-        if (value == null) throw new IllegalArgumentException("type must not be null");
-        mContentValues.put(CategoryColumns.TYPE, value);
+    /**
+     * Possible booking direction for this category.
+     */
+    public CategoryContentValues putDirection(@NonNull String value) {
+        if (value == null) throw new IllegalArgumentException("direction must not be null");
+        mContentValues.put(CategoryColumns.DIRECTION, value);
         return this;
     }
 
 
+    /**
+     * Support for sort/filter by main and sub categories. (0 = Main; 1 = Sub)
+     */
     public CategoryContentValues putLevel(int value) {
         mContentValues.put(CategoryColumns.LEVEL, value);
         return this;

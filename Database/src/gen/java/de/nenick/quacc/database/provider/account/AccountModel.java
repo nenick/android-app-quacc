@@ -8,19 +8,19 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 /**
- * Consolidate the accounting.
+ * An unit where user store money e.g. bank and wallet
  */
 public interface AccountModel extends BaseModel {
 
     /**
-     * The name of the account set by the user.
+     * The name of the account.
      * Cannot be {@code null}.
      */
     @NonNull
     String getName();
 
     /**
-     * The base to calculate the current amount of money. Values are stored in 100 cent.
+     * The base to calculate the current amount of money. Values are stored in cents.
      */
     int getInitialvalue();
 }

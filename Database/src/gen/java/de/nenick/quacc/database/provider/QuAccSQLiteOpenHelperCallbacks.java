@@ -2,13 +2,14 @@ package de.nenick.quacc.database.provider;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
+
 import android.util.Log;
 
 import de.nenick.quacc.database.BuildConfig;
 
 /**
  * Implement your custom database creation or upgrade code here.
- * <p/>
+ *
  * This file will not be overwritten if you re-run the content provider generator.
  */
 public class QuAccSQLiteOpenHelperCallbacks {
@@ -30,8 +31,7 @@ public class QuAccSQLiteOpenHelperCallbacks {
     }
 
     public void onUpgrade(final Context context, final SQLiteDatabase db, final int oldVersion, final int newVersion) {
-        if (BuildConfig.DEBUG)
-            Log.d(TAG, "Upgrading database from version " + oldVersion + " to " + newVersion);
+        if (BuildConfig.DEBUG) Log.d(TAG, "Upgrading database from version " + oldVersion + " to " + newVersion);
         // Insert your upgrading code here.
     }
 }

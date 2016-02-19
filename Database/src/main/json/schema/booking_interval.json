@@ -1,0 +1,91 @@
+{
+  "documentation": "Booking which will be repeated over time period.",
+  "fields": [
+    {
+      "documentation": "Referenced account.",
+      "name": "account_id",
+      "type": "Long",
+      "nullable": false,
+      "foreignKey": {
+        "table": "account",
+        "onDelete": "CASCADE"
+      }
+    },
+    {
+      "documentation": "Referenced category.",
+      "name": "category_id",
+      "type": "Long",
+      "nullable": false,
+      "foreignKey": {
+        "table": "category",
+        "onDelete": "CASCADE"
+      }
+    },
+    {
+      "documentation": "Optional description for booking entries.",
+      "name": "comment",
+      "type": "String",
+      "nullable": true
+    },
+    {
+      "documentation": "Strategy how to repeat.",
+      "name": "interval",
+      "type": "String",
+      "nullable": false
+    },
+    {
+      "documentation": "Date when the interval creates the first booking entry.",
+      "name": "date_start",
+      "type": "Date",
+      "nullable": false
+    },
+    {
+      "documentation": "Date when the interval create no more booking entries. This must not match the last created booking date.",
+      "name": "date_end",
+      "type": "Date",
+      "nullable": false
+    },
+    {
+      "documentation": "This is the last booking entry created by this interval.",
+      "name": "date_last",
+      "type": "Date",
+      "nullable": false
+    },
+    {
+      "documentation": "Necessary booking entries are created or updated until this date.",
+      "name": "date_updated_until",
+      "type": "Date",
+      "nullable": false
+    },
+    {
+      "documentation": "direction how booking entries are created.",
+      "name": "direction",
+      "type": "String",
+      "nullable": false
+    },
+    {
+      "documentation": "Values are stored in cents.",
+      "name": "amount",
+      "type": "Integer",
+      "nullable": false
+    }
+  ],
+  "constraints": [
+    {
+      "name": "direction_empty",
+      "definition": "CHECK(booking_interval__direction <> '') ON CONFLICT FAIL"
+    },
+    {
+      "name": "interval_empty",
+      "definition": "CHECK(booking_interval__interval <> '') ON CONFLICT FAIL"
+    },
+    {
+      "name": "amount_zero",
+      "definition": "CHECK(booking_interval__amount > 0) ON CONFLICT FAIL"
+    },
+    {
+      "name": "date_start_zero",
+      "definition": "CHECK(date_start > 0) ON CONFLICT FAIL"
+    }
+  ]
+}

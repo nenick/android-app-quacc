@@ -142,33 +142,33 @@ public class CategorySelection extends AbstractSelection<CategorySelection> {
         return this;
     }
 
-    public CategorySelection type(String... value) {
-        addEquals(CategoryColumns.TYPE, value);
+    public CategorySelection direction(String... value) {
+        addEquals(CategoryColumns.DIRECTION, value);
         return this;
     }
 
-    public CategorySelection typeNot(String... value) {
-        addNotEquals(CategoryColumns.TYPE, value);
+    public CategorySelection directionNot(String... value) {
+        addNotEquals(CategoryColumns.DIRECTION, value);
         return this;
     }
 
-    public CategorySelection typeLike(String... value) {
-        addLike(CategoryColumns.TYPE, value);
+    public CategorySelection directionLike(String... value) {
+        addLike(CategoryColumns.DIRECTION, value);
         return this;
     }
 
-    public CategorySelection typeContains(String... value) {
-        addContains(CategoryColumns.TYPE, value);
+    public CategorySelection directionContains(String... value) {
+        addContains(CategoryColumns.DIRECTION, value);
         return this;
     }
 
-    public CategorySelection typeStartsWith(String... value) {
-        addStartsWith(CategoryColumns.TYPE, value);
+    public CategorySelection directionStartsWith(String... value) {
+        addStartsWith(CategoryColumns.DIRECTION, value);
         return this;
     }
 
-    public CategorySelection typeEndsWith(String... value) {
-        addEndsWith(CategoryColumns.TYPE, value);
+    public CategorySelection directionEndsWith(String... value) {
+        addEndsWith(CategoryColumns.DIRECTION, value);
         return this;
     }
 

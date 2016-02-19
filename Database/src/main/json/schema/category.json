@@ -1,29 +1,65 @@
 {
+  "documentation": "Group for booking entry with main and sub category",
   "fields": [
     {
+      "documentation": "Name of the category.",
       "name": "name",
       "type": "String",
       "nullable": false
     },
     {
+      "documentation": "Main group of the category.",
       "name": "section",
       "type": "String",
       "nullable": false
     },
     {
+      "documentation": "Possible booking interval for this category.",
       "name": "interval",
       "type": "String",
       "nullable": false
     },
     {
-      "name": "type",
+      "documentation": "Possible booking direction for this category.",
+      "name": "direction",
       "type": "String",
       "nullable": false
     },
     {
+      "documentation": "Support for sort/filter by main and sub categories. (0 = Main; 1 = Sub)",
       "name": "level",
       "type": "Integer",
       "nullable": false
+    }
+  ],
+  "constraints": [
+    {
+      "name": "name_empty",
+      "definition": "CHECK(category__name <> '') ON CONFLICT FAIL"
+    },
+    {
+      "name": "interval_empty",
+      "definition": "CHECK(category__interval <> '') ON CONFLICT FAIL"
+    },
+    {
+      "name": "section_empty",
+      "definition": "CHECK(category__section <> '') ON CONFLICT FAIL"
+    },
+    {
+      "name": "direction_empty",
+      "definition": "CHECK(category__direction <> '') ON CONFLICT FAIL"
+    },
+    {
+      "name": "section_and_name_unique",
+      "definition": "UNIQUE (category__name, category__section) ON CONFLICT FAIL"
+    },
+    {
+      "name": "level_min",
+      "definition": "CHECK (category__level >= 0) ON CONFLICT FAIL"
+    },
+    {
+      "name": "level_max",
+      "definition": "CHECK (category__level <= 1) ON CONFLICT FAIL"
     }
   ]
 }

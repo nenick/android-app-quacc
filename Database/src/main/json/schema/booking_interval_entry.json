@@ -1,0 +1,25 @@
+{
+  "documentation": "Reference to concrete booking entry for an interval.",
+  "fields": [
+    {
+      "documentation": "Referenced booking interval.",
+      "name": "booking_interval_id",
+      "type": "Long",
+      "nullable": false,
+      "foreignKey": {
+        "table": "booking_interval",
+        "onDelete": "CASCADE"
+      }
+    },
+    {
+      "documentation": "Referenced booking entry.",
+      "name": "booking_entry_id",
+      "type": "Long",
+      "nullable": false,
+      "foreignKey": {
+        "table": "booking_entry",
+        "onDelete": "CASCADE"
+      }
+    }
+  ]
+}

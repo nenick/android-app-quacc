@@ -1,0 +1,73 @@
+{
+  "documentation": "Booking entry for specific account.",
+  "fields": [
+    {
+      "documentation": "Referenced account.",
+      "name": "account_id",
+      "type": "Long",
+      "nullable": false,
+      "foreignKey": {
+        "table": "account",
+        "onDelete": "CASCADE"
+      }
+    },
+    {
+      "documentation": "Referenced category.",
+      "name": "category_id",
+      "type": "Long",
+      "nullable": false,
+      "foreignKey": {
+        "table": "category",
+        "onDelete": "CASCADE"
+      }
+    },
+    {
+      "documentation": "Optional description for this entry.",
+      "name": "comment",
+      "type": "String",
+      "nullable": true
+    },
+    {
+      "documentation": "Entry was created by this interval strategy.",
+      "name": "interval",
+      "type": "String",
+      "nullable": false
+    },
+    {
+      "documentation": "Booking is done at this date. May be past or future.",
+      "name": "date",
+      "type": "Date",
+      "nullable": false
+    },
+    {
+      "documentation": "Defines how this booking entry will effect the account money.",
+      "name": "direction",
+      "type": "String",
+      "nullable": false
+    },
+    {
+      "documentation": "Values are stored in cents.",
+      "name": "amount",
+      "type": "Integer",
+      "nullable": false
+    }
+  ],
+  "constraints": [
+    {
+      "name": "direction_empty",
+      "definition": "CHECK(booking_entry__direction <> '') ON CONFLICT FAIL"
+    },
+    {
+      "name": "interval_empty",
+      "definition": "CHECK(booking_entry__interval <> '') ON CONFLICT FAIL"
+    },
+    {
+      "name": "amount_positive",
+      "definition": "CHECK(booking_entry__amount > 0) ON CONFLICT FAIL"
+    },
+    {
+      "name": "date_positive",
+      "definition": "CHECK(date > 0) ON CONFLICT FAIL"
+    }
+  ]
+}

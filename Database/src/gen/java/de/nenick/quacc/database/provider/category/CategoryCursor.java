@@ -27,7 +27,7 @@ public class CategoryCursor extends AbstractCursor implements CategoryModel {
     }
 
     /**
-     * Get the {@code name} value.
+     * Name of the category.
      * Cannot be {@code null}.
      */
     @NonNull
@@ -39,7 +39,7 @@ public class CategoryCursor extends AbstractCursor implements CategoryModel {
     }
 
     /**
-     * Get the {@code section} value.
+     * Main group of the category.
      * Cannot be {@code null}.
      */
     @NonNull
@@ -51,7 +51,7 @@ public class CategoryCursor extends AbstractCursor implements CategoryModel {
     }
 
     /**
-     * Get the {@code interval} value.
+     * Possible booking interval for this category.
      * Cannot be {@code null}.
      */
     @NonNull
@@ -63,19 +63,19 @@ public class CategoryCursor extends AbstractCursor implements CategoryModel {
     }
 
     /**
-     * Get the {@code type} value.
+     * Possible booking direction for this category.
      * Cannot be {@code null}.
      */
     @NonNull
-    public String getType() {
-        String res = getStringOrNull(CategoryColumns.TYPE);
+    public String getDirection() {
+        String res = getStringOrNull(CategoryColumns.DIRECTION);
         if (res == null)
-            throw new NullPointerException("The value of 'type' in the database was null, which is not allowed according to the model definition");
+            throw new NullPointerException("The value of 'direction' in the database was null, which is not allowed according to the model definition");
         return res;
     }
 
     /**
-     * Get the {@code level} value.
+     * Support for sort/filter by main and sub categories. (0 = Main; 1 = Sub)
      */
     public int getLevel() {
         Integer res = getIntegerOrNull(CategoryColumns.LEVEL);

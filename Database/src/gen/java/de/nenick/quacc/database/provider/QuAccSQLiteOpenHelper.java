@@ -11,13 +11,13 @@ import android.util.Log;
 
 import de.nenick.quacc.database.BuildConfig;
 import de.nenick.quacc.database.provider.account.AccountColumns;
-import de.nenick.quacc.database.provider.accounting.AccountingColumns;
-import de.nenick.quacc.database.provider.accountingtemplate.AccountingTemplateColumns;
+import de.nenick.quacc.database.provider.bookingentry.BookingEntryColumns;
+import de.nenick.quacc.database.provider.bookinginterval.BookingIntervalColumns;
+import de.nenick.quacc.database.provider.bookingintervalchange.BookingIntervalChangeColumns;
+import de.nenick.quacc.database.provider.bookingintervalentry.BookingIntervalEntryColumns;
+import de.nenick.quacc.database.provider.bookingtemplate.BookingTemplateColumns;
+import de.nenick.quacc.database.provider.bookingtemplatekeyword.BookingTemplateKeywordColumns;
 import de.nenick.quacc.database.provider.category.CategoryColumns;
-import de.nenick.quacc.database.provider.interval.IntervalColumns;
-import de.nenick.quacc.database.provider.intervalaccounting.IntervalAccountingColumns;
-import de.nenick.quacc.database.provider.intervalchange.IntervalChangeColumns;
-import de.nenick.quacc.database.provider.templatematching.TemplateMatchingColumns;
 
 public class QuAccSQLiteOpenHelper extends SQLiteOpenHelper {
     private static final String TAG = QuAccSQLiteOpenHelper.class.getSimpleName();
@@ -34,38 +34,92 @@ public class QuAccSQLiteOpenHelper extends SQLiteOpenHelper {
             + AccountColumns._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
             + AccountColumns.NAME + " TEXT NOT NULL, "
             + AccountColumns.INITIALVALUE + " INTEGER NOT NULL "
-            + ", CONSTRAINT unique_name UNIQUE (account__name) ON CONFLICT FAIL"
+            + ", CONSTRAINT name_unique UNIQUE (account__name) ON CONFLICT FAIL"
+            + ", CONSTRAINT name_empty CHECK(account__name <> '') ON CONFLICT FAIL"
             + " );";
 
-    public static final String SQL_CREATE_TABLE_ACCOUNTING = "CREATE TABLE IF NOT EXISTS "
-            + AccountingColumns.TABLE_NAME + " ( "
-            + AccountingColumns._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
-            + AccountingColumns.ACCOUNT_ID + " INTEGER NOT NULL, "
-            + AccountingColumns.CATEGORY_ID + " INTEGER NOT NULL, "
-            + AccountingColumns.COMMENT + " TEXT, "
-            + AccountingColumns.INTERVAL + " TEXT NOT NULL, "
-            + AccountingColumns.DATE + " INTEGER NOT NULL, "
-            + AccountingColumns.TYPE + " TEXT NOT NULL, "
-            + AccountingColumns.VALUE + " INTEGER NOT NULL "
-            + ", CONSTRAINT fk_account_id FOREIGN KEY (" + AccountingColumns.ACCOUNT_ID + ") REFERENCES account (_id) ON DELETE CASCADE"
-            + ", CONSTRAINT fk_category_id FOREIGN KEY (" + AccountingColumns.CATEGORY_ID + ") REFERENCES category (_id) ON DELETE CASCADE"
-            + ", CONSTRAINT empty_type CHECK(accounting__type <> '') ON CONFLICT FAIL"
-            + ", CONSTRAINT empty_interval CHECK(accounting__interval <> '') ON CONFLICT FAIL"
-            + ", CONSTRAINT zero_value CHECK(accounting__value > 0) ON CONFLICT FAIL"
+    public static final String SQL_CREATE_TABLE_BOOKING_ENTRY = "CREATE TABLE IF NOT EXISTS "
+            + BookingEntryColumns.TABLE_NAME + " ( "
+            + BookingEntryColumns._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+            + BookingEntryColumns.ACCOUNT_ID + " INTEGER NOT NULL, "
+            + BookingEntryColumns.CATEGORY_ID + " INTEGER NOT NULL, "
+            + BookingEntryColumns.COMMENT + " TEXT, "
+            + BookingEntryColumns.INTERVAL + " TEXT NOT NULL, "
+            + BookingEntryColumns.DATE + " INTEGER NOT NULL, "
+            + BookingEntryColumns.DIRECTION + " TEXT NOT NULL, "
+            + BookingEntryColumns.AMOUNT + " INTEGER NOT NULL "
+            + ", CONSTRAINT fk_account_id FOREIGN KEY (" + BookingEntryColumns.ACCOUNT_ID + ") REFERENCES account (_id) ON DELETE CASCADE"
+            + ", CONSTRAINT fk_category_id FOREIGN KEY (" + BookingEntryColumns.CATEGORY_ID + ") REFERENCES category (_id) ON DELETE CASCADE"
+            + ", CONSTRAINT direction_empty CHECK(booking_entry__direction <> '') ON CONFLICT FAIL"
+            + ", CONSTRAINT interval_empty CHECK(booking_entry__interval <> '') ON CONFLICT FAIL"
+            + ", CONSTRAINT amount_positive CHECK(booking_entry__amount > 0) ON CONFLICT FAIL"
+            + ", CONSTRAINT date_positive CHECK(date > 0) ON CONFLICT FAIL"
             + " );";
 
-    public static final String SQL_CREATE_TABLE_ACCOUNTING_TEMPLATE = "CREATE TABLE IF NOT EXISTS "
-            + AccountingTemplateColumns.TABLE_NAME + " ( "
-            + AccountingTemplateColumns._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
-            + AccountingTemplateColumns.ACCOUNT_ID + " INTEGER NOT NULL, "
-            + AccountingTemplateColumns.CATEGORY_ID + " INTEGER NOT NULL, "
-            + AccountingTemplateColumns.COMMENT + " TEXT NOT NULL, "
-            + AccountingTemplateColumns.INTERVAL + " TEXT NOT NULL, "
-            + AccountingTemplateColumns.TYPE + " TEXT NOT NULL "
-            + ", CONSTRAINT fk_account_id FOREIGN KEY (" + AccountingTemplateColumns.ACCOUNT_ID + ") REFERENCES account (_id) ON DELETE CASCADE"
-            + ", CONSTRAINT fk_category_id FOREIGN KEY (" + AccountingTemplateColumns.CATEGORY_ID + ") REFERENCES category (_id) ON DELETE CASCADE"
-            + ", CONSTRAINT empty_type CHECK(accounting_template__type <> '') ON CONFLICT FAIL"
-            + ", CONSTRAINT empty_interval CHECK(accounting_template__interval <> '') ON CONFLICT FAIL"
+    public static final String SQL_CREATE_TABLE_BOOKING_INTERVAL = "CREATE TABLE IF NOT EXISTS "
+            + BookingIntervalColumns.TABLE_NAME + " ( "
+            + BookingIntervalColumns._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+            + BookingIntervalColumns.ACCOUNT_ID + " INTEGER NOT NULL, "
+            + BookingIntervalColumns.CATEGORY_ID + " INTEGER NOT NULL, "
+            + BookingIntervalColumns.COMMENT + " TEXT, "
+            + BookingIntervalColumns.INTERVAL + " TEXT NOT NULL, "
+            + BookingIntervalColumns.DATE_START + " INTEGER NOT NULL, "
+            + BookingIntervalColumns.DATE_END + " INTEGER NOT NULL, "
+            + BookingIntervalColumns.DATE_LAST + " INTEGER NOT NULL, "
+            + BookingIntervalColumns.DATE_UPDATED_UNTIL + " INTEGER NOT NULL, "
+            + BookingIntervalColumns.DIRECTION + " TEXT NOT NULL, "
+            + BookingIntervalColumns.AMOUNT + " INTEGER NOT NULL "
+            + ", CONSTRAINT fk_account_id FOREIGN KEY (" + BookingIntervalColumns.ACCOUNT_ID + ") REFERENCES account (_id) ON DELETE CASCADE"
+            + ", CONSTRAINT fk_category_id FOREIGN KEY (" + BookingIntervalColumns.CATEGORY_ID + ") REFERENCES category (_id) ON DELETE CASCADE"
+            + ", CONSTRAINT direction_empty CHECK(booking_interval__direction <> '') ON CONFLICT FAIL"
+            + ", CONSTRAINT interval_empty CHECK(booking_interval__interval <> '') ON CONFLICT FAIL"
+            + ", CONSTRAINT amount_zero CHECK(booking_interval__amount > 0) ON CONFLICT FAIL"
+            + ", CONSTRAINT date_start_zero CHECK(date_start > 0) ON CONFLICT FAIL"
+            + " );";
+
+    public static final String SQL_CREATE_TABLE_BOOKING_INTERVAL_CHANGE = "CREATE TABLE IF NOT EXISTS "
+            + BookingIntervalChangeColumns.TABLE_NAME + " ( "
+            + BookingIntervalChangeColumns._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+            + BookingIntervalChangeColumns.BOOKING_INTERVAL_ID + " INTEGER NOT NULL, "
+            + BookingIntervalChangeColumns.FOLLOW_UP + " INTEGER NOT NULL, "
+            + BookingIntervalChangeColumns.DATE + " INTEGER NOT NULL, "
+            + BookingIntervalChangeColumns.COMMENT + " TEXT, "
+            + BookingIntervalChangeColumns.AMOUNT + " INTEGER "
+            + ", CONSTRAINT fk_booking_interval_id FOREIGN KEY (" + BookingIntervalChangeColumns.BOOKING_INTERVAL_ID + ") REFERENCES booking_interval (_id) ON DELETE CASCADE"
+            + ", CONSTRAINT date_positive CHECK(date > 0) ON CONFLICT FAIL"
+            + " );";
+
+    public static final String SQL_CREATE_TABLE_BOOKING_INTERVAL_ENTRY = "CREATE TABLE IF NOT EXISTS "
+            + BookingIntervalEntryColumns.TABLE_NAME + " ( "
+            + BookingIntervalEntryColumns._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+            + BookingIntervalEntryColumns.BOOKING_INTERVAL_ID + " INTEGER NOT NULL, "
+            + BookingIntervalEntryColumns.BOOKING_ENTRY_ID + " INTEGER NOT NULL "
+            + ", CONSTRAINT fk_booking_interval_id FOREIGN KEY (" + BookingIntervalEntryColumns.BOOKING_INTERVAL_ID + ") REFERENCES booking_interval (_id) ON DELETE CASCADE"
+            + ", CONSTRAINT fk_booking_entry_id FOREIGN KEY (" + BookingIntervalEntryColumns.BOOKING_ENTRY_ID + ") REFERENCES booking_entry (_id) ON DELETE CASCADE"
+            + " );";
+
+    public static final String SQL_CREATE_TABLE_BOOKING_TEMPLATE = "CREATE TABLE IF NOT EXISTS "
+            + BookingTemplateColumns.TABLE_NAME + " ( "
+            + BookingTemplateColumns._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+            + BookingTemplateColumns.ACCOUNT_ID + " INTEGER NOT NULL, "
+            + BookingTemplateColumns.CATEGORY_ID + " INTEGER NOT NULL, "
+            + BookingTemplateColumns.COMMENT + " TEXT, "
+            + BookingTemplateColumns.INTERVAL + " TEXT NOT NULL, "
+            + BookingTemplateColumns.DIRECTION + " TEXT NOT NULL "
+            + ", CONSTRAINT fk_account_id FOREIGN KEY (" + BookingTemplateColumns.ACCOUNT_ID + ") REFERENCES account (_id) ON DELETE CASCADE"
+            + ", CONSTRAINT fk_category_id FOREIGN KEY (" + BookingTemplateColumns.CATEGORY_ID + ") REFERENCES category (_id) ON DELETE CASCADE"
+            + ", CONSTRAINT direction_empty CHECK(booking_template__direction <> '') ON CONFLICT FAIL"
+            + ", CONSTRAINT interval_empty CHECK(booking_template__interval <> '') ON CONFLICT FAIL"
+            + " );";
+
+    public static final String SQL_CREATE_TABLE_BOOKING_TEMPLATE_KEYWORD = "CREATE TABLE IF NOT EXISTS "
+            + BookingTemplateKeywordColumns.TABLE_NAME + " ( "
+            + BookingTemplateKeywordColumns._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+            + BookingTemplateKeywordColumns.TEXT + " TEXT NOT NULL, "
+            + BookingTemplateKeywordColumns.BOOKING_TEMPLATE_ID + " INTEGER NOT NULL "
+            + ", CONSTRAINT fk_booking_template_id FOREIGN KEY (" + BookingTemplateKeywordColumns.BOOKING_TEMPLATE_ID + ") REFERENCES booking_template (_id) ON DELETE CASCADE"
+            + ", CONSTRAINT text_empty CHECK(text <> '') ON CONFLICT FAIL"
+            + ", CONSTRAINT text_unique UNIQUE(text) ON CONFLICT FAIL"
             + " );";
 
     public static final String SQL_CREATE_TABLE_CATEGORY = "CREATE TABLE IF NOT EXISTS "
@@ -74,57 +128,15 @@ public class QuAccSQLiteOpenHelper extends SQLiteOpenHelper {
             + CategoryColumns.NAME + " TEXT NOT NULL, "
             + CategoryColumns.SECTION + " TEXT NOT NULL, "
             + CategoryColumns.INTERVAL + " TEXT NOT NULL, "
-            + CategoryColumns.TYPE + " TEXT NOT NULL, "
+            + CategoryColumns.DIRECTION + " TEXT NOT NULL, "
             + CategoryColumns.LEVEL + " INTEGER NOT NULL "
-            + " );";
-
-    public static final String SQL_CREATE_TABLE_INTERVAL = "CREATE TABLE IF NOT EXISTS "
-            + IntervalColumns.TABLE_NAME + " ( "
-            + IntervalColumns._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
-            + IntervalColumns.ACCOUNT_ID + " INTEGER NOT NULL, "
-            + IntervalColumns.CATEGORY_ID + " INTEGER NOT NULL, "
-            + IntervalColumns.COMMENT + " TEXT, "
-            + IntervalColumns.INTERVAL + " TEXT NOT NULL, "
-            + IntervalColumns.DATE_START + " INTEGER NOT NULL, "
-            + IntervalColumns.DATE_END + " INTEGER NOT NULL, "
-            + IntervalColumns.DATE_LAST + " INTEGER NOT NULL, "
-            + IntervalColumns.DATE_UPDATED_UNTIL + " INTEGER NOT NULL, "
-            + IntervalColumns.TYPE + " TEXT NOT NULL, "
-            + IntervalColumns.VALUE + " INTEGER NOT NULL "
-            + ", CONSTRAINT fk_account_id FOREIGN KEY (" + IntervalColumns.ACCOUNT_ID + ") REFERENCES account (_id) ON DELETE CASCADE"
-            + ", CONSTRAINT fk_category_id FOREIGN KEY (" + IntervalColumns.CATEGORY_ID + ") REFERENCES category (_id) ON DELETE CASCADE"
-            + ", CONSTRAINT empty_type CHECK(interval__type <> '') ON CONFLICT FAIL"
-            + ", CONSTRAINT empty_interval CHECK(interval__interval <> '') ON CONFLICT FAIL"
-            + ", CONSTRAINT zero_value CHECK(interval__value > 0) ON CONFLICT FAIL"
-            + " );";
-
-    public static final String SQL_CREATE_TABLE_INTERVAL_ACCOUNTING = "CREATE TABLE IF NOT EXISTS "
-            + IntervalAccountingColumns.TABLE_NAME + " ( "
-            + IntervalAccountingColumns._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
-            + IntervalAccountingColumns.INTERVAL_ID + " INTEGER NOT NULL, "
-            + IntervalAccountingColumns.ACCOUNTING_ID + " INTEGER NOT NULL "
-            + ", CONSTRAINT fk_interval_id FOREIGN KEY (" + IntervalAccountingColumns.INTERVAL_ID + ") REFERENCES interval (_id) ON DELETE CASCADE"
-            + ", CONSTRAINT fk_accounting_id FOREIGN KEY (" + IntervalAccountingColumns.ACCOUNTING_ID + ") REFERENCES accounting (_id) ON DELETE CASCADE"
-            + " );";
-
-    public static final String SQL_CREATE_TABLE_INTERVAL_CHANGE = "CREATE TABLE IF NOT EXISTS "
-            + IntervalChangeColumns.TABLE_NAME + " ( "
-            + IntervalChangeColumns._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
-            + IntervalChangeColumns.INTERVAL_ID + " INTEGER NOT NULL, "
-            + IntervalChangeColumns.CHANGE + " TEXT NOT NULL, "
-            + IntervalChangeColumns.DATE + " INTEGER NOT NULL, "
-            + IntervalChangeColumns.COMMENT + " TEXT, "
-            + IntervalChangeColumns.VALUE + " INTEGER "
-            + ", CONSTRAINT fk_interval_id FOREIGN KEY (" + IntervalChangeColumns.INTERVAL_ID + ") REFERENCES interval (_id) ON DELETE CASCADE"
-            + " );";
-
-    public static final String SQL_CREATE_TABLE_TEMPLATE_MATCHING = "CREATE TABLE IF NOT EXISTS "
-            + TemplateMatchingColumns.TABLE_NAME + " ( "
-            + TemplateMatchingColumns._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
-            + TemplateMatchingColumns.TEXT + " TEXT NOT NULL, "
-            + TemplateMatchingColumns.ACCOUNTING_TEMPLATE_ID + " INTEGER NOT NULL "
-            + ", CONSTRAINT fk_accounting_template_id FOREIGN KEY (" + TemplateMatchingColumns.ACCOUNTING_TEMPLATE_ID + ") REFERENCES accounting_template (_id) ON DELETE CASCADE"
-            + ", CONSTRAINT empty_text CHECK(text <> '') ON CONFLICT FAIL"
+            + ", CONSTRAINT name_empty CHECK(category__name <> '') ON CONFLICT FAIL"
+            + ", CONSTRAINT interval_empty CHECK(category__interval <> '') ON CONFLICT FAIL"
+            + ", CONSTRAINT section_empty CHECK(category__section <> '') ON CONFLICT FAIL"
+            + ", CONSTRAINT direction_empty CHECK(category__direction <> '') ON CONFLICT FAIL"
+            + ", CONSTRAINT section_and_name_unique UNIQUE (category__name, category__section) ON CONFLICT FAIL"
+            + ", CONSTRAINT level_min CHECK (category__level >= 0) ON CONFLICT FAIL"
+            + ", CONSTRAINT level_max CHECK (category__level <= 1) ON CONFLICT FAIL"
             + " );";
 
     // @formatter:on
@@ -182,13 +194,13 @@ public class QuAccSQLiteOpenHelper extends SQLiteOpenHelper {
         if (BuildConfig.DEBUG) Log.d(TAG, "onCreate");
         mOpenHelperCallbacks.onPreCreate(mContext, db);
         db.execSQL(SQL_CREATE_TABLE_ACCOUNT);
-        db.execSQL(SQL_CREATE_TABLE_ACCOUNTING);
-        db.execSQL(SQL_CREATE_TABLE_ACCOUNTING_TEMPLATE);
+        db.execSQL(SQL_CREATE_TABLE_BOOKING_ENTRY);
+        db.execSQL(SQL_CREATE_TABLE_BOOKING_INTERVAL);
+        db.execSQL(SQL_CREATE_TABLE_BOOKING_INTERVAL_CHANGE);
+        db.execSQL(SQL_CREATE_TABLE_BOOKING_INTERVAL_ENTRY);
+        db.execSQL(SQL_CREATE_TABLE_BOOKING_TEMPLATE);
+        db.execSQL(SQL_CREATE_TABLE_BOOKING_TEMPLATE_KEYWORD);
         db.execSQL(SQL_CREATE_TABLE_CATEGORY);
-        db.execSQL(SQL_CREATE_TABLE_INTERVAL);
-        db.execSQL(SQL_CREATE_TABLE_INTERVAL_ACCOUNTING);
-        db.execSQL(SQL_CREATE_TABLE_INTERVAL_CHANGE);
-        db.execSQL(SQL_CREATE_TABLE_TEMPLATE_MATCHING);
         mOpenHelperCallbacks.onPostCreate(mContext, db);
     }
 

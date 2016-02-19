@@ -1,0 +1,31 @@
+{
+  "documentation": "Assign key word for template",
+  "fields": [
+    {
+      "documentation": "Word or phrase to match template.",
+      "name": "text",
+      "type": "String",
+      "nullable": false
+    },
+    {
+      "documentation": "Referenced booking template.",
+      "name": "booking_template_id",
+      "type": "Long",
+      "nullable": false,
+      "foreignKey": {
+        "table": "booking_template",
+        "onDelete": "CASCADE"
+      }
+    }
+  ],
+  "constraints": [
+    {
+      "name": "text_empty",
+      "definition": "CHECK(text <> '') ON CONFLICT FAIL"
+    },
+    {
+      "name": "text_unique",
+      "definition": "UNIQUE(text) ON CONFLICT FAIL"
+    }
+  ]
+}

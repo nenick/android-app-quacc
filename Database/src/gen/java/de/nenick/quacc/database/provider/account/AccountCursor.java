@@ -27,7 +27,7 @@ public class AccountCursor extends AbstractCursor implements AccountModel {
     }
 
     /**
-     * The name of the account set by the user.
+     * The name of the account.
      * Cannot be {@code null}.
      */
     @NonNull
@@ -39,7 +39,7 @@ public class AccountCursor extends AbstractCursor implements AccountModel {
     }
 
     /**
-     * The base to calculate the current amount of money. Values are stored in 100 cent.
+     * The base to calculate the current amount of money. Values are stored in cents.
      */
     public int getInitialvalue() {
         Integer res = getIntegerOrNull(AccountColumns.INITIALVALUE);

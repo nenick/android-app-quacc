@@ -21,11 +21,11 @@ apply from: "../build.jacoco-already-instrumented-workaround.gradle"
 
 android {
     compileSdkVersion 21
-    buildToolsVersion "22.0.1"
+    buildToolsVersion "23.0.2"
     publishNonDefault true
 
     defaultConfig {
-        minSdkVersion 17
+        minSdkVersion 21
         targetSdkVersion 21
         versionCode 1
         versionName "1.0"
@@ -38,10 +38,9 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            buildConfigField "String", "MODULE_PATH", "\"$projectDir\"".replace('\\', '\\\\')
         }
         debug {
-            buildConfigField "String", "MODULE_PATH", "\"$projectDir\"".replace('\\', '\\\\')
+
         }
     }
 
@@ -69,7 +68,7 @@ afterEvaluate { project ->
 dependencies {
     compile 'com.android.support:support-annotations:21.0.3'
     compile 'com.google.guava:guava:18.0'
-    testCompile 'com.getbase.android.forger:forger:0.1'
+    testCompile 'org.javassist:javassist:3.20.0-GA'
 }
 
 task generateDatabaseFiles << {
@@ -79,7 +78,7 @@ task generateDatabaseFiles << {
             dest buildDir
         }
     }
-    //file("src/gen").deleteDir()
+    file("src/gen").deleteDir()
     exec {
         executable "java"
         args = ["-jar", "$buildDir/android_contentprovider_generator-1.9.2-bundle.jar", "-i", dbSchemaPath, "-o", dbClassesPath]

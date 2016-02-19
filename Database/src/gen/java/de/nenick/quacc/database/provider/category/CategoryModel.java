@@ -8,40 +8,40 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 /**
- * Data model for the {@code category} table.
+ * Group for booking entry with main and sub category
  */
 public interface CategoryModel extends BaseModel {
 
     /**
-     * Get the {@code name} value.
+     * Name of the category.
      * Cannot be {@code null}.
      */
     @NonNull
     String getName();
 
     /**
-     * Get the {@code section} value.
+     * Main group of the category.
      * Cannot be {@code null}.
      */
     @NonNull
     String getSection();
 
     /**
-     * Get the {@code interval} value.
+     * Possible booking interval for this category.
      * Cannot be {@code null}.
      */
     @NonNull
     String getInterval();
 
     /**
-     * Get the {@code type} value.
+     * Possible booking direction for this category.
      * Cannot be {@code null}.
      */
     @NonNull
-    String getType();
+    String getDirection();
 
     /**
-     * Get the {@code level} value.
+     * Support for sort/filter by main and sub categories. (0 = Main; 1 = Sub)
      */
     int getLevel();
 }

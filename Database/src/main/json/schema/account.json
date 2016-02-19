@@ -1,14 +1,14 @@
 {
-  "documentation": "Consolidate the accounting.",
+  "documentation": "An unit where user store money e.g. bank and wallet",
   "fields": [
     {
-      "documentation": "The name of the account set by the user.",
+      "documentation": "The name of the account.",
       "name": "name",
       "type": "String",
       "nullable": false
     },
     {
-      "documentation": "The base to calculate the current amount of money. Values are stored in 100 cent.",
+      "documentation": "The base to calculate the current amount of money. Values are stored in cents.",
       "name": "initialValue",
       "type": "Integer",
       "nullable": false
@@ -16,8 +16,12 @@
   ],
   "constraints": [
     {
-      "name": "unique_name",
+      "name": "name_unique",
       "definition": "UNIQUE (account__name) ON CONFLICT FAIL"
+    },
+    {
+      "name": "name_empty",
+      "definition": "CHECK(account__name <> '') ON CONFLICT FAIL"
     }
   ]
 }
