@@ -1,25 +1,30 @@
-buildscript {
-    repositories {
-        jcenter()
-    }
-    dependencies {
-        classpath "com.novoda:gradle-android-test-plugin:0.10.4"
-    }
-}
 
-apply plugin: 'java'
-apply plugin: 'android-test'
-apply from: '../build.robolectric.gradle'
+apply plugin: 'com.android.library'
+//apply from: '../build.robolectric.gradle'
 
 android {
-    projectUnderTest ':App'
-}
+    compileSdkVersion 21
+    buildToolsVersion "23.0.2"
 
-apply from: 'build.novoda-android-studio.gradle'
+    defaultConfig {
+        minSdkVersion 17
+        targetSdkVersion 21
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+}
 
 dependencies {
     testCompile project(':RobolectricPages')
     testCompile project(path: ':Database', configuration: 'testArtifacts')
+
+    def androidModule = project(':App')
+    testCompile project(':App').android.applicationVariants.toList().first().javaCompile.classpath
+    //androidTestCompile project(':App').android.applicationVariants.toList().first().javaCompile.outputs.files
+    testCompile files(androidModule.android.getBootClasspath())
+
+    //compile androidModule
 }
 
 afterEvaluate {

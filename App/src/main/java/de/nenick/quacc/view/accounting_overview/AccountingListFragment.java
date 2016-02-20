@@ -22,9 +22,10 @@ import org.joda.time.DateTime;
 import de.nenick.quacc.R;
 import de.nenick.quacc.core.common.util.QuAccDateUtil;
 import de.nenick.quacc.core.i18n.MonthTranslator;
-import de.nenick.quacc.database.account.AccountDb;
+import de.nenick.quacc.database.account.AccountRepository;
+import de.nenick.quacc.database.account.AccountSpecByName;
 import de.nenick.quacc.database.provider.account.AccountCursor;
-import de.nenick.quacc.database.provider.accounting.AccountingCursor;
+import de.nenick.quacc.database.provider.bookingentry.BookingEntryCursor;
 import de.nenick.quacc.speechrecognition.hotword.HotwordListener;
 import de.nenick.quacc.speechrecognition.hotword.QuAccHotwordRecognizer;
 import de.nenick.quacc.valueparser.ParseValueFromIntegerFunction;
@@ -61,7 +62,7 @@ public class AccountingListFragment extends BasePresenterFragment {
     ParseValueFromIntegerFunction parseValueFromIntegerFunction;
 
     @Bean
-    AccountDb accountDb;
+    AccountRepository accountRepository;
 
     @Bean
     FilterRangeAdapter filterRangeAdapter;
@@ -123,14 +124,14 @@ public class AccountingListFragment extends BasePresenterFragment {
 
         resetFilter();
 
-        AccountCursor accountCursor = accountDb.getAccountByName(account);
+        AccountCursor accountCursor = accountRepository.query(new AccountSpecByName(account));
         accountCursor.moveToFirst();
         view.setAccountValue(parseValueFromIntegerFunction.apply(accountCursor.getInitialvalue()));
 
         view.accountingListExpandable.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
             @Override
             public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
-                onItemClick((AccountingCursor) accountingTreeAdapter.getChild(groupPosition, childPosition));
+                onItemClick((BookingEntryCursor) accountingTreeAdapter.getChild(groupPosition, childPosition));
                 return true;
             }
         });
@@ -270,8 +271,8 @@ public class AccountingListFragment extends BasePresenterFragment {
     }
 
     @ItemClick(R.id.listView)
-    protected void onItemClick(AccountingCursor accountingCursor) {
-        EditAccountingActivity_.intent(this).accountingId(accountingCursor.getId()).start();
+    protected void onItemClick(BookingEntryCursor bookingEntryCursor) {
+        EditAccountingActivity_.intent(this).bookingEntryId(bookingEntryCursor.getId()).start();
     }
 
     private void resetFilter() {

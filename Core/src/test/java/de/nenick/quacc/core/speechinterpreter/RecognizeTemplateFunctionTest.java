@@ -9,10 +9,6 @@ import org.mockito.MockitoAnnotations;
 
 import de.nenick.quacc.database.provider.accountingtemplate.AccountingTemplateCursor;
 import de.nenick.quacc.database.provider.templatematching.TemplateMatchingCursor;
-import de.nenick.quacc.database.template.AccountingTemplateDb;
-import de.nenick.quacc.database.template.TemplateMatchingDb;
-import de.nenick.quacc.core.speechinterpreter.RecognizeTemplateFunction;
-import de.nenick.quacc.core.speechinterpreter.RecognizeValueFunction;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.BDDMockito.given;
@@ -74,7 +70,7 @@ public class RecognizeTemplateFunctionTest {
         given(recognizeValueFunction.apply(recognizedText)).willReturn(new RecognizeValueFunction.SpeechValueResult(500, templateTextWithComment.length(), priceText.length()));
         whenApplyWith(recognizedText);
         assertThat(result).isNotNull();
-        assertThat(result.accountingTemplateCursor).isEqualTo(accountingTemplateCursor);
+        assertThat(result.bookingTemplateCursor).isEqualTo(accountingTemplateCursor);
         assertThat(result.value).isEqualTo(500);
         assertThat(result.comment).isEqualTo("Pizza");
     }

@@ -10,7 +10,7 @@ import org.androidannotations.annotations.AfterInject;
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EBean;
 
-import de.nenick.quacc.core.accounting.interval.GetAccountingIntervalsFunction;
+import de.nenick.quacc.core.bookinginterval.GetAccountingIntervalsFunction;
 import de.nenick.quacc.core.i18n.AccountingIntervalTranslator;
 
 @EBean

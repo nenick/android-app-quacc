@@ -4,7 +4,6 @@ import org.mockito.BDDMockito;
 
 import java.util.Date;
 
-import de.nenick.quacc.core.accounting.change.IntervalChange;
 import de.nenick.quacc.database.provider.interval.IntervalCursor;
 import de.nenick.quacc.database.provider.intervalchange.IntervalChangeCursor;
 

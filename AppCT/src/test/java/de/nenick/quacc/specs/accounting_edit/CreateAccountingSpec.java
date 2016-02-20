@@ -10,7 +10,6 @@ import de.nenick.quacc.R;
 import de.nenick.quacc.core.accounting.interval.AccountingInterval;
 import de.nenick.quacc.core.accounting.type.AccountingType;
 import de.nenick.quacc.core.common.util.QuAccDateUtil;
-import de.nenick.quacc.database.accounting.AccountingDb;
 import de.nenick.quacc.database.accounting.AccountingDb_;
 import de.nenick.quacc.database.provider.accounting.AccountingCursor;
 import de.nenick.quacc.view.accounting_edit.RoboEditAccountingPage;

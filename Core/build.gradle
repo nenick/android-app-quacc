@@ -13,11 +13,11 @@ apply from: "../build.jacoco-already-instrumented-workaround.gradle"
 
 android {
     compileSdkVersion 21
-    buildToolsVersion "22.0.1"
+    buildToolsVersion "23.0.2"
     publishNonDefault true
 
     defaultConfig {
-        minSdkVersion 17
+        minSdkVersion 21
         targetSdkVersion 21
         versionCode 1
         versionName "1.0"
@@ -46,13 +46,13 @@ apply from: "../build.androidannotations.gradle"
 apply from: "../build.robolectric.gradle"
 
 // add compile main sources for test runs https://github.com/nenick/AndroidStudioAndRobolectric/issues/7
-afterEvaluate { project ->
+/*afterEvaluate { project ->
     android.libraryVariants.each { variant ->
         tasks.getByName("test${variant.name.capitalize()}") {
             dependsOn "assemble${variant.name.capitalize()}"
         }
     }
-}
+}*/
 
 dependencies {
     // project dependencies
@@ -67,11 +67,11 @@ dependencies {
     compile 'net.danlew:android.joda:2.7.2'
 }
 
-afterEvaluate {
+/*afterEvaluate {
     tasks.testDebug {
         testLogging {
             events "passed", "skipped", "failed", "standardOut", "standardError"
         }
         jvmArgs "-XX:MaxPermSize=512m"
     }
-}
+}*/

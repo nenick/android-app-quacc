@@ -7,13 +7,13 @@ public class TemplateMatchingJson {
     @JsonProperty("text")
     public String text;
 
-    @JsonProperty("templateId")
-    public long templateId;
+    @JsonProperty("bookingTemplateId")
+    public long bookingTemplateId;
 
     public TemplateMatchingJson() {}
 
-    public TemplateMatchingJson(String text, long templateId) {
+    public TemplateMatchingJson(String text, long bookingTemplateId) {
         this.text = text;
-        this.templateId = templateId;
+        this.bookingTemplateId = bookingTemplateId;
     }
 }

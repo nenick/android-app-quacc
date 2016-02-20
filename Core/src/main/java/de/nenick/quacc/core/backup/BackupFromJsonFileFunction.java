@@ -2,7 +2,6 @@ package de.nenick.quacc.core.backup;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
-import android.net.Uri;
 
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EBean;
@@ -14,20 +13,31 @@ import java.io.InputStream;
 import java.util.HashMap;
 
 import de.nenick.quacc.core.backup.model.AccountJson;
-import de.nenick.quacc.core.backup.model.AccountingJson;
+import de.nenick.quacc.core.backup.model.BookingEntryJson;
 import de.nenick.quacc.core.backup.model.BackupJson;
 import de.nenick.quacc.core.backup.model.CategoryJson;
-import de.nenick.quacc.core.backup.model.IntervalJson;
-import de.nenick.quacc.core.backup.model.TemplateJson;
+import de.nenick.quacc.core.backup.model.BookingIntervalJson;
+import de.nenick.quacc.core.backup.model.BookingTemplateJson;
 import de.nenick.quacc.core.backup.model.TemplateMatchingJson;
-import de.nenick.quacc.database.account.AccountDb;
-import de.nenick.quacc.database.accounting.AccountingDb;
-import de.nenick.quacc.database.category.CategoryDb;
-import de.nenick.quacc.database.interval.IntervalDb;
+import de.nenick.quacc.database.account.AccountRepository;
+import de.nenick.quacc.database.account.AccountSpecAll;
+import de.nenick.quacc.database.bookingentry.BookingEntryRepository;
+import de.nenick.quacc.database.bookingentry.BookingEntrySpecAll;
+import de.nenick.quacc.database.bookinginterval.BookingIntervalRepository;
+import de.nenick.quacc.database.bookinginterval.BookingIntervalSpecAll;
+import de.nenick.quacc.database.bookingtemplate.BookingTemplateRepository;
+import de.nenick.quacc.database.bookingtemplate.BookingTemplateSpecAll;
+import de.nenick.quacc.database.bookingtemplatekeyword.BookingTemplateKeywordRepository;
+import de.nenick.quacc.database.bookingtemplatekeyword.BookingTemplateKeywordSpecAll;
+import de.nenick.quacc.database.category.CategoryRepository;
+import de.nenick.quacc.database.category.CategorySpecAll;
 import de.nenick.quacc.database.provider.QuAccSQLiteOpenHelper;
-import de.nenick.quacc.database.provider.accounting.AccountingColumns;
-import de.nenick.quacc.database.template.AccountingTemplateDb;
-import de.nenick.quacc.database.template.TemplateMatchingDb;
+import de.nenick.quacc.database.provider.account.AccountContentValues;
+import de.nenick.quacc.database.provider.bookingentry.BookingEntryContentValues;
+import de.nenick.quacc.database.provider.bookinginterval.BookingIntervalContentValues;
+import de.nenick.quacc.database.provider.bookingtemplate.BookingTemplateContentValues;
+import de.nenick.quacc.database.provider.bookingtemplatekeyword.BookingTemplateKeywordContentValues;
+import de.nenick.quacc.database.provider.category.CategoryContentValues;
 
 @EBean
 public class BackupFromJsonFileFunction {
@@ -39,22 +49,22 @@ public class BackupFromJsonFileFunction {
     GetInputStreamForFileFunction getInputStreamForFileFunction;
 
     @Bean
-    AccountDb accountDb;
+    AccountRepository accountRepository;
 
     @Bean
-    CategoryDb categoryDb;
+    CategoryRepository categoryRepository;
 
     @Bean
-    AccountingDb accountingDb;
+    BookingEntryRepository bookingEntryRepository;
 
     @Bean
-    IntervalDb intervalDb;
+    BookingIntervalRepository bookingIntervalRepository;
 
     @Bean
-    AccountingTemplateDb accountingTemplateDb;
+    BookingTemplateRepository bookingTemplateRepository;
 
     @Bean
-    TemplateMatchingDb templateMatchingDb;
+    BookingTemplateKeywordRepository bookingTemplateKeywordRepository;
 
     public void apply(String sourceLocation) {
         BackupJson backupJson = readBackupFile(sourceLocation);
@@ -63,18 +73,12 @@ public class BackupFromJsonFileFunction {
         writableDatabase.beginTransaction();
         HashMap<Long, Long> accountsIdOriginalToCurrent = backupAccounts(backupJson);
         HashMap<Long, Long> categoriesIdOriginalToCurrent = backupCategories(backupJson);
-        HashMap<Long, Long> accountingIdOriginalToCurrent = backupAccounting(backupJson, accountsIdOriginalToCurrent, categoriesIdOriginalToCurrent);
-        HashMap<Long, Long> intervalsIdOriginalToCurrent = backupInterval(backupJson, accountsIdOriginalToCurrent, categoriesIdOriginalToCurrent);
-        HashMap<Long, Long> templatesIdOriginalToCurrent = backupTemplates(backupJson, accountsIdOriginalToCurrent, categoriesIdOriginalToCurrent);
-        backupTemplateMatches(backupJson, templatesIdOriginalToCurrent);
+        HashMap<Long, Long> accountingIdOriginalToCurrent = backupBookingEntries(backupJson, accountsIdOriginalToCurrent, categoriesIdOriginalToCurrent);
+        HashMap<Long, Long> intervalsIdOriginalToCurrent = backupBookingIntervals(backupJson, accountsIdOriginalToCurrent, categoriesIdOriginalToCurrent);
+        HashMap<Long, Long> templatesIdOriginalToCurrent = backupBookingTemplates(backupJson, accountsIdOriginalToCurrent, categoriesIdOriginalToCurrent);
+        backupBookingTemplateKeywords(backupJson, templatesIdOriginalToCurrent);
         writableDatabase.setTransactionSuccessful();
         writableDatabase.endTransaction();
-
-        context.getContentResolver().notifyChange(getContentUri(), null);
-    }
-
-    protected Uri getContentUri() {
-        return AccountingColumns.CONTENT_URI;
     }
 
     protected SQLiteDatabase getDatabase() {
@@ -82,66 +86,103 @@ public class BackupFromJsonFileFunction {
     }
 
     private HashMap<Long, Long> backupAccounts(BackupJson backupJson) {
-        accountDb.deleteAll();
+        accountRepository.delete(new AccountSpecAll());
         HashMap<Long, Long> idOriginalToCurrent = new HashMap<>();
         for (AccountJson entry : backupJson.accounts) {
-            long id = accountDb.insert(entry.name, entry.initialValue);
+            AccountContentValues account = new AccountContentValues()
+                    .putName(entry.name)
+                    .putInitialvalue(entry.initialValue);
+            long id = accountRepository.insert(account);
             idOriginalToCurrent.put(entry.id, id);
         }
         return idOriginalToCurrent;
     }
 
     private HashMap<Long, Long> backupCategories(BackupJson backupJson) {
-        categoryDb.deleteAll();
+        categoryRepository.delete(new CategorySpecAll());
         HashMap<Long, Long> idOriginalToCurrent = new HashMap<>();
         for (CategoryJson entry : backupJson.categories) {
-            long id = categoryDb.insert(entry.section, entry.name, entry.interval, entry.type, entry.level);
+
+            CategoryContentValues values = new CategoryContentValues()
+                    .putSection(entry.section)
+                    .putName(entry.name)
+                    .putInterval(entry.interval)
+                    .putDirection(entry.direction)
+                    .putLevel(entry.level);
+
+            long id = categoryRepository.insert(values);
             idOriginalToCurrent.put(entry.id, id);
         }
         return idOriginalToCurrent;
     }
 
-    private HashMap<Long, Long> backupAccounting(BackupJson backupJson, HashMap<Long, Long> accountsIdOriginalToCurrent, HashMap<Long, Long> categoriesIdOriginalToCurrent) {
-        accountingDb.deleteAll();
+    private HashMap<Long, Long> backupBookingEntries(BackupJson backupJson, HashMap<Long, Long> accountsIdOriginalToCurrent, HashMap<Long, Long> categoriesIdOriginalToCurrent) {
+        bookingEntryRepository.delete(new BookingEntrySpecAll());
         HashMap<Long, Long> idOriginalToCurrent = new HashMap<>();
-        for (AccountingJson entry : backupJson.accounting) {
+        for (BookingEntryJson entry : backupJson.bookingEntries) {
             long accountId = accountsIdOriginalToCurrent.get(entry.accountId);
             long categoryId = categoriesIdOriginalToCurrent.get(entry.categoryId);
-            long id = accountingDb.insert(accountId, entry.type, entry.interval, categoryId, entry.date, entry.comment, entry.value);
+            BookingEntryContentValues values = new BookingEntryContentValues()
+                    .putAccountId(accountId)
+                    .putCategoryId(categoryId)
+                    .putDirection(entry.direction)
+                    .putInterval(entry.interval)
+                    .putDate(entry.date)
+                    .putComment(entry.comment)
+                    .putAmount(entry.amount);
+            long id = bookingEntryRepository.insert(values);
             idOriginalToCurrent.put(entry.id, id);
         }
         return idOriginalToCurrent;
     }
 
-    private HashMap<Long, Long> backupInterval(BackupJson backupJson, HashMap<Long, Long> accountsIdOriginalToCurrent, HashMap<Long, Long> categoriesIdOriginalToCurrent) {
-        intervalDb.deleteAll();
+    private HashMap<Long, Long> backupBookingIntervals(BackupJson backupJson, HashMap<Long, Long> accountsIdOriginalToCurrent, HashMap<Long, Long> categoriesIdOriginalToCurrent) {
+        bookingIntervalRepository.delete(new BookingIntervalSpecAll());
         HashMap<Long, Long> idOriginalToCurrent = new HashMap<>();
-        for (IntervalJson entry : backupJson.intervals) {
+        for (BookingIntervalJson entry : backupJson.bookingIntervals) {
             long accountId = accountsIdOriginalToCurrent.get(entry.accountId);
             long categoryId = categoriesIdOriginalToCurrent.get(entry.categoryId);
-            long id = intervalDb.insert(accountId, entry.type, entry.interval, categoryId, entry.dateStart, entry.dateEnd, entry.comment, entry.value);
+            BookingIntervalContentValues values = new BookingIntervalContentValues()
+                    .putAccountId(accountId)
+                    .putCategoryId(categoryId)
+                    .putDirection(entry.direction)
+                    .putInterval(entry.interval)
+                    .putDateStart(entry.dateStart)
+                    .putDateEnd(entry.dateEnd)
+                    .putComment(entry.comment)
+                    .putAmount(entry.amount);
+            long id = bookingIntervalRepository.insert(values);
             idOriginalToCurrent.put(entry.id, id);
         }
         return idOriginalToCurrent;
     }
 
-    private HashMap<Long, Long> backupTemplates(BackupJson backupJson, HashMap<Long, Long> accountsIdOriginalToCurrent, HashMap<Long, Long> categoriesIdOriginalToCurrent) {
-        accountingTemplateDb.deleteAll();
+    private HashMap<Long, Long> backupBookingTemplates(BackupJson backupJson, HashMap<Long, Long> accountsIdOriginalToCurrent, HashMap<Long, Long> categoriesIdOriginalToCurrent) {
+        bookingTemplateRepository.delete(new BookingTemplateSpecAll());
         HashMap<Long, Long> idOriginalToCurrent = new HashMap<>();
-        for (TemplateJson entry : backupJson.templates) {
+        for (BookingTemplateJson entry : backupJson.bookingTemplates) {
             long accountId = accountsIdOriginalToCurrent.get(entry.accountId);
             long categoryId = categoriesIdOriginalToCurrent.get(entry.categoryId);
-            long id = accountingTemplateDb.insert(accountId, entry.type, entry.interval, categoryId, entry.comment);
+            BookingTemplateContentValues values = new BookingTemplateContentValues()
+                    .putAccountId(accountId)
+                    .putCategoryId(categoryId)
+                    .putDirection(entry.direction)
+                    .putInterval(entry.interval)
+                    .putComment(entry.comment);
+            long id = bookingTemplateRepository.insert(values);
             idOriginalToCurrent.put(entry.id, id);
         }
         return idOriginalToCurrent;
     }
 
-    private void backupTemplateMatches(BackupJson backupJson, HashMap<Long, Long> templatesIdOriginalToCurrent) {
-        templateMatchingDb.deleteAll();
-        for (TemplateMatchingJson entry : backupJson.templateMatches) {
-            long templateId = templatesIdOriginalToCurrent.get(entry.templateId);
-            templateMatchingDb.insert(entry.text, templateId);
+    private void backupBookingTemplateKeywords(BackupJson backupJson, HashMap<Long, Long> templatesIdOriginalToCurrent) {
+        bookingTemplateKeywordRepository.delete(new BookingTemplateKeywordSpecAll());
+        for (TemplateMatchingJson entry : backupJson.bookingTemplateKeywords) {
+            long templateId = templatesIdOriginalToCurrent.get(entry.bookingTemplateId);
+            BookingTemplateKeywordContentValues values = new BookingTemplateKeywordContentValues()
+                    .putBookingTemplateId(templateId)
+                    .putText(entry.text);
+            bookingTemplateKeywordRepository.insert(values);
         }
     }
 

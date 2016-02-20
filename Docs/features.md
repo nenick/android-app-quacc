@@ -34,9 +34,9 @@
     * (done) Create
 * Speech Recognition
     * (done) match accounting template
-    * (done) match value in euro and cent
+    * (done) match amount in euro and cent
     * (done) match category
-    * (done) match accounting type
+    * (done) match accounting direction
     * (done) match accounting interval
     * (done) add rest as comment
     * (open) match account
@@ -77,7 +77,7 @@
     * (open) Create
     * (open) update
     * (open) delete
-    * (done) set initial value
+    * (done) set initial amount
 
 ## Import/Export
 

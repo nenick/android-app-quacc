@@ -24,7 +24,7 @@ public class AccountingPlainItemView extends RelativeLayout {
     @ViewById(R.id.comment)
     TextView comment;
 
-    @ViewById(R.id.value)
+    @ViewById(R.id.amount)
     TextView value;
 
     public AccountingPlainItemView(Context context) {

@@ -8,8 +8,8 @@ import org.androidannotations.annotations.EBean;
 import java.util.ArrayList;
 import java.util.List;
 
-import de.nenick.quacc.core.accounting.interval.AccountingInterval;
-import de.nenick.quacc.core.accounting.type.AccountingType;
+import de.nenick.quacc.core.bookingentry.direction.BookingDirectionOption;
+import de.nenick.quacc.core.bookinginterval.BookingIntervalOption;
 import de.nenick.quacc.core.category.CreateCategoryFunction;
 import de.nenick.quacc.database.provider.account.AccountColumns;
 import de.nenick.quacc.database.provider.account.AccountContentValues;
@@ -31,125 +31,125 @@ public class DatabaseInitialData {
 
     private void addCategoryData(SQLiteDatabase database) {
 
-        addCategory(AccountingType.transfer, AccountingInterval.all, "Allgemein", "Kontoausgleich");
-        addCategory(AccountingType.outgoing, AccountingInterval.all, "Allgemein", "Barauszahlung");
-        addCategory(AccountingType.all, AccountingInterval.all, "Allgemein", "Sonstiges");
-        addCategory(AccountingType.incoming, AccountingInterval.all, "Allgemein", "Bareinzahlung");
+        addCategory(BookingDirectionOption.transfer, BookingIntervalOption.all, "Allgemein", "Kontoausgleich");
+        addCategory(BookingDirectionOption.outgoing, BookingIntervalOption.all, "Allgemein", "Barauszahlung");
+        addCategory(BookingDirectionOption.all, BookingIntervalOption.all, "Allgemein", "Sonstiges");
+        addCategory(BookingDirectionOption.incoming, BookingIntervalOption.all, "Allgemein", "Bareinzahlung");
 
-        addCategory(AccountingType.outgoing, AccountingInterval.once, "Alltag", "Accessoirs");
-        addCategory(AccountingType.outgoing, AccountingInterval.once, "Alltag", "Kleidung");
-        addCategory(AccountingType.outgoing, AccountingInterval.all, "Alltag", "Schuhe");
+        addCategory(BookingDirectionOption.outgoing, BookingIntervalOption.once, "Alltag", "Accessoirs");
+        addCategory(BookingDirectionOption.outgoing, BookingIntervalOption.once, "Alltag", "Kleidung");
+        addCategory(BookingDirectionOption.outgoing, BookingIntervalOption.all, "Alltag", "Schuhe");
 
-        addCategory(AccountingType.incoming, AccountingInterval.all, "Auktionen", "eBay");
+        addCategory(BookingDirectionOption.incoming, BookingIntervalOption.all, "Auktionen", "eBay");
 
-        addCategory(AccountingType.outgoing, AccountingInterval.all, "Auto", "Benzin");
-        addCategory(AccountingType.outgoing, AccountingInterval.once, "Auto", "Werkstatt");
-        addCategory(AccountingType.outgoing, AccountingInterval.once, "Auto", "Zubehörteile");
-        addCategory(AccountingType.outgoing, AccountingInterval.all, "Auto", "Kfz-Versicherung");
-        addCategory(AccountingType.outgoing, AccountingInterval.all, "Auto", "Kredit");
-        addCategory(AccountingType.outgoing, AccountingInterval.all, "Auto", "Kfz-Steuer");
-        addCategory(AccountingType.outgoing, AccountingInterval.once, "Auto", "Bußgeld");
-        addCategory(AccountingType.outgoing, AccountingInterval.all, "Auto", "Automobilclub");
+        addCategory(BookingDirectionOption.outgoing, BookingIntervalOption.all, "Auto", "Benzin");
+        addCategory(BookingDirectionOption.outgoing, BookingIntervalOption.once, "Auto", "Werkstatt");
+        addCategory(BookingDirectionOption.outgoing, BookingIntervalOption.once, "Auto", "Zubehörteile");
+        addCategory(BookingDirectionOption.outgoing, BookingIntervalOption.all, "Auto", "Kfz-Versicherung");
+        addCategory(BookingDirectionOption.outgoing, BookingIntervalOption.all, "Auto", "Kredit");
+        addCategory(BookingDirectionOption.outgoing, BookingIntervalOption.all, "Auto", "Kfz-Steuer");
+        addCategory(BookingDirectionOption.outgoing, BookingIntervalOption.once, "Auto", "Bußgeld");
+        addCategory(BookingDirectionOption.outgoing, BookingIntervalOption.all, "Auto", "Automobilclub");
 
-        addCategory(AccountingType.outgoing, AccountingInterval.all, "Bank", "Kontoführungsgebühren");
-        addCategory(AccountingType.outgoing, AccountingInterval.all, "Bank", "Zinsen");
+        addCategory(BookingDirectionOption.outgoing, BookingIntervalOption.all, "Bank", "Kontoführungsgebühren");
+        addCategory(BookingDirectionOption.outgoing, BookingIntervalOption.all, "Bank", "Zinsen");
 
-        addCategory(AccountingType.outgoing, AccountingInterval.all, "Beruf", "Fahrkosten");
-        addCategory(AccountingType.outgoing, AccountingInterval.all, "Beruf", "Werbungskosten");
-        addCategory(AccountingType.outgoing, AccountingInterval.all, "Beruf", "Serverkosten");
-        addCategory(AccountingType.outgoing, AccountingInterval.all, "Beruf", "Fachbücher");
-        addCategory(AccountingType.outgoing, AccountingInterval.all, "Beruf", "Sonstiges");
+        addCategory(BookingDirectionOption.outgoing, BookingIntervalOption.all, "Beruf", "Fahrkosten");
+        addCategory(BookingDirectionOption.outgoing, BookingIntervalOption.all, "Beruf", "Werbungskosten");
+        addCategory(BookingDirectionOption.outgoing, BookingIntervalOption.all, "Beruf", "Serverkosten");
+        addCategory(BookingDirectionOption.outgoing, BookingIntervalOption.all, "Beruf", "Fachbücher");
+        addCategory(BookingDirectionOption.outgoing, BookingIntervalOption.all, "Beruf", "Sonstiges");
 
-        addCategory(AccountingType.incoming, AccountingInterval.all, "Einkommen", "Lohn / Gehalt");
-        addCategory(AccountingType.incoming, AccountingInterval.all, "Einkommen", "Mieteinnahmen");
-        addCategory(AccountingType.incoming, AccountingInterval.monthly, "Einkommen", "Unterhalt");
-        addCategory(AccountingType.incoming, AccountingInterval.monthly, "Einkommen", "Kindergeld");
-        addCategory(AccountingType.incoming, AccountingInterval.once, "Einkommen", "Schenkung");
-        addCategory(AccountingType.incoming, AccountingInterval.all, "Einkommen", "Taschengeld");
-        addCategory(AccountingType.incoming, AccountingInterval.all, "Einkommen", "Freiberuflich");
+        addCategory(BookingDirectionOption.incoming, BookingIntervalOption.all, "Einkommen", "Lohn / Gehalt");
+        addCategory(BookingDirectionOption.incoming, BookingIntervalOption.all, "Einkommen", "Mieteinnahmen");
+        addCategory(BookingDirectionOption.incoming, BookingIntervalOption.monthly, "Einkommen", "Unterhalt");
+        addCategory(BookingDirectionOption.incoming, BookingIntervalOption.monthly, "Einkommen", "Kindergeld");
+        addCategory(BookingDirectionOption.incoming, BookingIntervalOption.once, "Einkommen", "Schenkung");
+        addCategory(BookingDirectionOption.incoming, BookingIntervalOption.all, "Einkommen", "Taschengeld");
+        addCategory(BookingDirectionOption.incoming, BookingIntervalOption.all, "Einkommen", "Freiberuflich");
 
-        addCategory(AccountingType.outgoing, AccountingInterval.once, "Fortbildung", "Literatur");
-        addCategory(AccountingType.outgoing, AccountingInterval.all, "Fortbildung", "Studiengebühren");
-        addCategory(AccountingType.outgoing, AccountingInterval.once, "Fortbildung", "Fahrtkosten");
-        addCategory(AccountingType.outgoing, AccountingInterval.once, "Fortbildung", "Anschaffungen");
-        addCategory(AccountingType.outgoing, AccountingInterval.once, "Fortbildung", "Bücher und Schreibmaterial");
+        addCategory(BookingDirectionOption.outgoing, BookingIntervalOption.once, "Fortbildung", "Literatur");
+        addCategory(BookingDirectionOption.outgoing, BookingIntervalOption.all, "Fortbildung", "Studiengebühren");
+        addCategory(BookingDirectionOption.outgoing, BookingIntervalOption.once, "Fortbildung", "Fahrtkosten");
+        addCategory(BookingDirectionOption.outgoing, BookingIntervalOption.once, "Fortbildung", "Anschaffungen");
+        addCategory(BookingDirectionOption.outgoing, BookingIntervalOption.once, "Fortbildung", "Bücher und Schreibmaterial");
 
-        addCategory(AccountingType.outgoing, AccountingInterval.once, "Freizeit", "Urlaub");
-        addCategory(AccountingType.outgoing, AccountingInterval.once, "Freizeit", "Bücher");
-        addCategory(AccountingType.outgoing, AccountingInterval.once, "Freizeit", "Kino / Theater");
-        addCategory(AccountingType.outgoing, AccountingInterval.all, "Freizeit", "Zeitschriften");
-        addCategory(AccountingType.outgoing, AccountingInterval.all, "Freizeit", "Fitnessstudio");
-        addCategory(AccountingType.outgoing, AccountingInterval.all, "Freizeit", "Sport");
-        addCategory(AccountingType.outgoing, AccountingInterval.once, "Freizeit", "Geschenke");
-        addCategory(AccountingType.outgoing, AccountingInterval.once, "Freizeit", "Musik / Video");
-        addCategory(AccountingType.outgoing, AccountingInterval.once, "Freizeit", "Software / Spiele");
-        addCategory(AccountingType.outgoing, AccountingInterval.once, "Freizeit", "Computer");
-        addCategory(AccountingType.outgoing, AccountingInterval.all, "Freizeit", "Vereinsbeträge");
-        addCategory(AccountingType.outgoing, AccountingInterval.once, "Freizeit", "Frisör");
-        addCategory(AccountingType.outgoing, AccountingInterval.all, "Freizeit", "Zigaretten");
-        addCategory(AccountingType.outgoing, AccountingInterval.once, "Freizeit", "Glücksspiel");
-        addCategory(AccountingType.outgoing, AccountingInterval.once, "Freizeit", "Anschaffungen");
-        addCategory(AccountingType.outgoing, AccountingInterval.once, "Freizeit", "Sportgeräte / Sportbekleidung");
-        addCategory(AccountingType.outgoing, AccountingInterval.once, "Freizeit", "Restaurant / Café");
+        addCategory(BookingDirectionOption.outgoing, BookingIntervalOption.once, "Freizeit", "Urlaub");
+        addCategory(BookingDirectionOption.outgoing, BookingIntervalOption.once, "Freizeit", "Bücher");
+        addCategory(BookingDirectionOption.outgoing, BookingIntervalOption.once, "Freizeit", "Kino / Theater");
+        addCategory(BookingDirectionOption.outgoing, BookingIntervalOption.all, "Freizeit", "Zeitschriften");
+        addCategory(BookingDirectionOption.outgoing, BookingIntervalOption.all, "Freizeit", "Fitnessstudio");
+        addCategory(BookingDirectionOption.outgoing, BookingIntervalOption.all, "Freizeit", "Sport");
+        addCategory(BookingDirectionOption.outgoing, BookingIntervalOption.once, "Freizeit", "Geschenke");
+        addCategory(BookingDirectionOption.outgoing, BookingIntervalOption.once, "Freizeit", "Musik / Video");
+        addCategory(BookingDirectionOption.outgoing, BookingIntervalOption.once, "Freizeit", "Software / Spiele");
+        addCategory(BookingDirectionOption.outgoing, BookingIntervalOption.once, "Freizeit", "Computer");
+        addCategory(BookingDirectionOption.outgoing, BookingIntervalOption.all, "Freizeit", "Vereinsbeträge");
+        addCategory(BookingDirectionOption.outgoing, BookingIntervalOption.once, "Freizeit", "Frisör");
+        addCategory(BookingDirectionOption.outgoing, BookingIntervalOption.all, "Freizeit", "Zigaretten");
+        addCategory(BookingDirectionOption.outgoing, BookingIntervalOption.once, "Freizeit", "Glücksspiel");
+        addCategory(BookingDirectionOption.outgoing, BookingIntervalOption.once, "Freizeit", "Anschaffungen");
+        addCategory(BookingDirectionOption.outgoing, BookingIntervalOption.once, "Freizeit", "Sportgeräte / Sportbekleidung");
+        addCategory(BookingDirectionOption.outgoing, BookingIntervalOption.once, "Freizeit", "Restaurant / Café");
 
-        addCategory(AccountingType.incoming, AccountingInterval.once, "Geldanlage", "Zinseinkünfte");
-        addCategory(AccountingType.incoming, AccountingInterval.once, "Geldanlage", "Dividende");
-        addCategory(AccountingType.outgoing, AccountingInterval.all, "Geldanlage", "Bausparen");
-        addCategory(AccountingType.outgoing, AccountingInterval.all, "Geldanlage", "Andere Geldanlagen");
+        addCategory(BookingDirectionOption.incoming, BookingIntervalOption.once, "Geldanlage", "Zinseinkünfte");
+        addCategory(BookingDirectionOption.incoming, BookingIntervalOption.once, "Geldanlage", "Dividende");
+        addCategory(BookingDirectionOption.outgoing, BookingIntervalOption.all, "Geldanlage", "Bausparen");
+        addCategory(BookingDirectionOption.outgoing, BookingIntervalOption.all, "Geldanlage", "Andere Geldanlagen");
 
-        addCategory(AccountingType.outgoing, AccountingInterval.all, "Gesundheit", "Medizin");
-        addCategory(AccountingType.outgoing, AccountingInterval.all, "Gesundheit", "Krankenkasse");
-        addCategory(AccountingType.outgoing, AccountingInterval.all, "Gesundheit", "Zuzahlung Krankenkasse");
+        addCategory(BookingDirectionOption.outgoing, BookingIntervalOption.all, "Gesundheit", "Medizin");
+        addCategory(BookingDirectionOption.outgoing, BookingIntervalOption.all, "Gesundheit", "Krankenkasse");
+        addCategory(BookingDirectionOption.outgoing, BookingIntervalOption.all, "Gesundheit", "Zuzahlung Krankenkasse");
 
-        addCategory(AccountingType.outgoing, AccountingInterval.all, "Haushalt", "Taschengeld");
-        addCategory(AccountingType.outgoing, AccountingInterval.once, "Haushalt", "Anschaffungen");
-        addCategory(AccountingType.outgoing, AccountingInterval.all, "Haushalt", "Getränke");
-        addCategory(AccountingType.outgoing, AccountingInterval.once, "Haushalt", "Körperpflege");
-        addCategory(AccountingType.outgoing, AccountingInterval.once, "Haushalt", "Lebensmittel");
-        addCategory(AccountingType.outgoing, AccountingInterval.once, "Haushalt", "Medikamente");
-        addCategory(AccountingType.outgoing, AccountingInterval.once, "Haushalt", "Genussmittel");
-        addCategory(AccountingType.outgoing, AccountingInterval.once, "Haushalt", "Schule");
-        addCategory(AccountingType.outgoing, AccountingInterval.all, "Haushalt", "Tiernahrung");
-        addCategory(AccountingType.outgoing, AccountingInterval.once, "Haushalt", "Porto");
-        addCategory(AccountingType.outgoing, AccountingInterval.all, "Haushalt", "Wasch und Putzmittel");
+        addCategory(BookingDirectionOption.outgoing, BookingIntervalOption.all, "Haushalt", "Taschengeld");
+        addCategory(BookingDirectionOption.outgoing, BookingIntervalOption.once, "Haushalt", "Anschaffungen");
+        addCategory(BookingDirectionOption.outgoing, BookingIntervalOption.all, "Haushalt", "Getränke");
+        addCategory(BookingDirectionOption.outgoing, BookingIntervalOption.once, "Haushalt", "Körperpflege");
+        addCategory(BookingDirectionOption.outgoing, BookingIntervalOption.once, "Haushalt", "Lebensmittel");
+        addCategory(BookingDirectionOption.outgoing, BookingIntervalOption.once, "Haushalt", "Medikamente");
+        addCategory(BookingDirectionOption.outgoing, BookingIntervalOption.once, "Haushalt", "Genussmittel");
+        addCategory(BookingDirectionOption.outgoing, BookingIntervalOption.once, "Haushalt", "Schule");
+        addCategory(BookingDirectionOption.outgoing, BookingIntervalOption.all, "Haushalt", "Tiernahrung");
+        addCategory(BookingDirectionOption.outgoing, BookingIntervalOption.once, "Haushalt", "Porto");
+        addCategory(BookingDirectionOption.outgoing, BookingIntervalOption.all, "Haushalt", "Wasch und Putzmittel");
 
-        addCategory(AccountingType.incoming, AccountingInterval.once, "Sonstiges", "Geldgeschenke");
-        addCategory(AccountingType.incoming, AccountingInterval.once, "Sonstiges", "Geldgewinne");
-        addCategory(AccountingType.incoming, AccountingInterval.once, "Sonstiges", "Fehlbetrag");
-        addCategory(AccountingType.incoming, AccountingInterval.all, "Sonstiges", "Mietrückzahlung");
+        addCategory(BookingDirectionOption.incoming, BookingIntervalOption.once, "Sonstiges", "Geldgeschenke");
+        addCategory(BookingDirectionOption.incoming, BookingIntervalOption.once, "Sonstiges", "Geldgewinne");
+        addCategory(BookingDirectionOption.incoming, BookingIntervalOption.once, "Sonstiges", "Fehlbetrag");
+        addCategory(BookingDirectionOption.incoming, BookingIntervalOption.all, "Sonstiges", "Mietrückzahlung");
 
-        addCategory(AccountingType.incoming, AccountingInterval.monthly, "Staat", "Rente");
-        addCategory(AccountingType.incoming, AccountingInterval.monthly, "Staat", "Wohngeld");
-        addCategory(AccountingType.incoming, AccountingInterval.monthly, "Staat", "Arbeitslosengeld");
-        addCategory(AccountingType.incoming, AccountingInterval.once, "Staat", "Steuererstattung");
+        addCategory(BookingDirectionOption.incoming, BookingIntervalOption.monthly, "Staat", "Rente");
+        addCategory(BookingDirectionOption.incoming, BookingIntervalOption.monthly, "Staat", "Wohngeld");
+        addCategory(BookingDirectionOption.incoming, BookingIntervalOption.monthly, "Staat", "Arbeitslosengeld");
+        addCategory(BookingDirectionOption.incoming, BookingIntervalOption.once, "Staat", "Steuererstattung");
 
-        addCategory(AccountingType.outgoing, AccountingInterval.all, "Steuer", "Hundesteuer");
-        addCategory(AccountingType.outgoing, AccountingInterval.all, "Steuer", "Kirchensteuer");
-        addCategory(AccountingType.outgoing, AccountingInterval.all, "Steuer", "Lohn / Einkommensteuer");
+        addCategory(BookingDirectionOption.outgoing, BookingIntervalOption.all, "Steuer", "Hundesteuer");
+        addCategory(BookingDirectionOption.outgoing, BookingIntervalOption.all, "Steuer", "Kirchensteuer");
+        addCategory(BookingDirectionOption.outgoing, BookingIntervalOption.all, "Steuer", "Lohn / Einkommensteuer");
 
-        addCategory(AccountingType.outgoing, AccountingInterval.all, "Versicherung", "Haftpflicht");
-        addCategory(AccountingType.outgoing, AccountingInterval.all, "Versicherung", "Hausratversicherung");
-        addCategory(AccountingType.outgoing, AccountingInterval.all, "Versicherung", "Lebensversicherung");
-        addCategory(AccountingType.outgoing, AccountingInterval.all, "Versicherung", "Zusatzversicherung");
-        addCategory(AccountingType.outgoing, AccountingInterval.all, "Versicherung", "Berufsunfähigkeitsversicherung");
-        addCategory(AccountingType.outgoing, AccountingInterval.all, "Versicherung", "Sonstige");
+        addCategory(BookingDirectionOption.outgoing, BookingIntervalOption.all, "Versicherung", "Haftpflicht");
+        addCategory(BookingDirectionOption.outgoing, BookingIntervalOption.all, "Versicherung", "Hausratversicherung");
+        addCategory(BookingDirectionOption.outgoing, BookingIntervalOption.all, "Versicherung", "Lebensversicherung");
+        addCategory(BookingDirectionOption.outgoing, BookingIntervalOption.all, "Versicherung", "Zusatzversicherung");
+        addCategory(BookingDirectionOption.outgoing, BookingIntervalOption.all, "Versicherung", "Berufsunfähigkeitsversicherung");
+        addCategory(BookingDirectionOption.outgoing, BookingIntervalOption.all, "Versicherung", "Sonstige");
 
-        addCategory(AccountingType.outgoing, AccountingInterval.all, "Wohnung", "GEZ-Gebühren");
-        addCategory(AccountingType.outgoing, AccountingInterval.monthly, "Wohnung", "Kaltmiete");
-        addCategory(AccountingType.outgoing, AccountingInterval.monthly, "Wohnung", "Nebenkosten");
-        addCategory(AccountingType.outgoing, AccountingInterval.monthly, "Wohnung", "Grundsteuer");
-        addCategory(AccountingType.outgoing, AccountingInterval.monthly, "Wohnung", "Heizung");
-        addCategory(AccountingType.outgoing, AccountingInterval.all, "Wohnung", "Internet und Telefon");
-        addCategory(AccountingType.outgoing, AccountingInterval.all, "Wohnung", "Kreditabzahlung");
-        addCategory(AccountingType.outgoing, AccountingInterval.all, "Wohnung", "Strom");
-        addCategory(AccountingType.outgoing, AccountingInterval.all, "Wohnung", "Wasser");
-        addCategory(AccountingType.outgoing, AccountingInterval.all, "Wohnung", "Miete");
-        addCategory(AccountingType.outgoing, AccountingInterval.all, "Wohnung", "Reparaturen");
+        addCategory(BookingDirectionOption.outgoing, BookingIntervalOption.all, "Wohnung", "GEZ-Gebühren");
+        addCategory(BookingDirectionOption.outgoing, BookingIntervalOption.monthly, "Wohnung", "Kaltmiete");
+        addCategory(BookingDirectionOption.outgoing, BookingIntervalOption.monthly, "Wohnung", "Nebenkosten");
+        addCategory(BookingDirectionOption.outgoing, BookingIntervalOption.monthly, "Wohnung", "Grundsteuer");
+        addCategory(BookingDirectionOption.outgoing, BookingIntervalOption.monthly, "Wohnung", "Heizung");
+        addCategory(BookingDirectionOption.outgoing, BookingIntervalOption.all, "Wohnung", "Internet und Telefon");
+        addCategory(BookingDirectionOption.outgoing, BookingIntervalOption.all, "Wohnung", "Kreditabzahlung");
+        addCategory(BookingDirectionOption.outgoing, BookingIntervalOption.all, "Wohnung", "Strom");
+        addCategory(BookingDirectionOption.outgoing, BookingIntervalOption.all, "Wohnung", "Wasser");
+        addCategory(BookingDirectionOption.outgoing, BookingIntervalOption.all, "Wohnung", "Miete");
+        addCategory(BookingDirectionOption.outgoing, BookingIntervalOption.all, "Wohnung", "Reparaturen");
 
         insert(database, CategoryColumns.TABLE_NAME);
     }
 
-    private void addCategory(AccountingType type, AccountingInterval interval, String section, String name) {
+    private void addCategory(BookingDirectionOption type, BookingIntervalOption interval, String section, String name) {
         categoryFunction.apply(section, name, interval.name(), type.name());
     }
 

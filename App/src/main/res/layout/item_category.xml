@@ -20,7 +20,7 @@
         android:layout_toEndOf="@id/section" />
 
     <TextView
-        android:id="@+id/type"
+        android:id="@+id/direction"
         android:text="Type"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -33,7 +33,7 @@
         android:text="Interval"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toEndOf="@id/type"
+        android:layout_toEndOf="@id/direction"
         android:textAppearance="?android:attr/textAppearanceListItem"
         android:layout_marginStart="20dp" />
 

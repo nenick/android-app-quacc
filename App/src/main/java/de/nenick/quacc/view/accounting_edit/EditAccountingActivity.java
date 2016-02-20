@@ -15,7 +15,7 @@ public class EditAccountingActivity extends ActionBarActivity {
     public static final String TAG_FRAGMENT = EditAccountingFragment.class.getSimpleName();
 
     @Extra
-    long accountingId;
+    long bookingEntryId;
 
     @AfterViews
     protected void onAfterViews() {
@@ -27,7 +27,7 @@ public class EditAccountingActivity extends ActionBarActivity {
         // If the Fragment is non-null, then it is currently being
         // retained across a configuration change.
         if (fragmentManager.findFragmentByTag(TAG_FRAGMENT) == null) {
-            fragmentManager.beginTransaction().add(R.id.container, EditAccountingFragment_.builder().accountingId(accountingId).build(), TAG_FRAGMENT).commit();
+            fragmentManager.beginTransaction().add(R.id.container, EditAccountingFragment_.builder().bookingEntryId(bookingEntryId).build(), TAG_FRAGMENT).commit();
         }
     }
 }

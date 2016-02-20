@@ -12,26 +12,20 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.Date;
 
-import de.nenick.quacc.core.accounting.interval.AccountingInterval;
+import de.nenick.quacc.core.bookinginterval.BookingIntervalOption;
 import de.nenick.quacc.core.backup.model.AccountJson;
-import de.nenick.quacc.core.backup.model.AccountingJson;
+import de.nenick.quacc.core.backup.model.BookingEntryJson;
 import de.nenick.quacc.core.backup.model.BackupJson;
 import de.nenick.quacc.core.backup.model.CategoryJson;
-import de.nenick.quacc.core.backup.model.IntervalJson;
-import de.nenick.quacc.core.backup.model.TemplateJson;
+import de.nenick.quacc.core.backup.model.BookingIntervalJson;
+import de.nenick.quacc.core.backup.model.BookingTemplateJson;
 import de.nenick.quacc.core.backup.model.TemplateMatchingJson;
-import de.nenick.quacc.database.account.AccountDb;
-import de.nenick.quacc.database.accounting.AccountingDb;
-import de.nenick.quacc.database.category.CategoryDb;
-import de.nenick.quacc.database.interval.IntervalDb;
 import de.nenick.quacc.database.provider.account.AccountCursor;
 import de.nenick.quacc.database.provider.accounting.AccountingCursor;
 import de.nenick.quacc.database.provider.accountingtemplate.AccountingTemplateCursor;
 import de.nenick.quacc.database.provider.category.CategoryCursor;
 import de.nenick.quacc.database.provider.interval.IntervalCursor;
 import de.nenick.quacc.database.provider.templatematching.TemplateMatchingCursor;
-import de.nenick.quacc.database.template.AccountingTemplateDb;
-import de.nenick.quacc.database.template.TemplateMatchingDb;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.BDDMockito.given;
@@ -105,7 +99,7 @@ public class BackupToJsonFileFunctionTest {
         backupToJsonFileFunction.apply(backLocation);
         verify(getOutputStreamToFileFunction).apply(backLocation);
         String backupContent = new String(outputStream.toByteArray());
-        assertThat(backupContent).isEqualTo("{\"accounts\":[],\"categories\":[],\"accounting\":[],\"templates\":[],\"templateMatches\":[],\"intervals\":[]}");
+        assertThat(backupContent).isEqualTo("{\"accounts\":[],\"categories\":[],\"bookingEntries\":[],\"bookingTemplates\":[],\"bookingTemplateKeywords\":[],\"bookingIntervals\":[]}");
     }
 
     @Test
@@ -137,7 +131,7 @@ public class BackupToJsonFileFunctionTest {
         String categoryName = "name";
         String categorySection = "section";
         String categoryInterval = "interval";
-        String categoryType = "type";
+        String categoryType = "direction";
         int categoryLevel = 1;
 
         given(categoryCursor.moveToNext()).willReturn(true).willReturn(false);
@@ -159,7 +153,7 @@ public class BackupToJsonFileFunctionTest {
         assertThat(json.name).isEqualTo(categoryName);
         assertThat(json.section).isEqualTo(categorySection);
         assertThat(json.interval).isEqualTo(categoryInterval);
-        assertThat(json.type).isEqualTo(categoryType);
+        assertThat(json.direction).isEqualTo(categoryType);
         assertThat(json.level).isEqualTo(categoryLevel);
     }
 
@@ -178,7 +172,7 @@ public class BackupToJsonFileFunctionTest {
         String categoryName = "name";
         String categorySection = "section";
         String categoryInterval = "interval";
-        String categoryType = "type";
+        String categoryType = "direction";
         int categoryLevel = 1;
 
         given(categoryCursor.moveToNext()).willReturn(true).willReturn(false);
@@ -191,7 +185,7 @@ public class BackupToJsonFileFunctionTest {
 
         long accountingId = 12;
         String accountingInterval = "interval";
-        String accountingType = "type";
+        String accountingType = "direction";
         String accountingComment = "comment";
         Date accountingDate = new Date();
         int accountingValue = 1;
@@ -209,20 +203,20 @@ public class BackupToJsonFileFunctionTest {
         String backupContent = new String(outputStream.toByteArray());
         BackupJson backupJson = new ObjectMapper().readValue(backupContent, BackupJson.class);
 
-        assertThat(backupJson.accounting).hasSize(1);
-        AccountingJson json = backupJson.accounting.get(0);
+        assertThat(backupJson.bookingEntries).hasSize(1);
+        BookingEntryJson json = backupJson.bookingEntries.get(0);
         assertThat(json.id).isEqualTo(accountingId);
         assertThat(json.interval).isEqualTo(accountingInterval);
-        assertThat(json.type).isEqualTo(accountingType);
+        assertThat(json.direction).isEqualTo(accountingType);
         assertThat(json.comment).isEqualTo(accountingComment);
         assertThat(json.date).isEqualTo(accountingDate);
-        assertThat(json.value).isEqualTo(accountingValue);
+        assertThat(json.amount).isEqualTo(accountingValue);
     }
 
     @Test
     public void shouldBackupAccountingOnlyIfNotFromInterval() throws IOException {
         backupToJsonFileFunction.apply(backLocation);
-        verify(accountingDb).getAllForInterval(AccountingInterval.once.name());
+        verify(accountingDb).getAllForInterval(BookingIntervalOption.once.name());
     }
 
     @Test
@@ -240,7 +234,7 @@ public class BackupToJsonFileFunctionTest {
         String categoryName = "name";
         String categorySection = "section";
         String categoryInterval = "interval";
-        String categoryType = "type";
+        String categoryType = "direction";
         int categoryLevel = 1;
 
         given(categoryCursor.moveToNext()).willReturn(true).willReturn(false);
@@ -253,7 +247,7 @@ public class BackupToJsonFileFunctionTest {
 
         long intervalId = 12;
         String intervalInterval = "interval";
-        String intervalType = "type";
+        String intervalType = "direction";
         String intervalComment = "comment";
         Date intervalDateStart = new Date(new Date().getTime() - 300000);
         Date intervalDateEnd = new Date();
@@ -273,15 +267,15 @@ public class BackupToJsonFileFunctionTest {
         String backupContent = new String(outputStream.toByteArray());
         BackupJson backupJson = new ObjectMapper().readValue(backupContent, BackupJson.class);
 
-        assertThat(backupJson.intervals).hasSize(1);
-        IntervalJson json = backupJson.intervals.get(0);
+        assertThat(backupJson.bookingIntervals).hasSize(1);
+        BookingIntervalJson json = backupJson.bookingIntervals.get(0);
         assertThat(json.id).isEqualTo(intervalId);
         assertThat(json.interval).isEqualTo(intervalInterval);
-        assertThat(json.type).isEqualTo(intervalType);
+        assertThat(json.direction).isEqualTo(intervalType);
         assertThat(json.comment).isEqualTo(intervalComment);
         assertThat(json.dateStart).isEqualTo(intervalDateStart);
         assertThat(json.dateEnd).isEqualTo(intervalDateEnd);
-        assertThat(json.value).isEqualTo(intervalValue);
+        assertThat(json.amount).isEqualTo(intervalValue);
     }
 
     @Test
@@ -299,7 +293,7 @@ public class BackupToJsonFileFunctionTest {
         String categoryName = "name";
         String categorySection = "section";
         String categoryInterval = "interval";
-        String categoryType = "type";
+        String categoryType = "direction";
         int categoryLevel = 1;
 
         given(categoryCursor.moveToNext()).willReturn(true).willReturn(false);
@@ -312,7 +306,7 @@ public class BackupToJsonFileFunctionTest {
 
         long templateId = 12;
         String templateInterval = "interval";
-        String templateType = "type";
+        String templateType = "direction";
         String templateComment = "comment";
 
         given(accountingTemplateCursor.moveToNext()).willReturn(true).willReturn(false);
@@ -326,11 +320,11 @@ public class BackupToJsonFileFunctionTest {
         String backupContent = new String(outputStream.toByteArray());
         BackupJson backupJson = new ObjectMapper().readValue(backupContent, BackupJson.class);
 
-        assertThat(backupJson.templates).hasSize(1);
-        TemplateJson json = backupJson.templates.get(0);
+        assertThat(backupJson.bookingTemplates).hasSize(1);
+        BookingTemplateJson json = backupJson.bookingTemplates.get(0);
         assertThat(json.id).isEqualTo(templateId);
         assertThat(json.interval).isEqualTo(templateInterval);
-        assertThat(json.type).isEqualTo(templateType);
+        assertThat(json.direction).isEqualTo(templateType);
         assertThat(json.comment).isEqualTo(templateComment);
     }
 
@@ -349,7 +343,7 @@ public class BackupToJsonFileFunctionTest {
         String categoryName = "name";
         String categorySection = "section";
         String categoryInterval = "interval";
-        String categoryType = "type";
+        String categoryType = "direction";
         int categoryLevel = 1;
 
         given(categoryCursor.moveToNext()).willReturn(true).willReturn(false);
@@ -362,7 +356,7 @@ public class BackupToJsonFileFunctionTest {
 
         long templateId = 12;
         String templateInterval = "interval";
-        String templateType = "type";
+        String templateType = "direction";
         String templateComment = "comment";
 
         given(accountingTemplateCursor.moveToNext()).willReturn(true).willReturn(false);
@@ -381,8 +375,8 @@ public class BackupToJsonFileFunctionTest {
         String backupContent = new String(outputStream.toByteArray());
         BackupJson backupJson = new ObjectMapper().readValue(backupContent, BackupJson.class);
 
-        assertThat(backupJson.templateMatches).hasSize(1);
-        TemplateMatchingJson json = backupJson.templateMatches.get(0);
+        assertThat(backupJson.bookingTemplateKeywords).hasSize(1);
+        TemplateMatchingJson json = backupJson.bookingTemplateKeywords.get(0);
         assertThat(json.text).isEqualTo(templateMatchText);
     }
 }

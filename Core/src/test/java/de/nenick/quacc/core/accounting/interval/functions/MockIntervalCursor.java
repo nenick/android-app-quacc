@@ -2,7 +2,7 @@ package de.nenick.quacc.core.accounting.interval.functions;
 
 import java.util.Date;
 
-import de.nenick.quacc.core.accounting.interval.AccountingInterval;
+import de.nenick.quacc.core.bookinginterval.BookingIntervalOption;
 import de.nenick.quacc.database.provider.interval.IntervalCursor;
 
 import static org.mockito.BDDMockito.given;
@@ -25,7 +25,7 @@ public class MockIntervalCursor {
         return this;
     }
 
-    public MockIntervalCursor withInterval(AccountingInterval interval) {
+    public MockIntervalCursor withInterval(BookingIntervalOption interval) {
         given(cursor.getInterval()).willReturn(interval.name());
         return this;
     }

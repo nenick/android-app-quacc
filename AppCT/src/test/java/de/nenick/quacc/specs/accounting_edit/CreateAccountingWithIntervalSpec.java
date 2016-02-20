@@ -11,7 +11,6 @@ import de.nenick.quacc.core.accounting.creation.CreateAccountingFromIntervalFunc
 import de.nenick.quacc.core.accounting.interval.AccountingInterval;
 import de.nenick.quacc.core.accounting.type.AccountingType;
 import de.nenick.quacc.core.common.util.QuAccDateUtil;
-import de.nenick.quacc.database.accounting.AccountingDb;
 import de.nenick.quacc.database.accounting.AccountingDb_;
 import de.nenick.quacc.database.interval.IntervalAccountingDb_;
 import de.nenick.quacc.database.interval.IntervalDb_;

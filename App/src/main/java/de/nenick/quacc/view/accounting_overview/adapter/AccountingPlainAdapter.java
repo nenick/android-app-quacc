@@ -12,12 +12,12 @@ import org.androidannotations.annotations.EBean;
 import org.androidannotations.annotations.RootContext;
 import org.joda.time.DateTime;
 
-import de.nenick.quacc.core.accounting.content.GetAccountingByRangeFunction;
-import de.nenick.quacc.core.accounting.creation.CreateAccountingFromIntervalsFunction;
-import de.nenick.quacc.core.accounting.type.AccountingType;
+import de.nenick.quacc.core.bookingentry.content.GetAccountingByRangeFunction;
+import de.nenick.quacc.core.bookingentry.creation.CreateAccountingFromIntervalsFunction;
+import de.nenick.quacc.core.bookingentry.direction.BookingDirectionOption;
 import de.nenick.quacc.core.common.util.QuAccDateUtil;
-import de.nenick.quacc.database.provider.accounting.AccountingCursor;
 import de.nenick.quacc.core.i18n.AccountingIntervalTranslator;
+import de.nenick.quacc.database.provider.bookingentry.BookingEntryCursor;
 import de.nenick.quacc.valueparser.ParseValueFromIntegerFunction;
 
 @EBean
@@ -56,12 +56,12 @@ public class AccountingPlainAdapter extends CursorAdapter {
 
     @Override
     public void bindView(View view, Context context, Cursor cursor) {
-        bindView((AccountingPlainItemView) view, (AccountingCursor) cursor);
+        bindView((AccountingPlainItemView) view, (BookingEntryCursor) cursor);
     }
 
-    private void bindView(AccountingPlainItemView view, AccountingCursor accountingCursor) {
-        AccountingType accountingType = AccountingType.valueOf(accountingCursor.getType());
-        switch (accountingType) {
+    private void bindView(AccountingPlainItemView view, BookingEntryCursor bookingEntryCursor) {
+        BookingDirectionOption bookingDirectionOption = BookingDirectionOption.valueOf(bookingEntryCursor.getDirection());
+        switch (bookingDirectionOption) {
             case incoming:
                 view.showAsIncome();
                 break;
@@ -69,21 +69,21 @@ public class AccountingPlainAdapter extends CursorAdapter {
                 view.showAsOutgoing();
         }
 
-        view.setDate(QuAccDateUtil.toString(accountingCursor.getDate()));
-        view.setInterval(accountingIntervalTranslator.translate(accountingCursor.getInterval()));
-        view.setCategory(accountingCursor.getCategoryName());
-        view.setComment(accountingCursor.getComment());
-        view.setValue(createValueString(accountingCursor));
+        view.setDate(QuAccDateUtil.toString(bookingEntryCursor.getDate()));
+        view.setInterval(accountingIntervalTranslator.translate(bookingEntryCursor.getInterval()));
+        view.setCategory(bookingEntryCursor.getCategoryName());
+        view.setComment(bookingEntryCursor.getComment());
+        view.setValue(createValueString(bookingEntryCursor));
     }
 
-    private String createValueString(AccountingCursor accountingCursor) {
-        int value = accountingCursor.getValue();
+    private String createValueString(BookingEntryCursor bookingEntryCursor) {
+        int value = bookingEntryCursor.getAmount();
         return parseValueFromInteger.apply(value);
     }
 
     public void changeFor(DateTime startDate, DateTime endDate) {
         createAccountingFromIntervalsFunction.apply(account, endDate);
-        AccountingCursor apply = getAccountingByRangeFunction.apply(account, startDate, endDate);
+        BookingEntryCursor apply = getAccountingByRangeFunction.apply(account, startDate, endDate);
         changeCursor(apply);
     }
 

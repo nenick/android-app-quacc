@@ -3,18 +3,19 @@ package de.nenick.quacc.core.speechinterpreter;
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EBean;
 
-import de.nenick.quacc.database.category.CategoryDb;
+import de.nenick.quacc.database.category.CategoryRepository;
+import de.nenick.quacc.database.category.CategorySpecAll;
 import de.nenick.quacc.database.provider.category.CategoryCursor;
 
 @EBean
 public class RecognizeCategoryFunction {
 
     @Bean
-    CategoryDb categoryDb;
+    CategoryRepository categoryRepository;
 
     public SpeechResult apply(String recognizedText) {
         SpeechResult speechResult = null;
-        CategoryCursor categoryCursor = categoryDb.getAll();
+        CategoryCursor categoryCursor = categoryRepository.query(new CategorySpecAll());
 
         while (categoryCursor.moveToNext()) {
             String name = categoryCursor.getName();

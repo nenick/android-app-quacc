@@ -10,11 +10,12 @@ import org.androidannotations.annotations.OptionsMenu;
 
 import de.nenick.quacc.R;
 import de.nenick.quacc.core.account.GetAccountsFunction;
-import de.nenick.quacc.core.accounting.interval.AccountingInterval;
-import de.nenick.quacc.core.accounting.type.AccountingType;
+import de.nenick.quacc.core.bookingentry.direction.BookingDirectionOption;
+import de.nenick.quacc.core.bookinginterval.BookingIntervalOption;
 import de.nenick.quacc.core.common.util.QuAccDateUtil;
-import de.nenick.quacc.database.accounting.AccountingDb;
-import de.nenick.quacc.database.provider.accounting.AccountingCursor;
+import de.nenick.quacc.database.bookingentry.BookingEntryRepository;
+import de.nenick.quacc.database.bookingentry.BookingEntrySpecById;
+import de.nenick.quacc.database.provider.bookingentry.BookingEntryCursor;
 import de.nenick.quacc.database.provider.category.CategoryCursor;
 import de.nenick.quacc.valueparser.ParseValueFromIntegerFunction;
 import de.nenick.quacc.view.accounting_edit.adapter.CategoryAdapter;
@@ -29,7 +30,7 @@ import de.nenick.quacc.view.mvp.BaseView;
 public class EditAccountingFragment extends BasePresenterFragment {
 
     @FragmentArg
-    long accountingId;
+    long bookingEntryId;
 
     String accountingIntervalInitial;
 
@@ -55,7 +56,7 @@ public class EditAccountingFragment extends BasePresenterFragment {
     CategoryAdapter categoryAdapter;
 
     @Bean
-    AccountingDb accountingDb;
+    BookingEntryRepository bookingEntryRepository;
 
     @Bean
     CreateOrUpdateAccountingFeature createOrUpdateAccountingFeature;
@@ -76,28 +77,28 @@ public class EditAccountingFragment extends BasePresenterFragment {
         view.setAccounts(getAccountsFunction.apply());
 
         view.setAccountingIntervals(intervalAdapter);
-        view.setAccountingInterval(AccountingInterval.once.name());
+        view.setAccountingInterval(BookingIntervalOption.once.name());
 
         view.setAccountingTypes(typeAdapter);
-        view.setAccountingType(AccountingType.outgoing.name());
+        view.setAccountingType(BookingDirectionOption.outgoing.name());
 
         view.setAccountingCategories(categoryAdapter);
         reloadCategories();
 
-        if(accountingId != 0) {
-            loadAccountingProperties();
+        if(bookingEntryId != 0) {
+            loadBookingEntryProperties();
         }
     }
 
-    private void loadAccountingProperties() {
-        AccountingCursor accountingCursor = accountingDb.getById(accountingId);
+    private void loadBookingEntryProperties() {
+        BookingEntryCursor accountingCursor = bookingEntryRepository.query(new BookingEntrySpecById(bookingEntryId));
         accountingCursor.moveToNext();
         view.setAccount(accountingCursor.getAccountName());
         String accountingIntervalInitial = accountingCursor.getInterval();
         view.setAccountingInterval(accountingIntervalInitial);
-        view.setAccountingType(accountingCursor.getType());
+        view.setAccountingType(accountingCursor.getDirection());
         view.setDate(QuAccDateUtil.toString(accountingCursor.getDate()));
-        view.setValue(parseValueFromIntegerFunction.apply(accountingCursor.getValue()));
+        view.setValue(parseValueFromIntegerFunction.apply(accountingCursor.getAmount()));
         view.setComment(accountingCursor.getComment());
         accountingCursor.close();
     }
@@ -114,7 +115,7 @@ public class EditAccountingFragment extends BasePresenterFragment {
 
     @OptionsItem(R.id.confirm)
     protected void onConfirm() {
-        createOrUpdateAccountingFeature.apply(accountingId, accountingIntervalInitial, view);
+        createOrUpdateAccountingFeature.apply(bookingEntryId, accountingIntervalInitial, view);
     }
 
     @CheckedChange(R.id.endDateCheck)
@@ -128,7 +129,7 @@ public class EditAccountingFragment extends BasePresenterFragment {
 
     @ItemSelect(R.id.interval)
     public void onIntervalSelection(boolean selected, int position) {
-        if(view.getAccountingInterval().equals(AccountingInterval.once.name())) {
+        if(view.getAccountingInterval().equals(BookingIntervalOption.once.name())) {
             view.hideEndDate();
         } else {
             view.showEndDate();
@@ -142,7 +143,7 @@ public class EditAccountingFragment extends BasePresenterFragment {
         view.setSection(item.getSection());
     }
 
-    @ItemSelect(R.id.type)
+    @ItemSelect(R.id.direction)
     public void onTypeSelection(boolean selected, int position) {
         reloadCategories();
     }

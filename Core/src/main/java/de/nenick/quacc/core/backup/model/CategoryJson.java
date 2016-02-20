@@ -16,20 +16,20 @@ public class CategoryJson {
     @JsonProperty("interval")
     public String interval;
 
-    @JsonProperty("type")
-    public String type;
+    @JsonProperty("direction")
+    public String direction;
 
     @JsonProperty("level")
     public int level;
 
     public CategoryJson() {}
 
-    public CategoryJson(long id, String name, String section, String interval, String type, int level) {
+    public CategoryJson(long id, String name, String section, String interval, String direction, int level) {
         this.id = id;
         this.name = name;
         this.section = section;
         this.interval = interval;
-        this.type = type;
+        this.direction = direction;
         this.level = level;
     }
 }

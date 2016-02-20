@@ -6,9 +6,10 @@ import org.androidannotations.annotations.EBean;
 import java.util.ArrayList;
 import java.util.List;
 
-import de.nenick.quacc.database.provider.accountingtemplate.AccountingTemplateCursor;
+
 import de.nenick.quacc.core.speechinterpreter.RecognizeTemplateFunction;
 import de.nenick.quacc.core.speechinterpreter.RecognizeTemplateFunction.SpeechTemplateResult;
+import de.nenick.quacc.database.provider.bookingtemplate.BookingTemplateCursor;
 import de.nenick.quacc.valueparser.ParseValueFromIntegerFunction;
 import de.nenick.quacc.view.accounting_edit.EditAccountingView;
 
@@ -34,7 +35,7 @@ public class InterpretTemplateFunction {
 
     private void closeAllCursors(List<SpeechTemplateResult> speechTemplateResults) {
         for (SpeechTemplateResult speechTemplateResult : speechTemplateResults) {
-            speechTemplateResult.accountingTemplateCursor.close();
+            speechTemplateResult.bookingTemplateCursor.close();
         }
     }
 
@@ -50,14 +51,14 @@ public class InterpretTemplateFunction {
     }
 
     private void showTemplateValues(EditAccountingView view, SpeechTemplateResult speechTemplateResult) {
-        AccountingTemplateCursor accountingTemplateCursor = speechTemplateResult.accountingTemplateCursor;
-        accountingTemplateCursor.moveToNext();
+        BookingTemplateCursor bookingTemplateCursor = speechTemplateResult.bookingTemplateCursor;
+        bookingTemplateCursor.moveToNext();
 
-        view.setAccount(accountingTemplateCursor.getAccountName());
-        view.setAccountingInterval(accountingTemplateCursor.getInterval());
-        view.setAccountingType(accountingTemplateCursor.getType());
-        view.setAccountingCategory(accountingTemplateCursor.getCategoryName());
-        String comment = accountingTemplateCursor.getComment();
+        view.setAccount(bookingTemplateCursor.getAccountName());
+        view.setAccountingInterval(bookingTemplateCursor.getInterval());
+        view.setAccountingType(bookingTemplateCursor.getDirection());
+        view.setAccountingCategory(bookingTemplateCursor.getCategoryName());
+        String comment = bookingTemplateCursor.getComment();
         if (!comment.isEmpty() && !speechTemplateResult.comment.isEmpty()) {
             comment += " " + speechTemplateResult.comment;
         } else {
@@ -65,7 +66,7 @@ public class InterpretTemplateFunction {
         }
         view.setComment(comment);
         view.setValue(parseValueFromIntegerFunction.apply(speechTemplateResult.value));
-        accountingTemplateCursor.close();
+        bookingTemplateCursor.close();
     }
 
     private SpeechTemplateResult findResultWithBestMatch(List<SpeechTemplateResult> speechTemplateResults) {

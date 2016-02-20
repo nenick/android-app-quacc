@@ -18,12 +18,12 @@ import org.joda.time.DateTime;
 import java.util.Date;
 import java.util.HashMap;
 
-import de.nenick.quacc.core.accounting.content.GetAccountingByGroupFunction;
-import de.nenick.quacc.core.accounting.content.GetGroupsFunction;
-import de.nenick.quacc.core.accounting.type.AccountingType;
+import de.nenick.quacc.core.bookingentry.content.GetAccountingByGroupFunction;
+import de.nenick.quacc.core.bookingentry.content.GetGroupsFunction;
+import de.nenick.quacc.core.bookingentry.direction.BookingDirectionOption;
 import de.nenick.quacc.core.common.util.QuAccDateUtil;
-import de.nenick.quacc.database.provider.accounting.AccountingCursor;
 import de.nenick.quacc.core.i18n.AccountingIntervalTranslator;
+import de.nenick.quacc.database.provider.bookingentry.BookingEntryCursor;
 import de.nenick.quacc.valueparser.ParseValueFromIntegerFunction;
 
 @EBean
@@ -87,12 +87,12 @@ public class AccountingTreeAdapter extends CursorTreeAdapter implements LoaderMa
     @Override
     protected Cursor getChildrenCursor(Cursor groupCursor) {
         int groupPosition = groupCursor.getPosition();
-        AccountingCursor accountingCursor = (AccountingCursor) groupCursor;
-        long categoryId = accountingCursor.getCategoryId();
-        String type = accountingCursor.getType();
+        BookingEntryCursor bookingEntryCursor = (BookingEntryCursor) groupCursor;
+        long categoryId = bookingEntryCursor.getCategoryId();
+        String type = bookingEntryCursor.getDirection();
 
-        Date minDate = accountingCursor.getDateOrNull("minDate");
-        GroupData childGroupData = new GroupData(groupPosition, categoryId, type, new DateTime(minDate), new DateTime(accountingCursor.getDate()));
+        Date minDate = bookingEntryCursor.getDateOrNull("minDate");
+        GroupData childGroupData = new GroupData(groupPosition, categoryId, type, new DateTime(minDate), new DateTime(bookingEntryCursor.getDate()));
         int groupId = childGroupData.hashCode();
         mGroupMap.put(groupId, childGroupData);
 
@@ -114,17 +114,17 @@ public class AccountingTreeAdapter extends CursorTreeAdapter implements LoaderMa
     @Override
     protected void bindGroupView(View view, Context context, Cursor cursor, boolean b) {
         AccountingTreeGroupItemView accountingView = (AccountingTreeGroupItemView) view;
-        AccountingCursor accountingCursor = (AccountingCursor) cursor;
+        BookingEntryCursor bookingEntryCursor = (BookingEntryCursor) cursor;
 
-        Date minDate = accountingCursor.getDateOrNull("minDate");
+        Date minDate = bookingEntryCursor.getDateOrNull("minDate");
         accountingView.setDate(QuAccDateUtil.toString(minDate));
-        accountingView.setEndDate(QuAccDateUtil.toString(accountingCursor.getDate()));
+        accountingView.setEndDate(QuAccDateUtil.toString(bookingEntryCursor.getDate()));
 
-        accountingView.setCategory(accountingCursor.getCategoryName());
-        accountingView.setValue(parseValueFromIntegerFunction.apply(accountingCursor.getValue()));
+        accountingView.setCategory(bookingEntryCursor.getCategoryName());
+        accountingView.setValue(parseValueFromIntegerFunction.apply(bookingEntryCursor.getAmount()));
 
-        AccountingType accountingType = AccountingType.valueOf(accountingCursor.getType());
-        switch (accountingType) {
+        BookingDirectionOption bookingDirectionOption = BookingDirectionOption.valueOf(bookingEntryCursor.getDirection());
+        switch (bookingDirectionOption) {
             case incoming:
                 accountingView.showAsIncome();
                 break;
@@ -141,16 +141,16 @@ public class AccountingTreeAdapter extends CursorTreeAdapter implements LoaderMa
     @Override
     protected void bindChildView(View view, Context context, Cursor cursor, boolean b) {
         AccountingTreeChildItemView accountingView = (AccountingTreeChildItemView) view;
-        AccountingCursor accountingCursor = (AccountingCursor) cursor;
+        BookingEntryCursor bookingEntryCursor = (BookingEntryCursor) cursor;
 
-        accountingView.setDate(QuAccDateUtil.toString(accountingCursor.getDate()));
-        accountingView.setInterval(accountingIntervalTranslator.translate(accountingCursor.getInterval()));
-        accountingView.setCategory(accountingCursor.getCategoryName());
-        accountingView.setComment(accountingCursor.getComment());
-        accountingView.setValue(parseValueFromIntegerFunction.apply(accountingCursor.getValue()));
+        accountingView.setDate(QuAccDateUtil.toString(bookingEntryCursor.getDate()));
+        accountingView.setInterval(accountingIntervalTranslator.translate(bookingEntryCursor.getInterval()));
+        accountingView.setCategory(bookingEntryCursor.getCategoryName());
+        accountingView.setComment(bookingEntryCursor.getComment());
+        accountingView.setValue(parseValueFromIntegerFunction.apply(bookingEntryCursor.getAmount()));
 
-        AccountingType accountingType = AccountingType.valueOf(accountingCursor.getType());
-        switch (accountingType) {
+        BookingDirectionOption bookingDirectionOption = BookingDirectionOption.valueOf(bookingEntryCursor.getDirection());
+        switch (bookingDirectionOption) {
             case incoming:
                 accountingView.showAsIncome();
                 break;

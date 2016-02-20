@@ -12,7 +12,7 @@ import de.nenick.quacc.R;
 @EViewGroup(R.layout.item_category)
 public class CategoryListItem extends RelativeLayout {
 
-    @ViewById(R.id.type)
+    @ViewById(R.id.direction)
     TextView type;
 
     @ViewById(R.id.section)

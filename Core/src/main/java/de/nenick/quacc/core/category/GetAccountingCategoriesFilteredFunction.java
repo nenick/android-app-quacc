@@ -3,20 +3,21 @@ package de.nenick.quacc.core.category;
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EBean;
 
-import de.nenick.quacc.core.accounting.interval.AccountingInterval;
-import de.nenick.quacc.core.accounting.type.AccountingType;
-import de.nenick.quacc.database.category.CategoryDb;
+import de.nenick.quacc.core.bookinginterval.BookingIntervalOption;
+import de.nenick.quacc.core.bookingentry.direction.BookingDirectionOption;
+import de.nenick.quacc.database.category.CategoryRepository;
+import de.nenick.quacc.database.category.CategorySpecFiltered;
 import de.nenick.quacc.database.provider.category.CategoryCursor;
 
 @EBean
 public class GetAccountingCategoriesFilteredFunction {
 
     @Bean
-    CategoryDb categoryDb;
+    CategoryRepository categoryRepository;
 
-    public CategoryCursor apply(String interval, String type) {
-        String[] intervals = {interval, AccountingInterval.all.name()};
-        String[] types = {type, AccountingType.all.name()};
-        return categoryDb.getAllFor(intervals, types, CategoryDb.sortBySectionAndName);
+    public CategoryCursor apply(String interval, String direction) {
+        String[] intervals = {interval, BookingIntervalOption.all.name()};
+        String[] directions = {direction, BookingDirectionOption.all.name()};
+        return categoryRepository.query(new CategorySpecFiltered(intervals, directions));
     }
 }

@@ -26,7 +26,7 @@ public class QuAccHotwordRecognizer {
     private String[] hotwords = {};
 
     /**
-     * The value 200 ms was tested successful on Nexus 6 with Android M. With values below the speech recognition dies silently after a while.
+     * The amount 200 ms was tested successful on Nexus 6 with Android M. With values below the speech recognition dies silently after a while.
      */
     private static final int PAUSE_BEFORE_RESTART_SPEECH_RECOGNITION = 200;
 

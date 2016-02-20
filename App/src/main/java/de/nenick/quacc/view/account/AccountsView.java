@@ -16,7 +16,7 @@ public class AccountsView extends BaseView {
     @ViewById(R.id.account)
     Spinner accountSpinner;
 
-    @ViewById(R.id.value)
+    @ViewById(R.id.amount)
     EditText initialValue;
 
     public void showAccounts(CharSequence[] stringArray) {

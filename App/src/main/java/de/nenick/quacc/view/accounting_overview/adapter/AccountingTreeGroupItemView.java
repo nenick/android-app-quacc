@@ -24,7 +24,7 @@ public class AccountingTreeGroupItemView extends RelativeLayout {
     @ViewById(R.id.category)
     TextView category;
 
-    @ViewById(R.id.value)
+    @ViewById(R.id.amount)
     TextView value;
 
     public AccountingTreeGroupItemView(Context context) {

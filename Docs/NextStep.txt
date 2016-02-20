@@ -2,7 +2,7 @@ Interval Change
 
 * edit single entry
     * comment
-    * value
+    * amount
 
 * import
 * export

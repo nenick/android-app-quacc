@@ -6,10 +6,10 @@ import org.androidannotations.annotations.EBean;
 import java.util.Date;
 
 import de.nenick.quacc.R;
-import de.nenick.quacc.core.accounting.creation.CreateAccountingFunction;
-import de.nenick.quacc.core.accounting.creation.CreateIntervalFunction;
-import de.nenick.quacc.core.accounting.interval.AccountingInterval;
-import de.nenick.quacc.core.accounting.update.UpdateOnceOnlyAccountingFunction;
+import de.nenick.quacc.core.bookingentry.creation.CreateBookingEntryFunction;
+import de.nenick.quacc.core.bookingentry.creation.CreateIntervalFunction;
+import de.nenick.quacc.core.bookingentry.update.UpdateOnceOnlyBookingEntryFunction;
+import de.nenick.quacc.core.bookinginterval.BookingIntervalOption;
 import de.nenick.quacc.core.common.util.QuAccDateUtil;
 import de.nenick.quacc.database.provider.category.CategoryCursor;
 import de.nenick.quacc.valueparser.ParseValueFromStringFunction;
@@ -20,13 +20,13 @@ import static de.nenick.quacc.valueparser.ParseValueFromStringFunction.ParseResu
 public class CreateOrUpdateAccountingFeature {
 
     @Bean
-    CreateAccountingFunction createAccountingFunction;
+    CreateBookingEntryFunction createBookingEntryFunction;
 
     @Bean
     CreateIntervalFunction createIntervalFunction;
 
     @Bean
-    UpdateOnceOnlyAccountingFunction updateOnceOnlyAccountingFunction;
+    UpdateOnceOnlyBookingEntryFunction updateOnceOnlyBookingEntryFunction;
 
     @Bean
     ParseValueFromStringFunction parseValueFromStringFunction;
@@ -64,8 +64,8 @@ public class CreateOrUpdateAccountingFeature {
         String dateString = view.getDate();
         String comment = view.getComment();
         Date date = QuAccDateUtil.toDate(dateString);
-        if (accountingInterval.equals(AccountingInterval.once.name()) && initialInterval.equals(AccountingInterval.once.name())) {
-            updateOnceOnlyAccountingFunction.apply(accountingId, account, accountingType, accountingCategory.getId(), date, valueResult.value, comment);
+        if (accountingInterval.equals(BookingIntervalOption.once.name()) && initialInterval.equals(BookingIntervalOption.once.name())) {
+            updateOnceOnlyBookingEntryFunction.apply(accountingId, account, accountingType, accountingCategory.getId(), date, valueResult.value, comment);
         }
     }
 
@@ -77,8 +77,9 @@ public class CreateOrUpdateAccountingFeature {
         String dateString = view.getDate();
         String comment = view.getComment();
         Date date = QuAccDateUtil.toDate(dateString);
-        if (accountingInterval.equals(AccountingInterval.once.name())) {
-            createAccountingFunction.apply(account, accountingType, accountingInterval, accountingCategory.getId(), date, valueResult.value, comment);
+
+        if (accountingInterval.equals(BookingIntervalOption.once.name())) {
+            createBookingEntryFunction.apply(account, accountingType, accountingInterval, accountingCategory.getId(), date, valueResult.value, comment);
         } else {
             if (view.isEndDateActive()) {
                 String endDateString = view.getEndDate();

@@ -1,6 +1,5 @@
 package de.nenick.quacc.view.category;
 
-import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListAdapter;
 import android.widget.ListView;
@@ -11,14 +10,10 @@ import org.androidannotations.annotations.EBean;
 import org.androidannotations.annotations.ViewById;
 
 import de.nenick.quacc.R;
-import de.nenick.quacc.view.category.adapter.CategoryListAdapter;
 import de.nenick.quacc.view.mvp.BaseView;
 
 @EBean
 public class CategoriesView extends BaseView {
-
-    @ViewById(R.id.accountingType)
-    Spinner accountingTypeSpinner;
 
     @ViewById(R.id.interval)
     Spinner accountingIntervalSpinner;
@@ -29,8 +24,8 @@ public class CategoriesView extends BaseView {
     @ViewById(R.id.list)
     ListView categoryList;
 
-    @ViewById(R.id.type)
-    Spinner typeSpinner;
+    @ViewById(R.id.direction)
+    Spinner directionSpinner;
 
     @ViewById(R.id.interval)
     Spinner intervalSpinner;
@@ -41,16 +36,12 @@ public class CategoriesView extends BaseView {
     @ViewById(R.id.label)
     EditText label;
 
-    public String getAccountingType() {
-        return accountingTypeSpinner.getSelectedItem().toString();
-    }
-
     public void setCategories(ListAdapter adapter) {
         categoryList.setAdapter(adapter);
     }
 
     public void setTypes(SpinnerAdapter adapter) {
-        typeSpinner.setAdapter(adapter);
+        directionSpinner.setAdapter(adapter);
     }
 
     public void setIntervals(SpinnerAdapter adapter) {
@@ -72,7 +63,7 @@ public class CategoriesView extends BaseView {
     }
 
     public String getType() {
-        return typeSpinner.getSelectedItem().toString();
+        return directionSpinner.getSelectedItem().toString();
     }
 
     public <T> T getSection() {

@@ -11,11 +11,13 @@ import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EBean;
 import org.androidannotations.annotations.RootContext;
 
-import de.nenick.quacc.core.accounting.type.AccountingType;
-import de.nenick.quacc.core.template.GetAccountingTemplatesFunction;
-import de.nenick.quacc.database.provider.accountingtemplate.AccountingTemplateCursor;
-import de.nenick.quacc.database.template.TemplateMatchingDb;
+import de.nenick.quacc.core.bookingentry.direction.BookingDirectionOption;
 import de.nenick.quacc.core.i18n.AccountingIntervalTranslator;
+import de.nenick.quacc.core.template.GetBookingTemplatesFunction;
+import de.nenick.quacc.database.bookingtemplatekeyword.BookingTemplateKeywordRepository;
+import de.nenick.quacc.database.bookingtemplatekeyword.BookingTemplateKeywordSpecByTemplateId;
+import de.nenick.quacc.database.provider.bookingtemplate.BookingTemplateCursor;
+import de.nenick.quacc.database.provider.bookingtemplatekeyword.BookingTemplateKeywordCursor;
 import de.nenick.quacc.valueparser.ParseValueFromIntegerFunction;
 
 @EBean
@@ -25,7 +27,7 @@ public class TemplatePlainAdapter extends CursorAdapter {
     Context context;
 
     @Bean
-    GetAccountingTemplatesFunction getAccountingTemplatesFunction;
+    GetBookingTemplatesFunction getBookingTemplatesFunction;
 
     @Bean
     AccountingIntervalTranslator accountingIntervalTranslator;
@@ -34,7 +36,7 @@ public class TemplatePlainAdapter extends CursorAdapter {
     ParseValueFromIntegerFunction parseValueFromInteger;
 
     @Bean
-    TemplateMatchingDb templateMatchingDb;
+    BookingTemplateKeywordRepository bookingTemplateKeywordRepository;
 
     public TemplatePlainAdapter() {
         super(null, null, true);
@@ -43,8 +45,8 @@ public class TemplatePlainAdapter extends CursorAdapter {
     @AfterInject
     protected void afterInject() {
         mContext = context;
-        AccountingTemplateCursor apply = getAccountingTemplatesFunction.apply();
-        changeCursor(apply);
+
+        changeCursor(getBookingTemplatesFunction.apply());
     }
 
     @Override
@@ -54,12 +56,12 @@ public class TemplatePlainAdapter extends CursorAdapter {
 
     @Override
     public void bindView(View view, Context context, Cursor cursor) {
-        bindView((TemplatePlainItemView) view, (AccountingTemplateCursor) cursor);
+        bindView((TemplatePlainItemView) view, (BookingTemplateCursor) cursor);
     }
 
-    private void bindView(TemplatePlainItemView view, AccountingTemplateCursor accountingTemplateCursor) {
-        AccountingType accountingType = AccountingType.valueOf(accountingTemplateCursor.getType());
-        switch (accountingType) {
+    private void bindView(TemplatePlainItemView view, BookingTemplateCursor accountingTemplateCursor) {
+        BookingDirectionOption bookingDirectionOption = BookingDirectionOption.valueOf(accountingTemplateCursor.getDirection());
+        switch (bookingDirectionOption) {
             case incoming:
                 view.showAsIncome();
                 break;
@@ -71,7 +73,13 @@ public class TemplatePlainAdapter extends CursorAdapter {
         view.setCategory(accountingTemplateCursor.getCategoryName());
         view.setComment(accountingTemplateCursor.getComment());
         view.setAccount(accountingTemplateCursor.getAccountName());
-        String speechText = templateMatchingDb.getSpeechTextForTemplate(accountingTemplateCursor.getId());
+        BookingTemplateKeywordCursor query = bookingTemplateKeywordRepository.query(new BookingTemplateKeywordSpecByTemplateId(accountingTemplateCursor.getId()));
+        query.moveToNext();
+        if(query.getCount() != 1) {
+            throw new UnsupportedOperationException("more than one keyword not ready yet");
+        }
+        String speechText = query.getText();
+        query.close();
         view.setSpeechText(speechText);
     }
 }

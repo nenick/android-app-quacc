@@ -27,7 +27,7 @@ public class EditAccountingView extends BaseView {
     @ViewById(R.id.account)
     Spinner accountSpinner;
 
-    @ViewById(R.id.type)
+    @ViewById(R.id.direction)
     Spinner accountingTypeSpinner;
 
     @ViewById(R.id.interval)
@@ -42,7 +42,7 @@ public class EditAccountingView extends BaseView {
     @ViewById(R.id.date)
     TextView date;
 
-    @ViewById(R.id.value)
+    @ViewById(R.id.amount)
     EditText valueField;
 
     @ViewById(R.id.valueError)

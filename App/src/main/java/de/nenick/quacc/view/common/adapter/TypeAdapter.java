@@ -10,7 +10,7 @@ import org.androidannotations.annotations.AfterInject;
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EBean;
 
-import de.nenick.quacc.core.accounting.type.GetAccountingTypesFunction;
+import de.nenick.quacc.core.bookingentry.direction.GetAccountingTypesFunction;
 import de.nenick.quacc.core.i18n.AccountingTypeTranslator;
 
 @EBean

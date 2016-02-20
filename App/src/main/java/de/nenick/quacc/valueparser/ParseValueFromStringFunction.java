@@ -3,11 +3,11 @@ package de.nenick.quacc.valueparser;
 import org.androidannotations.annotations.EBean;
 
 /**
- * Parse different accounting value patterns to a 2 decimal places based integer value (1 = 100).
+ * Parse different bookingEntries amount patterns to a 2 decimal places based integer amount (1 = 100).
  * <p/>
  * You should first check if the {@link Result#report} is {@link ParseResult#Successful} or handle the error.
  * <p/>
- * The accounting value is valid if it match on of the following patterns:
+ * The bookingEntries amount is valid if it match on of the following patterns:
  * - a positive natural number (e.g. "42")
  * - a positive real number with 1 or 2 numbers of digits after the decimal comma (e.g. ",34", "42,3", "42,31")
  */

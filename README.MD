@@ -9,3 +9,6 @@ Housekeeping book as android app. Should differentiate from other apps in:
 
 This project is in development but its already usable and your data can be backup for tests and updates.
 Alpha tester are welcome. Current only german and Euro is supported
+
+[![Code Climate](https://codeclimate.com/github/nenick/QuAcc/badges/gpa.svg)](https://codeclimate.com/github/nenick/QuAcc)
+[![Issue Count](https://codeclimate.com/github/nenick/QuAcc/badges/issue_count.svg)](https://codeclimate.com/github/nenick/QuAcc)

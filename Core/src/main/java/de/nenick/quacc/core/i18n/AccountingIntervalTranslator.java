@@ -8,7 +8,7 @@ import org.androidannotations.annotations.RootContext;
 import java.util.HashMap;
 import java.util.Map;
 
-import de.nenick.quacc.core.accounting.interval.AccountingInterval;
+import de.nenick.quacc.core.bookinginterval.BookingIntervalOption;
 
 @EBean
 public class AccountingIntervalTranslator {
@@ -16,17 +16,17 @@ public class AccountingIntervalTranslator {
     @RootContext
     Context context;
 
-    private static Map<String, AccountingInterval> translated = new HashMap<>();
+    private static Map<String, BookingIntervalOption> translated = new HashMap<>();
 
-    public AccountingInterval asEnum(String translation) {
+    public BookingIntervalOption asEnum(String translation) {
         return translated.get(translation);
     }
 
     public String translate(String interval) {
-        return translate(AccountingInterval.valueOf(interval));
+        return translate(BookingIntervalOption.valueOf(interval));
     }
 
-    public String translate(AccountingInterval interval) {
+    public String translate(BookingIntervalOption interval) {
         String translation = findCachedTranslation(interval);
         if (translation == null) {
             translation = translateOrThrow(interval);
@@ -35,7 +35,7 @@ public class AccountingIntervalTranslator {
         return translation;
     }
 
-    private String translateOrThrow(AccountingInterval interval) {
+    private String translateOrThrow(BookingIntervalOption interval) {
         String translation;
         String resourceName = "accounting_interval_" + interval.name();
         int resourceId = context.getResources().getIdentifier(resourceName, "string", context.getPackageName());
@@ -47,8 +47,8 @@ public class AccountingIntervalTranslator {
         return translation;
     }
 
-    private String findCachedTranslation(AccountingInterval interval) {
-        for (Map.Entry<String, AccountingInterval> entry : translated.entrySet()) {
+    private String findCachedTranslation(BookingIntervalOption interval) {
+        for (Map.Entry<String, BookingIntervalOption> entry : translated.entrySet()) {
             if(entry.getValue() == interval) {
                 return entry.getKey();
             }

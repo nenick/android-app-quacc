@@ -13,11 +13,11 @@ apply from: "../build.jacoco-already-instrumented-workaround.gradle"
 
 android {
     compileSdkVersion 21
-    buildToolsVersion "22.0.1"
+    buildToolsVersion "23.0.2"
 
     defaultConfig {
         applicationId "de.nenick.quacc"
-        minSdkVersion 17
+        minSdkVersion 21
         targetSdkVersion 21
         versionCode 1
         versionName "1.0"
@@ -73,12 +73,12 @@ dependencies {
 
 }
 
-afterEvaluate {
+/*afterEvaluate {
     tasks.testDebug {
         testLogging {
             events "passed", "skipped", "failed", "standardOut", "standardError"
         }
         jvmArgs "-XX:MaxPermSize=512m"
     }
-}
+}*/
 

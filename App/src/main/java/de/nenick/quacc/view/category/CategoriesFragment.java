@@ -7,14 +7,13 @@ import org.androidannotations.annotations.EFragment;
 import de.nenick.quacc.R;
 import de.nenick.quacc.core.category.CreateCategoryFunction;
 import de.nenick.quacc.core.category.GetAccountingCategoriesFilteredFunction;
-import de.nenick.quacc.database.provider.category.CategoryColumns;
 import de.nenick.quacc.database.provider.category.CategoryCursor;
 import de.nenick.quacc.view.category.adapter.SectionAdapter;
 import de.nenick.quacc.view.common.adapter.IntervalAdapter;
 import de.nenick.quacc.view.common.adapter.TypeAdapter;
 import de.nenick.quacc.view.category.adapter.CategoryListAdapter;
-import de.nenick.quacc.core.accounting.interval.GetAccountingIntervalsFunction;
-import de.nenick.quacc.core.accounting.type.GetAccountingTypesFunction;
+import de.nenick.quacc.core.bookinginterval.GetAccountingIntervalsFunction;
+import de.nenick.quacc.core.bookingentry.direction.GetAccountingTypesFunction;
 import de.nenick.quacc.view.mvp.BasePresenterFragment;
 import de.nenick.quacc.view.mvp.BaseView;
 

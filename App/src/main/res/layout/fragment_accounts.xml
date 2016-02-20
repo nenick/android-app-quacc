@@ -17,7 +17,7 @@
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/value"
+        android:id="@+id/amount"
         android:inputType="numberDecimal"
         android:gravity="end"
         android:imeOptions="flagNoExtractUi"
@@ -33,7 +33,7 @@
         android:text="@string/save"
         android:id="@+id/button"
         android:layout_marginStart="24dp"
-        android:layout_alignBottom="@+id/value"
-        android:layout_toEndOf="@+id/value" />
+        android:layout_alignBottom="@+id/amount"
+        android:layout_toEndOf="@+id/amount" />
 
 </RelativeLayout>

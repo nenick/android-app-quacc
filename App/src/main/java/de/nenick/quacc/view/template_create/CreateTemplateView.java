@@ -20,7 +20,7 @@ public class CreateTemplateView extends BaseView {
     @ViewById(R.id.account)
     Spinner accountSpinner;
 
-    @ViewById(R.id.type)
+    @ViewById(R.id.direction)
     Spinner accountingTypeSpinner;
 
     @ViewById(R.id.interval)
@@ -52,7 +52,7 @@ public class CreateTemplateView extends BaseView {
         accountingTypeSpinner.setAdapter(adapter);
     }
 
-    public  <T> T getAccountingType() {
+    public  <T> T getDirection() {
         //noinspection unchecked the caller should now what kind of item he expect
         return (T) accountingTypeSpinner.getSelectedItem();
     }

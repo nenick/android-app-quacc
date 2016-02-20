@@ -7,8 +7,6 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import de.nenick.quacc.core.account.GetAccountsFunction;
-import de.nenick.quacc.database.account.AccountDb;
-import de.nenick.quacc.database.provider.account.AccountCursor;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.BDDMockito.given;

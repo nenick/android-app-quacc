@@ -8,7 +8,7 @@ import org.androidannotations.annotations.RootContext;
 import java.util.HashMap;
 import java.util.Map;
 
-import de.nenick.quacc.core.accounting.type.AccountingType;
+import de.nenick.quacc.core.bookingentry.direction.BookingDirectionOption;
 
 @EBean
 public class AccountingTypeTranslator {
@@ -16,17 +16,17 @@ public class AccountingTypeTranslator {
     @RootContext
     Context context;
 
-    private static Map<String, AccountingType> translated = new HashMap<>();
+    private static Map<String, BookingDirectionOption> translated = new HashMap<>();
 
-    public AccountingType asEnum(String translation) {
+    public BookingDirectionOption asEnum(String translation) {
         return translated.get(translation);
     }
 
     public String translate(String type) {
-        return translate(AccountingType.valueOf(type));
+        return translate(BookingDirectionOption.valueOf(type));
     }
 
-    public String translate(AccountingType type) {
+    public String translate(BookingDirectionOption type) {
         String translation = findCachedTranslation(type);
         if (translation == null) {
             translation = translateOrThrow(type);
@@ -35,7 +35,7 @@ public class AccountingTypeTranslator {
         return translation;
     }
 
-    private String translateOrThrow(AccountingType interval) {
+    private String translateOrThrow(BookingDirectionOption interval) {
         String translation;
         String resourceName = "accounting_type_" + interval.name();
         int resourceId = context.getResources().getIdentifier(resourceName, "string", context.getPackageName());
@@ -47,8 +47,8 @@ public class AccountingTypeTranslator {
         return translation;
     }
 
-    private String findCachedTranslation(AccountingType interval) {
-        for (Map.Entry<String, AccountingType> entry : translated.entrySet()) {
+    private String findCachedTranslation(BookingDirectionOption interval) {
+        for (Map.Entry<String, BookingDirectionOption> entry : translated.entrySet()) {
             if(entry.getValue() == interval) {
                 return entry.getKey();
             }

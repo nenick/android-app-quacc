@@ -36,7 +36,7 @@
                 android:text="Buchungsart" />
 
             <Spinner
-                android:id="@+id/type"
+                android:id="@+id/direction"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
@@ -72,7 +72,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignStart="@+id/layout_center_ancor"
                 android:layout_alignTop="@+id/typeLabel"
-                android:layout_toEndOf="@+id/type"
+                android:layout_toEndOf="@+id/direction"
                 android:text="Kategorie" />
 
 
@@ -90,7 +90,7 @@
                 android:id="@+id/accountLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignEnd="@+id/type"
+                android:layout_alignEnd="@+id/direction"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentTop="true"
                 android:layout_marginTop="20dp"
@@ -110,7 +110,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Notiz (Optional)"
-                android:layout_below="@+id/type"
+                android:layout_below="@+id/direction"
                 android:layout_alignParentStart="true"
                 android:layout_marginTop="26dp" />
 

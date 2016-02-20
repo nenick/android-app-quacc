@@ -15,15 +15,15 @@ public class BackupJson {
     @JsonProperty("categories")
     public List<CategoryJson> categories = new ArrayList<>();
 
-    @JsonProperty("accounting")
-    public List<AccountingJson> accounting = new ArrayList<>();
+    @JsonProperty("bookingEntries")
+    public List<BookingEntryJson> bookingEntries = new ArrayList<>();
 
-    @JsonProperty("templates")
-    public List<TemplateJson> templates = new ArrayList<>();
+    @JsonProperty("bookingTemplates")
+    public List<BookingTemplateJson> bookingTemplates = new ArrayList<>();
 
-    @JsonProperty("templateMatches")
-    public List<TemplateMatchingJson> templateMatches = new ArrayList<>();
+    @JsonProperty("bookingTemplateKeywords")
+    public List<TemplateMatchingJson> bookingTemplateKeywords = new ArrayList<>();
 
-    @JsonProperty("intervals")
-    public List<IntervalJson> intervals = new ArrayList<>();
+    @JsonProperty("bookingIntervals")
+    public List<BookingIntervalJson> bookingIntervals = new ArrayList<>();
 }

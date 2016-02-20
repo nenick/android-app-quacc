@@ -7,11 +7,13 @@ import org.androidannotations.annotations.ItemSelect;
 
 import de.nenick.quacc.R;
 import de.nenick.quacc.core.account.GetAccountsFunction;
+import de.nenick.quacc.database.account.AccountRepository;
+import de.nenick.quacc.database.account.AccountSpecByName;
+import de.nenick.quacc.database.provider.account.AccountContentValues;
 import de.nenick.quacc.valueparser.ParseValueFromStringFunction;
 import de.nenick.quacc.valueparser.ParseValueFromIntegerFunction;
 import de.nenick.quacc.view.mvp.BasePresenterFragment;
 import de.nenick.quacc.view.mvp.BaseView;
-import de.nenick.quacc.database.account.AccountDb;
 import de.nenick.quacc.database.provider.account.AccountCursor;
 
 @EFragment(R.layout.fragment_accounts)
@@ -29,7 +31,7 @@ public class AccountsFragment extends BasePresenterFragment {
     }
 
     @Bean
-    AccountDb accountDb;
+    AccountRepository accountRepository;
 
     @Bean
     ParseValueFromStringFunction parseValueFromStringFunction;
@@ -46,13 +48,15 @@ public class AccountsFragment extends BasePresenterFragment {
     protected void onSave() {
         ParseValueFromStringFunction.Result apply = parseValueFromStringFunction.apply(view.getInitialValue());
         if(apply.report == ParseValueFromStringFunction.ParseResult.Successful) {
-            accountDb.updateInitialValue(view.getAccount(), apply.value);
+            AccountContentValues account = new AccountContentValues().putInitialvalue(apply.value);
+            AccountSpecByName byName = new AccountSpecByName(view.getAccount());
+            accountRepository.update(account, byName);
         }
     }
 
     @ItemSelect(R.id.account)
     protected void onAccountSelection(boolean selected, int position) {
-        AccountCursor accountByName = accountDb.getAccountByName(view.getAccount());
+        AccountCursor accountByName = accountRepository.query(new AccountSpecByName(view.getAccount()));
         accountByName.moveToFirst();
         view.setInitialValue(parseValueFromIntegerFunction.apply(accountByName.getInitialvalue()));
     }

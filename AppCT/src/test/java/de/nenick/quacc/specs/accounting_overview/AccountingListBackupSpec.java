@@ -4,7 +4,6 @@ import android.os.Environment;
 
 import org.joda.time.DateTime;
 import org.junit.Test;
-import org.robolectric.Robolectric;
 
 import java.io.File;
 
@@ -12,13 +11,11 @@ import de.nenick.quacc.core.accounting.creation.CreateAccountingFunction_;
 import de.nenick.quacc.core.accounting.deletion.DeleteAccountingFunction_;
 import de.nenick.quacc.core.accounting.interval.AccountingInterval;
 import de.nenick.quacc.core.accounting.type.AccountingType;
-import de.nenick.quacc.database.accounting.AccountingDb;
 import de.nenick.quacc.database.accounting.AccountingDb_;
 import de.nenick.quacc.view.accounting_overview.AccountingListActivity_;
 import de.nenick.quacc.view.accounting_overview.AccountingListFragment_;
 import de.nenick.quacc.view.accounting_overview.RoboAccountingListPage;
 import de.nenick.robolectric.RoboComponentTestBase;
-import de.nenick.robolectric.RoboSup;
 
 import static org.assertj.core.api.Assertions.assertThat;
 

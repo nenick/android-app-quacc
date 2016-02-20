@@ -7,26 +7,32 @@ import org.codehaus.jackson.map.ObjectMapper;
 import java.io.IOException;
 import java.io.OutputStream;
 
-import de.nenick.quacc.core.accounting.interval.AccountingInterval;
 import de.nenick.quacc.core.backup.model.AccountJson;
-import de.nenick.quacc.core.backup.model.AccountingJson;
 import de.nenick.quacc.core.backup.model.BackupJson;
+import de.nenick.quacc.core.backup.model.BookingEntryJson;
+import de.nenick.quacc.core.backup.model.BookingIntervalJson;
+import de.nenick.quacc.core.backup.model.BookingTemplateJson;
 import de.nenick.quacc.core.backup.model.CategoryJson;
-import de.nenick.quacc.core.backup.model.IntervalJson;
-import de.nenick.quacc.core.backup.model.TemplateJson;
 import de.nenick.quacc.core.backup.model.TemplateMatchingJson;
-import de.nenick.quacc.database.account.AccountDb;
-import de.nenick.quacc.database.accounting.AccountingDb;
-import de.nenick.quacc.database.category.CategoryDb;
-import de.nenick.quacc.database.interval.IntervalDb;
+import de.nenick.quacc.core.bookinginterval.BookingIntervalOption;
+import de.nenick.quacc.database.account.AccountRepository;
+import de.nenick.quacc.database.account.AccountSpecAll;
+import de.nenick.quacc.database.bookingentry.BookingEntryRepository;
+import de.nenick.quacc.database.bookingentry.BookingEntrySpecByInterval;
+import de.nenick.quacc.database.bookinginterval.BookingIntervalRepository;
+import de.nenick.quacc.database.bookinginterval.BookingIntervalSpecAll;
+import de.nenick.quacc.database.bookingtemplate.BookingTemplateRepository;
+import de.nenick.quacc.database.bookingtemplate.BookingTemplateSpecAll;
+import de.nenick.quacc.database.bookingtemplatekeyword.BookingTemplateKeywordRepository;
+import de.nenick.quacc.database.bookingtemplatekeyword.BookingTemplateKeywordSpecAll;
+import de.nenick.quacc.database.category.CategoryRepository;
+import de.nenick.quacc.database.category.CategorySpecAll;
 import de.nenick.quacc.database.provider.account.AccountCursor;
-import de.nenick.quacc.database.provider.accounting.AccountingCursor;
-import de.nenick.quacc.database.provider.accountingtemplate.AccountingTemplateCursor;
+import de.nenick.quacc.database.provider.bookingentry.BookingEntryCursor;
+import de.nenick.quacc.database.provider.bookinginterval.BookingIntervalCursor;
+import de.nenick.quacc.database.provider.bookingtemplate.BookingTemplateCursor;
+import de.nenick.quacc.database.provider.bookingtemplatekeyword.BookingTemplateKeywordCursor;
 import de.nenick.quacc.database.provider.category.CategoryCursor;
-import de.nenick.quacc.database.provider.interval.IntervalCursor;
-import de.nenick.quacc.database.provider.templatematching.TemplateMatchingCursor;
-import de.nenick.quacc.database.template.AccountingTemplateDb;
-import de.nenick.quacc.database.template.TemplateMatchingDb;
 
 @EBean
 public class BackupToJsonFileFunction {
@@ -35,39 +41,39 @@ public class BackupToJsonFileFunction {
     GetOutputStreamToFileFunction getOutputStreamToFileFunction;
 
     @Bean
-    AccountDb accountDb;
+    AccountRepository accountRepository;
 
     @Bean
-    CategoryDb categoryDb;
+    CategoryRepository categoryRepository;
 
     @Bean
-    AccountingDb accountingDb;
+    BookingEntryRepository bookingEntryRepository;
 
     @Bean
-    IntervalDb intervalDb;
+    BookingIntervalRepository bookingIntervalRepository;
 
     @Bean
-    AccountingTemplateDb accountingTemplateDb;
+    BookingTemplateRepository bookingTemplateRepository;
 
     @Bean
-    TemplateMatchingDb templateMatchingDb;
+    BookingTemplateKeywordRepository bookingTemplateKeywordRepository;
 
     public void apply(String path) {
         BackupJson backupJson = new BackupJson();
 
         backupAccounts(backupJson);
         backupCategories(backupJson);
-        backupAccounting(backupJson);
-        backupInterval(backupJson);
-        backupTemplates(backupJson);
-        backupTemplateMatches(backupJson);
+        backupBookingEntries(backupJson);
+        backupBookingIntervals(backupJson);
+        backupBookingTemplates(backupJson);
+        backupBookingTemplateKeywords(backupJson);
 
 
         writeBackupFile(path, backupJson);
     }
 
     private void backupAccounts(BackupJson backupJson) {
-        AccountCursor all = accountDb.getAll();
+        AccountCursor all = accountRepository.query(new AccountSpecAll());
         while (all.moveToNext()) {
             backupJson.accounts.add(new AccountJson(all.getId(), all.getName(), all.getInitialvalue()));
         }
@@ -75,41 +81,41 @@ public class BackupToJsonFileFunction {
     }
 
     private void backupCategories(BackupJson backupJson) {
-        CategoryCursor all = categoryDb.getAll();
+        CategoryCursor all = categoryRepository.query(new CategorySpecAll());
         while (all.moveToNext()) {
-            backupJson.categories.add(new CategoryJson(all.getId(), all.getName(), all.getSection(), all.getInterval(), all.getType(), all.getLevel()));
+            backupJson.categories.add(new CategoryJson(all.getId(), all.getName(), all.getSection(), all.getInterval(), all.getDirection(), all.getLevel()));
         }
         all.close();
     }
 
-    private void backupAccounting(BackupJson backupJson) {
-        AccountingCursor all = accountingDb.getAllForInterval(AccountingInterval.once.name());
+    private void backupBookingEntries(BackupJson backupJson) {
+        BookingEntryCursor all = bookingEntryRepository.query(new BookingEntrySpecByInterval(BookingIntervalOption.once.name()));
         while (all.moveToNext()) {
-            backupJson.accounting.add(new AccountingJson(all.getId(), all.getAccountId(), all.getCategoryId(), all.getComment(), all.getInterval(), all.getType(), all.getDate(), all.getValue()));
+            backupJson.bookingEntries.add(new BookingEntryJson(all.getId(), all.getAccountId(), all.getCategoryId(), all.getComment(), all.getInterval(), all.getDirection(), all.getDate(), all.getAmount()));
         }
         all.close();
     }
 
-    private void backupInterval(BackupJson backupJson) {
-        IntervalCursor all = intervalDb.getAll();
+    private void backupBookingIntervals(BackupJson backupJson) {
+        BookingIntervalCursor all = bookingIntervalRepository.query(new BookingIntervalSpecAll());
         while (all.moveToNext()) {
-            backupJson.intervals.add(new IntervalJson(all.getId(), all.getAccountId(), all.getCategoryId(), all.getComment(), all.getInterval(), all.getType(), all.getDateStart(), all.getDateEnd(), all.getValue()));
+            backupJson.bookingIntervals.add(new BookingIntervalJson(all.getId(), all.getAccountId(), all.getCategoryId(), all.getComment(), all.getInterval(), all.getDirection(), all.getDateStart(), all.getDateEnd(), all.getAmount()));
         }
         all.close();
     }
 
-    private void backupTemplates(BackupJson backupJson) {
-        AccountingTemplateCursor all = accountingTemplateDb.getAll();
+    private void backupBookingTemplates(BackupJson backupJson) {
+        BookingTemplateCursor all = bookingTemplateRepository.query(new BookingTemplateSpecAll());
         while (all.moveToNext()) {
-            backupJson.templates.add(new TemplateJson(all.getId(), all.getAccountId(), all.getCategoryId(), all.getComment(), all.getInterval(), all.getType()));
+            backupJson.bookingTemplates.add(new BookingTemplateJson(all.getId(), all.getAccountId(), all.getCategoryId(), all.getComment(), all.getInterval(), all.getDirection()));
         }
         all.close();
     }
 
-    private void backupTemplateMatches(BackupJson backupJson) {
-        TemplateMatchingCursor all = templateMatchingDb.getAll();
+    private void backupBookingTemplateKeywords(BackupJson backupJson) {
+        BookingTemplateKeywordCursor all = bookingTemplateKeywordRepository.query(new BookingTemplateKeywordSpecAll());
         while (all.moveToNext()) {
-            backupJson.templateMatches.add(new TemplateMatchingJson(all.getText(), all.getAccountingTemplateId()));
+            backupJson.bookingTemplateKeywords.add(new TemplateMatchingJson(all.getText(), all.getBookingTemplateId()));
         }
         all.close();
     }

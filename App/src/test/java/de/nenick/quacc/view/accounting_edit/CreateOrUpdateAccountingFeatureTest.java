@@ -13,10 +13,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 import de.nenick.quacc.R;
-import de.nenick.quacc.core.accounting.creation.CreateAccountingFunction;
-import de.nenick.quacc.core.accounting.creation.CreateIntervalFunction;
-import de.nenick.quacc.core.accounting.interval.AccountingInterval;
-import de.nenick.quacc.core.accounting.type.AccountingType;
+import de.nenick.quacc.core.bookingentry.creation.CreateBookingEntryFunction;
+import de.nenick.quacc.core.bookingentry.creation.CreateIntervalFunction;
+import de.nenick.quacc.core.bookinginterval.BookingIntervalOption;
+import de.nenick.quacc.core.bookingentry.direction.BookingDirectionOption;
 import de.nenick.quacc.core.common.util.QuAccDateUtil;
 import de.nenick.quacc.database.provider.category.CategoryCursor;
 import de.nenick.quacc.valueparser.ParseValueFromStringFunction;
@@ -37,7 +37,7 @@ public class CreateOrUpdateAccountingFeatureTest {
     ParseValueFromStringFunction parseValueFromStringFunction;
 
     @Mock
-    CreateAccountingFunction createAccountingFunction;
+    CreateBookingEntryFunction createBookingEntryFunction;
 
     @Mock
     CategoryCursor categoryCursor;
@@ -54,8 +54,8 @@ public class CreateOrUpdateAccountingFeatureTest {
     String valueString = "500";
     int value = 500;
     String account = "Bar";
-    String type = AccountingType.incoming.name();
-    String interval = AccountingInterval.once.name();
+    String type = BookingDirectionOption.incoming.name();
+    String interval = BookingIntervalOption.once.name();
     long categoryId = 12;
     Date date;
     Date endDate;
@@ -107,15 +107,15 @@ public class CreateOrUpdateAccountingFeatureTest {
 
     @Test
     public void shouldCreateOnlyOnceAccounting() {
-        interval = AccountingInterval.once.name();
+        interval = BookingIntervalOption.once.name();
         givenViewWillReturnProperties();
         whenCallFeatureForCreate();
-        verify(createAccountingFunction).apply(account, type, interval, categoryId, date, value, comment);
+        verify(createBookingEntryFunction).apply(account, type, interval, categoryId, date, value, comment);
     }
 
     @Test
     public void shouldCreateIntervalAccounting() {
-        interval = AccountingInterval.daily.name();
+        interval = BookingIntervalOption.daily.name();
         givenViewWillReturnProperties();
         whenCallFeatureForCreate();
         verify(createIntervalFunction).apply(account, type, interval, categoryId, date, value, comment);
@@ -123,7 +123,7 @@ public class CreateOrUpdateAccountingFeatureTest {
 
     @Test
     public void shouldCreateIntervalAccountingWithEndDate() {
-        interval = AccountingInterval.daily.name();
+        interval = BookingIntervalOption.daily.name();
         isEndDateActive = true;
         givenViewWillReturnProperties();
         whenCallFeatureForCreate();

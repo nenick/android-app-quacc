@@ -14,7 +14,7 @@ env:
     # should avoid the randomly failing test starts for App:test (exit code 137)
     - GRADLE_OPTS="-Xmx512m -XX:MaxPermSize=512m"
 
-    # increase timout should avoid ShellCommandUnresponsiveException but looks like value hasn't any effect
+    # increase timout should avoid ShellCommandUnresponsiveException but looks like amount hasn't any effect
     - ADB_INSTALL_TIMEOUT=8 # minutes (2 minutes by default)
 
     # The encrypted COVERITY_SCAN_TOKEN, created via the "travis encrypt" command using the project repo's public key

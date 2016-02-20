@@ -7,20 +7,20 @@ import org.androidannotations.annotations.OptionsItem;
 import org.androidannotations.annotations.OptionsMenu;
 
 import de.nenick.quacc.R;
-import de.nenick.quacc.core.template.CreateTemplateMatchFunction;
+import de.nenick.quacc.core.template.AddTemplateKeywordFunction;
 import de.nenick.quacc.database.provider.category.CategoryCursor;
 import de.nenick.quacc.view.accounting_edit.adapter.CategoryAdapter;
 import de.nenick.quacc.view.common.adapter.IntervalAdapter;
 import de.nenick.quacc.view.common.adapter.TypeAdapter;
 import de.nenick.quacc.core.account.GetAccountsFunction;
-import de.nenick.quacc.core.accounting.interval.AccountingInterval;
-import de.nenick.quacc.core.accounting.interval.GetAccountingIntervalsFunction;
-import de.nenick.quacc.core.accounting.type.AccountingType;
-import de.nenick.quacc.core.accounting.type.GetAccountingTypesFunction;
+import de.nenick.quacc.core.bookinginterval.BookingIntervalOption;
+import de.nenick.quacc.core.bookinginterval.GetAccountingIntervalsFunction;
+import de.nenick.quacc.core.bookingentry.direction.BookingDirectionOption;
+import de.nenick.quacc.core.bookingentry.direction.GetAccountingTypesFunction;
 import de.nenick.quacc.view.mvp.BasePresenterFragment;
 import de.nenick.quacc.view.mvp.BaseView;
 import de.nenick.quacc.valueparser.ParseValueFromStringFunction;
-import de.nenick.quacc.core.template.CreateAccountingTemplateFunction;
+import de.nenick.quacc.core.template.CreateBookingTemplateFunction;
 
 @EFragment(R.layout.fragment_create_accounting_template)
 @OptionsMenu(R.menu.menu_create_account)
@@ -39,13 +39,13 @@ public class CreateTemplateFragment extends BasePresenterFragment {
     GetAccountsFunction getAccountsFunction;
 
     @Bean
-    CreateAccountingTemplateFunction createAccountingTemplateFunction;
+    CreateBookingTemplateFunction createBookingTemplateFunction;
 
     @Bean
     ParseValueFromStringFunction parseValueFromStringFunction;
 
     @Bean
-    CreateTemplateMatchFunction createTemplateMatchFunction;
+    AddTemplateKeywordFunction addTemplateKeywordFunction;
 
     @Bean
     IntervalAdapter intervalAdapter;
@@ -67,11 +67,11 @@ public class CreateTemplateFragment extends BasePresenterFragment {
 
         intervalAdapter.addAll(getAccountingIntervalsFunction.apply());
         view.setAccountingIntervals(intervalAdapter);
-        view.setAccountingInterval(AccountingInterval.once.name());
+        view.setAccountingInterval(BookingIntervalOption.once.name());
 
         typeAdapter.addAll(getAccountingTypesFunction.apply());
         view.setAccountingTypes(typeAdapter);
-        view.setAccountingType(AccountingType.outgoing.name());
+        view.setAccountingType(BookingDirectionOption.outgoing.name());
 
         view.setAccountingCategories(categoryAdapter);
         reloadCategories();
@@ -83,16 +83,17 @@ public class CreateTemplateFragment extends BasePresenterFragment {
         view.closeSoftKeyboard();
 
         String account = view.getAccount();
-        String accountingType = view.getAccountingType();
+        String accountingType = view.getDirection();
         String accountingInterval = view.getAccountingInterval();
         CategoryCursor accountingCategory = view.getAccountingCategory();
         String comment = view.getComment();
         view.finish();
-        long templateId = createAccountingTemplateFunction.apply(account, accountingType, accountingInterval, accountingCategory.getId(), comment);
+
+        long templateId = createBookingTemplateFunction.apply(account, accountingType, accountingInterval, accountingCategory.getId(), comment);
 
         String speechText = view.getSpeechText();
         if(!speechText.isEmpty()) {
-            createTemplateMatchFunction.apply(speechText, templateId);
+            addTemplateKeywordFunction.apply(speechText, templateId);
         }
     }
 
@@ -101,14 +102,14 @@ public class CreateTemplateFragment extends BasePresenterFragment {
         reloadCategories();
     }
 
-    @ItemSelect(R.id.type)
+    @ItemSelect(R.id.direction)
     public void onTypeSelection(boolean selected, int position) {
         reloadCategories();
     }
 
     private void reloadCategories() {
         String accountingInterval = view.getAccountingInterval();
-        String accountingType = view.getAccountingType();
+        String accountingType = view.getDirection();
         if (isViewNotFullInitialized(accountingInterval, accountingType)) {
             return;
         }

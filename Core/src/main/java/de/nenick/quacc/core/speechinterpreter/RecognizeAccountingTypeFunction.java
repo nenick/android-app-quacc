@@ -6,7 +6,7 @@ import org.androidannotations.annotations.EBean;
 import org.androidannotations.annotations.RootContext;
 
 import de.nenick.quacc.core.R;
-import de.nenick.quacc.core.accounting.type.AccountingType;
+import de.nenick.quacc.core.bookingentry.direction.BookingDirectionOption;
 
 @EBean
 public class RecognizeAccountingTypeFunction {
@@ -21,13 +21,13 @@ public class RecognizeAccountingTypeFunction {
         String transfer = getHumanReadableString(R.string.accounting_type_transfer);
 
         if (recognizedText.toLowerCase().contains(incoming.toLowerCase())) {
-            return new SpeechResult(AccountingType.incoming.name(), recognizedText.toLowerCase().indexOf(incoming.toLowerCase()), incoming.length());
+            return new SpeechResult(BookingDirectionOption.incoming.name(), recognizedText.toLowerCase().indexOf(incoming.toLowerCase()), incoming.length());
         }
         if (recognizedText.toLowerCase().contains(outgoing.toLowerCase())) {
-            return new SpeechResult(AccountingType.outgoing.name(), recognizedText.toLowerCase().indexOf(outgoing.toLowerCase()), outgoing.length());
+            return new SpeechResult(BookingDirectionOption.outgoing.name(), recognizedText.toLowerCase().indexOf(outgoing.toLowerCase()), outgoing.length());
         }
         if (recognizedText.toLowerCase().contains(transfer.toLowerCase())) {
-            return new SpeechResult(AccountingType.transfer.name(), recognizedText.toLowerCase().indexOf(transfer.toLowerCase()), transfer.length());
+            return new SpeechResult(BookingDirectionOption.transfer.name(), recognizedText.toLowerCase().indexOf(transfer.toLowerCase()), transfer.length());
         }
 
         return null;

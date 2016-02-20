@@ -18,18 +18,12 @@ import java.io.InputStream;
 import java.util.Date;
 
 import de.nenick.quacc.core.backup.model.AccountJson;
-import de.nenick.quacc.core.backup.model.AccountingJson;
+import de.nenick.quacc.core.backup.model.BookingEntryJson;
 import de.nenick.quacc.core.backup.model.BackupJson;
 import de.nenick.quacc.core.backup.model.CategoryJson;
-import de.nenick.quacc.core.backup.model.IntervalJson;
-import de.nenick.quacc.core.backup.model.TemplateJson;
+import de.nenick.quacc.core.backup.model.BookingIntervalJson;
+import de.nenick.quacc.core.backup.model.BookingTemplateJson;
 import de.nenick.quacc.core.backup.model.TemplateMatchingJson;
-import de.nenick.quacc.database.account.AccountDb;
-import de.nenick.quacc.database.accounting.AccountingDb;
-import de.nenick.quacc.database.category.CategoryDb;
-import de.nenick.quacc.database.interval.IntervalDb;
-import de.nenick.quacc.database.template.AccountingTemplateDb;
-import de.nenick.quacc.database.template.TemplateMatchingDb;
 
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.mock;
@@ -104,7 +98,7 @@ public class BackupFromJsonFileFunctionTest {
         String categoryName = "name";
         String categorySection = "section";
         String categoryInterval = "interval";
-        String categoryType = "type";
+        String categoryType = "direction";
         int categoryLevel = 1;
 
         BackupJson backupJson = new BackupJson();
@@ -129,7 +123,7 @@ public class BackupFromJsonFileFunctionTest {
         String categoryName = "name";
         String categorySection = "section";
         String categoryInterval = "interval";
-        String categoryType = "type";
+        String categoryType = "direction";
         int categoryLevel = 1;
 
         long categoryIdNew = 110;
@@ -137,7 +131,7 @@ public class BackupFromJsonFileFunctionTest {
 
         long accountingId = 12;
         String accountingInterval = "interval";
-        String accountingType = "type";
+        String accountingType = "direction";
         String accountingComment = "comment";
         Date accountingDate = new Date();
         int accountingValue = 1;
@@ -145,7 +139,7 @@ public class BackupFromJsonFileFunctionTest {
         BackupJson backupJson = new BackupJson();
         backupJson.accounts.add(new AccountJson(accountId, accountName, accountInitialValue));
         backupJson.categories.add(new CategoryJson(categoryId, categoryName, categorySection, categoryInterval, categoryType, categoryLevel));
-        backupJson.accounting.add(new AccountingJson(accountingId, accountId, categoryId, accountingComment, accountingInterval, accountingType, accountingDate, accountingValue));
+        backupJson.bookingEntries.add(new BookingEntryJson(accountingId, accountId, categoryId, accountingComment, accountingInterval, accountingType, accountingDate, accountingValue));
 
         givenBackup(backupJson);
         whenApplyBackup();
@@ -166,7 +160,7 @@ public class BackupFromJsonFileFunctionTest {
         String categoryName = "name";
         String categorySection = "section";
         String categoryInterval = "interval";
-        String categoryType = "type";
+        String categoryType = "direction";
         int categoryLevel = 1;
 
         long categoryIdNew = 110;
@@ -174,7 +168,7 @@ public class BackupFromJsonFileFunctionTest {
 
         long intervalId = 12;
         String intervalInterval = "interval";
-        String intervalType = "type";
+        String intervalType = "direction";
         String intervalComment = "comment";
         Date intervalDateStart = new Date(new Date().getTime() - 300000);
         Date intervalDateEnd = new Date();
@@ -183,7 +177,7 @@ public class BackupFromJsonFileFunctionTest {
         BackupJson backupJson = new BackupJson();
         backupJson.accounts.add(new AccountJson(accountId, accountName, accountInitialValue));
         backupJson.categories.add(new CategoryJson(categoryId, categoryName, categorySection, categoryInterval, categoryType, categoryLevel));
-        backupJson.intervals.add(new IntervalJson(intervalId, accountId, categoryId, intervalComment, intervalInterval, intervalType, intervalDateStart, intervalDateEnd, intervalValue));
+        backupJson.bookingIntervals.add(new BookingIntervalJson(intervalId, accountId, categoryId, intervalComment, intervalInterval, intervalType, intervalDateStart, intervalDateEnd, intervalValue));
 
         givenBackup(backupJson);
         whenApplyBackup();
@@ -204,7 +198,7 @@ public class BackupFromJsonFileFunctionTest {
         String categoryName = "name";
         String categorySection = "section";
         String categoryInterval = "interval";
-        String categoryType = "type";
+        String categoryType = "direction";
         int categoryLevel = 1;
 
         long categoryIdNew = 110;
@@ -212,13 +206,13 @@ public class BackupFromJsonFileFunctionTest {
 
         long templateId = 12;
         String templateInterval = "interval";
-        String templateType = "type";
+        String templateType = "direction";
         String templateComment = "comment";
 
         BackupJson backupJson = new BackupJson();
         backupJson.accounts.add(new AccountJson(accountId, accountName, accountInitialValue));
         backupJson.categories.add(new CategoryJson(categoryId, categoryName, categorySection, categoryInterval, categoryType, categoryLevel));
-        backupJson.templates.add(new TemplateJson(templateId, accountId, categoryId, templateComment, templateInterval, templateType));
+        backupJson.bookingTemplates.add(new BookingTemplateJson(templateId, accountId, categoryId, templateComment, templateInterval, templateType));
 
         givenBackup(backupJson);
         whenApplyBackup();
@@ -239,7 +233,7 @@ public class BackupFromJsonFileFunctionTest {
         String categoryName = "name";
         String categorySection = "section";
         String categoryInterval = "interval";
-        String categoryType = "type";
+        String categoryType = "direction";
         int categoryLevel = 1;
 
         long categoryIdNew = 110;
@@ -247,7 +241,7 @@ public class BackupFromJsonFileFunctionTest {
 
         long templateId = 12;
         String templateInterval = "interval";
-        String templateType = "type";
+        String templateType = "direction";
         String templateComment = "comment";
 
         long templateIdNew = 120;
@@ -258,8 +252,8 @@ public class BackupFromJsonFileFunctionTest {
         BackupJson backupJson = new BackupJson();
         backupJson.accounts.add(new AccountJson(accountId, accountName, accountInitialValue));
         backupJson.categories.add(new CategoryJson(categoryId, categoryName, categorySection, categoryInterval, categoryType, categoryLevel));
-        backupJson.templates.add(new TemplateJson(templateId, accountId, categoryId, templateComment, templateInterval, templateType));
-        backupJson.templateMatches.add(new TemplateMatchingJson(templateMatchText, templateId));
+        backupJson.bookingTemplates.add(new BookingTemplateJson(templateId, accountId, categoryId, templateComment, templateInterval, templateType));
+        backupJson.bookingTemplateKeywords.add(new TemplateMatchingJson(templateMatchText, templateId));
 
         givenBackup(backupJson);
         whenApplyBackup();

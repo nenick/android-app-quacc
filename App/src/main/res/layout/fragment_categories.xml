@@ -9,7 +9,7 @@
     <Spinner
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/type"
+        android:id="@+id/direction"
         android:spinnerMode="dialog"
         tools:listitem="@layout/support_simple_spinner_dropdown_item"/>
 
@@ -19,8 +19,8 @@
         android:id="@+id/interval"
         android:spinnerMode="dialog"
         tools:listitem="@layout/support_simple_spinner_dropdown_item"
-        android:layout_alignTop="@+id/type"
-        android:layout_toEndOf="@+id/type"/>
+        android:layout_alignTop="@+id/direction"
+        android:layout_toEndOf="@+id/direction"/>
 
     <Spinner
         android:layout_width="wrap_content"

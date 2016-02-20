@@ -11,7 +11,7 @@ import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EBean;
 import org.androidannotations.annotations.RootContext;
 
-import de.nenick.quacc.core.category.GetAccountingCategoriesCursorFunction;
+import de.nenick.quacc.core.category.GetCategoriesCursorFunction;
 import de.nenick.quacc.database.provider.category.CategoryCursor;
 
 @EBean
@@ -21,7 +21,7 @@ public class CategoryListAdapter extends CursorAdapter {
     Context context;
 
     @Bean
-    GetAccountingCategoriesCursorFunction getAccountingCategoriesCursorFunction;
+    GetCategoriesCursorFunction getCategoriesCursorFunction;
 
     public CategoryListAdapter() {
         super(null, null, true);
@@ -30,7 +30,7 @@ public class CategoryListAdapter extends CursorAdapter {
     @AfterInject
     protected void afterInject() {
         mContext = context;
-        swapCursor(getAccountingCategoriesCursorFunction.apply());
+        swapCursor(getCategoriesCursorFunction.apply());
     }
 
     @Override
@@ -46,7 +46,7 @@ public class CategoryListAdapter extends CursorAdapter {
     private void bindView(CategoryListItem view, CategoryCursor cursor) {
         view.setInterval(cursor.getInterval());
         view.setSection(cursor.getSection());
-        view.setType(cursor.getType());
+        view.setType(cursor.getDirection());
         view.setCategory(cursor.getName());
     }
 }
