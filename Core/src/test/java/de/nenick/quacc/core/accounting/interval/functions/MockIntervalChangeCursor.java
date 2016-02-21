@@ -4,14 +4,12 @@ import org.mockito.BDDMockito;
 
 import java.util.Date;
 
-import de.nenick.quacc.database.provider.interval.IntervalCursor;
-import de.nenick.quacc.database.provider.intervalchange.IntervalChangeCursor;
 
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.mock;
 
 public class MockIntervalChangeCursor {
-
+/*
     IntervalChangeCursor cursor = mock(IntervalChangeCursor.class);
 
     public static MockIntervalChangeCursor create() {
@@ -69,4 +67,5 @@ public class MockIntervalChangeCursor {
         }
         return this;
     }
+    */
 }

@@ -9,11 +9,16 @@ import org.mockito.MockitoAnnotations;
 import de.nenick.quacc.core.account.GetAccountsFunction;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.fail;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
 
 public class GetAccountsFunctionTest {
-
+    @Test
+    public void work() {
+        fail("not ready");
+    }
+/*
     @InjectMocks
     GetAccountsFunction getAccountsUc;
 
@@ -45,4 +50,5 @@ public class GetAccountsFunctionTest {
         getAccountsUc.apply();
         verify(accountCursor).close();
     }
+    */
 }

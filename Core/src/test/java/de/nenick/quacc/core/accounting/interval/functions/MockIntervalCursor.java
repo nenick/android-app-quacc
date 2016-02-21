@@ -3,13 +3,12 @@ package de.nenick.quacc.core.accounting.interval.functions;
 import java.util.Date;
 
 import de.nenick.quacc.core.bookinginterval.BookingIntervalOption;
-import de.nenick.quacc.database.provider.interval.IntervalCursor;
 
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.mock;
 
 public class MockIntervalCursor {
-
+/*
     IntervalCursor cursor = mock(IntervalCursor.class);
 
     public static MockIntervalCursor create() {
@@ -44,4 +43,5 @@ public class MockIntervalCursor {
         given(cursor.getDateLast()).willReturn(date);
         return this;
     }
+    */
 }

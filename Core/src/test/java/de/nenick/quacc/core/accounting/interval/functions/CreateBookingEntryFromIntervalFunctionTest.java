@@ -14,10 +14,9 @@ import java.util.Date;
 import de.nenick.quacc.core.bookingentry.creation.CreateBookingIntervalEntryFunction;
 import de.nenick.quacc.core.bookingentry.creation.CreateBookingEntryFromIntervalFunction;
 import de.nenick.quacc.core.common.util.QuAccDateUtil;
-import de.nenick.quacc.database.provider.interval.IntervalCursor;
-import de.nenick.quacc.database.provider.intervalchange.IntervalChangeCursor;
 
 import static de.nenick.quacc.core.bookinginterval.BookingIntervalOption.daily;
+import static org.assertj.core.api.Assertions.fail;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyLong;
@@ -28,6 +27,11 @@ import static org.mockito.Mockito.verifyNoMoreInteractions;
 
 public class CreateBookingEntryFromIntervalFunctionTest {
 
+    @Test
+    public void work() {
+        fail("not ready");
+    }
+    /*
     public static final long intervalId = 42l;
 
     @Mock
@@ -219,4 +223,5 @@ public class CreateBookingEntryFromIntervalFunctionTest {
 
         verifyNoMoreInteractions(createBookingIntervalEntryFunction);
     }
+    */
 }

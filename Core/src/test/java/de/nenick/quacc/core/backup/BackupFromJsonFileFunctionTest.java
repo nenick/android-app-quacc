@@ -25,12 +25,17 @@ import de.nenick.quacc.core.backup.model.BookingIntervalJson;
 import de.nenick.quacc.core.backup.model.BookingTemplateJson;
 import de.nenick.quacc.core.backup.model.TemplateMatchingJson;
 
+import static org.assertj.core.api.Assertions.fail;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
 public class BackupFromJsonFileFunctionTest {
-
+    @Test
+    public void work() {
+        fail("not ready");
+    }
+    /*
     @InjectMocks
     BackupFromJsonFileFunction backupFromJsonFileFunction = new BackupFromJsonFileFunction() {
         @Override
@@ -270,4 +275,5 @@ public class BackupFromJsonFileFunctionTest {
         testStream = IOUtils.toInputStream(input);
         given(getInputStreamForFileFunction.apply(backupLocation)).willReturn(testStream);
     }
+    */
 }

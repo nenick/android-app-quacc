@@ -2,6 +2,7 @@ package de.nenick.quacc.view.accounting_edit;
 
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.widget.Toolbar;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EActivity;
@@ -19,6 +20,8 @@ public class EditAccountingActivity extends ActionBarActivity {
 
     @AfterViews
     protected void onAfterViews() {
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
         initFragment();
     }
 

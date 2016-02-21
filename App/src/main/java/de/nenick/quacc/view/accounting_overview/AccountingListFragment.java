@@ -139,6 +139,7 @@ public class AccountingListFragment extends BasePresenterFragment {
 
     @Override
     protected void onViewResume() {
+        view.accountingListExpandable.setFocusable(false);
         view.showFilterVisibility(extended);
 
         quAccHotwordRecognizer.setHotwordListener(new HotwordListener() {

@@ -5,6 +5,7 @@ import android.os.Environment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 
 import org.androidannotations.annotations.AfterViews;
@@ -18,6 +19,7 @@ import de.nenick.quacc.R;
 import de.nenick.quacc.core.backup.BackupFromJsonFileFunction;
 import de.nenick.quacc.core.backup.BackupToJsonFileFunction;
 import de.nenick.quacc.view.account.AccountsActivity_;
+import de.nenick.quacc.view.accounting_overview.expandablelist.blub.ExpandListFragment_;
 import de.nenick.quacc.view.category.CategoriesActivity_;
 import de.nenick.quacc.view.template.TemplateActivity_;
 
@@ -46,6 +48,10 @@ public class AccountingListActivity extends ActionBarActivity
 
     @AfterViews
     protected void onCreateView() {
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
         mTitle = getTitle();
         initFragment();
 
@@ -87,7 +93,8 @@ public class AccountingListActivity extends ActionBarActivity
         if (mAccount.isEmpty()) {
             throw new IllegalStateException();
         }
-        fragmentManager.beginTransaction().replace(R.id.container, AccountingListFragment_.builder().account(mAccount).build(), TAG_FRAGMENT).commit();
+        //fragmentManager.beginTransaction().replace(R.id.container, AccountingListFragment_.builder().account(mAccount).build(), TAG_FRAGMENT).commit();
+        fragmentManager.beginTransaction().replace(R.id.container, ExpandListFragment_.builder().build(), TAG_FRAGMENT).commit();
     }
 
     private String getAccountNameByPosition(int position) {

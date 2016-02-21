@@ -1,4 +1,5 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -33,7 +34,8 @@
             android:id="@+id/listView"
             android:visibility="gone"
             android:layout_below="@+id/filterLayout"
-            android:layout_above="@+id/report" />
+            android:layout_above="@+id/report"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 
         <ExpandableListView
             android:layout_width="match_parent"
@@ -41,7 +43,8 @@
             android:layout_marginTop="15dp"
             android:id="@+id/listViewExpandable"
             android:layout_below="@+id/listView"
-            android:layout_above="@+id/report" />
+            android:layout_above="@+id/report"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
         <View
             android:layout_width="wrap_content"

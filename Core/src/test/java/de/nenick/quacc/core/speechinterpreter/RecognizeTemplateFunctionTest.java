@@ -7,15 +7,18 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import de.nenick.quacc.database.provider.accountingtemplate.AccountingTemplateCursor;
-import de.nenick.quacc.database.provider.templatematching.TemplateMatchingCursor;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.fail;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
 
 public class RecognizeTemplateFunctionTest {
-
+    @Test
+    public void work() {
+        fail("not ready");
+    }
+    /*
     @InjectMocks
     RecognizeTemplateFunction recognizeTemplateFunction;
 
@@ -78,4 +81,5 @@ public class RecognizeTemplateFunctionTest {
     private void whenApplyWith(String recognizedText) {
         result = recognizeTemplateFunction.apply(recognizedText);
     }
+    */
 }

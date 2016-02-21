@@ -20,20 +20,19 @@ import de.nenick.quacc.core.backup.model.CategoryJson;
 import de.nenick.quacc.core.backup.model.BookingIntervalJson;
 import de.nenick.quacc.core.backup.model.BookingTemplateJson;
 import de.nenick.quacc.core.backup.model.TemplateMatchingJson;
-import de.nenick.quacc.database.provider.account.AccountCursor;
-import de.nenick.quacc.database.provider.accounting.AccountingCursor;
-import de.nenick.quacc.database.provider.accountingtemplate.AccountingTemplateCursor;
-import de.nenick.quacc.database.provider.category.CategoryCursor;
-import de.nenick.quacc.database.provider.interval.IntervalCursor;
-import de.nenick.quacc.database.provider.templatematching.TemplateMatchingCursor;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.fail;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.verify;
 
 public class BackupToJsonFileFunctionTest {
-
+    @Test
+    public void work() {
+        fail("not ready");
+    }
+/*
     @InjectMocks
     BackupToJsonFileFunction backupToJsonFileFunction;
 
@@ -379,4 +378,5 @@ public class BackupToJsonFileFunctionTest {
         TemplateMatchingJson json = backupJson.bookingTemplateKeywords.get(0);
         assertThat(json.text).isEqualTo(templateMatchText);
     }
+    */
 }

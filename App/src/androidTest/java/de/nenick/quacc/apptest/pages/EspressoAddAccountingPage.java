@@ -55,7 +55,7 @@ public class EspressoAddAccountingPage {
     }
 
     public void chooseAccountingType(String text) {
-        onView(withId(R.id.type)).perform(click());
+        onView(withId(R.id.direction)).perform(click());
         onView(withText(text)).perform(click());
     }
 
@@ -92,7 +92,7 @@ public class EspressoAddAccountingPage {
     }
 
     public void chooseAccountingValue(String text) {
-        onView(withId(R.id.value)).perform(typeText(text));
+        onView(withId(R.id.amount)).perform(typeText(text));
     }
 
     public void chooseAccountingDate(String date) {

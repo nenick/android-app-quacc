@@ -9,14 +9,18 @@ import org.mockito.MockitoAnnotations;
 import java.util.Date;
 
 import de.nenick.quacc.core.bookingentry.creation.CreateBookingEntryFunction;
-import de.nenick.quacc.database.account.AccountRepository;
-import de.nenick.quacc.database.bookingentry.BookingEntryRepository;
 
+import static org.assertj.core.api.Assertions.fail;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
 
 public class CreateBookingEntryFunctionTest {
 
+    @Test
+    public void work() {
+        fail("not ready");
+    }
+    /*
     public static final String ACCOUNTING_TYPE = "Übertrag";
     public static final String ACCOUNTING_INTERVAL = "Monatlich";
     Date DATE = new Date();
@@ -45,5 +49,5 @@ public class CreateBookingEntryFunctionTest {
         function.apply(ACCOUNT, ACCOUNTING_TYPE, ACCOUNTING_INTERVAL, CATEGORY_ID, DATE, VALUE, COMMENT);
         verify(accountingDb).insert(ACCOUNT_ID, ACCOUNTING_TYPE, ACCOUNTING_INTERVAL, CATEGORY_ID, DATE, COMMENT, 1212);
     }
-
+*/
 }

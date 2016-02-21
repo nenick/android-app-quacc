@@ -22,6 +22,7 @@ public class GetAccountingByGroupFunction {
 
     public BookingEntryCursor apply(String account, long categoryId, String type, DateTime startDate, DateTime endDate) {
         AccountCursor accountCursor = accountRepository.query(new AccountSpecByName(account));
+        accountCursor.moveToNext();
         long accountId = accountCursor.getId();
         accountCursor.close();
         startDate = startDate.minusDays(1);

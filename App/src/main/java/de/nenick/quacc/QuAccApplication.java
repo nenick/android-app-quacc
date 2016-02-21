@@ -14,14 +14,14 @@ import java.util.logging.LogManager;
 
 import de.nenick.quacc.core.initialdata.DatabaseInitialData_;
 import de.nenick.quacc.database.provider.QuAccSQLiteOpenHelper;
-import de.nenick.quacc.settings.QuAccPreferences_;
+//import de.nenick.quacc.settings.QuAccPreferences_;
 
-@EApplication
+
 public class QuAccApplication extends Application {
 
-    @Pref
+    /*@Pref
     QuAccPreferences_ pref;
-
+*/
     @Override
     public void onCreate() {
         super.onCreate();
@@ -32,7 +32,7 @@ public class QuAccApplication extends Application {
             throw new RuntimeException(e);
         }
     }
-
+/*
     @AfterInject
     protected void setupInitialData() {
         if (pref.isFirstAppStart().get()) {
@@ -46,5 +46,7 @@ public class QuAccApplication extends Application {
             }
             pref.isFirstAppStart().put(false);
         }
+
     }
+    */
 }

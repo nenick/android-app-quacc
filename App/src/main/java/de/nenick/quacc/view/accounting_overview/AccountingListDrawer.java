@@ -1,5 +1,6 @@
 package de.nenick.quacc.view.accounting_overview;
 
+import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBarActivity;
 import android.app.Activity;
 import android.support.v7.app.ActionBar;
@@ -105,7 +106,8 @@ public class AccountingListDrawer extends Fragment {
             }
         });
         mDrawerListView.setAdapter(new ArrayAdapter<>(
-                getActionBar().getThemedContext(),
+                getContext(),
+                //getActionBar().getThemedContext(),
                 android.R.layout.simple_list_item_activated_1,
                 android.R.id.text1,
                 new String[]{
