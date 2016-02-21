@@ -10,6 +10,7 @@ import android.view.Menu;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Bean;
+import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.FragmentById;
 import org.androidannotations.annotations.OptionsItem;
@@ -19,6 +20,7 @@ import de.nenick.quacc.R;
 import de.nenick.quacc.core.backup.BackupFromJsonFileFunction;
 import de.nenick.quacc.core.backup.BackupToJsonFileFunction;
 import de.nenick.quacc.view.account.AccountsActivity_;
+import de.nenick.quacc.view.accounting_edit.EditAccountingActivity_;
 import de.nenick.quacc.view.bookingentries.BookingEntriesListFragment_;
 import de.nenick.quacc.view.category.CategoriesActivity_;
 import de.nenick.quacc.view.template.TemplateActivity_;
@@ -94,7 +96,7 @@ public class AccountingListActivity extends ActionBarActivity
             throw new IllegalStateException();
         }
         //fragmentManager.beginTransaction().replace(R.id.container, AccountingListFragment_.builder().account(mAccount).build(), TAG_FRAGMENT).commit();
-        fragmentManager.beginTransaction().replace(R.id.container, BookingEntriesListFragment_.builder().build(), TAG_FRAGMENT).commit();
+        fragmentManager.beginTransaction().replace(R.id.container, BookingEntriesListFragment_.builder().accountName(mAccount).build(), TAG_FRAGMENT).commit();
         //fragmentManager.beginTransaction().replace(R.id.container, ExpandListFragment_.builder().build(), TAG_FRAGMENT).commit();
     }
 
@@ -147,5 +149,10 @@ public class AccountingListActivity extends ActionBarActivity
     @OptionsItem(R.id.export_data)
     protected void onExport() {
         backupToJsonFileFunction.apply(backupPath);
+    }
+
+    @Click(R.id.fab)
+    protected void onClickNewBookingEntry() {
+        EditAccountingActivity_.intent(this).start();
     }
 }

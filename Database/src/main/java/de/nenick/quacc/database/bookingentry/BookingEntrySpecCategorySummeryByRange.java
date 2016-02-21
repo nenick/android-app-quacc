@@ -6,6 +6,7 @@ import java.util.Date;
 
 import de.nenick.quacc.database.provider.bookingentry.BookingEntryColumns;
 import de.nenick.quacc.database.provider.bookingentry.BookingEntrySelection;
+import de.nenick.quacc.database.provider.category.CategoryColumns;
 
 public class BookingEntrySpecCategorySummeryByRange extends BookingEntrySpec {
 
@@ -31,9 +32,12 @@ public class BookingEntrySpecCategorySummeryByRange extends BookingEntrySpec {
     @Nullable
     @Override
     public String[] projection() {
-        return new String[]{"MIN(" + BookingEntryColumns.DATE + ") AS minDate",
+        String[] projection = {CategoryColumns.NAME, BookingEntryColumns.CATEGORY_ID, BookingEntryColumns.DIRECTION, BookingEntryColumns._ID, BookingEntryColumns._ID, "MIN(" + BookingEntryColumns.DATE +") AS minDate", "MAX(" + BookingEntryColumns.DATE +") AS " + BookingEntryColumns.DATE, "SUM(" + BookingEntryColumns.AMOUNT + ") AS " + BookingEntryColumns.AMOUNT};
+        return projection;
+        /*return new String[]{"MIN(" + BookingEntryColumns.DATE + ") AS minDate",
                 "MAX(" + BookingEntryColumns.DATE + ") AS " + BookingEntryColumns.DATE,
                 "SUM(" + BookingEntryColumns.AMOUNT + ") AS " + BookingEntryColumns.AMOUNT};
+                */
     }
 
     @Nullable

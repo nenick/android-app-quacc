@@ -9,11 +9,18 @@ import android.view.ViewGroup;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EFragment;
+import org.androidannotations.annotations.FragmentArg;
+import org.joda.time.DateTime;
+
+import de.nenick.quacc.view.accounting_overview.adapter.AccountingTreeAdapter_;
 
 @EFragment
 public class BookingEntriesListFragment extends Fragment {
 
     BookingEntriesListView view;
+
+    @FragmentArg
+    String accountName;
 
     @Nullable
     @Override
@@ -23,6 +30,9 @@ public class BookingEntriesListFragment extends Fragment {
 
     @AfterViews
     void onAfterViewsCreated() {
-        view.recyclerView.setAdapter(new BookingEntriesListAdapter(new ExampleSimpleDataProvider()));
+        BookingSummeryAndEntriesTreeCursorAdapter dataSource = BookingSummeryAndEntriesTreeCursorAdapter_.getInstance_(getContext());
+        dataSource.setAccount(accountName);
+        dataSource.changeFor(new DateTime(0), new DateTime());
+        view.recyclerView.setAdapter(new BookingEntriesListAdapter(dataSource));
     }
 }

@@ -16,6 +16,7 @@ import org.androidannotations.annotations.EBean;
 import org.androidannotations.annotations.RootContext;
 
 import java.lang.reflect.Array;
+import java.lang.reflect.ParameterizedType;
 
 import de.nenick.quacc.database.provider.base.AbstractContentValues;
 import de.nenick.quacc.database.provider.base.AbstractCursor;
@@ -65,8 +66,8 @@ public abstract class BaseRepository<CONTENT extends AbstractContentValues, SPEC
             @Override
             public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
                 try {
-                    TypeToken typeToken = new TypeToken<CURSOR>(getClass()) {};
-                    Object wrapper = ((Class) typeToken.getTypes().rawTypes().toArray()[2]).getConstructors()[0].newInstance(data);
+                    TypeToken typeToken = new TypeToken<CURSOR>(BaseRepository.this.getClass()) {};
+                    Object wrapper = ((Class) typeToken.getType()).getConstructors()[0].newInstance(data);
                     //noinspection unchecked
                     callback.onLoadFinished((CURSOR) wrapper);
                 } catch (Exception e) {

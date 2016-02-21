@@ -15,6 +15,8 @@ import org.androidannotations.api.view.HasViews;
 import org.androidannotations.api.view.OnViewChangedListener;
 
 import de.nenick.quacc.R;
+import de.nenick.quacc.core.bookingentry.direction.BookingDirectionOption;
+import de.nenick.quacc.database.provider.bookingentry.BookingEntryCursor;
 import de.nenick.quacc.expandablerecyclerview.AbstractSimpleDataProvider;
 import de.nenick.quacc.expandablerecyclerview.ExpandableItemIndicator;
 
@@ -43,6 +45,9 @@ class ListItemCategorySummery extends AbstractExpandableItemViewHolder {
     @ViewById(R.id.endDate)
     TextView endDate;
 
+    @ViewById(R.id.dateSeparator)
+    TextView dateSeparator;
+
     @ViewById(R.id.indicator)
     ExpandableItemIndicator expandableItemIndicator;
 
@@ -51,8 +56,26 @@ class ListItemCategorySummery extends AbstractExpandableItemViewHolder {
         injectViewComponents();
     }
 
-    public void bind(AbstractSimpleDataProvider.BaseData item) {
-        category.setText(item.getText());
+    public void bind(BookingEntryCursor item) {
+        date.setText(item.getDateOrNull("minDate").toString());
+        category.setText(item.getCategoryName());
+        amount.setText(String.valueOf(item.getAmount()));
+        endDate.setText(item.getDate().toString());
+
+        switch (BookingDirectionOption.valueOf(item.getDirection())) {
+            case incoming:
+                showAsIncome();
+                break;
+            case outgoing:
+                showAsOutgoing();
+                break;
+            case transfer:
+                showAsTransfer();
+                break;
+            default:
+                throw new IllegalStateException("Not supported type: " + BookingDirectionOption.valueOf(item.getDirection()));
+        }
+
         enableExpansionSupport();
     }
 
@@ -92,5 +115,32 @@ class ListItemCategorySummery extends AbstractExpandableItemViewHolder {
                 return itemView.findViewById(id);
             }
         });
+    }
+
+    private void showAsIncome() {
+        itemView.setBackgroundColor(itemView.getResources().getColor(R.color.positiveBackground));
+        date.setTextColor(itemView.getResources().getColor(R.color.positiveTextSmall));
+        dateSeparator.setTextColor(itemView.getResources().getColor(R.color.positiveTextSmall));
+        endDate.setTextColor(itemView.getResources().getColor(R.color.positiveTextSmall));
+        category.setTextColor(itemView.getResources().getColor(R.color.positiveText));
+        amount.setTextColor(itemView.getResources().getColor(R.color.positiveText));
+    }
+
+    private void showAsOutgoing() {
+        itemView.setBackgroundColor(itemView.getResources().getColor(R.color.negativeBackground));
+        date.setTextColor(itemView.getResources().getColor(R.color.negativeTextSmall));
+        dateSeparator.setTextColor(itemView.getResources().getColor(R.color.negativeTextSmall));
+        endDate.setTextColor(itemView.getResources().getColor(R.color.negativeTextSmall));
+        category.setTextColor(itemView.getResources().getColor(R.color.negativeText));
+        amount.setTextColor(itemView.getResources().getColor(R.color.negativeText));
+    }
+
+    private void showAsTransfer() {
+        itemView.setBackgroundColor(itemView.getResources().getColor(R.color.neutralBackground));
+        date.setTextColor(itemView.getResources().getColor(R.color.neutralBackground));
+        dateSeparator.setTextColor(itemView.getResources().getColor(R.color.neutralBackground));
+        endDate.setTextColor(itemView.getResources().getColor(R.color.neutralBackground));
+        category.setTextColor(itemView.getResources().getColor(R.color.neutralBackground));
+        amount.setTextColor(itemView.getResources().getColor(R.color.neutralBackground));
     }
 }
