@@ -5,14 +5,20 @@ import android.os.Bundle;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 
+import com.h6ah4i.android.widget.advrecyclerview.animator.GeneralItemAnimator;
+import com.h6ah4i.android.widget.advrecyclerview.animator.RefactoredDefaultItemAnimator;
 import com.h6ah4i.android.widget.advrecyclerview.expandable.RecyclerViewExpandableItemManager;
+import com.h6ah4i.android.widget.advrecyclerview.utils.WrapperAdapterUtils;
 
-public class ExpandableRecyclerView extends RecyclerView {
+public class ExpandableRecyclerView extends RecyclerView implements RecyclerViewExpandableItemManager.OnGroupCollapseListener,
+        RecyclerViewExpandableItemManager.OnGroupExpandListener {
 
     private RecyclerViewExpandableItemManager recyclerViewExpandableItemManager;
+    private Adapter adapter;
 
     public ExpandableRecyclerView(Context context) {
         super(context);
@@ -29,19 +35,42 @@ public class ExpandableRecyclerView extends RecyclerView {
         initExpansionTools();
     }
 
-    private void initExpansionTools() {
+    @Override
+    public void setAdapter(Adapter adapter) {
+        if(adapter != null) {
+            // wrap to support expanding adapter
+            adapter = recyclerViewExpandableItemManager.createWrappedAdapter(adapter);
+            recyclerViewExpandableItemManager.attachRecyclerView(this);
+        }
+        this.adapter = adapter;
+        super.setAdapter(adapter);
+    }
 
+    private void initExpansionTools() {
+        setLayoutManager(new LinearLayoutManager(getContext()));
+
+        // Change animations are enabled by default since support-v7-recyclerview v22.
+        // Need to disable them when using animation indicator.
+        final GeneralItemAnimator animator = new RefactoredDefaultItemAnimator();
+        animator.setSupportsChangeAnimations(false);
+        setItemAnimator(animator);
+
+        // expandable is by definition not fixed in size
+        setHasFixedSize(false);
+
+        recyclerViewExpandableItemManager = new RecyclerViewExpandableItemManager(null);
+        recyclerViewExpandableItemManager.setOnGroupExpandListener(this);
+        recyclerViewExpandableItemManager.setOnGroupCollapseListener(this);
     }
 
     @Override
     protected void onRestoreInstanceState(Parcelable state) {
         SavedState savedState = (SavedState) state;
-        super.onRestoreInstanceState(savedState.getSuperState());
 
         final Parcelable eimSavedState = savedState.expansionState;
-        recyclerViewExpandableItemManager = new RecyclerViewExpandableItemManager(eimSavedState);
-        //recyclerViewExpandableItemManager.setOnGroupExpandListener(this);
-        //recyclerViewExpandableItemManager.setOnGroupCollapseListener(this);
+        recyclerViewExpandableItemManager.restoreState(eimSavedState);
+        super.onRestoreInstanceState(savedState.getSuperState());
+
     }
 
     @Override
@@ -87,5 +116,41 @@ public class ExpandableRecyclerView extends RecyclerView {
                 return new SavedState[size];
             }
         };
+    }
+
+    @Override
+    public void onGroupCollapse(int groupPosition, boolean fromUser) {
+    }
+
+    @Override
+    public void onGroupExpand(int groupPosition, boolean fromUser) {
+        if (fromUser) {
+            adjustScrollPositionOnGroupExpanded(groupPosition);
+        }
+    }
+
+    private void adjustScrollPositionOnGroupExpanded(int groupPosition) {
+        /*int childItemHeight = getActivity().getResources().getDimensionPixelSize(R.dimen.list_item_height);
+        int topMargin = (int) (getActivity().getResources().getDisplayMetrics().density * 16); // top-spacing: 16dp
+        int bottomMargin = topMargin; // bottom-spacing: 16dp
+
+        mRecyclerViewExpandableItemManager.scrollToGroup(groupPosition, childItemHeight, topMargin, bottomMargin);
+        */
+    }
+
+    @Override
+    protected void onDetachedFromWindow() {
+        super.onDetachedFromWindow();
+        if (recyclerViewExpandableItemManager != null) {
+            recyclerViewExpandableItemManager.release();
+            recyclerViewExpandableItemManager = null;
+        }
+
+        if (adapter != null) {
+            WrapperAdapterUtils.releaseAll(adapter);
+            adapter = null;
+        }
+        setItemAnimator(null);
+        setAdapter(null);
     }
 }

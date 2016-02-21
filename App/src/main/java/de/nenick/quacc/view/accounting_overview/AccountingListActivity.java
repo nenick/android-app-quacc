@@ -19,7 +19,7 @@ import de.nenick.quacc.R;
 import de.nenick.quacc.core.backup.BackupFromJsonFileFunction;
 import de.nenick.quacc.core.backup.BackupToJsonFileFunction;
 import de.nenick.quacc.view.account.AccountsActivity_;
-import de.nenick.quacc.view.accounting_overview.expandablelist.blub.ExpandListFragment_;
+import de.nenick.quacc.view.bookingentries.BookingEntriesListFragment_;
 import de.nenick.quacc.view.category.CategoriesActivity_;
 import de.nenick.quacc.view.template.TemplateActivity_;
 
@@ -94,7 +94,8 @@ public class AccountingListActivity extends ActionBarActivity
             throw new IllegalStateException();
         }
         //fragmentManager.beginTransaction().replace(R.id.container, AccountingListFragment_.builder().account(mAccount).build(), TAG_FRAGMENT).commit();
-        fragmentManager.beginTransaction().replace(R.id.container, ExpandListFragment_.builder().build(), TAG_FRAGMENT).commit();
+        fragmentManager.beginTransaction().replace(R.id.container, BookingEntriesListFragment_.builder().build(), TAG_FRAGMENT).commit();
+        //fragmentManager.beginTransaction().replace(R.id.container, ExpandListFragment_.builder().build(), TAG_FRAGMENT).commit();
     }
 
     private String getAccountNameByPosition(int position) {

@@ -1,6 +1,6 @@
 package de.nenick.quacc.expandablerecyclerview;
 
-public abstract class AbstractExpandableDataProvider {
+public abstract class AbstractSimpleDataProvider {
     public static abstract class BaseData {
 
         public abstract String getText();
