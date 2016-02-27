@@ -28,8 +28,11 @@ class ListItemCategorySummery extends AbstractExpandableItemViewHolder {
 
     @EViewGroup(R.layout.item_accounting_group)
     static class ListItemView extends RelativeLayout {
-        public ListItemView(Context context) {
+        ListItemView(Context context) {
             super(context);
+        }
+        static ListItemView create(Context context) {
+            return ListItemCategorySummery_.ListItemView_.build(context);
         }
     }
 
@@ -52,7 +55,7 @@ class ListItemCategorySummery extends AbstractExpandableItemViewHolder {
     ExpandableItemIndicator expandableItemIndicator;
 
     public ListItemCategorySummery(Context context) {
-        super(createView(context));
+        super(ListItemView.create(context));
         injectViewComponents();
     }
 
@@ -104,10 +107,6 @@ class ListItemCategorySummery extends AbstractExpandableItemViewHolder {
         }
     }
 
-    private static ListItemView createView(Context context) {
-        return ListItemCategorySummery_.ListItemView_.build(context);
-    }
-
     private void injectViewComponents() {
         ((OnViewChangedListener)this).onViewChanged(new HasViews() {
             @Override
@@ -118,29 +117,23 @@ class ListItemCategorySummery extends AbstractExpandableItemViewHolder {
     }
 
     private void showAsIncome() {
-        itemView.setBackgroundColor(itemView.getResources().getColor(R.color.positiveBackground));
-        date.setTextColor(itemView.getResources().getColor(R.color.positiveTextSmall));
-        dateSeparator.setTextColor(itemView.getResources().getColor(R.color.positiveTextSmall));
-        endDate.setTextColor(itemView.getResources().getColor(R.color.positiveTextSmall));
-        category.setTextColor(itemView.getResources().getColor(R.color.positiveText));
-        amount.setTextColor(itemView.getResources().getColor(R.color.positiveText));
+        tintFields(itemView.getResources().getColor(R.color.positiveBackground), itemView.getResources().getColor(R.color.positiveTextSmall), itemView.getResources().getColor(R.color.positiveText));
     }
 
     private void showAsOutgoing() {
-        itemView.setBackgroundColor(itemView.getResources().getColor(R.color.negativeBackground));
-        date.setTextColor(itemView.getResources().getColor(R.color.negativeTextSmall));
-        dateSeparator.setTextColor(itemView.getResources().getColor(R.color.negativeTextSmall));
-        endDate.setTextColor(itemView.getResources().getColor(R.color.negativeTextSmall));
-        category.setTextColor(itemView.getResources().getColor(R.color.negativeText));
-        amount.setTextColor(itemView.getResources().getColor(R.color.negativeText));
+        tintFields(itemView.getResources().getColor(R.color.negativeBackground), itemView.getResources().getColor(R.color.negativeTextSmall), itemView.getResources().getColor(R.color.negativeText));
     }
 
     private void showAsTransfer() {
-        itemView.setBackgroundColor(itemView.getResources().getColor(R.color.neutralBackground));
-        date.setTextColor(itemView.getResources().getColor(R.color.neutralBackground));
-        dateSeparator.setTextColor(itemView.getResources().getColor(R.color.neutralBackground));
-        endDate.setTextColor(itemView.getResources().getColor(R.color.neutralBackground));
-        category.setTextColor(itemView.getResources().getColor(R.color.neutralBackground));
-        amount.setTextColor(itemView.getResources().getColor(R.color.neutralBackground));
+        tintFields(itemView.getResources().getColor(R.color.neutralBackground), itemView.getResources().getColor(R.color.neutralBackground), itemView.getResources().getColor(R.color.neutralBackground));
+    }
+
+    private void tintFields(int color, int color2, int color3) {
+        itemView.setBackgroundColor(color);
+        date.setTextColor(color2);
+        dateSeparator.setTextColor(color2);
+        endDate.setTextColor(color2);
+        category.setTextColor(color3);
+        amount.setTextColor(color3);
     }
 }

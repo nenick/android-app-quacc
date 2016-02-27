@@ -44,6 +44,7 @@ public class ExpandableRecyclerView extends RecyclerView implements RecyclerView
         }
         this.adapter = adapter;
         super.setAdapter(adapter);
+        recyclerViewExpandableItemManager.restoreState(eimSavedState);
     }
 
     private void initExpansionTools() {
@@ -63,12 +64,14 @@ public class ExpandableRecyclerView extends RecyclerView implements RecyclerView
         recyclerViewExpandableItemManager.setOnGroupCollapseListener(this);
     }
 
+    Parcelable eimSavedState;
+
     @Override
     protected void onRestoreInstanceState(Parcelable state) {
         SavedState savedState = (SavedState) state;
 
-        final Parcelable eimSavedState = savedState.expansionState;
-        recyclerViewExpandableItemManager.restoreState(eimSavedState);
+        eimSavedState = savedState.expansionState;
+
         super.onRestoreInstanceState(savedState.getSuperState());
 
     }
@@ -141,6 +144,7 @@ public class ExpandableRecyclerView extends RecyclerView implements RecyclerView
     @Override
     protected void onDetachedFromWindow() {
         super.onDetachedFromWindow();
+        /*
         if (recyclerViewExpandableItemManager != null) {
             recyclerViewExpandableItemManager.release();
             recyclerViewExpandableItemManager = null;
@@ -152,5 +156,6 @@ public class ExpandableRecyclerView extends RecyclerView implements RecyclerView
         }
         setItemAnimator(null);
         setAdapter(null);
+        */
     }
 }

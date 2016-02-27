@@ -38,7 +38,7 @@ import de.nenick.quacc.view.accounting_overview.adapter.AccountingTreeGroupItemV
 import de.nenick.quacc.view.accounting_overview.adapter.AccountingTreeGroupItemView_;
 
 @EBean
-class BookingSummeryAndEntriesTreeCursorAdapter extends CursorTreeAdapter implements LoaderManager.LoaderCallbacks<Cursor> {
+class BookingSummeryAndEntriesTreeCursorAdapter extends CursorTreeAdapter {
 
     @Bean
     GetAccountingByGroupFunction getAccountingByGroupFunction;
@@ -59,7 +59,6 @@ class BookingSummeryAndEntriesTreeCursorAdapter extends CursorTreeAdapter implem
     BookingEntryRepository bookingEntryRepository;
 
     protected HashMap<Integer, GroupData> mGroupMap = new HashMap<>();
-    private Activity context;
     private String account;
 
     private static class GroupData {
@@ -80,15 +79,14 @@ class BookingSummeryAndEntriesTreeCursorAdapter extends CursorTreeAdapter implem
     }
 
     public BookingSummeryAndEntriesTreeCursorAdapter(Context context) {
-        super(null, context);
-        this.context = (Activity)context;
+        super(null, context, false);
     }
 
     public void setAccount(String account) {
         this.account = account;
     }
 
-    public void changeFor(DateTime startDate, DateTime endDate) {
+    public void update(DateTime startDate, DateTime endDate) {
         GroupData groupData = new GroupData(-1, -1, null, startDate, endDate);
         int id = -groupData.hashCode();
         mGroupMap.put(id, groupData);
@@ -97,6 +95,7 @@ class BookingSummeryAndEntriesTreeCursorAdapter extends CursorTreeAdapter implem
         accountCursor.moveToNext();
         long accountId = accountCursor.getId();
         accountCursor.close();
+
         bookingEntryRepository.loader(id, new BookingEntrySpecCategorySummeryByRange(accountId, startDate.toDate(), endDate.toDate()), new LoaderCallback<BookingEntryCursor>() {
             @Override
             public void onLoadFinished(BookingEntryCursor data) {
@@ -133,102 +132,21 @@ class BookingSummeryAndEntriesTreeCursorAdapter extends CursorTreeAdapter implem
 
     @Override
     protected View newGroupView(Context context, Cursor cursor, boolean b, ViewGroup viewGroup) {
-        return AccountingTreeGroupItemView_.build(context);
+        throw new UnsupportedOperationException("Should not be called.");
     }
 
     @Override
     protected void bindGroupView(View view, Context context, Cursor cursor, boolean b) {
-        AccountingTreeGroupItemView accountingView = (AccountingTreeGroupItemView) view;
-        BookingEntryCursor bookingEntryCursor = (BookingEntryCursor) cursor;
-
-        Date minDate = bookingEntryCursor.getDateOrNull("minDate");
-        accountingView.setDate(QuAccDateUtil.toString(minDate));
-        accountingView.setEndDate(QuAccDateUtil.toString(bookingEntryCursor.getDate()));
-
-        accountingView.setCategory(bookingEntryCursor.getCategoryName());
-        accountingView.setValue(parseValueFromIntegerFunction.apply(bookingEntryCursor.getAmount()));
-
-        BookingDirectionOption bookingDirectionOption = BookingDirectionOption.valueOf(bookingEntryCursor.getDirection());
-        switch (bookingDirectionOption) {
-            case incoming:
-                accountingView.showAsIncome();
-                break;
-            case outgoing:
-                accountingView.showAsOutgoing();
-        }
+        throw new UnsupportedOperationException("Should not be called.");
     }
 
     @Override
     protected View newChildView(Context context, Cursor cursor, boolean b, ViewGroup viewGroup) {
-        return AccountingTreeChildItemView_.build(context);
+        throw new UnsupportedOperationException("Should not be called.");
     }
 
     @Override
     protected void bindChildView(View view, Context context, Cursor cursor, boolean b) {
-        AccountingTreeChildItemView accountingView = (AccountingTreeChildItemView) view;
-        BookingEntryCursor bookingEntryCursor = (BookingEntryCursor) cursor;
-
-        accountingView.setDate(QuAccDateUtil.toString(bookingEntryCursor.getDate()));
-        accountingView.setInterval(accountingIntervalTranslator.translate(bookingEntryCursor.getInterval()));
-        accountingView.setCategory(bookingEntryCursor.getCategoryName());
-        accountingView.setComment(bookingEntryCursor.getComment());
-        accountingView.setValue(parseValueFromIntegerFunction.apply(bookingEntryCursor.getAmount()));
-
-        BookingDirectionOption bookingDirectionOption = BookingDirectionOption.valueOf(bookingEntryCursor.getDirection());
-        switch (bookingDirectionOption) {
-            case incoming:
-                accountingView.showAsIncome();
-                break;
-            case outgoing:
-                accountingView.showAsOutgoing();
-        }
-    }
-
-    @Override
-    public Loader<Cursor> onCreateLoader(final int id, Bundle bundle) {
-        if (isGroupCursor(id)) {
-            // group cursor
-            return new CursorLoader(context) {
-                @Override
-                public Cursor loadInBackground() {
-                    GroupData groupData = mGroupMap.get(id);
-                    return getGroupsFunction.apply(account, groupData.startDate, groupData.endDate);
-                }
-            };
-        } else {
-            // child cursor
-            return new CursorLoader(context) {
-                @Override
-                public Cursor loadInBackground() {
-                    GroupData groupData = mGroupMap.get(id);
-                    return getAccountingByGroupFunction.apply(account, groupData.categoryId, groupData.type, groupData.startDate, groupData.endDate);
-                }
-            };
-        }
-    }
-
-    @Override
-    public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
-        int id = loader.getId();
-        if (id < 0) {
-            setGroupCursor(cursor);
-        } else {
-            int groupPos = mGroupMap.get(id).groupPosition;
-            setChildrenCursor(groupPos, cursor);
-        }
-    }
-
-    @Override
-    public void onLoaderReset(Loader<Cursor> loader) {
-        int id = loader.getId();
-        if (isGroupCursor(id)) {
-            setGroupCursor(null);
-        } else {
-            setChildrenCursor(mGroupMap.get(id).groupPosition, null);
-        }
-    }
-
-    private boolean isGroupCursor(int id) {
-        return id < 0;
+        throw new UnsupportedOperationException("Should not be called.");
     }
 }

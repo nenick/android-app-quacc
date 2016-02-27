@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 import java.util.Date;
 
 import de.nenick.quacc.database.provider.bookingentry.BookingEntryColumns;
+import de.nenick.quacc.database.provider.bookingentry.BookingEntryCursor;
 import de.nenick.quacc.database.provider.bookingentry.BookingEntrySelection;
 import de.nenick.quacc.database.provider.category.CategoryColumns;
 

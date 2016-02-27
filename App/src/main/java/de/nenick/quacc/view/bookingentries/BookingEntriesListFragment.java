@@ -8,21 +8,22 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.FragmentArg;
 import org.joda.time.DateTime;
-
-import de.nenick.quacc.view.accounting_overview.adapter.AccountingTreeAdapter_;
 
 @EFragment
 public class BookingEntriesListFragment extends Fragment {
 
     BookingEntriesListView view;
 
+    @Bean
+    BookingEntriesListAdapter adapter;
+
     @FragmentArg
     String accountName;
 
-    @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         return view = BookingEntriesListView_.build(inflater.getContext(), null);
@@ -30,9 +31,12 @@ public class BookingEntriesListFragment extends Fragment {
 
     @AfterViews
     void onAfterViewsCreated() {
-        BookingSummeryAndEntriesTreeCursorAdapter dataSource = BookingSummeryAndEntriesTreeCursorAdapter_.getInstance_(getContext());
-        dataSource.setAccount(accountName);
-        dataSource.changeFor(new DateTime(0), new DateTime());
-        view.recyclerView.setAdapter(new BookingEntriesListAdapter(dataSource));
+        initBookingEntriesList();
+    }
+
+    private void initBookingEntriesList() {
+        adapter.setAccount(accountName);
+        LazyAdapterInjection.inject(this.view.recyclerView, adapter);
+        adapter.update(new DateTime(0), new DateTime());
     }
 }

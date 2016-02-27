@@ -6,19 +6,28 @@ import android.widget.CursorTreeAdapter;
 
 import com.h6ah4i.android.widget.advrecyclerview.utils.AbstractExpandableItemAdapter;
 
+import org.androidannotations.annotations.AfterInject;
+import org.androidannotations.annotations.Bean;
+import org.androidannotations.annotations.EBean;
+import org.joda.time.DateTime;
+
 import de.nenick.quacc.database.provider.bookingentry.BookingEntryCursor;
 
+@EBean
 class BookingEntriesListAdapter extends AbstractExpandableItemAdapter<ListItemCategorySummery, ListItemBookingEntry> {
 
-    private CursorTreeAdapter mProvider;
+    @Bean
+    BookingSummeryAndEntriesTreeCursorAdapter mProvider;
+    private String account;
 
-    public BookingEntriesListAdapter(CursorTreeAdapter dataProvider) {
-        mProvider = dataProvider;
-
+    public BookingEntriesListAdapter() {
         // ExpandableItemAdapter requires stable ID, and also
         // have to implement the getGroupItemId()/getChildItemId() methods appropriately.
         setHasStableIds(true);
+    }
 
+    @AfterInject
+    void onAfterInject() {
         mProvider.registerDataSetObserver(new DataSetObserver() {
             @Override
             public void onChanged() {
@@ -91,5 +100,13 @@ class BookingEntriesListAdapter extends AbstractExpandableItemAdapter<ListItemCa
         }
 
         return true;
+    }
+
+    public void setAccount(String account) {
+        mProvider.setAccount(account);
+    }
+
+    public void update(DateTime start, DateTime end) {
+        mProvider.update(start, end);
     }
 }

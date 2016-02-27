@@ -26,8 +26,11 @@ class ListItemBookingEntry extends AbstractExpandableItemViewHolder {
 
     @EViewGroup(R.layout.item_accounting_child)
     static class ListItemView extends RelativeLayout {
-        public ListItemView(Context context) {
+        ListItemView(Context context) {
             super(context);
+        }
+        static ListItemView create(Context context) {
+            return ListItemBookingEntry_.ListItemView_.build(context);
         }
     }
 
@@ -47,7 +50,7 @@ class ListItemBookingEntry extends AbstractExpandableItemViewHolder {
     TextView amount;
 
     public ListItemBookingEntry(Context context) {
-        super(createView(context));
+        super(ListItemView.create(context));
         injectViewComponents();
     }
 
@@ -73,10 +76,6 @@ class ListItemBookingEntry extends AbstractExpandableItemViewHolder {
         }
     }
 
-    private static ListItemView createView(Context context) {
-        return ListItemBookingEntry_.ListItemView_.build(context);
-    }
-
     private void injectViewComponents() {
         ((OnViewChangedListener)this).onViewChanged(new HasViews() {
             @Override
@@ -87,29 +86,23 @@ class ListItemBookingEntry extends AbstractExpandableItemViewHolder {
     }
 
     private void showAsIncome() {
-        itemView.setBackgroundColor(itemView.getResources().getColor(R.color.positiveBackground));
-        date.setTextColor(itemView.getResources().getColor(R.color.positiveTextSmall));
-        interval.setTextColor(itemView.getResources().getColor(R.color.positiveText));
-        category.setTextColor(itemView.getResources().getColor(R.color.positiveText));
-        comment.setTextColor(itemView.getResources().getColor(R.color.positiveTextSmall));
-        amount.setTextColor(itemView.getResources().getColor(R.color.positiveText));
+        tintFields(itemView.getResources().getColor(R.color.positiveBackground), itemView.getResources().getColor(R.color.positiveTextSmall), itemView.getResources().getColor(R.color.positiveText));
     }
 
     private void showAsOutgoing() {
-        itemView.setBackgroundColor(itemView.getResources().getColor(R.color.negativeBackground));
-        date.setTextColor(itemView.getResources().getColor(R.color.negativeTextSmall));
-        interval.setTextColor(itemView.getResources().getColor(R.color.negativeText));
-        category.setTextColor(itemView.getResources().getColor(R.color.negativeText));
-        comment.setTextColor(itemView.getResources().getColor(R.color.negativeTextSmall));
-        amount.setTextColor(itemView.getResources().getColor(R.color.negativeText));
+        tintFields(itemView.getResources().getColor(R.color.negativeBackground), itemView.getResources().getColor(R.color.negativeTextSmall), itemView.getResources().getColor(R.color.negativeText));
     }
 
     private void showAsTransfer() {
-        itemView.setBackgroundColor(itemView.getResources().getColor(R.color.neutralBackground));
-        date.setTextColor(itemView.getResources().getColor(R.color.neutralBackground));
-        interval.setTextColor(itemView.getResources().getColor(R.color.neutralBackground));
-        category.setTextColor(itemView.getResources().getColor(R.color.neutralBackground));
-        comment.setTextColor(itemView.getResources().getColor(R.color.neutralBackground));
-        amount.setTextColor(itemView.getResources().getColor(R.color.neutralBackground));
+        tintFields(itemView.getResources().getColor(R.color.neutralBackground), itemView.getResources().getColor(R.color.neutralBackground), itemView.getResources().getColor(R.color.neutralBackground));
+    }
+
+    private void tintFields(int color, int color2, int color3) {
+        itemView.setBackgroundColor(color);
+        date.setTextColor(color2);
+        interval.setTextColor(color3);
+        category.setTextColor(color3);
+        comment.setTextColor(color2);
+        amount.setTextColor(color3);
     }
 }
