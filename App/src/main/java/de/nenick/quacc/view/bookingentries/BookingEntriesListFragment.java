@@ -37,8 +37,7 @@ public class BookingEntriesListFragment extends Fragment {
     }
 
     private void initBookingEntriesList() {
-        adapter.setAccount(accountName);
         LazyAdapter.inject(this.view.recyclerView, adapter);
-        adapter.update(new DateTime(0), new DateTime());
+        adapter.update(accountName, new DateTime(0), new DateTime());
     }
 }

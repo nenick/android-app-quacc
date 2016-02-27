@@ -5,14 +5,13 @@ import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.h6ah4i.android.widget.advrecyclerview.utils.AbstractExpandableItemViewHolder;
-
 import org.androidannotations.annotations.EBean;
 import org.androidannotations.annotations.EViewGroup;
 import org.androidannotations.annotations.ViewById;
 import org.androidannotations.api.view.HasViews;
 import org.androidannotations.api.view.OnViewChangedListener;
 
+import de.nenick.expandablerecyclerview.ExpandableCursorTreeAdapter;
 import de.nenick.quacc.R;
 import de.nenick.quacc.core.bookingentry.direction.BookingDirectionOption;
 import de.nenick.quacc.database.provider.bookingentry.BookingEntryCursor;
@@ -21,7 +20,7 @@ import de.nenick.quacc.database.provider.bookingentry.BookingEntryCursor;
  * Child for expandable list view group.
  */
 @EBean
-class ListItemBookingEntry extends AbstractExpandableItemViewHolder {
+class ListItemBookingEntry extends ExpandableCursorTreeAdapter.ListItemHolder<BookingEntryCursor> {
 
     @EViewGroup(R.layout.item_accounting_child)
     static class ListItemView extends RelativeLayout {
@@ -53,7 +52,8 @@ class ListItemBookingEntry extends AbstractExpandableItemViewHolder {
         injectViewComponents();
     }
 
-    public void bind(BookingEntryCursor item) {
+    @Override
+    public void onBind(BookingEntryCursor item) {
         date.setText(item.getDate().toString());
         interval.setText(item.getInterval());
         category.setText(item.getCategoryName());

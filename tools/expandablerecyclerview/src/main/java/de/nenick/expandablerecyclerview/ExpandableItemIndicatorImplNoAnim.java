@@ -6,7 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 
-import de.nenick.quacc.expandablerecyclerview.R;
+import de.nenick.expandablerecyclerview.R;
 
 class ExpandableItemIndicatorImplNoAnim extends ExpandableItemIndicator.Impl {
     private ImageView mImageView;

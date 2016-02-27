@@ -9,7 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 
-import de.nenick.quacc.expandablerecyclerview.R;
+import de.nenick.expandablerecyclerview.R;
 
 @TargetApi(Build.VERSION_CODES.LOLLIPOP)
 class ExpandableItemIndicatorImplAnim extends ExpandableItemIndicator.Impl {

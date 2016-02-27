@@ -11,6 +11,7 @@ import android.support.v7.widget.RecyclerView;
  * Recycler view tries but can not restore instance state with an empty adapter (data source).
  */
 public class LazyAdapter extends RecyclerView.AdapterDataObserver {
+
     private RecyclerView recyclerView;
     private RecyclerView.Adapter adapter;
 
@@ -28,6 +29,7 @@ public class LazyAdapter extends RecyclerView.AdapterDataObserver {
 
     @Override
     public void onChanged() {
+        // adapter should have content and recycler view can restore his last state it
         recyclerView.setAdapter(adapter);
 
         // job is done ...
