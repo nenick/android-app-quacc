@@ -1,4 +1,4 @@
-package de.nenick.quacc.expandablerecyclerview;
+package de.nenick.expandablerecyclerview;
 
 import android.content.Context;
 import android.os.Bundle;

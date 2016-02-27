@@ -1,3 +1,3 @@
-include ':tools:speechrecognition'
+include ':tools:speechrecognition', 'tools:toolscollection'
 include ':tools:expandablerecyclerview'
 include 'App', 'RobolectricPages', 'Database', 'Core' //, 'AppCT'

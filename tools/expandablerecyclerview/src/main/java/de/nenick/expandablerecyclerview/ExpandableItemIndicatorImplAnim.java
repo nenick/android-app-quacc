@@ -1,4 +1,4 @@
-package de.nenick.quacc.expandablerecyclerview;
+package de.nenick.expandablerecyclerview;
 
 import android.annotation.TargetApi;
 import android.content.Context;
@@ -8,6 +8,8 @@ import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
+
+import de.nenick.quacc.expandablerecyclerview.R;
 
 @TargetApi(Build.VERSION_CODES.LOLLIPOP)
 class ExpandableItemIndicatorImplAnim extends ExpandableItemIndicator.Impl {

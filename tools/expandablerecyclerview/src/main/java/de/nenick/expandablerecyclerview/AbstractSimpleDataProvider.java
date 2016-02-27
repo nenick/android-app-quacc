@@ -1,4 +1,4 @@
-package de.nenick.quacc.expandablerecyclerview;
+package de.nenick.expandablerecyclerview;
 
 public abstract class AbstractSimpleDataProvider {
     public static abstract class BaseData {

@@ -1,10 +1,12 @@
-package de.nenick.quacc.expandablerecyclerview;
+package de.nenick.expandablerecyclerview;
 
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
+
+import de.nenick.quacc.expandablerecyclerview.R;
 
 class ExpandableItemIndicatorImplNoAnim extends ExpandableItemIndicator.Impl {
     private ImageView mImageView;

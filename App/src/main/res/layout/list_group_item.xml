@@ -22,7 +22,7 @@
             android:layout_marginRight="40dp"
             android:gravity="center"/>
 
-        <de.nenick.quacc.expandablerecyclerview.ExpandableItemIndicator
+        <de.nenick.expandablerecyclerview.ExpandableItemIndicator
             android:id="@+id/indicator"
             android:layout_width="24dp"
             android:layout_height="24dp"

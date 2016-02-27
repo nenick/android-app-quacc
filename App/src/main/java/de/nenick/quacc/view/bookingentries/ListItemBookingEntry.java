@@ -16,7 +16,6 @@ import org.androidannotations.api.view.OnViewChangedListener;
 import de.nenick.quacc.R;
 import de.nenick.quacc.core.bookingentry.direction.BookingDirectionOption;
 import de.nenick.quacc.database.provider.bookingentry.BookingEntryCursor;
-import de.nenick.quacc.expandablerecyclerview.AbstractSimpleDataProvider;
 
 /**
  * Child for expandable list view group.

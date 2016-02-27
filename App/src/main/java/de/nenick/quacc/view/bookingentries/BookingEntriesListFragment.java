@@ -13,6 +13,8 @@ import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.FragmentArg;
 import org.joda.time.DateTime;
 
+import de.nenick.toolscollection.LazyAdapter;
+
 @EFragment
 public class BookingEntriesListFragment extends Fragment {
 
@@ -36,7 +38,7 @@ public class BookingEntriesListFragment extends Fragment {
 
     private void initBookingEntriesList() {
         adapter.setAccount(accountName);
-        LazyAdapterInjection.inject(this.view.recyclerView, adapter);
+        LazyAdapter.inject(this.view.recyclerView, adapter);
         adapter.update(new DateTime(0), new DateTime());
     }
 }

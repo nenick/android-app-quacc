@@ -60,6 +60,7 @@ dependencies {
     releaseCompile project(path: ':Core', configuration: 'release')
     debugCompile project(path: ':Core', configuration: 'debug')
     compile project(':tools:expandablerecyclerview')
+    compile project(':tools:toolscollection')
 
     // backward compatibility
     compile 'com.android.support:design:23.1.1'
