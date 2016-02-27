@@ -1,17 +1,19 @@
 package de.nenick.quacc.view.accounting_overview;
 
-import android.support.annotation.Nullable;
-import android.support.v7.app.ActionBarActivity;
 import android.app.Activity;
-import android.support.v7.app.ActionBar;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.ActionBarDrawerToggle;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.v4.app.ActionBarDrawerToggle;
+import android.support.v4.app.Fragment;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.CursorAdapter;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarActivity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -21,9 +23,14 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
+import android.widget.TextView;
 
 import de.nenick.quacc.R;
+import de.nenick.quacc.database.LoaderCallback;
+import de.nenick.quacc.database.account.AccountRepository_;
+import de.nenick.quacc.database.account.AccountSpecAll;
+import de.nenick.quacc.database.provider.account.AccountCursor;
+import de.nenick.toolscollection.LazyAdapter;
 
 /**
  * Fragment used for managing interactions for and presentation of a navigation drawer.
@@ -105,6 +112,7 @@ public class AccountingListDrawer extends Fragment {
                 selectItem(position);
             }
         });
+/*
         mDrawerListView.setAdapter(new ArrayAdapter<>(
                 getContext(),
                 //getActionBar().getThemedContext(),
@@ -116,6 +124,30 @@ public class AccountingListDrawer extends Fragment {
                         getString(R.string.title_section3),
                 }));
         mDrawerListView.setItemChecked(mCurrentSelectedPosition, true);
+*/
+
+        final CursorAdapter adapter = new CursorAdapter(getContext(), null, false) {
+            @Override
+            public View newView(Context context, Cursor cursor, ViewGroup parent) {
+                return LayoutInflater.from(context).inflate(android.R.layout.simple_list_item_activated_1, null);
+            }
+
+            @Override
+            public void bindView(View view, Context context, Cursor cursor) {
+                ((TextView) view.findViewById(android.R.id.text1)).setText(((AccountCursor) cursor).getName());
+            }
+        };
+        LazyAdapter.inject(mDrawerListView, adapter);
+
+        AccountRepository_.getInstance_(getContext()).loader(134, new AccountSpecAll(), new LoaderCallback<AccountCursor>() {
+            @Override
+            public void onLoadFinished(AccountCursor data) {
+                adapter.changeCursor(data);
+                //selectItem(mCurrentSelectedPosition);
+            }
+        });
+
+
         return mDrawerListView;
     }
 
@@ -273,5 +305,9 @@ public class AccountingListDrawer extends Fragment {
          * Called when an item in the navigation drawer is selected.
          */
         void onNavigationDrawerItemSelected(int position);
+    }
+
+    public AccountCursor getItem(int position) {
+        return (AccountCursor) mDrawerListView.getAdapter().getItem(position);
     }
 }

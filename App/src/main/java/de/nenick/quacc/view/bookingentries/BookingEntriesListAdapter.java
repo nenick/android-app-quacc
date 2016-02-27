@@ -44,7 +44,7 @@ class BookingEntriesListAdapter extends ExpandableCursorTreeAdapter<ListItemCate
     BookingEntryRepository bookingEntryRepository;
 
     protected HashMap<Integer, GroupData> mGroupMap = new HashMap<>();
-    private String account;
+    private long account;
 
     private static class GroupData {
 
@@ -67,17 +67,13 @@ class BookingEntriesListAdapter extends ExpandableCursorTreeAdapter<ListItemCate
         super(context);
     }
 
-    public void update(String account, DateTime startDate, DateTime endDate) {
+    public void update(long account, DateTime startDate, DateTime endDate) {
+        this.account = account;
         GroupData groupData = new GroupData(-1, -1, null, startDate, endDate);
         int id = -groupData.hashCode();
         mGroupMap.put(id, groupData);
 
-        AccountCursor accountCursor = accountRepository.query(new AccountSpecByName(account));
-        accountCursor.moveToNext();
-        long accountId = accountCursor.getId();
-        accountCursor.close();
-
-        bookingEntryRepository.loader(id, new BookingEntrySpecCategorySummeryByRange(accountId, startDate.toDate(), endDate.toDate()), new LoaderCallback<BookingEntryCursor>() {
+        bookingEntryRepository.loader(id, new BookingEntrySpecCategorySummeryByRange(account, startDate.toDate(), endDate.toDate()), new LoaderCallback<BookingEntryCursor>() {
             @Override
             public void onLoadFinished(BookingEntryCursor data) {
                 setGroupCursor(data);
@@ -97,12 +93,8 @@ class BookingEntriesListAdapter extends ExpandableCursorTreeAdapter<ListItemCate
         int groupId = childGroupData.hashCode();
         mGroupMap.put(groupId, childGroupData);
 
-        AccountCursor accountCursor = accountRepository.query(new AccountSpecByName(account));
-        accountCursor.moveToNext();
-        long accountId = accountCursor.getId();
-        accountCursor.close();
         GroupData groupData = mGroupMap.get(groupId);
-        bookingEntryRepository.loader(groupId, new BookingEntrySpecCategoryEntriesByRange(accountId, groupData.startDate.toDate(), groupData.endDate.toDate(), categoryId, type), new LoaderCallback<BookingEntryCursor>() {
+        bookingEntryRepository.loader(groupId, new BookingEntrySpecCategoryEntriesByRange(account, groupData.startDate.toDate(), groupData.endDate.toDate(), categoryId, type), new LoaderCallback<BookingEntryCursor>() {
             @Override
             public void onLoadFinished(BookingEntryCursor data) {
                 setChildrenCursor(groupPosition, data);

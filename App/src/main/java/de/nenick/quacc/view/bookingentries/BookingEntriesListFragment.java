@@ -24,7 +24,7 @@ public class BookingEntriesListFragment extends Fragment {
     BookingEntriesListAdapter adapter;
 
     @FragmentArg
-    String accountName;
+    long account;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -38,6 +38,6 @@ public class BookingEntriesListFragment extends Fragment {
 
     private void initBookingEntriesList() {
         LazyAdapter.inject(this.view.recyclerView, adapter);
-        adapter.update(accountName, new DateTime(0), new DateTime());
+        adapter.update(account, new DateTime(0), new DateTime());
     }
 }

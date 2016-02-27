@@ -19,6 +19,7 @@ import org.androidannotations.annotations.ViewById;
 import de.nenick.quacc.R;
 import de.nenick.quacc.core.backup.BackupFromJsonFileFunction;
 import de.nenick.quacc.core.backup.BackupToJsonFileFunction;
+import de.nenick.quacc.database.provider.account.AccountCursor;
 import de.nenick.quacc.view.account.AccountsActivity_;
 import de.nenick.quacc.view.accounting_edit.EditAccountingActivity_;
 import de.nenick.quacc.view.bookingentries.BookingEntriesListFragment_;
@@ -32,7 +33,7 @@ public class AccountingListActivity extends ActionBarActivity
     public static final String TAG_FRAGMENT = AccountingListFragment.class.getSimpleName();
 
     private CharSequence mTitle;
-    private String mAccount;
+    private long mAccount;
 
     @ViewById(R.id.drawer_layout)
     DrawerLayout drawerLayout;
@@ -55,7 +56,6 @@ public class AccountingListActivity extends ActionBarActivity
         setSupportActionBar(toolbar);
 
         mTitle = getTitle();
-        initFragment();
 
         // Set up the drawer.
         accountingListDrawer.setUp(
@@ -69,34 +69,27 @@ public class AccountingListActivity extends ActionBarActivity
         getLoaderManager();
     }
 
-    private void initFragment() {
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        // If the Fragment is non-null, then it is currently being
-        // retained across a configuration change.
-        if (fragmentManager.findFragmentByTag(TAG_FRAGMENT) == null) {
-            onNavigationDrawerItemSelected(0);
-        }
-    }
-
     @Override
     public void onNavigationDrawerItemSelected(int position) {
+        AccountCursor selection = accountingListDrawer.getItem(position);
+
         String account = getAccountNameByPosition(position);
         if (account.equals(mAccount)) {
             // reload fragment is not necessary if the current and selected account are same
             return;
         }
 
-        mAccount = account;
+        mAccount = selection.getId();
         replaceFragmentForCurrentAccount();
     }
 
     private void replaceFragmentForCurrentAccount() {
         FragmentManager fragmentManager = getSupportFragmentManager();
-        if (mAccount.isEmpty()) {
+        if (mAccount == 0) {
             throw new IllegalStateException();
         }
         //fragmentManager.beginTransaction().replace(R.id.container, AccountingListFragment_.builder().account(mAccount).build(), TAG_FRAGMENT).commit();
-        fragmentManager.beginTransaction().replace(R.id.container, BookingEntriesListFragment_.builder().accountName(mAccount).build(), TAG_FRAGMENT).commit();
+        fragmentManager.beginTransaction().replace(R.id.container, BookingEntriesListFragment_.builder().account(mAccount).build(), TAG_FRAGMENT).commit();
         //fragmentManager.beginTransaction().replace(R.id.container, ExpandListFragment_.builder().build(), TAG_FRAGMENT).commit();
     }
 
