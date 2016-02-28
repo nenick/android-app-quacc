@@ -14,10 +14,10 @@ import org.androidannotations.api.view.HasViews;
 import org.androidannotations.api.view.OnViewChangedListener;
 
 import de.nenick.expandablerecyclerview.ExpandableCursorTreeAdapter;
+import de.nenick.expandablerecyclerview.ExpandableItemIndicator;
 import de.nenick.quacc.R;
 import de.nenick.quacc.core.bookingentry.direction.BookingDirectionOption;
 import de.nenick.quacc.database.provider.bookingentry.BookingEntryCursor;
-import de.nenick.expandablerecyclerview.ExpandableItemIndicator;
 
 /**
  * Group for expandable list view.
@@ -30,8 +30,9 @@ class CategorySummeryListItem extends ExpandableCursorTreeAdapter.ListItemHolder
         ListItemView(Context context) {
             super(context);
         }
+
         static ListItemView create(Context context) {
-            return CategorySummery_ListItem_.ListItemView_.build(context);
+            return CategorySummeryListItem_.ListItemView_.build(context);
         }
     }
 
@@ -52,6 +53,10 @@ class CategorySummeryListItem extends ExpandableCursorTreeAdapter.ListItemHolder
 
     @ViewById(R.id.indicator)
     ExpandableItemIndicator expandableItemIndicator;
+
+    public static CategorySummeryListItem create(Context context) {
+        return CategorySummeryListItem_.getInstance_(context);
+    }
 
     public CategorySummeryListItem(Context context) {
         super(ListItemView.create(context));
@@ -108,7 +113,7 @@ class CategorySummeryListItem extends ExpandableCursorTreeAdapter.ListItemHolder
     }
 
     private void injectViewComponents() {
-        ((OnViewChangedListener)this).onViewChanged(new HasViews() {
+        ((OnViewChangedListener) this).onViewChanged(new HasViews() {
             @Override
             public View findViewById(int id) {
                 return itemView.findViewById(id);

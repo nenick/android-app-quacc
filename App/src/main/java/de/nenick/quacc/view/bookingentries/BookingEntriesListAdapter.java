@@ -41,25 +41,7 @@ class BookingEntriesListAdapter extends ExpandableCursorTreeAdapter<CategorySumm
     @Bean
     BookingEntryRepository bookingEntryRepository;
 
-    protected HashMap<Integer, GroupData> mGroupMap = new HashMap<>();
     private long account;
-
-    private static class GroupData {
-
-        public final int groupPosition;
-        public final long categoryId;
-        public final String type;
-        public final DateTime startDate;
-        public final DateTime endDate;
-
-        public GroupData(int groupPosition, long categoryId, String type, DateTime startDate, DateTime endDate) {
-            this.groupPosition = groupPosition;
-            this.categoryId = categoryId;
-            this.type = type;
-            this.startDate = startDate;
-            this.endDate = endDate;
-        }
-    }
 
     public BookingEntriesListAdapter(Context context) {
         super(context);
@@ -67,11 +49,8 @@ class BookingEntriesListAdapter extends ExpandableCursorTreeAdapter<CategorySumm
 
     public void update(long account, DateTime startDate, DateTime endDate) {
         this.account = account;
-        GroupData groupData = new GroupData(-1, -1, null, startDate, endDate);
-        int id = -groupData.hashCode();
-        mGroupMap.put(id, groupData);
 
-        bookingEntryRepository.loader(id, new BookingEntrySpecCategorySummeryByRange(account, startDate.toDate(), endDate.toDate()), new LoaderCallback<BookingEntryCursor>() {
+        bookingEntryRepository.loader(432, new BookingEntrySpecCategorySummeryByRange(account, startDate.toDate(), endDate.toDate()), new LoaderCallback<BookingEntryCursor>() {
             @Override
             public void onLoadFinished(BookingEntryCursor data) {
                 setGroupCursor(data);
@@ -85,14 +64,11 @@ class BookingEntriesListAdapter extends ExpandableCursorTreeAdapter<CategorySumm
         BookingEntryCursor bookingEntryCursor = (BookingEntryCursor) groupCursor;
         long categoryId = bookingEntryCursor.getCategoryId();
         String type = bookingEntryCursor.getDirection();
+        Date startDate = bookingEntryCursor.getDateOrNull("minDate");
+        Date endDate = bookingEntryCursor.getDate();
 
-        Date minDate = bookingEntryCursor.getDateOrNull("minDate");
-        GroupData childGroupData = new GroupData(groupPosition, categoryId, type, new DateTime(minDate), new DateTime(bookingEntryCursor.getDate()));
-        int groupId = childGroupData.hashCode();
-        mGroupMap.put(groupId, childGroupData);
-
-        GroupData groupData = mGroupMap.get(groupId);
-        bookingEntryRepository.loader(groupId, new BookingEntrySpecCategoryEntriesByRange(account, groupData.startDate.toDate(), groupData.endDate.toDate(), categoryId, type), new LoaderCallback<BookingEntryCursor>() {
+        BookingEntrySpecCategoryEntriesByRange specification = new BookingEntrySpecCategoryEntriesByRange(account, startDate, endDate, categoryId, type);
+        bookingEntryRepository.loader(1000 + (int)bookingEntryCursor.getId(), specification, new LoaderCallback<BookingEntryCursor>() {
             @Override
             public void onLoadFinished(BookingEntryCursor data) {
                 setChildrenCursor(groupPosition, data);
@@ -103,11 +79,11 @@ class BookingEntriesListAdapter extends ExpandableCursorTreeAdapter<CategorySumm
 
     @Override
     public CategorySummeryListItem onCreateGroupViewHolder(ViewGroup parent, int viewType) {
-        return CategorySummery_ListItem_.getInstance_(parent.getContext());
+        return CategorySummeryListItem.create(parent.getContext());
     }
 
     @Override
     public BookingEntryListItem onCreateChildViewHolder(ViewGroup parent, int viewType) {
-        return BookingEntry_ListItem_.getInstance_(parent.getContext());
+        return BookingEntryListItem.create(parent.getContext());
     }
 }

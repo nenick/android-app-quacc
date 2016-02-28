@@ -27,8 +27,9 @@ class BookingEntryListItem extends ExpandableCursorTreeAdapter.ListItemHolder<Bo
         ListItemView(Context context) {
             super(context);
         }
+
         static ListItemView create(Context context) {
-            return BookingEntry_ListItem_.ListItemView_.build(context);
+            return BookingEntryListItem_.ListItemView_.build(context);
         }
     }
 
@@ -46,6 +47,10 @@ class BookingEntryListItem extends ExpandableCursorTreeAdapter.ListItemHolder<Bo
 
     @ViewById(R.id.amount)
     TextView amount;
+
+    public static BookingEntryListItem create(Context context) {
+        return BookingEntryListItem_.getInstance_(context);
+    }
 
     public BookingEntryListItem(Context context) {
         super(ListItemView.create(context));
@@ -76,7 +81,7 @@ class BookingEntryListItem extends ExpandableCursorTreeAdapter.ListItemHolder<Bo
     }
 
     private void injectViewComponents() {
-        ((OnViewChangedListener)this).onViewChanged(new HasViews() {
+        ((OnViewChangedListener) this).onViewChanged(new HasViews() {
             @Override
             public View findViewById(int id) {
                 return itemView.findViewById(id);
