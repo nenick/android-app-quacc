@@ -17,6 +17,7 @@ import de.nenick.quacc.database.account.AccountRepository;
 import de.nenick.quacc.database.bookingentry.BookingEntryRepository;
 import de.nenick.quacc.database.bookingentry.BookingEntrySpecCategoryEntriesByRange;
 import de.nenick.quacc.database.bookingentry.BookingEntrySpecCategorySummeryByRange;
+import de.nenick.quacc.database.bookingentry.CategorySummeryCursor;
 import de.nenick.quacc.database.provider.bookingentry.BookingEntryCursor;
 
 @EBean
@@ -49,11 +50,10 @@ class BookingEntriesListAdapter extends ExpandableCursorTreeAdapter<CategorySumm
 
     public void update(long account, DateTime startDate, DateTime endDate) {
         this.account = account;
-
         bookingEntryRepository.loader(432, new BookingEntrySpecCategorySummeryByRange(account, startDate.toDate(), endDate.toDate()), new LoaderCallback<BookingEntryCursor>() {
             @Override
             public void onLoadFinished(BookingEntryCursor data) {
-                setGroupCursor(data);
+                setGroupCursor(BookingEntrySpecCategorySummeryByRange.wrap(data));
             }
         });
     }
@@ -61,14 +61,14 @@ class BookingEntriesListAdapter extends ExpandableCursorTreeAdapter<CategorySumm
     @Override
     protected Cursor getChildrenCursor(Cursor groupCursor) {
         final int groupPosition = groupCursor.getPosition();
-        BookingEntryCursor bookingEntryCursor = (BookingEntryCursor) groupCursor;
-        long categoryId = bookingEntryCursor.getCategoryId();
-        String type = bookingEntryCursor.getDirection();
-        Date startDate = bookingEntryCursor.getDateOrNull("minDate");
-        Date endDate = bookingEntryCursor.getDate();
+        CategorySummeryCursor categorySummeryCursor = BookingEntrySpecCategorySummeryByRange.wrap(groupCursor);
+        long categoryId = categorySummeryCursor.getCategoryId();
+        String type = categorySummeryCursor.getDirection();
+        Date startDate = categorySummeryCursor.getDateStart();
+        Date endDate = categorySummeryCursor.getDateEnd();
 
         BookingEntrySpecCategoryEntriesByRange specification = new BookingEntrySpecCategoryEntriesByRange(account, startDate, endDate, categoryId, type);
-        bookingEntryRepository.loader(1000 + (int)bookingEntryCursor.getId(), specification, new LoaderCallback<BookingEntryCursor>() {
+        bookingEntryRepository.loader(1000 + (int)categorySummeryCursor.getId(), specification, new LoaderCallback<BookingEntryCursor>() {
             @Override
             public void onLoadFinished(BookingEntryCursor data) {
                 setChildrenCursor(groupPosition, data);

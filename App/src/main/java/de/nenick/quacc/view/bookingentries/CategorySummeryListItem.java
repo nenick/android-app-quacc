@@ -7,6 +7,7 @@ import android.widget.TextView;
 
 import com.h6ah4i.android.widget.advrecyclerview.expandable.ExpandableItemConstants;
 
+import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EBean;
 import org.androidannotations.annotations.EViewGroup;
 import org.androidannotations.annotations.ViewById;
@@ -17,13 +18,16 @@ import de.nenick.expandablerecyclerview.ExpandableCursorTreeAdapter;
 import de.nenick.expandablerecyclerview.ExpandableItemIndicator;
 import de.nenick.quacc.R;
 import de.nenick.quacc.core.bookingentry.direction.BookingDirectionOption;
+import de.nenick.quacc.core.common.util.QuAccDateUtil;
+import de.nenick.quacc.database.bookingentry.CategorySummeryCursor;
 import de.nenick.quacc.database.provider.bookingentry.BookingEntryCursor;
+import de.nenick.quacc.valueparser.ParseValueFromIntegerFunction;
 
 /**
  * Group for expandable list view.
  */
 @EBean
-class CategorySummeryListItem extends ExpandableCursorTreeAdapter.ListItemHolder<BookingEntryCursor> {
+class CategorySummeryListItem extends ExpandableCursorTreeAdapter.ListItemHolder<CategorySummeryCursor> {
 
     @EViewGroup(R.layout.item_accounting_group)
     static class ListItemView extends RelativeLayout {
@@ -54,6 +58,9 @@ class CategorySummeryListItem extends ExpandableCursorTreeAdapter.ListItemHolder
     @ViewById(R.id.indicator)
     ExpandableItemIndicator expandableItemIndicator;
 
+    @Bean
+    ParseValueFromIntegerFunction parseValueFromIntegerFunction;
+
     public static CategorySummeryListItem create(Context context) {
         return CategorySummeryListItem_.getInstance_(context);
     }
@@ -64,11 +71,11 @@ class CategorySummeryListItem extends ExpandableCursorTreeAdapter.ListItemHolder
     }
 
     @Override
-    public void onBind(BookingEntryCursor item) {
-        date.setText(item.getDateOrNull("minDate").toString());
+    public void onBind(CategorySummeryCursor item) {
+        date.setText(QuAccDateUtil.toString(item.getDateStart()));
         category.setText(item.getCategoryName());
-        amount.setText(String.valueOf(item.getAmount()));
-        endDate.setText(item.getDate().toString());
+        amount.setText(parseValueFromIntegerFunction.apply(item.getAmount()));
+        endDate.setText(QuAccDateUtil.toString(item.getDateEnd()));
 
         switch (BookingDirectionOption.valueOf(item.getDirection())) {
             case incoming:
@@ -134,7 +141,7 @@ class CategorySummeryListItem extends ExpandableCursorTreeAdapter.ListItemHolder
     }
 
     private void tintFields(int color, int color2, int color3) {
-        itemView.setBackgroundColor(color);
+        //itemView.setBackgroundColor(color);
         date.setTextColor(color2);
         dateSeparator.setTextColor(color2);
         endDate.setTextColor(color2);

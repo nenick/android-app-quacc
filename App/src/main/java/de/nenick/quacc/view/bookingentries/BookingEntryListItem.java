@@ -5,6 +5,7 @@ import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EBean;
 import org.androidannotations.annotations.EViewGroup;
 import org.androidannotations.annotations.ViewById;
@@ -14,7 +15,9 @@ import org.androidannotations.api.view.OnViewChangedListener;
 import de.nenick.expandablerecyclerview.ExpandableCursorTreeAdapter;
 import de.nenick.quacc.R;
 import de.nenick.quacc.core.bookingentry.direction.BookingDirectionOption;
+import de.nenick.quacc.core.common.util.QuAccDateUtil;
 import de.nenick.quacc.database.provider.bookingentry.BookingEntryCursor;
+import de.nenick.quacc.valueparser.ParseValueFromIntegerFunction;
 
 /**
  * Child for expandable list view group.
@@ -48,6 +51,9 @@ class BookingEntryListItem extends ExpandableCursorTreeAdapter.ListItemHolder<Bo
     @ViewById(R.id.amount)
     TextView amount;
 
+    @Bean
+    ParseValueFromIntegerFunction parseValueFromIntegerFunction;
+
     public static BookingEntryListItem create(Context context) {
         return BookingEntryListItem_.getInstance_(context);
     }
@@ -59,11 +65,11 @@ class BookingEntryListItem extends ExpandableCursorTreeAdapter.ListItemHolder<Bo
 
     @Override
     public void onBind(BookingEntryCursor item) {
-        date.setText(item.getDate().toString());
+        date.setText(QuAccDateUtil.toString(item.getDate()));
         interval.setText(item.getInterval());
         category.setText(item.getCategoryName());
         comment.setText(item.getComment());
-        amount.setText(String.valueOf(item.getAmount()));
+        amount.setText(parseValueFromIntegerFunction.apply(item.getAmount()));
 
         switch (BookingDirectionOption.valueOf(item.getDirection())) {
             case incoming:
@@ -102,7 +108,7 @@ class BookingEntryListItem extends ExpandableCursorTreeAdapter.ListItemHolder<Bo
     }
 
     private void tintFields(int color, int color2, int color3) {
-        itemView.setBackgroundColor(color);
+        //itemView.setBackgroundColor(color);
         date.setTextColor(color2);
         interval.setTextColor(color3);
         category.setTextColor(color3);
