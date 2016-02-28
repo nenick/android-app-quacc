@@ -5,8 +5,6 @@ import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.h6ah4i.android.widget.advrecyclerview.expandable.ExpandableItemConstants;
-
 import org.androidannotations.annotations.EBean;
 import org.androidannotations.annotations.EViewGroup;
 import org.androidannotations.annotations.ViewById;
@@ -17,53 +15,50 @@ import de.nenick.expandablerecyclerview.ExpandableCursorTreeAdapter;
 import de.nenick.quacc.R;
 import de.nenick.quacc.core.bookingentry.direction.BookingDirectionOption;
 import de.nenick.quacc.database.provider.bookingentry.BookingEntryCursor;
-import de.nenick.expandablerecyclerview.ExpandableItemIndicator;
 
 /**
- * Group for expandable list view.
+ * Child for expandable list view group.
  */
 @EBean
-class ListItemCategorySummery extends ExpandableCursorTreeAdapter.ListItemHolder<BookingEntryCursor> {
+class BookingEntryListItem extends ExpandableCursorTreeAdapter.ListItemHolder<BookingEntryCursor> {
 
-    @EViewGroup(R.layout.item_accounting_group)
+    @EViewGroup(R.layout.item_accounting_child)
     static class ListItemView extends RelativeLayout {
         ListItemView(Context context) {
             super(context);
         }
         static ListItemView create(Context context) {
-            return ListItemCategorySummery_.ListItemView_.build(context);
+            return BookingEntry_ListItem_.ListItemView_.build(context);
         }
     }
 
     @ViewById(R.id.date)
     TextView date;
 
+    @ViewById(R.id.interval)
+    TextView interval;
+
     @ViewById(R.id.category)
     TextView category;
+
+    @ViewById(R.id.comment)
+    TextView comment;
 
     @ViewById(R.id.amount)
     TextView amount;
 
-    @ViewById(R.id.endDate)
-    TextView endDate;
-
-    @ViewById(R.id.dateSeparator)
-    TextView dateSeparator;
-
-    @ViewById(R.id.indicator)
-    ExpandableItemIndicator expandableItemIndicator;
-
-    public ListItemCategorySummery(Context context) {
+    public BookingEntryListItem(Context context) {
         super(ListItemView.create(context));
         injectViewComponents();
     }
 
     @Override
     public void onBind(BookingEntryCursor item) {
-        date.setText(item.getDateOrNull("minDate").toString());
+        date.setText(item.getDate().toString());
+        interval.setText(item.getInterval());
         category.setText(item.getCategoryName());
+        comment.setText(item.getComment());
         amount.setText(String.valueOf(item.getAmount()));
-        endDate.setText(item.getDate().toString());
 
         switch (BookingDirectionOption.valueOf(item.getDirection())) {
             case incoming:
@@ -77,33 +72,6 @@ class ListItemCategorySummery extends ExpandableCursorTreeAdapter.ListItemHolder
                 break;
             default:
                 throw new IllegalStateException("Not supported type: " + BookingDirectionOption.valueOf(item.getDirection()));
-        }
-
-        enableExpansionSupport();
-    }
-
-    private void enableExpansionSupport() {
-        // mark as clickable
-        itemView.setClickable(true);
-
-        // set background resource (target view ID: container)
-        final int expandState = getExpandStateFlags();
-
-        if ((expandState & ExpandableItemConstants.STATE_FLAG_IS_UPDATED) != 0) {
-            int bgResId;
-            boolean isExpanded;
-            boolean animateIndicator = ((expandState & ExpandableItemConstants.STATE_FLAG_HAS_EXPANDED_STATE_CHANGED) != 0);
-
-            if ((expandState & ExpandableItemConstants.STATE_FLAG_IS_EXPANDED) != 0) {
-                //bgResId = R.drawable.bg_group_item_expanded_state;
-                isExpanded = true;
-            } else {
-                //bgResId = R.drawable.bg_group_item_normal_state;
-                isExpanded = false;
-            }
-
-            //holder.mContainer.setBackgroundResource(bgResId);
-            expandableItemIndicator.setExpandedState(isExpanded, animateIndicator);
         }
     }
 
@@ -131,9 +99,9 @@ class ListItemCategorySummery extends ExpandableCursorTreeAdapter.ListItemHolder
     private void tintFields(int color, int color2, int color3) {
         itemView.setBackgroundColor(color);
         date.setTextColor(color2);
-        dateSeparator.setTextColor(color2);
-        endDate.setTextColor(color2);
+        interval.setTextColor(color3);
         category.setTextColor(color3);
+        comment.setTextColor(color2);
         amount.setTextColor(color3);
     }
 }

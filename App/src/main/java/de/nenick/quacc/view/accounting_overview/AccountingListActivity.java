@@ -22,7 +22,7 @@ import de.nenick.quacc.core.backup.BackupToJsonFileFunction;
 import de.nenick.quacc.database.provider.account.AccountCursor;
 import de.nenick.quacc.view.account.AccountsActivity_;
 import de.nenick.quacc.view.accounting_edit.EditAccountingActivity_;
-import de.nenick.quacc.view.bookingentries.BookingEntriesListFragment_;
+import de.nenick.quacc.view.bookingentries.BookingEntriesFragment_;
 import de.nenick.quacc.view.category.CategoriesActivity_;
 import de.nenick.quacc.view.template.TemplateActivity_;
 
@@ -89,7 +89,7 @@ public class AccountingListActivity extends ActionBarActivity
             throw new IllegalStateException();
         }
         //fragmentManager.beginTransaction().replace(R.id.container, AccountingListFragment_.builder().account(mAccount).build(), TAG_FRAGMENT).commit();
-        fragmentManager.beginTransaction().replace(R.id.container, BookingEntriesListFragment_.builder().account(mAccount).build(), TAG_FRAGMENT).commit();
+        fragmentManager.beginTransaction().replace(R.id.container, BookingEntriesFragment_.builder().account(mAccount).build(), TAG_FRAGMENT).commit();
         //fragmentManager.beginTransaction().replace(R.id.container, ExpandListFragment_.builder().build(), TAG_FRAGMENT).commit();
     }
 

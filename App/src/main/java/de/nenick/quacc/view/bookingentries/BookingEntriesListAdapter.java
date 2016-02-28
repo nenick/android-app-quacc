@@ -14,15 +14,13 @@ import java.util.HashMap;
 import de.nenick.expandablerecyclerview.ExpandableCursorTreeAdapter;
 import de.nenick.quacc.database.LoaderCallback;
 import de.nenick.quacc.database.account.AccountRepository;
-import de.nenick.quacc.database.account.AccountSpecByName;
 import de.nenick.quacc.database.bookingentry.BookingEntryRepository;
 import de.nenick.quacc.database.bookingentry.BookingEntrySpecCategoryEntriesByRange;
 import de.nenick.quacc.database.bookingentry.BookingEntrySpecCategorySummeryByRange;
-import de.nenick.quacc.database.provider.account.AccountCursor;
 import de.nenick.quacc.database.provider.bookingentry.BookingEntryCursor;
 
 @EBean
-class BookingEntriesListAdapter extends ExpandableCursorTreeAdapter<ListItemCategorySummery, ListItemBookingEntry> {
+class BookingEntriesListAdapter extends ExpandableCursorTreeAdapter<CategorySummeryListItem, BookingEntryListItem> {
 
 /*
     @Bean
@@ -104,12 +102,12 @@ class BookingEntriesListAdapter extends ExpandableCursorTreeAdapter<ListItemCate
     }
 
     @Override
-    public ListItemCategorySummery onCreateGroupViewHolder(ViewGroup parent, int viewType) {
-        return ListItemCategorySummery_.getInstance_(parent.getContext());
+    public CategorySummeryListItem onCreateGroupViewHolder(ViewGroup parent, int viewType) {
+        return CategorySummery_ListItem_.getInstance_(parent.getContext());
     }
 
     @Override
-    public ListItemBookingEntry onCreateChildViewHolder(ViewGroup parent, int viewType) {
-        return ListItemBookingEntry_.getInstance_(parent.getContext());
+    public BookingEntryListItem onCreateChildViewHolder(ViewGroup parent, int viewType) {
+        return BookingEntry_ListItem_.getInstance_(parent.getContext());
     }
 }

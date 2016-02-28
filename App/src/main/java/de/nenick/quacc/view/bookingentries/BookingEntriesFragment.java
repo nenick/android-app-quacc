@@ -16,9 +16,9 @@ import org.joda.time.DateTime;
 import de.nenick.toolscollection.LazyAdapter;
 
 @EFragment
-public class BookingEntriesListFragment extends Fragment {
+public class BookingEntriesFragment extends Fragment {
 
-    BookingEntriesListView view;
+    BookingEntriesView view;
 
     @Bean
     BookingEntriesListAdapter adapter;
@@ -28,7 +28,7 @@ public class BookingEntriesListFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return view = BookingEntriesListView_.build(inflater.getContext(), null);
+        return view = BookingEntriesView_.build(inflater.getContext(), null);
     }
 
     @AfterViews
@@ -37,7 +37,7 @@ public class BookingEntriesListFragment extends Fragment {
     }
 
     private void initBookingEntriesList() {
-        LazyAdapter.inject(this.view.recyclerView, adapter);
+        view.setAdapter(adapter);
         adapter.update(account, new DateTime(0), new DateTime());
     }
 }

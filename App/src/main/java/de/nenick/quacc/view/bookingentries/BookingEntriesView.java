@@ -10,14 +10,19 @@ import org.androidannotations.annotations.EViewGroup;
 import org.androidannotations.annotations.ViewById;
 
 import de.nenick.quacc.R;
+import de.nenick.toolscollection.LazyAdapter;
 
 @EViewGroup(R.layout.fragment_booking_entries_list)
-class BookingEntriesListView extends FrameLayout {
+class BookingEntriesView extends FrameLayout {
 
     @ViewById(R.id.recycler_view)
     RecyclerView recyclerView;
 
-    public BookingEntriesListView(Context context, AttributeSet attrs) {
+    public BookingEntriesView(Context context, AttributeSet attrs) {
         super(context, attrs);
+    }
+
+    public void setAdapter(RecyclerView.Adapter adapter) {
+        LazyAdapter.inject(recyclerView, adapter);
     }
 }
