@@ -1,0 +1,27 @@
+apply plugin: 'com.android.test'
+
+android {
+    compileSdkVersion 23
+    buildToolsVersion "23.0.2"
+
+    targetProjectPath ":App"
+    targetVariant 'debug'
+
+    defaultConfig {
+        minSdkVersion 21
+        testApplicationId 'de.nenick.quacc.test'
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+}
+
+repositories {
+    maven { url 'https://oss.sonatype.org/content/repositories/snapshots' }
+}
+
+dependencies {
+    /*compile 'com.android.support.test:runner:0.4'
+    compile 'com.android.support.test:rules:0.4'
+    compile 'com.android.support.test.espresso:espresso-core:2.2.1'
+    */
+    compile 'com.android.support.test.espresso:espresso-contrib:2.2.1'
+}

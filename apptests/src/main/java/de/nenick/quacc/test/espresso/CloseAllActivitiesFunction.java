@@ -1,13 +1,13 @@
-package de.nenick.quacc.apptest.espresso;
+package de.nenick.quacc.test.espresso;
 
 import android.app.Activity;
 import android.app.Instrumentation;
-import android.support.test.internal.runner.lifecycle.ActivityLifecycleMonitorRegistry;
+import android.support.test.espresso.core.deps.guava.base.Throwables;
+import android.support.test.espresso.core.deps.guava.collect.Sets;
 import android.support.test.runner.lifecycle.ActivityLifecycleMonitor;
+import android.support.test.runner.lifecycle.ActivityLifecycleMonitorRegistry;
 import android.support.test.runner.lifecycle.Stage;
 
-import com.android.support.test.deps.guava.base.Throwables;
-import com.android.support.test.deps.guava.collect.Sets;
 
 import java.util.Collection;
 import java.util.Set;

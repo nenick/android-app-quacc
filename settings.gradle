@@ -1,3 +1,6 @@
-include ':tools:speechrecognition', 'tools:toolscollection'
-include ':tools:expandablerecyclerview'
 include 'App', 'RobolectricPages', 'Database', 'Core' //, 'AppCT'
+include ':apptests'
+
+include ':tools:toolscollection'
+include ':tools:speechrecognition'
+include ':tools:expandablerecyclerview'

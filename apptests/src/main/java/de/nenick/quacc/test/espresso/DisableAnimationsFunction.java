@@ -1,4 +1,4 @@
-package de.nenick.quacc.apptest.espresso;
+package de.nenick.quacc.test.espresso;
 
 import android.content.Context;
 import android.content.pm.PackageManager;

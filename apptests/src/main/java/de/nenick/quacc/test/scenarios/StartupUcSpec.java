@@ -1,14 +1,14 @@
-package de.nenick.quacc.apptest;
+package de.nenick.quacc.test.scenarios;
 
 import android.support.test.espresso.Espresso;
 
 import org.junit.Test;
 
-import de.nenick.quacc.apptest.espresso.BaseEspressoSpec;
-import de.nenick.quacc.apptest.pages.EspressoAccountingListPage;
-import de.nenick.quacc.apptest.pages.EspressoDummyLauncherPage;
+import de.nenick.quacc.test.espresso.EspressoTestCase;
+import de.nenick.quacc.test.pages.EspressoAccountingListPage;
+import de.nenick.quacc.test.pages.EspressoDummyLauncherPage;
 
-public class StartupUcSpec extends BaseEspressoSpec {
+public class StartupUcSpec extends EspressoTestCase {
 
     EspressoDummyLauncherPage launcherPage = new EspressoDummyLauncherPage();
     EspressoAccountingListPage accountingListPage = new EspressoAccountingListPage();

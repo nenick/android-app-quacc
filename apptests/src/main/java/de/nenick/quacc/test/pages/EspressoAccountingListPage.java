@@ -1,8 +1,8 @@
-package de.nenick.quacc.apptest.pages;
+package de.nenick.quacc.test.pages;
 
-import android.support.test.espresso.contrib.DrawerActions;
 
 import de.nenick.quacc.R;
+import android.support.test.espresso.contrib.DrawerActions;
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;

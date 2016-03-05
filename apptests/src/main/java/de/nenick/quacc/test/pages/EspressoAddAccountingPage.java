@@ -1,4 +1,4 @@
-package de.nenick.quacc.apptest.pages;
+package de.nenick.quacc.test.pages;
 
 import android.database.sqlite.SQLiteCursor;
 import android.support.test.espresso.UiController;

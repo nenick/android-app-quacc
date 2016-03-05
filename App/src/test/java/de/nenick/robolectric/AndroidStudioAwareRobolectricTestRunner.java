@@ -23,9 +23,11 @@ public class AndroidStudioAwareRobolectricTestRunner extends RobolectricGradleTe
 
     public AndroidStudioAwareRobolectricTestRunner(Class<?> clazz) throws InitializationError {
         super(clazz);
+        /*
         String intermediatesPath = BuildConfig.MODULE_PATH + "/build//intermediates";
         System.setProperty("java.io.tmpdir", intermediatesPath + "/test-data");
         mkdir(intermediatesPath + "/test-data");
+        */
     }
 
     private void mkdir(String path) {

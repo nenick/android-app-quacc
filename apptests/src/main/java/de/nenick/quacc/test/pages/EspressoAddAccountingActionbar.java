@@ -1,4 +1,4 @@
-package de.nenick.quacc.apptest.pages;
+package de.nenick.quacc.test.pages;
 
 import de.nenick.quacc.R;
 

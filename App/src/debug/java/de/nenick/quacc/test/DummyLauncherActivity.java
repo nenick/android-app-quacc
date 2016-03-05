@@ -1,4 +1,4 @@
-package de.nenick.quacc.apptest;
+package de.nenick.quacc.test;
 
 import android.app.Activity;
 
