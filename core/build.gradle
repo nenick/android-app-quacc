@@ -56,8 +56,8 @@ apply from: "../build.robolectric.gradle"
 
 dependencies {
     // project dependencies
-    releaseCompile project(path: ':Database', configuration: 'release')
-    debugCompile project(path: ':Database', configuration: 'debug')
+    releaseCompile project(path: ':database', configuration: 'release')
+    debugCompile project(path: ':database', configuration: 'debug')
 
     compile 'com.android.support:support-annotations:21.0.3'
     compile 'org.codehaus.jackson:jackson-mapper-asl:1.9.13'

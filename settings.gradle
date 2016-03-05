@@ -1,5 +1,6 @@
-include 'App', 'RobolectricPages', 'Database', 'Core' //, 'AppCT'
+include ':app', ':database', ':core'
 include ':apptests'
+include ':robolectricpages'
 
 include ':tools:toolscollection'
 include ':tools:speechrecognition'
