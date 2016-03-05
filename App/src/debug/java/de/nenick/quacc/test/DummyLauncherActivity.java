@@ -11,10 +11,9 @@ import de.nenick.quacc.view.main.MainActivity_;
 /**
  * Emulates the android launcher for instrumentation tests.
  * <p/>
- * With this dummy we can write back press specifications without killing the app.
- * Killing the app abort the test and let it fail.
- * <p/>
- * Note: Found no way to locate it under androidTest sources.
+ * With this dummy we can prepare test data before we start real first activity
+ * and write back press specifications without leaving the app.
+ * Leaving the app would abort the test and let it fail.
  */
 @EActivity(R.layout.activity_dummy_launcher)
 public class DummyLauncherActivity extends Activity {
