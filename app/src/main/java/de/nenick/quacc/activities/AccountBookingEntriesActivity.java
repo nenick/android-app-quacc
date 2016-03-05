@@ -1,6 +1,7 @@
 package de.nenick.quacc.activities;
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
 import org.androidannotations.annotations.AfterViews;
@@ -41,7 +42,7 @@ public class AccountBookingEntriesActivity extends AppCompatActivity {
 
     @AfterViews
     void onAfterViewsCreated() {
-        selectAccount();
+        restoreLastOrSelectFirstAccount();
         registerForAccountSelection();
     }
 
@@ -60,35 +61,36 @@ public class AccountBookingEntriesActivity extends AppCompatActivity {
             @Override
             public void onAccountSelection(long accountId) {
                 toolbarDrawerConnection.closeDrawer();
-                showAccount(accountId);
+                showAccountContent(accountId);
             }
         });
     }
 
-    private void showAccount(long accountId) {
+    private void showAccountContent(long accountId) {
         lastSelectedAccountId = accountId;
         bookingEntries.setAccount(accountId);
     }
 
-    private boolean firstAccountResult = true;
-
-    private void selectAccount() {
+    private void restoreLastOrSelectFirstAccount() {
         accountRepository.loader(5463, new AccountSpecAll(), new LoaderCallback<AccountCursor>() {
+            private boolean needInitialAccountSelection = true;
+
             @Override
-            public void onLoadFinished(AccountCursor cursor) {
+            public void onLoadFinished(@Nullable AccountCursor cursor) {
                 accountNavigationDrawer.bindAccounts(cursor);
-
-                if(firstAccountResult) {
-                    firstAccountResult = false;
-                    if(lastSelectedAccountId == 0) {
-                        cursor.moveToFirst();
-                        lastSelectedAccountId = cursor.getId();
-                    }
-                    showAccount(lastSelectedAccountId);
-                    accountNavigationDrawer.selectAccount(lastSelectedAccountId);
+                if(needInitialAccountSelection) {
+                    needInitialAccountSelection = false;
+                    restoreLastOrSelectFirstAccount(cursor);
                 }
+            }
 
-                cursor.close();
+            private void restoreLastOrSelectFirstAccount(AccountCursor cursor) {
+                if(lastSelectedAccountId == 0) {
+                    cursor.moveToFirst();
+                    lastSelectedAccountId = cursor.getId();
+                }
+                showAccountContent(lastSelectedAccountId);
+                accountNavigationDrawer.selectAccount(lastSelectedAccountId);
             }
         });
     }

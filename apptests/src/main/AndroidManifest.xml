@@ -2,6 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="de.nenick.quacc.test">
 
+    <application>
+        <activity android:name=".DummyLauncherActivity_"/>
+    </application>
+
     <instrumentation
         android:name="android.support.test.runner.AndroidJUnitRunner"
         android:targetPackage="de.nenick.quacc" />

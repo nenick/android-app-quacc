@@ -15,7 +15,7 @@ public class BookingEntrySpecCategorySummeryByRange extends BookingEntrySpec {
     private final Date startDate;
     private final Date endDate;
 
-    public static CategorySummeryCursor wrap(Cursor cursor) {
+    public static @Nullable CategorySummeryCursor wrap(Cursor cursor) {
         return cursor == null ? null : new CategorySummeryCursor(cursor);
     }
 

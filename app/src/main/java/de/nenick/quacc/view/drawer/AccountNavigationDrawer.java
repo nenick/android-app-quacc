@@ -50,6 +50,10 @@ public class AccountNavigationDrawer extends NavigationView implements Navigatio
     }
 
     public void bindAccounts(AccountCursor accountCursor) {
+        if(accountCursor == null) {
+            return;
+        }
+
         Menu menu = getMenu();
         SubMenu accountMenu = menu.addSubMenu(GROUP_ACCOUNTS, "Accounts".hashCode(), Menu.NONE, "Accounts");
 
