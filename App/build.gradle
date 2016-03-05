@@ -8,6 +8,10 @@ buildscript {
     }
 }
 
+plugins {
+    id "org.standardout.versioneye" version "1.2.0"
+}
+
 apply plugin: 'com.android.application'
 apply from: "../build.jacoco-already-instrumented-workaround.gradle"
 
@@ -32,13 +36,7 @@ android {
         debug {
             versionNameSuffix "-dev"
             testCoverageEnabled = project.isInstrumentedTestRun
-            buildConfigField "String", "MODULE_PATH", "\"$projectDir\"".replace('\\', '\\\\')
         }
-    }
-
-    lintOptions {
-        // robolectric does only support sdk v21 current
-        disable 'OldTargetApi'
     }
 
     packagingOptions {
@@ -76,6 +74,10 @@ dependencies {
     androidTestCompile 'com.android.support.test.espresso:espresso-contrib:2.0'
     androidTestCompile 'com.android.support.test:testing-support-lib:0.1'
 
+}
+
+versioneye {
+    dependencies = transitive
 }
 
 /*afterEvaluate {

@@ -34,6 +34,9 @@ test:
     - ./gradlew Core:lint
     - ./gradlew Database:lint
 
+    # Check dependency versions
+    - ./gradlew App:versionEyeUpdate
+
     # copy test results
     - mv App/build/reports/tests/debug $CIRCLE_TEST_REPORTS/AppUnitTests
     - mv Core/build/reports/tests/debug $CIRCLE_TEST_REPORTS/AppUnitTests
