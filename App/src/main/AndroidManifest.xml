@@ -33,7 +33,7 @@
             android:label="@string/title_activity_add_accounting"
             android:parentActivityName=".view.accounting_overview.AccountingListActivity_" />
         <activity
-            android:name=".view.accounting_overview.AccountingListActivity_"
+            android:name=".activities.AccountBookingEntriesActivity_"
             android:label="@string/title_activity_accounting_list" />
         <activity
             android:name=".view.category.CategoriesActivity_"

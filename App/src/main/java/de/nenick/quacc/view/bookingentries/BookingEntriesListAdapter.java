@@ -52,8 +52,8 @@ class BookingEntriesListAdapter extends ExpandableCursorTreeAdapter<CategorySumm
         this.account = account;
         bookingEntryRepository.loader(432, new BookingEntrySpecCategorySummeryByRange(account, startDate.toDate(), endDate.toDate()), new LoaderCallback<BookingEntryCursor>() {
             @Override
-            public void onLoadFinished(BookingEntryCursor data) {
-                setGroupCursor(BookingEntrySpecCategorySummeryByRange.wrap(data));
+            public void onLoadFinished(BookingEntryCursor cursor) {
+                setGroupCursor(BookingEntrySpecCategorySummeryByRange.wrap(cursor));
             }
         });
     }
@@ -70,8 +70,8 @@ class BookingEntriesListAdapter extends ExpandableCursorTreeAdapter<CategorySumm
         BookingEntrySpecCategoryEntriesByRange specification = new BookingEntrySpecCategoryEntriesByRange(account, startDate, endDate, categoryId, type);
         bookingEntryRepository.loader(1000 + (int)categorySummeryCursor.getId(), specification, new LoaderCallback<BookingEntryCursor>() {
             @Override
-            public void onLoadFinished(BookingEntryCursor data) {
-                setChildrenCursor(groupPosition, data);
+            public void onLoadFinished(BookingEntryCursor cursor) {
+                setChildrenCursor(groupPosition, cursor);
             }
         });
         return null;

@@ -12,7 +12,7 @@ import org.androidannotations.annotations.ViewById;
 import de.nenick.quacc.R;
 import de.nenick.toolscollection.LazyAdapter;
 
-@EViewGroup(R.layout.fragment_booking_entries_list)
+@EViewGroup(R.layout.fragment_booking_entries)
 class BookingEntriesView extends FrameLayout {
 
     @ViewById(R.id.recycler_view)

@@ -11,6 +11,7 @@
         <item name="colorAccent">@color/primary</item>
         <!-- for full view background -->
         <item name="android:windowBackground">@color/windowBackground</item>
+        <item name="android:windowTranslucentStatus">true</item>
     </style>
 
 </resources>

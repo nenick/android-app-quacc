@@ -27,8 +27,7 @@ import de.nenick.quacc.view.category.CategoriesActivity_;
 import de.nenick.quacc.view.template.TemplateActivity_;
 
 @EActivity(R.layout.activity_accounting_list)
-public class AccountingListActivity extends ActionBarActivity
-        implements AccountingListDrawer.NavigationDrawerCallbacks {
+public class AccountingListActivity extends ActionBarActivity {
 
     public static final String TAG_FRAGMENT = AccountingListFragment.class.getSimpleName();
 
@@ -38,8 +37,6 @@ public class AccountingListActivity extends ActionBarActivity
     @ViewById(R.id.drawer_layout)
     DrawerLayout drawerLayout;
 
-    @FragmentById(R.id.navigation_drawer)
-    AccountingListDrawer accountingListDrawer;
 
     @Bean
     BackupFromJsonFileFunction backupFromJsonFileFunction;
@@ -57,65 +54,6 @@ public class AccountingListActivity extends ActionBarActivity
 
         mTitle = getTitle();
 
-        // Set up the drawer.
-        accountingListDrawer.setUp(
-                R.id.navigation_drawer,
-                drawerLayout);
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        getLoaderManager();
-    }
-
-    @Override
-    public void onNavigationDrawerItemSelected(int position) {
-        AccountCursor selection = accountingListDrawer.getItem(position);
-
-        String account = getAccountNameByPosition(position);
-        if (account.equals(mAccount)) {
-            // reload fragment is not necessary if the current and selected account are same
-            return;
-        }
-
-        mAccount = selection.getId();
-        replaceFragmentForCurrentAccount();
-    }
-
-    private void replaceFragmentForCurrentAccount() {
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        if (mAccount == 0) {
-            throw new IllegalStateException();
-        }
-        //fragmentManager.beginTransaction().replace(R.id.container, AccountingListFragment_.builder().account(mAccount).build(), TAG_FRAGMENT).commit();
-        fragmentManager.beginTransaction().replace(R.id.container, BookingEntriesFragment_.builder().account(mAccount).build(), TAG_FRAGMENT).commit();
-        //fragmentManager.beginTransaction().replace(R.id.container, ExpandListFragment_.builder().build(), TAG_FRAGMENT).commit();
-    }
-
-    private String getAccountNameByPosition(int position) {
-        String account;
-        if (position == 0) {
-            account = "Girokonto";
-        } else if (position == 1) {
-            account = "Bar";
-        } else {
-            account = "Tagesgeldkonto";
-        }
-        return account;
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        if (!accountingListDrawer.isDrawerOpen()) {
-            // Only show items in the action bar relevant to this screen
-            // if the drawer is not showing. Otherwise, let the drawer
-            // decide what to show in the action bar.
-            getMenuInflater().inflate(R.menu.menu_accounting_list, menu);
-            getSupportActionBar().setTitle(mTitle + " (" + mAccount + ")");
-            return true;
-        }
-        return super.onCreateOptionsMenu(menu);
     }
 
     @OptionsItem(R.id.category)
@@ -136,7 +74,6 @@ public class AccountingListActivity extends ActionBarActivity
     @OptionsItem(R.id.import_data)
     protected void onImport() {
         backupFromJsonFileFunction.apply(backupPath);
-        replaceFragmentForCurrentAccount();
     }
 
     @OptionsItem(R.id.export_data)
@@ -144,8 +81,5 @@ public class AccountingListActivity extends ActionBarActivity
         backupToJsonFileFunction.apply(backupPath);
     }
 
-    @Click(R.id.fab)
-    protected void onClickNewBookingEntry() {
-        EditAccountingActivity_.intent(this).start();
-    }
+
 }

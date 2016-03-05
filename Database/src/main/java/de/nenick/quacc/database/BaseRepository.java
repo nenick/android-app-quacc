@@ -9,6 +9,7 @@ import android.content.Loader;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.google.common.reflect.TypeToken;
 
@@ -16,12 +17,10 @@ import org.androidannotations.annotations.EBean;
 import org.androidannotations.annotations.RootContext;
 
 import java.lang.reflect.Array;
-import java.lang.reflect.ParameterizedType;
 
 import de.nenick.quacc.database.provider.base.AbstractContentValues;
 import de.nenick.quacc.database.provider.base.AbstractCursor;
 import de.nenick.quacc.database.provider.base.AbstractSelection;
-import de.nenick.quacc.database.provider.bookingtemplate.BookingTemplateCursor;
 
 @EBean
 public abstract class BaseRepository<CONTENT extends AbstractContentValues, SPEC extends QuerySpecification, CURSOR extends AbstractCursor> {
@@ -57,6 +56,7 @@ public abstract class BaseRepository<CONTENT extends AbstractContentValues, SPEC
     } */
 
     public void loader(int id, final SPEC specification, final LoaderCallback<CURSOR> callback) {
+        Log.v(getClass().getSimpleName(), "start loader for id " + id);
         ((Activity)context).getLoaderManager().restartLoader(id, null, new LoaderManager.LoaderCallbacks<Cursor>() {
             @Override
             public Loader<Cursor> onCreateLoader(int id, Bundle args) {

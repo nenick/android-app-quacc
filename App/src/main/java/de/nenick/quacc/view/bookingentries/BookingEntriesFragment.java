@@ -23,9 +23,6 @@ public class BookingEntriesFragment extends Fragment {
     @Bean
     BookingEntriesListAdapter adapter;
 
-    @FragmentArg
-    long account;
-
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         return view = BookingEntriesView_.build(inflater.getContext(), null);
@@ -33,11 +30,10 @@ public class BookingEntriesFragment extends Fragment {
 
     @AfterViews
     void onAfterViewsCreated() {
-        initBookingEntriesList();
+        view.setAdapter(adapter);
     }
 
-    private void initBookingEntriesList() {
-        view.setAdapter(adapter);
+    public void setAccount(long account) {
         adapter.update(account, new DateTime(0), new DateTime());
     }
 }
