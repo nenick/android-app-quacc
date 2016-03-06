@@ -23,7 +23,7 @@ import de.nenick.quacc.view.bookingentries.BookingEntriesFragment;
 import de.nenick.quacc.view.drawer.ToolbarDrawerConnection;
 
 @EActivity(R.layout.activity_booking_entries)
-public class AccountBookingEntriesActivity extends AppCompatActivity {
+public class BookingEntriesActivity extends AppCompatActivity {
 
     @FragmentById(R.id.fragment_booking_entries)
     BookingEntriesFragment bookingEntries;

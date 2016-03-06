@@ -3,6 +3,7 @@ package de.nenick.quacc.view.bookingentries;
 import android.content.Context;
 import android.database.Cursor;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.ViewGroup;
 
 import org.androidannotations.annotations.Bean;
@@ -72,6 +73,7 @@ class BookingEntriesListAdapter extends ExpandableCursorTreeAdapter<CategorySumm
         bookingEntryRepository.loader(1000 + (int)categorySummeryCursor.getId(), specification, new LoaderCallback<BookingEntryCursor>() {
             @Override
             public void onLoadFinished(@Nullable BookingEntryCursor cursor) {
+                Log.e("grouppos", "" + groupPosition);
                 setChildrenCursor(groupPosition, cursor);
             }
         });

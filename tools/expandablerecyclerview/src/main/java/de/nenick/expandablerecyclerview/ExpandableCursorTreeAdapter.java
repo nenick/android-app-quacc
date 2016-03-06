@@ -73,7 +73,11 @@ public abstract class ExpandableCursorTreeAdapter<GVH extends ExpandableCursorTr
     protected abstract Cursor getChildrenCursor(Cursor groupCursor);
 
     public void setChildrenCursor(int groupPosition, Cursor cursor) {
-        dataSource.setChildrenCursor(groupPosition, cursor);
+        // workaround for NullPointerException when group cursor was already cleaned
+        // https://code.google.com/p/android/issues/detail?id=177590
+        if(dataSource.getGroup(groupPosition) != null) {
+            dataSource.setChildrenCursor(groupPosition, cursor);
+        }
     }
 
     public void setGroupCursor(Cursor cursor) {

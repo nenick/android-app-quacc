@@ -45,19 +45,9 @@ public class DisableAnimationsFunction {
             }
             setAnimationScales.invoke(windowManagerObj, currentScales);
             return true;
-        } catch (ClassNotFoundException cnfe) {
-            Log.w(TAG, "Cannot disable animations reflectively.", cnfe);
-        } catch (NoSuchMethodException mnfe) {
-            Log.w(TAG, "Cannot disable animations reflectively.", mnfe);
-        } catch (SecurityException se) {
-            Log.w(TAG, "Cannot disable animations reflectively.", se);
-        } catch (InvocationTargetException ite) {
-            Log.w(TAG, "Cannot disable animations reflectively.", ite);
-        } catch (IllegalAccessException iae) {
-            Log.w(TAG, "Cannot disable animations reflectively.", iae);
-        } catch (RuntimeException re) {
-            Log.w(TAG, "Cannot disable animations reflectively.", re);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
-        return false;
+        //return false;
     }
 }

@@ -1,6 +1,5 @@
 package de.nenick.quacc.test.espresso;
 
-import android.support.test.espresso.Espresso;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 
@@ -9,7 +8,8 @@ import org.junit.Rule;
 import org.junit.runner.RunWith;
 
 import de.nenick.quacc.test.DummyLauncherActivity_;
-import de.nenick.quacc.test.pages.EspressoDummyLauncherPage;
+import de.nenick.quacc.test.espresso.pagepattern.EspDevice;
+import de.nenick.quacc.test.pages.EspDummyLauncherPage;
 
 @RunWith(AndroidJUnit4.class)
 public abstract class EspressoTestCase {
@@ -17,22 +17,11 @@ public abstract class EspressoTestCase {
     @Rule
     public ActivityTestRule<DummyLauncherActivity_> activityRule = new ActivityTestRule<>(DummyLauncherActivity_.class);
 
-    protected EspressoDummyLauncherPage launcherPage = new EspressoDummyLauncherPage();
-    protected EspressoDevice device = new EspressoDevice();
+    protected EspDummyLauncherPage launcherPage = new EspDummyLauncherPage();
+    protected EspDevice device = new EspDevice();
 
     public void startApp() {
         launcherPage.clickStartApp();
-    }
-
-    public static class EspressoDevice {
-        public void clickBackButton() {
-            Espresso.pressBack();
-        }
-    }
-
-    @Before
-    public void setupEspresso() {
-        DisableAnimationsFunction.apply(activityRule.getActivity().getApplication());
     }
 
     /*

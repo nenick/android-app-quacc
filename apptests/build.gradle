@@ -10,11 +10,12 @@ android {
     defaultConfig {
         minSdkVersion 21
         testApplicationId 'de.nenick.quacc.test'
-        testInstrumentationRunner "JunitRunner"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
 }
 
 repositories {
+    // the test module need his own possibility to find AndroidAnnotations 4.0 snapshot version (who knows why ...)
     maven { url 'https://oss.sonatype.org/content/repositories/snapshots' }
 }
 

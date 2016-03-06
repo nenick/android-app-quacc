@@ -67,6 +67,10 @@ dependencies {
 
     // style support
     compile 'com.melnykov:floatingactionbutton:1.2.0'
+    //androidTestCompile 'com.android.support:support-annotations:23.1.1'
+    //androidTestCompile 'com.android.support.test.espresso:espresso-contrib:2.2.1'
+    androidTestCompile ('com.android.support.test.espresso:espresso-contrib:2.2.1')
+            { exclude module: 'support-annotations' exclude module: 'support-v4' exclude module: 'support-v13' exclude module: 'recyclerview-v7' }
 }
 
 versioneye {
