@@ -12,8 +12,10 @@ import org.robolectric.RobolectricGradleTestRunner;
 import org.robolectric.RuntimeEnvironment;
 import org.robolectric.annotation.Config;
 import org.robolectric.shadows.ShadowLog;
+import org.robolectric.shadows.ShadowSQLiteConnection;
 
 import java.lang.reflect.Field;
+import java.text.NumberFormat;
 
 import de.nenick.quacc.database.BuildConfig;
 import de.nenick.quacc.database.QuAccProvider;
@@ -50,6 +52,27 @@ public abstract class RoboDatabaseTest {
     @After
     public void finishRobolectricTest() {
         resetSingleton(QuAccSQLiteOpenHelper.class, "sInstance");
+
+        // release all database connections to release memory leaks
+        // https://github.com/robolectric/robolectric/issues/1510
+        ShadowSQLiteConnection.reset();
+
+        /* check current allocated memory
+        System.gc();
+        System.gc();
+        System.gc();
+        Runtime runtime = Runtime.getRuntime();
+        NumberFormat format = NumberFormat.getInstance();
+        StringBuilder sb = new StringBuilder();
+        long maxMemory = runtime.maxMemory();
+        long allocatedMemory = runtime.totalMemory();
+        long freeMemory = runtime.freeMemory();
+        sb.append("free memory: " + format.format(freeMemory / 1024) + " ");
+        sb.append("allocated memory: " + format.format(allocatedMemory / 1024) + " ");
+        sb.append("max memory: " + format.format(maxMemory / 1024) + " ");
+        sb.append("total free memory: " + format.format((freeMemory + (maxMemory - allocatedMemory)) / 1024) + " ");
+        System.err.println(sb);
+        */
     }
 
     private void resetSingleton(Class clazz, String fieldName) {
