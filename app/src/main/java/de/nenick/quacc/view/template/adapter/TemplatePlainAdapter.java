@@ -18,7 +18,7 @@ import de.nenick.quacc.database.bookingtemplatekeyword.BookingTemplateKeywordRep
 import de.nenick.quacc.database.bookingtemplatekeyword.BookingTemplateKeywordSpecByTemplateId;
 import de.nenick.quacc.database.provider.bookingtemplate.BookingTemplateCursor;
 import de.nenick.quacc.database.provider.bookingtemplatekeyword.BookingTemplateKeywordCursor;
-import de.nenick.quacc.valueparser.ParseValueFromIntegerFunction;
+import de.nenick.toolscollection.amountparser.ParseValueFromIntegerFunction;
 
 @EBean
 public class TemplatePlainAdapter extends CursorAdapter {
@@ -31,9 +31,6 @@ public class TemplatePlainAdapter extends CursorAdapter {
 
     @Bean
     AccountingIntervalTranslator accountingIntervalTranslator;
-
-    @Bean
-    ParseValueFromIntegerFunction parseValueFromInteger;
 
     @Bean
     BookingTemplateKeywordRepository bookingTemplateKeywordRepository;

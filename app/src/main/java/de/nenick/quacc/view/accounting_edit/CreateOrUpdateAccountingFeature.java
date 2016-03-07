@@ -12,9 +12,8 @@ import de.nenick.quacc.core.bookingentry.update.UpdateOnceOnlyBookingEntryFuncti
 import de.nenick.quacc.core.bookinginterval.BookingIntervalOption;
 import de.nenick.quacc.core.common.util.QuAccDateUtil;
 import de.nenick.quacc.database.provider.category.CategoryCursor;
-import de.nenick.quacc.valueparser.ParseValueFromStringFunction;
-
-import static de.nenick.quacc.valueparser.ParseValueFromStringFunction.ParseResult.Successful;
+import de.nenick.toolscollection.amountparser.AmountFromStringResult;
+import de.nenick.toolscollection.amountparser.AmountParser;
 
 @EBean
 public class CreateOrUpdateAccountingFeature {
@@ -28,9 +27,6 @@ public class CreateOrUpdateAccountingFeature {
     @Bean
     UpdateOnceOnlyBookingEntryFunction updateOnceOnlyBookingEntryFunction;
 
-    @Bean
-    ParseValueFromStringFunction parseValueFromStringFunction;
-
     private long accountingId;
     private String initialInterval;
     EditAccountingView view;
@@ -42,8 +38,8 @@ public class CreateOrUpdateAccountingFeature {
 
         view.closeSoftKeyboard();
 
-        ParseValueFromStringFunction.Result valueResult = parseValueFromStringFunction.apply(view.getValue());
-        if (valueResult.report != Successful) {
+        AmountFromStringResult valueResult = AmountParser.asInteger(view.getValue());
+        if (valueResult.report != AmountFromStringResult.ParseResult.Successful) {
             showParsingError(valueResult);
             return;
         }
@@ -56,7 +52,7 @@ public class CreateOrUpdateAccountingFeature {
         view.finish();
     }
 
-    private void updateAccounting(ParseValueFromStringFunction.Result valueResult) {
+    private void updateAccounting(AmountFromStringResult valueResult) {
         String account = view.getAccount();
         String accountingType = view.getAccountingType();
         String accountingInterval = view.getAccountingInterval();
@@ -65,11 +61,11 @@ public class CreateOrUpdateAccountingFeature {
         String comment = view.getComment();
         Date date = QuAccDateUtil.toDate(dateString);
         if (accountingInterval.equals(BookingIntervalOption.once.name()) && initialInterval.equals(BookingIntervalOption.once.name())) {
-            updateOnceOnlyBookingEntryFunction.apply(accountingId, account, accountingType, accountingCategory.getId(), date, valueResult.value, comment);
+            updateOnceOnlyBookingEntryFunction.apply(accountingId, account, accountingType, accountingCategory.getId(), date, valueResult.amount, comment);
         }
     }
 
-    private void createNewAccounting(ParseValueFromStringFunction.Result valueResult) {
+    private void createNewAccounting(AmountFromStringResult valueResult) {
         String account = view.getAccount();
         String accountingType = view.getAccountingType();
         String accountingInterval = view.getAccountingInterval();
@@ -79,20 +75,20 @@ public class CreateOrUpdateAccountingFeature {
         Date date = QuAccDateUtil.toDate(dateString);
 
         if (accountingInterval.equals(BookingIntervalOption.once.name())) {
-            createBookingEntryFunction.apply(account, accountingType, accountingInterval, accountingCategory.getId(), date, valueResult.value, comment);
+            createBookingEntryFunction.apply(account, accountingType, accountingInterval, accountingCategory.getId(), date, valueResult.amount, comment);
         } else {
             if (view.isEndDateActive()) {
                 String endDateString = view.getEndDate();
                 Date endDate = QuAccDateUtil.toDate(endDateString);
                 createIntervalFunction.applyWithEndDate(account, accountingType, accountingInterval, accountingCategory.getId(), date, endDate
-                        , valueResult.value, comment);
+                        , valueResult.amount, comment);
             } else {
-                createIntervalFunction.apply(account, accountingType, accountingInterval, accountingCategory.getId(), date, valueResult.value, comment);
+                createIntervalFunction.apply(account, accountingType, accountingInterval, accountingCategory.getId(), date, valueResult.amount, comment);
             }
         }
     }
 
-    private void showParsingError(ParseValueFromStringFunction.Result valueResult) {
+    private void showParsingError(AmountFromStringResult valueResult) {
         switch (valueResult.report) {
             case EmptyInput:
                 view.showValueParsingError(R.string.parse_error_missing_value);

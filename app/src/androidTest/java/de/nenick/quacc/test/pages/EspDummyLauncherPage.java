@@ -1,7 +1,7 @@
 package de.nenick.quacc.test.pages;
 
 import de.nenick.quacc.R;
-import de.nenick.quacc.test.espresso.pagepattern.EspPage;
+import de.nenick.espressopages.pages.EspPage;
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;

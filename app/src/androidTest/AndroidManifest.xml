@@ -6,8 +6,5 @@
         <activity android:name=".DummyLauncherActivity_"/>
     </application>
 
-    <instrumentation
-        android:name="android.support.test.runner.AndroidJUnitRunner"
-        android:targetPackage="de.nenick.quacc" />
 
 </manifest>

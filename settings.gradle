@@ -1,7 +1,8 @@
 include ':app', ':database', ':core'
 include ':apptests'
-include ':robolectricpages'
 
+include ':tools:espressopages'
+include ':tools:robolectricpages'
 include ':tools:toolscollection'
 include ':tools:speechrecognition'
 include ':tools:expandablerecyclerview'

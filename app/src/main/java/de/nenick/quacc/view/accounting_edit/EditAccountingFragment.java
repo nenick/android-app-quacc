@@ -17,7 +17,8 @@ import de.nenick.quacc.database.bookingentry.BookingEntryRepository;
 import de.nenick.quacc.database.bookingentry.BookingEntrySpecById;
 import de.nenick.quacc.database.provider.bookingentry.BookingEntryCursor;
 import de.nenick.quacc.database.provider.category.CategoryCursor;
-import de.nenick.quacc.valueparser.ParseValueFromIntegerFunction;
+import de.nenick.toolscollection.amountparser.AmountParser;
+import de.nenick.toolscollection.amountparser.ParseValueFromIntegerFunction;
 import de.nenick.quacc.view.accounting_edit.adapter.CategoryAdapter;
 import de.nenick.quacc.view.accounting_edit.speechrecognition.SpeechRecognitionFeature;
 import de.nenick.quacc.view.common.adapter.IntervalAdapter;
@@ -39,9 +40,6 @@ public class EditAccountingFragment extends BasePresenterFragment {
 
     @Bean
     GetAccountsFunction getAccountsFunction;
-
-    @Bean
-    ParseValueFromIntegerFunction parseValueFromIntegerFunction;
 
     @Bean
     SpeechRecognitionFeature speechRecognitionFeature;
@@ -98,7 +96,7 @@ public class EditAccountingFragment extends BasePresenterFragment {
         view.setAccountingInterval(accountingIntervalInitial);
         view.setAccountingType(accountingCursor.getDirection());
         view.setDate(QuAccDateUtil.toString(accountingCursor.getDate()));
-        view.setValue(parseValueFromIntegerFunction.apply(accountingCursor.getAmount()));
+        view.setValue(AmountParser.asString(accountingCursor.getAmount()));
         view.setComment(accountingCursor.getComment());
         accountingCursor.close();
     }

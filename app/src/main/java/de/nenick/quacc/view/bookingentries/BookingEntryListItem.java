@@ -17,7 +17,8 @@ import de.nenick.quacc.R;
 import de.nenick.quacc.core.bookingentry.direction.BookingDirectionOption;
 import de.nenick.quacc.core.common.util.QuAccDateUtil;
 import de.nenick.quacc.database.provider.bookingentry.BookingEntryCursor;
-import de.nenick.quacc.valueparser.ParseValueFromIntegerFunction;
+import de.nenick.toolscollection.amountparser.AmountParser;
+import de.nenick.toolscollection.amountparser.ParseValueFromIntegerFunction;
 
 /**
  * Child for expandable list view group.
@@ -51,9 +52,6 @@ class BookingEntryListItem extends ExpandableCursorTreeAdapter.ListItemHolder<Bo
     @ViewById(R.id.amount)
     TextView amount;
 
-    @Bean
-    ParseValueFromIntegerFunction parseValueFromIntegerFunction;
-
     public static BookingEntryListItem create(Context context) {
         return BookingEntryListItem_.getInstance_(context);
     }
@@ -69,7 +67,7 @@ class BookingEntryListItem extends ExpandableCursorTreeAdapter.ListItemHolder<Bo
         interval.setText(item.getInterval());
         category.setText(item.getCategoryName());
         comment.setText(item.getComment());
-        amount.setText(parseValueFromIntegerFunction.apply(item.getAmount()));
+        amount.setText(AmountParser.asString(item.getAmount()));
 
         switch (BookingDirectionOption.valueOf(item.getDirection())) {
             case incoming:

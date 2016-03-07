@@ -28,7 +28,8 @@ import de.nenick.quacc.database.provider.account.AccountCursor;
 import de.nenick.quacc.database.provider.bookingentry.BookingEntryCursor;
 import de.nenick.quacc.speechrecognition.hotword.HotwordListener;
 import de.nenick.quacc.speechrecognition.hotword.QuAccHotwordRecognizer;
-import de.nenick.quacc.valueparser.ParseValueFromIntegerFunction;
+import de.nenick.toolscollection.amountparser.AmountParser;
+import de.nenick.toolscollection.amountparser.ParseValueFromIntegerFunction;
 import de.nenick.quacc.view.accounting_edit.EditAccountingActivity_;
 import de.nenick.quacc.view.accounting_overview.adapter.AccountingPlainAdapter;
 import de.nenick.quacc.view.accounting_overview.adapter.AccountingTreeAdapter;
@@ -57,9 +58,6 @@ public class AccountingListFragment extends BasePresenterFragment {
 
     @Bean
     MonthTranslator monthTranslator;
-
-    @Bean
-    ParseValueFromIntegerFunction parseValueFromIntegerFunction;
 
     @Bean
     AccountRepository accountRepository;
@@ -126,7 +124,7 @@ public class AccountingListFragment extends BasePresenterFragment {
 
         AccountCursor accountCursor = accountRepository.query(new AccountSpecByName(account));
         accountCursor.moveToFirst();
-        view.setAccountValue(parseValueFromIntegerFunction.apply(accountCursor.getInitialvalue()));
+        view.setAccountValue(AmountParser.asString(accountCursor.getInitialvalue()));
 
         view.accountingListExpandable.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
             @Override

@@ -18,7 +18,8 @@ import de.nenick.quacc.core.bookingentry.direction.BookingDirectionOption;
 import de.nenick.quacc.core.common.util.QuAccDateUtil;
 import de.nenick.quacc.core.i18n.AccountingIntervalTranslator;
 import de.nenick.quacc.database.provider.bookingentry.BookingEntryCursor;
-import de.nenick.quacc.valueparser.ParseValueFromIntegerFunction;
+import de.nenick.toolscollection.amountparser.AmountParser;
+import de.nenick.toolscollection.amountparser.ParseValueFromIntegerFunction;
 
 @EBean
 public class AccountingPlainAdapter extends CursorAdapter {
@@ -31,9 +32,6 @@ public class AccountingPlainAdapter extends CursorAdapter {
 
     @Bean
     AccountingIntervalTranslator accountingIntervalTranslator;
-
-    @Bean
-    ParseValueFromIntegerFunction parseValueFromInteger;
 
     @Bean
     CreateAccountingFromIntervalsFunction createAccountingFromIntervalsFunction;
@@ -78,7 +76,7 @@ public class AccountingPlainAdapter extends CursorAdapter {
 
     private String createValueString(BookingEntryCursor bookingEntryCursor) {
         int value = bookingEntryCursor.getAmount();
-        return parseValueFromInteger.apply(value);
+        return AmountParser.asString(value);
     }
 
     public void changeFor(DateTime startDate, DateTime endDate) {

@@ -10,7 +10,7 @@ import org.androidannotations.annotations.EViewGroup;
 import org.androidannotations.annotations.ViewById;
 
 import de.nenick.quacc.R;
-import de.nenick.toolscollection.LazyAdapter;
+import de.nenick.toolscollection.lazyadapter.LazyAdapter;
 
 @EViewGroup(R.layout.fragment_booking_entries)
 class BookingEntriesView extends FrameLayout {

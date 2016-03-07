@@ -19,7 +19,7 @@ import de.nenick.quacc.core.bookingentry.direction.BookingDirectionOption;
 import de.nenick.quacc.core.bookingentry.direction.GetAccountingTypesFunction;
 import de.nenick.quacc.view.mvp.BasePresenterFragment;
 import de.nenick.quacc.view.mvp.BaseView;
-import de.nenick.quacc.valueparser.ParseValueFromStringFunction;
+import de.nenick.toolscollection.amountparser.ParseValueFromStringFunction;
 import de.nenick.quacc.core.template.CreateBookingTemplateFunction;
 
 @EFragment(R.layout.fragment_create_accounting_template)
@@ -40,9 +40,6 @@ public class CreateTemplateFragment extends BasePresenterFragment {
 
     @Bean
     CreateBookingTemplateFunction createBookingTemplateFunction;
-
-    @Bean
-    ParseValueFromStringFunction parseValueFromStringFunction;
 
     @Bean
     AddTemplateKeywordFunction addTemplateKeywordFunction;

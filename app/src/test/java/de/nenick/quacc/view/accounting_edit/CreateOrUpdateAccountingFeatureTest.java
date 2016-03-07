@@ -15,12 +15,13 @@ import java.util.Map;
 import de.nenick.quacc.R;
 import de.nenick.quacc.core.bookingentry.creation.CreateBookingEntryFunction;
 import de.nenick.quacc.core.bookingentry.creation.CreateIntervalFunction;
-import de.nenick.quacc.core.bookinginterval.BookingIntervalOption;
 import de.nenick.quacc.core.bookingentry.direction.BookingDirectionOption;
+import de.nenick.quacc.core.bookinginterval.BookingIntervalOption;
 import de.nenick.quacc.core.common.util.QuAccDateUtil;
 import de.nenick.quacc.database.provider.category.CategoryCursor;
-import de.nenick.quacc.valueparser.ParseValueFromStringFunction;
-import de.nenick.quacc.valueparser.ParseValueFromStringFunction.ParseResult;
+import de.nenick.toolscollection.amountparser.AmountFromStringResult;
+import de.nenick.toolscollection.amountparser.AmountFromStringResult.ParseResult;
+import de.nenick.toolscollection.amountparser.ParseValueFromStringFunction;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.BDDMockito.given;
@@ -50,7 +51,7 @@ public class CreateOrUpdateAccountingFeatureTest {
 
     Map<ParseResult, Integer> parsingErrors = new HashMap<>();
 
-    ParseValueFromStringFunction.Result valueParseResult;
+    AmountFromStringResult valueParseResult;
     String valueString = "500";
     int value = 500;
     String account = "Bar";
@@ -138,13 +139,13 @@ public class CreateOrUpdateAccountingFeatureTest {
     }
 
     private void givenValueParseResultSuccess() {
-        valueParseResult = new ParseValueFromStringFunction.Result(value);
+        valueParseResult = new AmountFromStringResult(value);
         given(parseValueFromStringFunction.apply(valueString)).willReturn(valueParseResult);
     }
 
     private void givenValueParsResultFailed(ParseResult parseResult) {
         given(view.getValue()).willReturn(valueString);
-        valueParseResult = new ParseValueFromStringFunction.Result(parseResult);
+        valueParseResult = new AmountFromStringResult(parseResult);
         given(parseValueFromStringFunction.apply(valueString)).willReturn(valueParseResult);
     }
 

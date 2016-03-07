@@ -10,10 +10,7 @@ import android.view.ViewGroup;
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EFragment;
-import org.androidannotations.annotations.FragmentArg;
 import org.joda.time.DateTime;
-
-import de.nenick.toolscollection.LazyAdapter;
 
 @EFragment
 public class BookingEntriesFragment extends Fragment {
