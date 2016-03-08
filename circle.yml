@@ -37,9 +37,9 @@ test:
     - ./gradlew jacocoTestReport
 
     # Check lint hints
-    - ./gradlew app:lint
-    - ./gradlew core:lint
-    - ./gradlew database:lint
+    - ./gradlew app:lintDebug
+    - ./gradlew core:lintDebug
+    - ./gradlew database:lintDebug
 
     # Check dependency versions
     - ./gradlew app:versionEyeUpdate
@@ -54,10 +54,10 @@ test:
 
     # copy lint report
     - mkdir $CIRCLE_TEST_REPORTS/Lint
-    - mv app/build/outputs/lint-results_files $CIRCLE_TEST_REPORTS/lint
-    - mv app/build/outputs/lint-results.html $CIRCLE_TEST_REPORTS/lint/lint-app-results.html
-    - mv core/build/outputs/lint-results.html $CIRCLE_TEST_REPORTS/lint/lint-core-results.html
-    - mv database/build/outputs/lint-results.html $CIRCLE_TEST_REPORTS/lint/lint-database-results.html
+    - mv app/build/outputs/lint-results-debug_files $CIRCLE_TEST_REPORTS/lint
+    - mv app/build/outputs/lint-results-debug.html $CIRCLE_TEST_REPORTS/lint/lint-app-results.html
+    - mv core/build/outputs/lint-results-debug.html $CIRCLE_TEST_REPORTS/lint/lint-core-results.html
+    - mv database/build/outputs/lint-results-debug.html $CIRCLE_TEST_REPORTS/lint/lint-database-results.html
 
     #try circleCi proper test amount feature
     - mkdir $CIRCLE_TEST_REPORTS/junit
