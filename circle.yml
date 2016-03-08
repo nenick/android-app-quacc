@@ -21,13 +21,13 @@ test:
     # Build the code
     - ./gradlew app:assembleDebug
 
-    - case $CIRCLE_NODE_INDEX in 0) ./gradlew app:test ;; 1) ./gradlew database:test ;; esac:
+    - case $CIRCLE_NODE_INDEX in 0) ./gradlew app:test ;; 1) ./gradlew database:test -i ;; esac:
         parallel: true
 
     # Execute Unit Tests
     - ./gradlew app:test
     - ./gradlew core:test
-    - ./gradlew database:test
+    - ./gradlew database:test -i
 
     # Execute Component Tests
     - ./gradlew apptestsjvm:test

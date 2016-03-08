@@ -29,7 +29,7 @@ public abstract class RoboDatabaseTest {
     public Context context;
 
     public RoboDatabaseTest() {
-        ShadowLog.stream = System.out;
+        //ShadowLog.stream = System.out;
         ShadowLog.setLoggable(BaseQuAccProvider.class.getSimpleName(), Log.DEBUG);
         ShadowLog.setLoggable("CursorWindowStats", Log.WARN);
         ShadowLog.setLoggable(SQLiteCursor.class.getSimpleName(), Log.WARN);
@@ -57,7 +57,7 @@ public abstract class RoboDatabaseTest {
         // https://github.com/robolectric/robolectric/issues/1510
         ShadowSQLiteConnection.reset();
 
-        /* check current allocated memory
+        // check current allocated memory
         System.gc();
         System.gc();
         System.gc();
@@ -72,7 +72,7 @@ public abstract class RoboDatabaseTest {
         sb.append("max memory: " + format.format(maxMemory / 1024) + " ");
         sb.append("total free memory: " + format.format((freeMemory + (maxMemory - allocatedMemory)) / 1024) + " ");
         System.err.println(sb);
-        */
+        //*/
     }
 
     private void resetSingleton(Class clazz, String fieldName) {
