@@ -12,7 +12,6 @@ import org.robolectric.RobolectricGradleTestRunner;
 import org.robolectric.RuntimeEnvironment;
 import org.robolectric.annotation.Config;
 import org.robolectric.shadows.ShadowLog;
-import org.robolectric.shadows.ShadowSQLiteConnection;
 
 import java.lang.reflect.Field;
 import java.text.NumberFormat;
@@ -39,7 +38,7 @@ public abstract class RoboDatabaseTest {
     @Before
     public void prepareRobolectricTest() {
         System.out.println(getClass().getSimpleName());
-        printCurrentMemoryUsage();
+        releaseMemory();
         context = RuntimeEnvironment.application;
         initialiseDatabase();
     }
@@ -55,22 +54,37 @@ public abstract class RoboDatabaseTest {
     @After
     public void finishRobolectricTest() {
         resetSingleton(QuAccSQLiteOpenHelper.class, "sInstance");
-        printCurrentMemoryUsage();
+        releaseMemory();
     }
 
-    private void printCurrentMemoryUsage() {
-        System.gc();
-        Runtime runtime = Runtime.getRuntime();
-        NumberFormat format = NumberFormat.getInstance();
-        StringBuilder sb = new StringBuilder();
-        long maxMemory = runtime.maxMemory();
-        long allocatedMemory = runtime.totalMemory();
-        long freeMemory = runtime.freeMemory();
-        sb.append("free memory: " + format.format(freeMemory / 1024) + " ");
-        sb.append("allocated memory: " + format.format(allocatedMemory / 1024) + " ");
-        sb.append("max memory: " + format.format(maxMemory / 1024) + " ");
-        sb.append("total free memory: " + format.format((freeMemory + (maxMemory - allocatedMemory)) / 1024) + " ");
-        System.err.println(sb);
+    static int testCounter = 0;
+    static final int perTest = 30;
+
+    /**
+     * Workaround for a strange out of memory effect.
+     *
+     * Memory usage increase and increase with each test until we hit out of memory.
+     */
+    private void releaseMemory() {
+        testCounter++;
+        // only start gc each x test because it consumes much time
+        if(testCounter % perTest == 0) {
+            System.gc();
+        }
+
+        /* Print memory usage ...
+            Runtime runtime = Runtime.getRuntime();
+            NumberFormat format = NumberFormat.getInstance();
+            StringBuilder sb = new StringBuilder();
+            long maxMemory = runtime.maxMemory();
+            long allocatedMemory = runtime.totalMemory();
+            long freeMemory = runtime.freeMemory();
+            sb.append("free memory: " + format.format(freeMemory / 1024) + " ");
+            sb.append("allocated memory: " + format.format(allocatedMemory / 1024) + " ");
+            sb.append("max memory: " + format.format(maxMemory / 1024) + " ");
+            sb.append("total free memory: " + format.format((freeMemory + (maxMemory - allocatedMemory)) / 1024) + " ");
+            System.err.println(sb);
+        */
     }
 
     private void resetSingleton(Class clazz, String fieldName) {
