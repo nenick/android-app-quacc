@@ -19,45 +19,45 @@ test:
 
   override:
     # Build the code
-    - ./gradlew App:assembleDebug
+    - ./gradlew app:assembleDebug
 
     # Execute Unit Tests
-    - ./gradlew App:test
-    - ./gradlew Core:test
-    - ./gradlew Database:test
+    - ./gradlew app:test
+    - ./gradlew core:test
+    - ./gradlew database:test
 
     # Execute Component Tests
-    - ./gradlew AppCT:test
+    - ./gradlew apptestsjvm:test
 
     # Build instrumented test code and execute them on emulator
-    - ./gradlew App:assembleDebugAndroidTest
-    - ./gradlew App:connectedCheck
+    - ./gradlew app:assembleDebugAndroidTest
+    - ./gradlew app:connectedCheck
 
     # Create coverage report
     - ./gradlew jacocoTestReport
 
     # Check lint hints
-    - ./gradlew App:lint
-    - ./gradlew Core:lint
-    - ./gradlew Database:lint
+    - ./gradlew app:lint
+    - ./gradlew core:lint
+    - ./gradlew database:lint
 
     # Check dependency versions
-    - ./gradlew App:versionEyeUpdate
+    - ./gradlew app:versionEyeUpdate
 
     # copy test results
-    - mv App/build/reports/tests/debug $CIRCLE_TEST_REPORTS/AppUnitTests
-    - mv Core/build/reports/tests/debug $CIRCLE_TEST_REPORTS/AppUnitTests
-    - mv Database/build/reports/tests/debug $CIRCLE_TEST_REPORTS/DatabaseUnitTests
-    - mv AppCT/build/test-report $CIRCLE_TEST_REPORTS/ComponentTests
-    - mv App/build/reports/androidTests/connected $CIRCLE_TEST_REPORTS/AndroidTests
-    - mv build/reports/jacoco/test/html $CIRCLE_TEST_REPORTS/CodeCoverageReport
+    - mv app/build/reports/tests/debug $CIRCLE_TEST_REPORTS/appUnitTests
+    - mv core/build/reports/tests/debug $CIRCLE_TEST_REPORTS/coreUnitTests
+    - mv database/build/reports/tests/debug $CIRCLE_TEST_REPORTS/databaseUnitTests
+    - mv apptestsjvm/build/test-report $CIRCLE_TEST_REPORTS/apptestsjvm
+    - mv app/build/reports/androidTests/connected $CIRCLE_TEST_REPORTS/androidTests
+    - mv build/reports/jacoco/test/html $CIRCLE_TEST_REPORTS/codeCoverageReport
 
     # copy lint report
     - mkdir $CIRCLE_TEST_REPORTS/Lint
-    - mv App/build/outputs/lint-results_files $CIRCLE_TEST_REPORTS/Lint
-    - mv App/build/outputs/lint-results.html $CIRCLE_TEST_REPORTS/Lint/lint-app-results.html
-    - mv Core/build/outputs/lint-results.html $CIRCLE_TEST_REPORTS/Lint/lint-core-results.html
-    - mv Database/build/outputs/lint-results.html $CIRCLE_TEST_REPORTS/Lint/lint-database-results.html
+    - mv app/build/outputs/lint-results_files $CIRCLE_TEST_REPORTS/lint
+    - mv app/build/outputs/lint-results.html $CIRCLE_TEST_REPORTS/lint/lint-app-results.html
+    - mv core/build/outputs/lint-results.html $CIRCLE_TEST_REPORTS/lint/lint-core-results.html
+    - mv database/build/outputs/lint-results.html $CIRCLE_TEST_REPORTS/lint/lint-database-results.html
 
     #try circleCi proper test amount feature
     - mkdir $CIRCLE_TEST_REPORTS/junit
