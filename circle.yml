@@ -12,17 +12,17 @@ dependencies:
 
 test:
   pre:
-    - emulator -avd circleci-android21 -no-audio -no-window:
-        background: true
-        parallel: true
-    - circle-android wait-for-boot
+    #- emulator -avd circleci-android21 -no-audio -no-window:
+    #    background: true
+    #    parallel: true
+    #- circle-android wait-for-boot
 
   override:
     # Build the code
     - ./gradlew app:assembleDebug
 
-    - case $CIRCLE_NODE_INDEX in 0) ./gradlew app:test ;; 1) ./gradlew database:test -i ;; esac:
-        parallel: true
+    #- case $CIRCLE_NODE_INDEX in 0) ./gradlew app:test ;; 1) ./gradlew database:test -i ;; esac:
+    #    parallel: true
 
     # Execute Unit Tests
     - ./gradlew app:test
