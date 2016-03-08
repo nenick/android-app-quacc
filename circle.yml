@@ -12,10 +12,10 @@ dependencies:
 
 test:
   pre:
-    #- emulator -avd circleci-android21 -no-audio -no-window:
-    #    background: true
-    #    parallel: true
-    #- circle-android wait-for-boot
+    - emulator -avd circleci-android21 -no-audio -no-window:
+        background: true
+        parallel: true
+    - circle-android wait-for-boot
 
   override:
     # Build the code
