@@ -59,7 +59,7 @@ public abstract class RoboDatabaseTest {
     }
 
     private void printCurrentMemoryUsage() {
-        //System.gc();
+        System.gc();
         Runtime runtime = Runtime.getRuntime();
         NumberFormat format = NumberFormat.getInstance();
         StringBuilder sb = new StringBuilder();
