@@ -22,10 +22,7 @@ test:
     - ./gradlew app:assembleDebug:
         parallel: true
 
-    - |
-        case $CIRCLE_NODE_INDEX in 0) ./gradlew app:test ;;
-                                   1) ./gradlew database:test -i ;; esac:
-        parallel: true
+    - case $CIRCLE_NODE_INDEX in 0) ./gradlew app:test ;; 1) ./gradlew database:test -i ;; esac
 
     # Execute Unit Tests
     - ./gradlew app:test
