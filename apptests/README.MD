@@ -2,10 +2,12 @@
 
 Current they are located inside the real app module because of some issues:
 
-### Issue: manual installation
+### Issue: manually installation
 
-Test modules requires manual installation of app changes before starting tests.
+Test modules requires manually installation of app changes before starting tests.
 App module install changes automatically.
+
+https://code.google.com/p/android/issues/detail?id=201081
 
 ### Issue: debugging
 
