@@ -17,12 +17,12 @@ apply from: "../build.jacoco-already-instrumented-workaround.gradle"
 
 android {
     compileSdkVersion 23
-    buildToolsVersion "23.0.2"
+    buildToolsVersion "23.0.3"
 
     defaultConfig {
         applicationId "de.nenick.quacc"
         minSdkVersion 21
-        targetSdkVersion 21
+        targetSdkVersion 23
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -49,6 +49,11 @@ android {
     }
 
     publishNonDefault true
+
+    sourceSets.androidTest {
+        java.srcDirs += "src/androidTestPages/java"
+        //java.srcDirs += "$project.rootDir/apptests/src/main/java"
+    }
 }
 
 apply from: "build.apt.gradle"
@@ -63,14 +68,14 @@ dependencies {
     compile project(':tools:toolscollection')
 
     // backward compatibility
-    compile 'com.android.support:design:23.1.1'
+    compile 'com.android.support:design:23.3.0'
 
     // style support
     compile 'com.melnykov:floatingactionbutton:1.2.0'
 
-    androidTestCompile project(':tools:espressopages')
-    androidTestCompile ('com.android.support.test.espresso:espresso-contrib:2.2.1')
-            { exclude module: 'support-annotations' exclude module: 'support-v4' exclude module: 'support-v13' exclude module: 'recyclerview-v7' }
+    androidTestCompile 'com.android.support:appcompat-v7:23.3.0'
+    androidTestCompile 'com.android.support:design:23.3.0'
+    androidTestCompile project(':espresso-macchiato')
 }
 
 versioneye {

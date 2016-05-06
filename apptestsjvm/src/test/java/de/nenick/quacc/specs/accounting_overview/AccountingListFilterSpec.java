@@ -11,8 +11,8 @@ import de.nenick.quacc.database.accounting.AccountingDb_;
 import de.nenick.quacc.view.accounting_overview.AccountingListActivity_;
 import de.nenick.quacc.view.accounting_overview.AccountingListFragment_;
 import de.nenick.quacc.view.accounting_overview.RoboAccountingListPage;
-import de.nenick.robolectric.RoboComponentTestBase;
-import de.nenick.robolectric.RoboSup;
+import de.nenick.quacc.robolectric.RoboComponentTestBase;
+import de.nenick.quacc.robolectric.RoboSup;
 
 import static org.assertj.core.api.Assertions.assertThat;
 

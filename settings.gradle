@@ -1,8 +1,12 @@
 include ':app', ':database', ':core'
 include ':apptests'
 
-include ':tools:espressopages'
 include ':tools:robolectricpages'
 include ':tools:toolscollection'
 include ':tools:speechrecognition'
 include ':tools:expandablerecyclerview'
+
+include ':espresso-macchiato'
+project(':espresso-macchiato').projectDir = new File(rootDir, "espresso-macchiato/espresso-macchiato")
+include ':uiautomator-noop'
+project(':uiautomator-noop').projectDir = new File(rootDir, "espresso-macchiato/uiautomator-noop")

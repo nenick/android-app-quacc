@@ -5,8 +5,8 @@ import android.content.Intent;
 import org.robolectric.RuntimeEnvironment;
 
 import de.nenick.quacc.view.accounting_edit.EditAccountingActivity;
-import de.nenick.robolectric.RoboSup;
-import de.nenick.robolectric.RoboSupPage;
+import de.nenick.quacc.robolectric.RoboSup;
+import de.nenick.quacc.robolectric.RoboSupPage;
 
 public class RoboCategoriesPage extends RoboSupPage<CategoriesActivity_, CategoriesFragment_> {
 

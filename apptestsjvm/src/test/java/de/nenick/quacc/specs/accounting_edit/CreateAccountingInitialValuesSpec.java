@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import de.nenick.quacc.view.accounting_edit.RoboEditAccountingPage;
-import de.nenick.robolectric.RoboComponentTestBase;
+import de.nenick.quacc.robolectric.RoboComponentTestBase;
 import de.nenick.robolectricpages.components.RoboSpinnerEntry;
 
 import static de.nenick.quacc.TestDateUtil.day;

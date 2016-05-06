@@ -19,7 +19,7 @@ import de.nenick.quacc.database.accounting.AccountingDb_;
 import de.nenick.quacc.database.category.CategoryDb_;
 import de.nenick.quacc.database.provider.accounting.AccountingCursor;
 import de.nenick.quacc.database.provider.category.CategoryCursor;
-import de.nenick.robolectric.RoboComponentTestBase;
+import de.nenick.quacc.robolectric.RoboComponentTestBase;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.BDDMockito.given;

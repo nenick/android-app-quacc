@@ -1,4 +1,4 @@
-package de.nenick.robolectric;
+package de.nenick.quacc.robolectric;
 
 import android.database.DatabaseErrorHandler;
 import android.database.sqlite.SQLiteDatabase;

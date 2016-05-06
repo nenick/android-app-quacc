@@ -19,27 +19,9 @@ import de.nenick.quacc.settings.QuAccPreferences_;
 @EApplication
 public class QuAccApplication extends Application {
 
-    @Pref
-    protected QuAccPreferences_ pref;
-
     @Override
     public void onCreate() {
         super.onCreate();
         JodaTimeAndroid.init(this);
-    }
-
-    @AfterInject
-    protected void setupInitialData() {
-        if (pref.isFirstAppStart().get()) {
-            SQLiteDatabase database = QuAccSQLiteOpenHelper.getInstance(this).getWritableDatabase();
-            database.beginTransaction();
-            try {
-                DatabaseInitialData_.getInstance_(this).insert(database);
-                database.setTransactionSuccessful();
-            } finally {
-                database.endTransaction();
-            }
-            pref.isFirstAppStart().put(false);
-        }
     }
 }

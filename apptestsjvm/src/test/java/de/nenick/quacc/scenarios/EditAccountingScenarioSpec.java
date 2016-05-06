@@ -13,7 +13,7 @@ import de.nenick.quacc.database.accounting.AccountingDb_;
 import de.nenick.quacc.database.provider.accounting.AccountingCursor;
 import de.nenick.quacc.view.accounting_edit.RoboEditAccountingPage;
 import de.nenick.quacc.view.accounting_overview.RoboAccountingListPage;
-import de.nenick.robolectric.RoboComponentTestBase;
+import de.nenick.quacc.robolectric.RoboComponentTestBase;
 
 import static org.assertj.core.api.Assertions.assertThat;
 

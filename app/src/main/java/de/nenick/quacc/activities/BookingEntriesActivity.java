@@ -51,7 +51,7 @@ public class BookingEntriesActivity extends AppCompatActivity {
         super.onRestoreInstanceState(savedInstanceState);
     }
 
-    @Click(R.id.fab)
+    @Click(R.id.btn_add_booking)
     protected void onClickNewBookingEntry() {
         EditAccountingActivity_.intent(this).start();
     }

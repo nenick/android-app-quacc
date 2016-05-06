@@ -10,7 +10,7 @@ import de.nenick.quacc.core.accounting.type.AccountingType;
 import de.nenick.quacc.core.common.util.QuAccDateUtil;
 import de.nenick.quacc.database.accounting.AccountingDb_;
 import de.nenick.quacc.view.accounting_overview.RoboAccountingListPage;
-import de.nenick.robolectric.RoboComponentTestBase;
+import de.nenick.quacc.robolectric.RoboComponentTestBase;
 
 import static org.assertj.core.api.Assertions.assertThat;
 

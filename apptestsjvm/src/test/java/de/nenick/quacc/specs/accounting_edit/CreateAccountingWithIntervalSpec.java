@@ -17,7 +17,7 @@ import de.nenick.quacc.database.interval.IntervalDb_;
 import de.nenick.quacc.database.provider.accounting.AccountingCursor;
 import de.nenick.quacc.database.provider.interval.IntervalCursor;
 import de.nenick.quacc.view.accounting_edit.RoboEditAccountingPage;
-import de.nenick.robolectric.RoboComponentTestBase;
+import de.nenick.quacc.robolectric.RoboComponentTestBase;
 
 import static org.assertj.core.api.Assertions.assertThat;
 

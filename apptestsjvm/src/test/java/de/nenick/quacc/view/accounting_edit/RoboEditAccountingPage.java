@@ -14,8 +14,8 @@ import java.util.Collections;
 
 import de.nenick.quacc.R;
 import de.nenick.quacc.speechrecognition.speech.RecognizerListenerWithOfflineWorkaround;
-import de.nenick.robolectric.RoboSup;
-import de.nenick.robolectric.RoboSupPage;
+import de.nenick.quacc.robolectric.RoboSup;
+import de.nenick.quacc.robolectric.RoboSupPage;
 import de.nenick.robolectricpages.components.RoboImageButton;
 import de.nenick.robolectricpages.components.RoboSpinner;
 import de.nenick.robolectricpages.components.RoboTextView;

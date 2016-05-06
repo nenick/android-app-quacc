@@ -1,4 +1,4 @@
-package de.nenick.robolectric;
+package de.nenick.quacc.robolectric;
 
 import org.junit.runners.model.InitializationError;
 import org.robolectric.RobolectricTestRunner;

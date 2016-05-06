@@ -9,8 +9,8 @@ import de.nenick.quacc.view.account.AccountsActivity_;
 import de.nenick.quacc.view.account.AccountsFragment;
 import de.nenick.quacc.view.account.AccountsFragment_;
 import de.nenick.quacc.view.account.RoboAccountsPage;
-import de.nenick.robolectric.RoboComponentTestBase;
-import de.nenick.robolectric.RoboSup;
+import de.nenick.quacc.robolectric.RoboComponentTestBase;
+import de.nenick.quacc.robolectric.RoboSup;
 
 import static org.assertj.core.api.Assertions.assertThat;
 

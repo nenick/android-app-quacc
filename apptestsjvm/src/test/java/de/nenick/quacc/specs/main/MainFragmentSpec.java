@@ -6,8 +6,8 @@ import de.nenick.quacc.view.accounting_overview.RoboAccountingListPage;
 import de.nenick.quacc.view.main.MainActivity_;
 import de.nenick.quacc.view.main.MainFragment_;
 import de.nenick.quacc.view.main.RoboMainPage;
-import de.nenick.robolectric.RoboComponentTestBase;
-import de.nenick.robolectric.RoboSup;
+import de.nenick.quacc.robolectric.RoboComponentTestBase;
+import de.nenick.quacc.robolectric.RoboSup;
 
 import static org.assertj.core.api.Assertions.assertThat;
 

@@ -29,7 +29,6 @@ import de.nenick.quacc.database.provider.bookingentry.BookingEntryCursor;
 import de.nenick.quacc.speechrecognition.hotword.HotwordListener;
 import de.nenick.quacc.speechrecognition.hotword.QuAccHotwordRecognizer;
 import de.nenick.toolscollection.amountparser.AmountParser;
-import de.nenick.toolscollection.amountparser.ParseValueFromIntegerFunction;
 import de.nenick.quacc.view.accounting_edit.EditAccountingActivity_;
 import de.nenick.quacc.view.accounting_overview.adapter.AccountingPlainAdapter;
 import de.nenick.quacc.view.accounting_overview.adapter.AccountingTreeAdapter;
@@ -93,7 +92,7 @@ public class AccountingListFragment extends BasePresenterFragment {
         return view;
     }
 
-    @Click(R.id.btn_add_accounting)
+    @Click(R.id.btn_add_booking)
     protected void onAddAccounting() {
         EditAccountingActivity_.intent(this).start();
     }

@@ -2,6 +2,7 @@ package de.nenick.quacc.core.bookingentry.creation;
 
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EBean;
+import org.joda.time.DateTime;
 
 import java.util.Date;
 
@@ -22,9 +23,16 @@ public class CreateBookingEntryFunction {
 
     public long apply(String account, String direction, String interval, long categoryId, Date date, int amount, String comment) {
         AccountCursor accountCursor = accountRepository.query(new AccountSpecByName(account));
-        accountCursor.moveToNext();
+        if(!accountCursor.moveToNext()) {
+            throw new IllegalStateException("No account found with name: " + account);
+        }
+
         long accountId = accountCursor.getId();
         accountCursor.close();
+
+        if(!new DateTime(date).withTimeAtStartOfDay().equals(new DateTime(date))) {
+            throw new IllegalStateException("Not supported to book entry with specific time");
+        }
 
         BookingEntryContentValues values = new BookingEntryContentValues()
                 .putAccountId(accountId)

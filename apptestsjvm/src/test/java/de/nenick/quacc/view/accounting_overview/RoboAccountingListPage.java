@@ -5,8 +5,8 @@ import android.content.Intent;
 import org.robolectric.RuntimeEnvironment;
 
 import de.nenick.quacc.R;
-import de.nenick.robolectric.RoboSup;
-import de.nenick.robolectric.RoboSupPage;
+import de.nenick.quacc.robolectric.RoboSup;
+import de.nenick.quacc.robolectric.RoboSupPage;
 import de.nenick.robolectricpages.components.RoboImageButton;
 import de.nenick.robolectricpages.components.RoboListView;
 import de.nenick.robolectricpages.components.RoboTextView;

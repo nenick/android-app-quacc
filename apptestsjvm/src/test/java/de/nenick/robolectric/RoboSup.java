@@ -1,4 +1,4 @@
-package de.nenick.robolectric;
+package de.nenick.quacc.robolectric;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;

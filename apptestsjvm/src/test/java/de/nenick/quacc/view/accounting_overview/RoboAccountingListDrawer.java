@@ -9,8 +9,8 @@ import org.robolectric.shadows.ShadowLooper;
 import org.robolectric.util.Scheduler;
 
 import de.nenick.quacc.R;
-import de.nenick.robolectric.RoboSup;
-import de.nenick.robolectric.RoboSupActionbarMenuItem;
+import de.nenick.quacc.robolectric.RoboSup;
+import de.nenick.quacc.robolectric.RoboSupActionbarMenuItem;
 import de.nenick.robolectricpages.Robo;
 import de.nenick.robolectricpages.components.RoboBaseComponent;
 import de.nenick.robolectricpages.components.RoboListView;

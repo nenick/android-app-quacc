@@ -1,4 +1,4 @@
-package de.nenick.robolectric;
+package de.nenick.quacc.robolectric;
 
 import android.content.Context;
 import android.content.AsyncTaskLoader;

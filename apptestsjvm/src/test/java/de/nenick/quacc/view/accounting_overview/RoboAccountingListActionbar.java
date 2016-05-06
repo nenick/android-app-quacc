@@ -3,7 +3,7 @@ package de.nenick.quacc.view.accounting_overview;
 import android.support.v7.app.ActionBarActivity;
 
 import de.nenick.quacc.R;
-import de.nenick.robolectric.RoboSup;
+import de.nenick.quacc.robolectric.RoboSup;
 import de.nenick.robolectricpages.Robo;
 import de.nenick.robolectricpages.components.RoboActionbar;
 import de.nenick.robolectricpages.components.RoboActionbarMenuItem;
