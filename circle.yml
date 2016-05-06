@@ -13,7 +13,7 @@ dependencies:
     # fetch espresso-macchiato sources
     - git submodule update --init --recursive
 
-    - ./gradlew dependencies -d -s
+    - ./gradlew dependencies -i -s
 
 test:
   #pre:
