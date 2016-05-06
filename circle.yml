@@ -13,6 +13,8 @@ dependencies:
     # fetch espresso-macchiato sources
     - git submodule update --init --recursive
 
+    - ./gradlew dependencies -d -s
+
 test:
   #pre:
     #- emulator -avd circleci-android21 -no-audio -no-window:
