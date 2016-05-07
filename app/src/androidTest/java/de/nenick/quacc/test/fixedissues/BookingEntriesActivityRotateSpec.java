@@ -1,19 +1,28 @@
 package de.nenick.quacc.test.fixedissues;
 
+import org.junit.After;
+import org.junit.Ignore;
 import org.junit.Test;
 
-import de.nenick.espressomacchiato.testbase.EspDummyLauncherActivity;
+import de.nenick.espressomacchiato.elements.EspDevice;
+import de.nenick.quacc.test.DummyLauncherActivity_;
 import de.nenick.quacc.test.QuAccEspTestCase;
 import de.nenick.quacc.test.pages.EspBookingEntriesPage;
 
-public class BookingEntriesActivityRotateSpec extends QuAccEspTestCase<BaseActivity> {
+@Ignore
+public class BookingEntriesActivityRotateSpec extends QuAccEspTestCase<DummyLauncherActivity_> {
 
     EspBookingEntriesPage bookingEntriesPage = new EspBookingEntriesPage();
+    EspDevice device = EspDevice.root();
+
+    @After
+    public void reset() {
+        device.rotateToPortrait();
+    }
 
     @Test
     public void testRestoreInstanceState() {
-        //launcherPage.clickStartApp();
-        //device.assertOrientationIsPortrait();
+        device.assertOrientationIsPortrait();
 
         // select not initial selected account
         bookingEntriesPage.drawer().open();
@@ -22,7 +31,7 @@ public class BookingEntriesActivityRotateSpec extends QuAccEspTestCase<BaseActiv
         bookingEntriesPage.drawer().open();
 
         // should remember drawer state after configuration change
-        //device.rotateToLandscape();
+        device.rotateToLandscape();
         bookingEntriesPage.drawer().assertIsVisible();
         bookingEntriesPage.drawer().accountBar().assertIsSelected();
     }

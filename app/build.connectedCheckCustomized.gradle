@@ -29,9 +29,10 @@ task connectedCheckRunTests << {
     def applicationId = "de.nenick.quacc"
 
     String adbCommand = android.getAdbExe().absolutePath
-    String coverageFileOnDevice = "/data/data/${applicationId}/files/coverage.ec"
+    String coverageFileOnDevice = "/data/data/${applicationId}/coverage.ec"
     String screenshotsOnDevice = "/data/data/${applicationId}/files/test-screenshots"
-    String testApk = "apptests/build/outputs/apk/apptests-debug-unaligned.apk"
+    String appApk = "app/build/outputs/apk/app-debug-unaligned.apk"
+    String testApk = "app/build/outputs/apk/app-debug-androidTest-unaligned.apk"
 
     // define all output directories
     def testResultXmlOutputDirectory = file("build/outputs/androidTest-results/connected")
@@ -109,6 +110,8 @@ task connectedCheckRunTests << {
         runner.addInstrumentationArg("coverageFile", coverageFileOnDevice);
         runner.setRunName(deviceName);
 
+        logger.lifecycle("install app apk")
+        device.installPackage(appApk, true /* force reinstall */)
         logger.lifecycle("install test apk")
         device.installPackage(testApk, true /* force reinstall */)
 
@@ -139,6 +142,7 @@ task connectedCheckRunTests << {
     // don't device.uninstallPackage(applicationId)
 }
 afterEvaluate {
+    tasks.connectedCheckRunTests.dependsOn tasks.assembleDebugAndroidTest
     tasks.connectedCheckRunTests.dependsOn tasks.assembleDebug
 }
 

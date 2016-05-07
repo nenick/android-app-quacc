@@ -13,7 +13,7 @@ plugins {
 }
 
 apply plugin: 'com.android.application'
-apply from: "../build.jacoco-already-instrumented-workaround.gradle"
+apply from: "build.connectedCheckCustomized.gradle"
 
 android {
     compileSdkVersion 23
@@ -35,7 +35,7 @@ android {
         }
         debug {
             versionNameSuffix "-dev"
-            testCoverageEnabled = project.isInstrumentedTestRun
+            testCoverageEnabled = true
         }
     }
 
@@ -73,9 +73,9 @@ dependencies {
     // style support
     compile 'com.melnykov:floatingactionbutton:1.2.0'
 
-    androidTestCompile 'com.android.support:appcompat-v7:23.3.0'
-    androidTestCompile 'com.android.support:design:23.3.0'
-    androidTestCompile project(':espresso-macchiato')
+    androidTestCompile(project(':espresso-macchiato')) {
+        exclude group: 'com.android.support'
+    }
     androidTestCompile 'com.android.support.test.uiautomator:uiautomator-v18:2.1.2'
 }
 

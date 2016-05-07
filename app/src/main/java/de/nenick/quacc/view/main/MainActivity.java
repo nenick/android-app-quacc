@@ -2,6 +2,7 @@ package de.nenick.quacc.view.main;
 
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EActivity;
@@ -9,7 +10,7 @@ import org.androidannotations.annotations.EActivity;
 import de.nenick.quacc.R;
 
 @EActivity(R.layout.activity)
-public class MainActivity extends ActionBarActivity {
+public class MainActivity extends AppCompatActivity {
 
     public static final String TAG_FRAGMENT = MainFragment.class.getSimpleName();
 
