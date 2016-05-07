@@ -3,6 +3,12 @@ machine:
     GRADLE_OPTS: -Xmx512m
     COVERALLS_REPO_TOKEN: nnpAVCsxCl2hK5BlVUd6VsMNE78LaBuh4
 
+    # more clean command line outputs
+    TERM: "dumb"
+
+  java:
+    version: oraclejdk8
+
 dependencies:
   pre:
     # workaround for "failed to find Build Tools revision 23.0.2"
