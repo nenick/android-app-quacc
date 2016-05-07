@@ -25,6 +25,9 @@ public class MainFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        BookingEntriesActivity_.intent(this).start();
+        getActivity().finish();
     }
 
     @AfterInject
@@ -35,6 +38,7 @@ public class MainFragment extends Fragment {
     @Background
     protected void storeInitialData() {
         BackgroundThreadCounter.increment();
+
         if (pref.isFirstAppStart().get()) {
             pref.isFirstAppStart().put(false);
 
@@ -48,8 +52,6 @@ public class MainFragment extends Fragment {
             }
         }
 
-        BookingEntriesActivity_.intent(this).start();
-        getActivity().finish();
         BackgroundThreadCounter.decrement();
     }
 }
