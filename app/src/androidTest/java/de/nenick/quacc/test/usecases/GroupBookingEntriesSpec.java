@@ -11,7 +11,7 @@ import de.nenick.quacc.test.data.TestData;
 import de.nenick.quacc.test.pages.EspAddBookingEntryPage;
 import de.nenick.quacc.test.pages.EspBookingEntriesPage;
 
-public class BookGroupSpec extends QuAccEspTestCase<DummyLauncherActivity_> {
+public class GroupBookingEntriesSpec extends QuAccEspTestCase<DummyLauncherActivity_> {
 
     EspBookingEntriesPage bookingEntriesPage = new EspBookingEntriesPage();
     EspAddBookingEntryPage addBookingEntryPage = new EspAddBookingEntryPage();
@@ -43,6 +43,6 @@ public class BookGroupSpec extends QuAccEspTestCase<DummyLauncherActivity_> {
         bookingEntriesPage.list().itemByVisibleIndex(3).click();
         bookingEntriesPage.list().assertItemCountIs(5);
 
-        ReferencePicuture.check("booking group opened");
+        ReferencePicuture.check("booking groups opened");
     }
 }
