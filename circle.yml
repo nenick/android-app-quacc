@@ -28,6 +28,11 @@ test:
     - ./gradlew core:test
     - ./gradlew database:test -i
 
+    # Check lint hints
+    - ./gradlew app:lintDebug
+    - ./gradlew core:lintDebug
+    - ./gradlew database:lintDebug
+
     # Execute Component Tests
     #- ./gradlew apptestsjvm:test
 
@@ -35,16 +40,11 @@ test:
     - ./gradlew app:assembleDebugAndroidTest
 
     - circle-android wait-for-boot
-    - ./gradlew app:connectedCheck
-    - ./gradlew apptests:connectedCheck
+    - ./gradlew app:connectedCheckCustomized
+    - mv app/build/outputs/test-screenshots $CIRCLE_TEST_REPORTS/:
 
     # Create coverage report
-    - ./gradlew jacocoTestReport
-
-    # Check lint hints
-    - ./gradlew app:lintDebug
-    - ./gradlew core:lintDebug
-    - ./gradlew database:lintDebug
+    #- ./gradlew jacocoTestReport
 
     # Check dependency versions
     - ./gradlew app:versionEyeUpdate
