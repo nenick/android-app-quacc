@@ -72,7 +72,7 @@ public abstract class RoboDatabaseTest {
             System.gc();
         }
 
-        //* Print memory usage ...
+        /* Print memory usage ...
             Runtime runtime = Runtime.getRuntime();
             NumberFormat format = NumberFormat.getInstance();
             StringBuilder sb = new StringBuilder();
