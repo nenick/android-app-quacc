@@ -6,6 +6,7 @@ import org.junit.Test;
 import de.nenick.espressomacchiato.elements.EspDevice;
 import de.nenick.quacc.test.DummyLauncherActivity_;
 import de.nenick.quacc.test.QuAccEspTestCase;
+import de.nenick.quacc.test.ReferencePicuture;
 import de.nenick.quacc.test.pages.EspBookingEntriesPage;
 import de.nenick.quacc.test.pages.EspDummyLauncherPage;
 
@@ -28,6 +29,8 @@ public class StartupSpec extends QuAccEspTestCase<DummyLauncherActivity_> {
 
         // has no booking entries
         bookingEntriesPage.list().assertItemCountIs(0);
+
+        ReferencePicuture.check("initial startup");
 
         // should close app with back press
         device.clickBackButton();

@@ -5,6 +5,7 @@ import org.junit.Test;
 
 import de.nenick.quacc.test.DummyLauncherActivity_;
 import de.nenick.quacc.test.QuAccEspTestCase;
+import de.nenick.quacc.test.ReferencePicuture;
 import de.nenick.quacc.test.data.TestData;
 import de.nenick.quacc.test.pages.EspBookingEntriesPage;
 
@@ -31,6 +32,8 @@ public class AccountSwitchSpec extends QuAccEspTestCase<DummyLauncherActivity_> 
         bookingEntriesPage.drawer().accountBar().assertIsDisplayedOnScreen();
         bookingEntriesPage.drawer().accountKreditkarte().assertIsDisplayedOnScreen();
 
+        ReferencePicuture.check("open drawer");
+
         // initial account is selected
         bookingEntriesPage.drawer().accountGirokonto().assertIsSelected();
 
@@ -50,4 +53,6 @@ public class AccountSwitchSpec extends QuAccEspTestCase<DummyLauncherActivity_> 
         bookingEntriesPage.drawer().accountGirokonto().click();
         bookingEntriesPage.list().assertItemCountIs(0);
     }
+
+
 }

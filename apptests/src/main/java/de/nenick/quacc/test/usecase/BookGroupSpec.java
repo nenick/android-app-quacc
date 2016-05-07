@@ -6,6 +6,7 @@ import org.junit.Test;
 import de.nenick.quacc.core.bookingentry.direction.BookingDirectionOption;
 import de.nenick.quacc.test.DummyLauncherActivity_;
 import de.nenick.quacc.test.QuAccEspTestCase;
+import de.nenick.quacc.test.ReferencePicuture;
 import de.nenick.quacc.test.data.TestData;
 import de.nenick.quacc.test.pages.EspAddBookingEntryPage;
 import de.nenick.quacc.test.pages.EspBookingEntriesPage;
@@ -32,6 +33,8 @@ public class BookGroupSpec extends QuAccEspTestCase<DummyLauncherActivity_> {
         // booking entries are grouped
         bookingEntriesPage.list().assertItemCountIs(2);
 
+        ReferencePicuture.check("booking groups closed");
+
         // show booking entries after expanding first group
         bookingEntriesPage.list().itemByVisibleIndex(0).click();
         bookingEntriesPage.list().assertItemCountIs(4);
@@ -39,5 +42,7 @@ public class BookGroupSpec extends QuAccEspTestCase<DummyLauncherActivity_> {
         // show booking entries after expanding first group
         bookingEntriesPage.list().itemByVisibleIndex(3).click();
         bookingEntriesPage.list().assertItemCountIs(5);
+
+        ReferencePicuture.check("booking group opened");
     }
 }
