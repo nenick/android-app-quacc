@@ -52,6 +52,7 @@ test:
     - ./gradlew app:assembleDebugAndroidTest
 
     - circle-android wait-for-boot
+    - adb shell input keyevent 82
 
     # clear logs from emulator
     - adb logcat -c
