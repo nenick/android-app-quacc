@@ -51,10 +51,11 @@ test:
     # Build instrumented test code and execute them on emulator
     - ./gradlew app:assembleDebugAndroidTest
 
+    - circle-android wait-for-boot
+
     # clear logs from emulator
     - adb logcat -c
 
-    - circle-android wait-for-boot
     - ./gradlew app:connectedCheckCustomized
     - mv app/build/outputs/test-screenshots $CIRCLE_TEST_REPORTS/
 
