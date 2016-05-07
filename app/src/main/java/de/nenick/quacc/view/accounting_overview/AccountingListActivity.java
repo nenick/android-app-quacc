@@ -18,7 +18,7 @@ import de.nenick.quacc.view.account.AccountsActivity_;
 import de.nenick.quacc.view.category.CategoriesActivity_;
 import de.nenick.quacc.view.template.TemplateActivity_;
 
-@EActivity(R.layout.activity_accounting_list)
+@EActivity(R.layout.activity_booking_entries)
 public class AccountingListActivity extends ActionBarActivity {
 
     public static final String TAG_FRAGMENT = AccountingListFragment.class.getSimpleName();
