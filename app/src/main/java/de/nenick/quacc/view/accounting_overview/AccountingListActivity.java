@@ -1,28 +1,20 @@
 package de.nenick.quacc.view.accounting_overview;
 
-import android.os.Bundle;
 import android.os.Environment;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Bean;
-import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
-import org.androidannotations.annotations.FragmentById;
 import org.androidannotations.annotations.OptionsItem;
 import org.androidannotations.annotations.ViewById;
 
 import de.nenick.quacc.R;
 import de.nenick.quacc.core.backup.BackupFromJsonFileFunction;
 import de.nenick.quacc.core.backup.BackupToJsonFileFunction;
-import de.nenick.quacc.database.provider.account.AccountCursor;
 import de.nenick.quacc.view.account.AccountsActivity_;
-import de.nenick.quacc.view.accounting_edit.EditAccountingActivity_;
-import de.nenick.quacc.view.bookingentries.BookingEntriesFragment_;
 import de.nenick.quacc.view.category.CategoriesActivity_;
 import de.nenick.quacc.view.template.TemplateActivity_;
 
@@ -34,7 +26,7 @@ public class AccountingListActivity extends ActionBarActivity {
     private CharSequence mTitle;
     private long mAccount;
 
-    @ViewById(R.id.drawer_layout)
+    @ViewById(R.id.activity_booking_entries)
     DrawerLayout drawerLayout;
 
 

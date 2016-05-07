@@ -22,7 +22,7 @@ public class EspBookingEntriesPage extends EspPage {
     }
 
     public EspBookingEntriesDrawer drawer() {
-        return new EspBookingEntriesDrawer(R.id.drawer_layout, R.id.navigation_drawer);
+        return new EspBookingEntriesDrawer(R.id.activity_booking_entries, R.id.navigation_drawer);
     }
 
     public EspButton addButton() {

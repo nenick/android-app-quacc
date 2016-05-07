@@ -23,7 +23,7 @@ public class ToolbarDrawerConnection {
     @ViewById(R.id.toolbar)
     Toolbar toolbar;
 
-    @ViewById(R.id.drawer_layout)
+    @ViewById(R.id.activity_booking_entries)
     DrawerLayout drawer;
 
     public void setTitle(CharSequence title) {
