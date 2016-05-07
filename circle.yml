@@ -41,7 +41,7 @@ test:
 
     - circle-android wait-for-boot
     - ./gradlew app:connectedCheckCustomized
-    - mv app/build/outputs/test-screenshots $CIRCLE_TEST_REPORTS/:
+    - mv app/build/outputs/test-screenshots $CIRCLE_TEST_REPORTS/
 
     # Create coverage report
     #- ./gradlew jacocoTestReport
