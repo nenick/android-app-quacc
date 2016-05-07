@@ -22,7 +22,7 @@ dependencies:
     - echo "hw.keyboard=no" >> ~/.android/avd/my-android23.avd/config.ini
     - echo "hw.gpu.enabled=yes" >> ~/.android/avd/my-android23.avd/config.ini
     - echo "hw.gpu.mode=auto" >> ~/.android/avd/my-android23.avd/config.ini
-    
+
     # fetch espresso-macchiato sources
     - git submodule update --init --recursive
 
@@ -51,9 +51,15 @@ test:
     # Build instrumented test code and execute them on emulator
     - ./gradlew app:assembleDebugAndroidTest
 
+    # clear logs from emulator
+    - adb logcat -c
+
     - circle-android wait-for-boot
     - ./gradlew app:connectedCheckCustomized
     - mv app/build/outputs/test-screenshots $CIRCLE_TEST_REPORTS/
+
+    # collect logs from emulator and make them accessable
+    - adb logcat -d | grep -v GpsLocationProvider | grep -v MediaProvider | grep -v MetadataRetrieverClient | grep -v BackupManagerService | grep -v ARMAssembler | grep -v Choreographer | grep -v IInputConnectionWrapper | grep -v "I/art" | grep -v ConnectivityService | grep -v "D/PhoneInterfaceManager" | grep -v "I/Email" | grep -v "I/Exchange" | grep -v "E/libEGL" | grep -v "D/gralloc" | grep -v "E/installd" | grep -v "D/ConnectivityManager" | grep -v "D/WIFI" | grep -v "V/Mms" > $CIRCLE_ARTIFACTS/logcat_emulator.txt
 
     # Create coverage report
     #- ./gradlew jacocoTestReport
