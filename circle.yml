@@ -15,33 +15,28 @@ dependencies:
 
 test:
   #pre:
-    #- emulator -avd circleci-android21 -no-audio -no-window:
-   #     background: true
-   #     parallel: true
-    #- circle-android wait-for-boot
+    - emulator -avd circleci-android21 -no-audio -no-window:
+        background: true
+        parallel: true
 
   override:
     # Build the code
-    - ./gradlew app:assembleDebug:
-        parallel: true
-
-    - case $CIRCLE_NODE_INDEX in 0) ./gradlew app:test ;; esac:
-        parallel: true
-
-    - case $CIRCLE_NODE_INDEX in 1) ./gradlew database:test -i ;; esac:
-        parallel: true
+    - ./gradlew app:assembleDebug
 
     # Execute Unit Tests
     - ./gradlew app:test
     - ./gradlew core:test
-    - ./gradlew database:test -i
+    - ./gradlew database:test
 
     # Execute Component Tests
-    - ./gradlew apptestsjvm:test
+    #- ./gradlew apptestsjvm:test
 
     # Build instrumented test code and execute them on emulator
     - ./gradlew app:assembleDebugAndroidTest
+
+    - circle-android wait-for-boot
     - ./gradlew app:connectedCheck
+    - ./gradlew apptests:connectedCheck
 
     # Create coverage report
     - ./gradlew jacocoTestReport
@@ -58,7 +53,7 @@ test:
     - mv app/build/reports/tests/debug $CIRCLE_TEST_REPORTS/appUnitTests
     - mv core/build/reports/tests/debug $CIRCLE_TEST_REPORTS/coreUnitTests
     - mv database/build/reports/tests/debug $CIRCLE_TEST_REPORTS/databaseUnitTests
-    - mv apptestsjvm/build/test-report $CIRCLE_TEST_REPORTS/apptestsjvm
+    - mv apptests/build/tests/debug $CIRCLE_TEST_REPORTS/apptests
     - mv app/build/reports/androidTests/connected $CIRCLE_TEST_REPORTS/androidTests
     - mv build/reports/jacoco/test/html $CIRCLE_TEST_REPORTS/codeCoverageReport
 
