@@ -58,7 +58,7 @@ public abstract class RoboDatabaseTest {
     }
 
     static int testCounter = 0;
-    static final int perTest = 30;
+    static final int perTest = 10;
 
     /**
      * Workaround for a strange out of memory effect.
@@ -79,6 +79,7 @@ public abstract class RoboDatabaseTest {
             long maxMemory = runtime.maxMemory();
             long allocatedMemory = runtime.totalMemory();
             long freeMemory = runtime.freeMemory();
+            sb.append("use memory: " + format.format(allocatedMemory / 1024 - freeMemory / 1024) + " ");
             sb.append("free memory: " + format.format(freeMemory / 1024) + " ");
             sb.append("allocated memory: " + format.format(allocatedMemory / 1024) + " ");
             sb.append("max memory: " + format.format(maxMemory / 1024) + " ");
