@@ -26,7 +26,7 @@ test:
     # Execute Unit Tests
     - ./gradlew app:test
     - ./gradlew core:test
-    - ./gradlew database:test
+    - ./gradlew database:test -i
 
     # Execute Component Tests
     #- ./gradlew apptestsjvm:test

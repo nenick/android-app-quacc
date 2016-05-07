@@ -72,7 +72,7 @@ public abstract class RoboDatabaseTest {
             System.gc();
         }
 
-        /* Print memory usage ...
+        //* Print memory usage ...
             Runtime runtime = Runtime.getRuntime();
             NumberFormat format = NumberFormat.getInstance();
             StringBuilder sb = new StringBuilder();
@@ -84,7 +84,7 @@ public abstract class RoboDatabaseTest {
             sb.append("max memory: " + format.format(maxMemory / 1024) + " ");
             sb.append("total free memory: " + format.format((freeMemory + (maxMemory - allocatedMemory)) / 1024) + " ");
             System.err.println(sb);
-        */
+        //*/
     }
 
     private void resetSingleton(Class clazz, String fieldName) {
