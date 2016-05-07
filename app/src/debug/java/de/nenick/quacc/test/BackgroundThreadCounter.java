@@ -21,11 +21,11 @@ public class BackgroundThreadCounter implements IdlingResource {
     }
 
     public static void increment() {
-        instance.count++;
+        instance().count++;
     }
 
     public static void decrement() {
-        instance.count--;
+        instance().count--;
         if(instance.count < 0) throw new IllegalStateException();
         if(instance.count == 0 && instance.callback != null) instance.callback. onTransitionToIdle();
     }
