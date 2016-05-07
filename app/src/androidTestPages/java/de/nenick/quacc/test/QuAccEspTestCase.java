@@ -2,6 +2,7 @@ package de.nenick.quacc.test;
 
 import android.app.Activity;
 import android.support.test.InstrumentationRegistry;
+import android.support.test.espresso.Espresso;
 import android.support.test.rule.ActivityTestRule;
 
 import org.junit.Before;
@@ -27,6 +28,8 @@ public abstract class QuAccEspTestCase<A extends Activity> extends EspressoTestB
 
     @Before
     public void setupQuAcc() {
+        Espresso.registerIdlingResources(BackgroundThreadCounter.instance());
+
         QuAccSQLiteOpenHelper.getInstance(InstrumentationRegistry.getTargetContext()).close();
         EspAppDataTool.clearApplicationData();
         activityTestRule.launchActivity(null);

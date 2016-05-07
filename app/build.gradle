@@ -73,6 +73,8 @@ dependencies {
     // style support
     compile 'com.melnykov:floatingactionbutton:1.2.0'
 
+    compile 'com.android.support.test.espresso:espresso-idling-resource:2.2.2'
+
     androidTestCompile(project(':espresso-macchiato')) {
         exclude group: 'com.android.support'
     }
