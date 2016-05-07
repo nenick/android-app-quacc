@@ -2,10 +2,11 @@ project.ext.isInstrumentedTestRun = false
 def isTestRun = false
 
 gradle.startParameter.taskNames.each {
+    println it
     if (it.contains("connectedCheck")) {
         isInstrumentedTestRun = true
     }
-    if (it.contains("test")) {
+    if (it.split(":")[1].contains("test")) {
         isTestRun = true
     }
 }
@@ -13,5 +14,5 @@ gradle.startParameter.taskNames.each {
 if (isInstrumentedTestRun && isTestRun) {
     println 'WARNING: instrumented and jvm tests at same time not supported'
     println 'WARNING: this clash with jacoco instrumentation and results in "is already instrumented"'
-    exit 1
+    throw new GradleException('unsupported')
 }
