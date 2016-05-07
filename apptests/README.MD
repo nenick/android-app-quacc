@@ -23,6 +23,8 @@ App module selects correct run configuration automatically.
 
 https://code.google.com/p/android/issues/detail?id=183931
 
+### Issue: not test coverage
+
 # Migrate tests when issues are fixed
 
 Move the *java* folder and the *AndroidManifest.xml* of the *androidTest* folder to *src/main* of this module.

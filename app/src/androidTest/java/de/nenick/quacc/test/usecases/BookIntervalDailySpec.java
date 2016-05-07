@@ -1,6 +1,8 @@
-package de.nenick.quacc.test.usecase;
+package de.nenick.quacc.test.usecases;
 
+import org.joda.time.DateTime;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import de.nenick.quacc.R;
@@ -9,7 +11,8 @@ import de.nenick.quacc.test.QuAccEspTestCase;
 import de.nenick.quacc.test.pages.EspAddBookingEntryPage;
 import de.nenick.quacc.test.pages.EspBookingEntriesPage;
 
-public class BookOutgoingSpec extends QuAccEspTestCase<DummyLauncherActivity_> {
+@Ignore
+public class BookIntervalDailySpec extends QuAccEspTestCase<DummyLauncherActivity_> {
 
     EspBookingEntriesPage bookingEntriesPage = new EspBookingEntriesPage();
     EspAddBookingEntryPage addBookingEntryPage = new EspAddBookingEntryPage();
@@ -27,6 +30,7 @@ public class BookOutgoingSpec extends QuAccEspTestCase<DummyLauncherActivity_> {
         addBookingEntryPage.assertIsDisplayedOnScreen();
 
         // set mandatory properties
+        addBookingEntryPage.chooseAccountingInterval("Täglich");
         addBookingEntryPage.ammount("40");
 
         // confirm booking entry
@@ -34,12 +38,9 @@ public class BookOutgoingSpec extends QuAccEspTestCase<DummyLauncherActivity_> {
 
         // account has new entry
         bookingEntriesPage.list().assertItemCountIs(1);
+        bookingEntriesPage.list().itemByVisibleIndex(0).click();
 
-        // entry is marked as outgoing
-        bookingEntriesPage.list().itemByVisibleIndex(0).category().assertTextColorResIs(R.color.negativeText);
-        bookingEntriesPage.list().itemByVisibleIndex(0).date().assertTextColorResIs(R.color.negativeTextSmall);
-        bookingEntriesPage.list().itemByVisibleIndex(0).dateSeparator().assertTextColorResIs(R.color.negativeTextSmall);
-        bookingEntriesPage.list().itemByVisibleIndex(0).endDate().assertTextColorResIs(R.color.negativeTextSmall);
-        bookingEntriesPage.list().itemByVisibleIndex(0).amount().assertTextColorResIs(R.color.negativeText);
+        int daysUntilMonthEnd = DateTime.now().dayOfMonth().getMaximumValue() - DateTime.now().dayOfMonth().get();
+        bookingEntriesPage.list().assertItemCountIs(1 + daysUntilMonthEnd);
     }
 }

@@ -1,4 +1,4 @@
-package de.nenick.quacc.test.usecase;
+package de.nenick.quacc.test.usecases;
 
 import org.junit.Before;
 import org.junit.Test;

@@ -1,5 +1,6 @@
 package de.nenick.quacc.test;
 
+import android.Manifest;
 import android.os.Environment;
 
 import java.io.FileOutputStream;
@@ -7,6 +8,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
+import de.nenick.espressomacchiato.testbase.EspressoTestBase;
+import de.nenick.espressomacchiato.tools.EspPermissionsTool;
 import de.nenick.espressomacchiato.tools.EspScreenshotTool;
 
 import static org.junit.Assert.assertEquals;
@@ -45,6 +48,8 @@ public class ReferencePicuture {
     }
 
     public static void check(String pictureName) {
+        EspPermissionsTool.ensurePermissions(EspressoTestBase.currentActivity(), Manifest.permission.WRITE_EXTERNAL_STORAGE);
+
         pictureName = "reference_" + pictureName.replace(" ", "_");
         EspScreenshotTool.takeWithName(pictureName);
 

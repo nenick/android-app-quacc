@@ -1,8 +1,9 @@
-package de.nenick.quacc.test;
+package de.nenick.quacc.test.fixedissues;
 
 import org.junit.Test;
 
 import de.nenick.espressomacchiato.testbase.EspDummyLauncherActivity;
+import de.nenick.quacc.test.QuAccEspTestCase;
 import de.nenick.quacc.test.pages.EspBookingEntriesPage;
 
 public class BookingEntriesActivityRotateSpec extends QuAccEspTestCase<BaseActivity> {

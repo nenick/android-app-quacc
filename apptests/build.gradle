@@ -1,4 +1,14 @@
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'emma:emma:2.1.5320'
+    }
+}
+
 apply plugin: 'com.android.test'
+apply from: 'build.connectedCheckCustomized.gradle'
 
 android {
     compileSdkVersion 23
@@ -26,4 +36,5 @@ repositories {
 dependencies {
     compile project(':espresso-macchiato')
     compile 'com.android.support.test.uiautomator:uiautomator-v18:2.1.2'
+    compile 'emma:emma:2.1.5320'
 }
