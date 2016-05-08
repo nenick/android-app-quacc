@@ -29,6 +29,7 @@ test:
   pre:
     - emulator -avd my-android23 -no-audio -no-window:
         background: true
+        parallel: true
 
   override:
     # Build the code
