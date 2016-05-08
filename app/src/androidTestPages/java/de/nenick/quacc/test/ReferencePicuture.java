@@ -16,7 +16,7 @@ import static org.junit.Assert.assertEquals;
 
 public class ReferencePicuture {
 
-    public static final String screenshotUrl = "https://circle-artifacts.com/gh/nenick/espresso-macchiato/364/artifacts/0/tmp/circle-junit.FHrVPiy/test-screenshots/";
+    public static final String screenshotUrl = "https://circle-artifacts.com/gh/nenick/QuAcc/223/artifacts/0/tmp/circle-junit.N0yV7Z1/test-screenshots/";
 
     public static void download(String name) {
         try {
@@ -53,13 +53,13 @@ public class ReferencePicuture {
         pictureName = "reference_" + pictureName.replace(" ", "_");
         EspScreenshotTool.takeWithName(pictureName);
 
-        /*
+        //*
         ReferencePicuture.download(pictureName);
 
         double percentage = EspScreenshotTool.comparePercentage(
                 new EspScreenshotTool().obtainScreenshotDirectory() + pictureName,
                 Environment.getExternalStorageDirectory().toString() + "/" + pictureName);
         assertEquals(100.0, percentage, EspScreenshotTool.COMPARE_DELTA_TIME_CHANGE);
-        */
+        //*/
     }
 }
