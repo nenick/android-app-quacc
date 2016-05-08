@@ -53,6 +53,8 @@ test:
 
     - ./gradlew app:connectedCheckCustomized
 
+    - adb emu kill
+
     - mv app/build/outputs/test-screenshots $CIRCLE_TEST_REPORTS/
 
     # collect logs from emulator and make them accessable
