@@ -44,6 +44,8 @@ test:
     - ./gradlew app:assembleDebugAndroidTest
 
     - circle-android wait-for-boot
+    - sleep 60
+
     - adb shell input keyevent 82
     - adb shell input keyevent KEYCODE_POWER
     - adb shell input keyevent KEYCODE_MENU
