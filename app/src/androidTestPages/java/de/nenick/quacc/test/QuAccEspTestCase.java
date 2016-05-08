@@ -14,6 +14,7 @@ import de.nenick.espressomacchiato.elements.EspButton;
 import de.nenick.espressomacchiato.testbase.EspressoTestBase;
 import de.nenick.espressomacchiato.tools.EspAppDataTool;
 import de.nenick.quacc.R;
+import de.nenick.quacc.database.provider.QuAccSQLiteOpenHelper;
 
 public abstract class QuAccEspTestCase<A extends Activity> extends EspressoTestBase<A> {
 
@@ -32,6 +33,7 @@ public abstract class QuAccEspTestCase<A extends Activity> extends EspressoTestB
         Espresso.registerIdlingResources(BackgroundThreadCounter.instance());
 
         // clear application data
+        QuAccSQLiteOpenHelper.getInstance(InstrumentationRegistry.getTargetContext()).close();
         EspAppDataTool.clearApplicationData();
 
         /*/ dismiss keyguard
