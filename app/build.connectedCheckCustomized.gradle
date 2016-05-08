@@ -123,20 +123,28 @@ task connectedCheckRunTests << {
             throw new GradleException("There were failing tests.")
         }
     } finally {
+
         TestReport report = new TestReport(ReportType.SINGLE_FLAVOR, testResultXmlOutputDirectory, testResultHtmlOutputDirectory)
         report.generateReport()
+try {
+    // pull coverage data from device
+    exec {
+        commandLine android.getAdbExe().absolutePath
+        args = ["pull", coverageFileOnDevice, coverageOutputDirectory.absolutePath + "/coverage.ec"]
+    }
+} catch (Exception e) {
+    logger.lifecycle("", e)
+}
 
-        // pull coverage data from device
-        exec {
-            commandLine android.getAdbExe().absolutePath
-            args = ["pull", coverageFileOnDevice, coverageOutputDirectory.absolutePath + "/coverage.ec"]
-        }
-
+try {
         // pull screenshots from device
         exec {
             commandLine android.getAdbExe().absolutePath
             args = ["pull", screenshotsOnDevice, screenshotOutputDirectory.absolutePath]
         }
+} catch (Exception e) {
+    logger.lifecycle("", e)
+}
     }
 
     // don't device.uninstallPackage(applicationId)
