@@ -2,9 +2,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="de.nenick.quacc">
 
-    <!-- INTERNET and WRITE_EXTERNAL_STORAGE permissions for test coverage and screenshots -->
+    <!-- INTERNET permission for test coverage -->
     <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <!-- DISABLE_KEYGUARD to dismiss keyguard on emulator -->
+    <uses-permission android:name="android.permission.DISABLE_KEYGUARD"/>
 
     <application>
         <activity

@@ -1,6 +1,8 @@
 package de.nenick.quacc.test;
 
 import android.app.Activity;
+import android.app.KeyguardManager;
+import android.content.Context;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.espresso.Espresso;
 import android.support.test.rule.ActivityTestRule;
@@ -11,7 +13,6 @@ import org.junit.Rule;
 import de.nenick.espressomacchiato.elements.EspButton;
 import de.nenick.espressomacchiato.testbase.EspressoTestBase;
 import de.nenick.espressomacchiato.tools.EspAppDataTool;
-import de.nenick.quacc.database.provider.QuAccSQLiteOpenHelper;
 import de.nenick.quacc.R;
 
 public abstract class QuAccEspTestCase<A extends Activity> extends EspressoTestBase<A> {
@@ -30,8 +31,14 @@ public abstract class QuAccEspTestCase<A extends Activity> extends EspressoTestB
     public void setupQuAcc() {
         Espresso.registerIdlingResources(BackgroundThreadCounter.instance());
 
-        QuAccSQLiteOpenHelper.getInstance(InstrumentationRegistry.getTargetContext()).close();
+        // clear application data
         EspAppDataTool.clearApplicationData();
+
+        // dismiss keyguard
+        KeyguardManager keyguardManager = (KeyguardManager) InstrumentationRegistry.getTargetContext().getSystemService(Activity.KEYGUARD_SERVICE);
+        KeyguardManager.KeyguardLock lock = keyguardManager.newKeyguardLock(Context.KEYGUARD_SERVICE);
+        lock.disableKeyguard();
+
         activityTestRule.launchActivity(null);
     }
 }
