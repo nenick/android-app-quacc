@@ -34,10 +34,11 @@ public abstract class QuAccEspTestCase<A extends Activity> extends EspressoTestB
         // clear application data
         EspAppDataTool.clearApplicationData();
 
-        // dismiss keyguard
+        /*/ dismiss keyguard
         KeyguardManager keyguardManager = (KeyguardManager) InstrumentationRegistry.getTargetContext().getSystemService(Activity.KEYGUARD_SERVICE);
         KeyguardManager.KeyguardLock lock = keyguardManager.newKeyguardLock(Context.KEYGUARD_SERVICE);
         lock.disableKeyguard();
+        */
 
         activityTestRule.launchActivity(null);
     }
