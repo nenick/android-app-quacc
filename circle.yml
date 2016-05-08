@@ -53,12 +53,14 @@ test:
 
     - ./gradlew app:connectedCheckCustomized
 
+    # collect logs from emulator and make them accessable
+    - adb logcat -d | grep -v GpsLocationProvider | grep -v MediaProvider | grep -v MetadataRetrieverClient | grep -v BackupManagerService | grep -v ARMAssembler | grep -v Choreographer | grep -v IInputConnectionWrapper | grep -v "I/art" | grep -v ConnectivityService | grep -v "D/PhoneInterfaceManager" | grep -v "I/Email" | grep -v "I/Exchange" | grep -v "E/libEGL" | grep -v "D/gralloc" | grep -v "E/installd" | grep -v "D/ConnectivityManager" | grep -v "D/WIFI" | grep -v "V/Mms" > $CIRCLE_ARTIFACTS/logcat_emulator.txt
+
+    # release memory for following tests
     - adb emu kill
 
     - mv app/build/outputs/test-screenshots $CIRCLE_TEST_REPORTS/
 
-    # collect logs from emulator and make them accessable
-    - adb logcat -d | grep -v GpsLocationProvider | grep -v MediaProvider | grep -v MetadataRetrieverClient | grep -v BackupManagerService | grep -v ARMAssembler | grep -v Choreographer | grep -v IInputConnectionWrapper | grep -v "I/art" | grep -v ConnectivityService | grep -v "D/PhoneInterfaceManager" | grep -v "I/Email" | grep -v "I/Exchange" | grep -v "E/libEGL" | grep -v "D/gralloc" | grep -v "E/installd" | grep -v "D/ConnectivityManager" | grep -v "D/WIFI" | grep -v "V/Mms" > $CIRCLE_ARTIFACTS/logcat_emulator.txt
 
     # Execute Unit Tests
     - ./gradlew app:test
