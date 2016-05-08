@@ -27,7 +27,7 @@ dependencies:
 
 test:
   pre:
-    - emulator -avd my-android23 -no-audio -no-window:
+    - emulator -avd my-android23 -no-audio -no-window -wipe-data:
         background: true
         parallel: true
 
