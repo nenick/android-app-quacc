@@ -44,11 +44,14 @@ test:
 
     - circle-android wait-for-boot
     - adb shell input keyevent 82
+    - adb shell input keyevent KEYCODE_POWER
+    - adb shell input keyevent KEYCODE_MENU
 
     # clear logs from emulator
     - adb logcat -c
 
     - ./gradlew app:connectedCheckCustomized
+
     - mv app/build/outputs/test-screenshots $CIRCLE_TEST_REPORTS/
 
     # collect logs from emulator and make them accessable
