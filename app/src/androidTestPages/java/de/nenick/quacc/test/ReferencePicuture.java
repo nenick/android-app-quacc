@@ -54,11 +54,12 @@ public class ReferencePicuture {
         EspScreenshotTool.takeWithName(pictureName);
 
         //*
-        ReferencePicuture.download(pictureName);
+        ReferencePicuture.download(pictureName + ".png");
 
         double percentage = EspScreenshotTool.comparePercentage(
-                new EspScreenshotTool().obtainScreenshotDirectory() + pictureName,
-                Environment.getExternalStorageDirectory().toString() + "/" + pictureName);
+                new EspScreenshotTool().obtainScreenshotDirectory() + pictureName + ".png",
+                Environment.getExternalStorageDirectory().toString() + "/" + pictureName + ".png");
+
         assertEquals(100.0, percentage, EspScreenshotTool.COMPARE_DELTA_TIME_CHANGE);
         //*/
     }
