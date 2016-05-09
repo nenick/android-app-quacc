@@ -2,6 +2,7 @@ package de.nenick.quacc.test;
 
 import android.Manifest;
 import android.os.Environment;
+import android.support.test.InstrumentationRegistry;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -23,7 +24,7 @@ public class ReferencePicuture {
 
             InputStream in = new java.net.URL(screenshotUrl + name).openStream();
 
-            OutputStream output = new FileOutputStream(Environment.getExternalStorageDirectory().toString() + "/" + name);
+            OutputStream output = new FileOutputStream(InstrumentationRegistry.getTargetContext().getFilesDir().toString() + "/" + name);
 
             byte data[] = new byte[1024];
 
@@ -58,7 +59,7 @@ public class ReferencePicuture {
 
         double percentage = EspScreenshotTool.comparePercentage(
                 new EspScreenshotTool().obtainScreenshotDirectory() + pictureName + ".png",
-                Environment.getExternalStorageDirectory().toString() + "/" + pictureName + ".png");
+                InstrumentationRegistry.getTargetContext().getFilesDir() + "/" + pictureName + ".png");
 
         assertEquals(100.0, percentage, EspScreenshotTool.COMPARE_DELTA_TIME_CHANGE);
         //*/
