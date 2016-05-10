@@ -75,7 +75,7 @@ public class RotateSpec extends QuAccEspTestCase<DummyLauncherActivity_> {
 
     @Test
     public void testToolbarState() {
-        /*/ show extended toolbar
+        // show extended toolbar
         EspView.byId(R.id.report).assertIsDisplayedOnScreen();
 
         // still showing after rotation
@@ -89,6 +89,5 @@ public class RotateSpec extends QuAccEspTestCase<DummyLauncherActivity_> {
         // still hidden after rotation
         device.rotateToPortrait();
         EspView.byId(R.id.report).assertIsHidden();
-        */
     }
 }

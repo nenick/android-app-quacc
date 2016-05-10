@@ -54,7 +54,6 @@ public class ReferencePicuture {
         pictureName = "reference_" + pictureName.replace(" ", "_");
         EspScreenshotTool.takeWithName(pictureName);
 
-        //*
         ReferencePicuture.download(pictureName + ".png");
 
         double percentage = EspScreenshotTool.comparePercentage(
@@ -62,6 +61,5 @@ public class ReferencePicuture {
                 InstrumentationRegistry.getTargetContext().getFilesDir() + "/" + pictureName + ".png");
 
         assertEquals(100.0, percentage, EspScreenshotTool.COMPARE_DELTA_TIME_CHANGE);
-        //*/
     }
 }
