@@ -17,7 +17,7 @@ import static org.junit.Assert.assertEquals;
 
 public class ReferencePicuture {
 
-    public static final String screenshotUrl = "https://circle-artifacts.com/gh/nenick/QuAcc/223/artifacts/0/tmp/circle-junit.N0yV7Z1/test-screenshots/";
+    public static final String screenshotUrl = "https://circle-artifacts.com/gh/nenick/QuAcc/228/artifacts/0/tmp/circle-junit.nuYiRKs/test-screenshots/";
 
     public static void download(String name) {
         try {
@@ -28,11 +28,8 @@ public class ReferencePicuture {
 
             byte data[] = new byte[1024];
 
-            long total = 0;
-
             int count;
             while ((count = in.read(data)) != -1) {
-                total += count;
                 // writing data to file
                 output.write(data, 0, count);
             }
@@ -48,7 +45,15 @@ public class ReferencePicuture {
         }
     }
 
+    public static void checkWithoutError(String pictureName) {
+        check(pictureName, false);
+    }
+
     public static void check(String pictureName) {
+        check(pictureName, true);
+    }
+
+    private static void check(String pictureName, boolean throwError) {
         EspPermissionsTool.ensurePermissions(EspressoTestBase.currentActivity(), Manifest.permission.WRITE_EXTERNAL_STORAGE);
 
         pictureName = "reference_" + pictureName.replace(" ", "_");
@@ -60,6 +65,8 @@ public class ReferencePicuture {
                 new EspScreenshotTool().obtainScreenshotDirectory() + pictureName + ".png",
                 InstrumentationRegistry.getTargetContext().getFilesDir() + "/" + pictureName + ".png");
 
-        assertEquals(100.0, percentage, EspScreenshotTool.COMPARE_DELTA_TIME_CHANGE);
+        if(throwError) {
+            assertEquals(100.0, percentage, EspScreenshotTool.COMPARE_DELTA_TIME_CHANGE);
+        }
     }
 }
