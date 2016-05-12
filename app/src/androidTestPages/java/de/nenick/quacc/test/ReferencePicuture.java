@@ -2,6 +2,7 @@ package de.nenick.quacc.test;
 
 import android.Manifest;
 import android.os.Environment;
+import android.support.annotation.NonNull;
 import android.support.test.InstrumentationRegistry;
 
 import java.io.FileOutputStream;
@@ -22,9 +23,9 @@ public class ReferencePicuture {
     public static void download(String name) {
         try {
 
-            InputStream in = new java.net.URL(screenshotUrl + name).openStream();
+            InputStream in = new java.net.URL(screenshotUrl + name + ".png").openStream();
 
-            OutputStream output = new FileOutputStream(InstrumentationRegistry.getTargetContext().getFilesDir().toString() + "/" + name);
+            OutputStream output = new FileOutputStream(downloadLocation(name));
 
             byte data[] = new byte[1024];
 
@@ -45,6 +46,11 @@ public class ReferencePicuture {
         }
     }
 
+    @NonNull
+    private static String downloadLocation(String name) {
+        return InstrumentationRegistry.getTargetContext().getFilesDir().toString() + "/" + name + ".png";
+    }
+
     public static void checkWithoutError(String pictureName) {
         check(pictureName, false);
     }
@@ -59,11 +65,10 @@ public class ReferencePicuture {
         pictureName = "reference_" + pictureName.replace(" ", "_");
         EspScreenshotTool.takeWithName(pictureName);
 
-        ReferencePicuture.download(pictureName + ".png");
-
+        download(pictureName);
         double percentage = EspScreenshotTool.comparePercentage(
-                new EspScreenshotTool().obtainScreenshotDirectory() + pictureName + ".png",
-                InstrumentationRegistry.getTargetContext().getFilesDir() + "/" + pictureName + ".png");
+                downloadLocation(pictureName),
+                EspScreenshotTool.screenshotLocation(pictureName).getAbsolutePath());
 
         if(throwError) {
             assertEquals(100.0, percentage, EspScreenshotTool.COMPARE_DELTA_TIME_CHANGE);
