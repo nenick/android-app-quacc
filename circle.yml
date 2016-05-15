@@ -60,7 +60,8 @@ test:
 
     # release memory for following tests
     #- adb emu kill see https://code.google.com/p/android/issues/detail?id=21021
-    - echo kill | nc -w 2 localhost 5554
+    # - echo kill | nc -w 2 localhost 5554
+    - killall emulator64-arm
 
     - mv app/build/outputs/test-screenshots $CIRCLE_TEST_REPORTS/
 
