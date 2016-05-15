@@ -47,7 +47,7 @@ test:
     - sleep 60
 
     # fixed date for testing (leap-year)
-    - adb shell date -s 20160101.130000
+    - adb shell date -u "050113002016.00"
     - adb shell input keyevent 82
 
     # clear logs from emulator
@@ -59,9 +59,6 @@ test:
     - adb logcat -d | grep -v GpsLocationProvider | grep -v MediaProvider | grep -v MetadataRetrieverClient | grep -v BackupManagerService | grep -v ARMAssembler | grep -v Choreographer | grep -v IInputConnectionWrapper | grep -v "I/art" | grep -v ConnectivityService | grep -v "D/PhoneInterfaceManager" | grep -v "I/Email" | grep -v "I/Exchange" | grep -v "E/libEGL" | grep -v "D/gralloc" | grep -v "E/installd" | grep -v "D/ConnectivityManager" | grep -v "D/WIFI" | grep -v "V/Mms" > $CIRCLE_ARTIFACTS/logcat_emulator.txt
 
     # release memory for following tests
-    #- adb emu kill see https://code.google.com/p/android/issues/detail?id=21021
-    # - echo kill | nc -w 2 localhost 5554
-    # - killall emulator64-arm
     - kill -9 `ps ax | grep -m 1 "emulator64-arm" | awk '{ print $1 }'`
 
     - mv app/build/outputs/test-screenshots $CIRCLE_TEST_REPORTS/
