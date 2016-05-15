@@ -46,6 +46,8 @@ test:
     - circle-android wait-for-boot
     - sleep 60
 
+    # fixed date for testing (leap-year)
+    - adb shell date -s 20160101.130000
     - adb shell input keyevent 82
 
     # clear logs from emulator
