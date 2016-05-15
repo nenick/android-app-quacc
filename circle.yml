@@ -62,7 +62,7 @@ test:
     #- adb emu kill see https://code.google.com/p/android/issues/detail?id=21021
     # - echo kill | nc -w 2 localhost 5554
     # - killall emulator64-arm
-    - kill -9 ps ax | grep -m 1 "emulator64-arm" | awk '{ print $1 }'
+    - kill -9 `ps ax | grep -m 1 "emulator64-arm" | awk '{ print $1 }'`
 
     - mv app/build/outputs/test-screenshots $CIRCLE_TEST_REPORTS/
 
