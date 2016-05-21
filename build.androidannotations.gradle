@@ -1,8 +1,8 @@
-repositories {
-    maven { url 'https://oss.sonatype.org/content/repositories/snapshots' }
-}
+//repositories {
+//    maven { url 'https://oss.sonatype.org/content/repositories/snapshots' }
+//}
 
 dependencies {
-    compile "org.androidannotations:androidannotations-api:4.0-SNAPSHOT"
-    apt "org.androidannotations:androidannotations:4.0-SNAPSHOT"
+    compile "org.androidannotations:androidannotations-api:4.0.0"
+    apt "org.androidannotations:androidannotations:4.0.0"
 }
