@@ -1,12 +1,13 @@
 package de.nenick.quacc.settings;
 
-import org.androidannotations.annotations.sharedpreferences.DefaultBoolean;
-import org.androidannotations.annotations.sharedpreferences.SharedPref;
+import android.content.Context;
 
-@SharedPref
-public interface QuAccPreferences {
+import org.androidannotations.annotations.EBean;
 
-    @DefaultBoolean(true)
-    boolean isFirstAppStart();
+@EBean
+public class QuAccPreferences extends QuAccPreferencesDefinition$$Impl {
 
+    public QuAccPreferences(Context context) {
+        super(context);
+    }
 }

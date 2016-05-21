@@ -54,6 +54,10 @@ android {
         java.srcDirs += "src/androidTestPages/java"
         //java.srcDirs += "$project.rootDir/apptests/src/main/java"
     }
+
+    testOptions {
+        unitTests.returnDefaultValues = true
+    }
 }
 
 apply from: "build.apt.gradle"
@@ -66,6 +70,10 @@ dependencies {
     debugCompile project(path: ':core', configuration: 'debug')
     compile project(':tools:expandablerecyclerview')
     compile project(':tools:toolscollection')
+
+    // easy to mock preferences code generator (preferences from androidannotations are hard to mock)
+    compile 'de.devland.esperandro:esperandro-api:2.2.0'
+    apt 'de.devland.esperandro:esperandro:2.2.0'
 
     // backward compatibility
     compile 'com.android.support:design:23.3.0'

@@ -6,20 +6,24 @@ import android.support.v7.app.AppCompatActivity;
 
 import org.androidannotations.annotations.AfterInject;
 import org.androidannotations.annotations.Background;
+import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EActivity;
-import org.androidannotations.annotations.sharedpreferences.Pref;
+import org.androidannotations.annotations.Transactional;
 
 import de.nenick.quacc.activities.bookingentries.BookingEntriesActivity_;
-import de.nenick.quacc.core.initialdata.DatabaseInitialData_;
+import de.nenick.quacc.core.initialdata.DatabaseInitialData;
 import de.nenick.quacc.database.provider.QuAccSQLiteOpenHelper;
-import de.nenick.quacc.settings.QuAccPreferences_;
+import de.nenick.quacc.settings.QuAccPreferences;
 import de.nenick.quacc.test.BackgroundThreadCounter;
 
 @EActivity
 public class StartActivity extends AppCompatActivity {
 
-    @Pref
-    protected QuAccPreferences_ pref;
+    @Bean
+    protected QuAccPreferences preferences;
+
+    @Bean
+    protected DatabaseInitialData databaseInitialData;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -30,26 +34,18 @@ public class StartActivity extends AppCompatActivity {
 
     @AfterInject
     protected void onAfterInject() {
-        storeInitialData();
+        SQLiteDatabase database = QuAccSQLiteOpenHelper.getInstance(this).getWritableDatabase();
+        storeInitialData(database);
     }
 
     @Background
-    protected void storeInitialData() {
+    @Transactional
+    protected void storeInitialData(SQLiteDatabase database) {
         BackgroundThreadCounter.increment();
-
-        if (pref.isFirstAppStart().get()) {
-            pref.isFirstAppStart().put(false);
-
-            SQLiteDatabase database = QuAccSQLiteOpenHelper.getInstance(this).getWritableDatabase();
-            database.beginTransaction();
-            try {
-                DatabaseInitialData_.getInstance_(this).insert(database);
-                database.setTransactionSuccessful();
-            } finally {
-                database.endTransaction();
-            }
+        if (preferences.isFirstAppStart()) {
+            preferences.isFirstAppStart(false);
+            databaseInitialData.insert(database);
         }
-
         BackgroundThreadCounter.decrement();
     }
 }
