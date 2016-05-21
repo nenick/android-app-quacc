@@ -18,7 +18,7 @@ import static org.junit.Assert.assertEquals;
 
 public class ReferencePicuture {
 
-    public static final String screenshotUrl = "https://circle-artifacts.com/gh/nenick/QuAcc/228/artifacts/0/tmp/circle-junit.nuYiRKs/test-screenshots/";
+    public static final String screenshotUrl = "https://circle-artifacts.com/gh/nenick/QuAcc/240/artifacts/0/tmp/circle-junit.f046x12/test-screenshots/";
 
     private static final double COMPARE_DELTA_DATE_CHANGE = 0.4;
 
