@@ -1,4 +1,4 @@
-package de.nenick.quacc.activities;
+package de.nenick.quacc.activities.bookingentries;
 
 import android.content.Context;
 import android.support.v4.view.GravityCompat;
@@ -22,7 +22,7 @@ import de.nenick.quacc.view.bookingentries.BookingEntriesFragment;
 import de.nenick.quacc.view.drawer.AccountNavigationDrawer;
 
 @EBean
-public class BookingEntriesActivityView {
+public class BookingEntriesView {
 
     public interface ViewCallback {
         void onSelectAccount(long accountId);
@@ -54,7 +54,7 @@ public class BookingEntriesActivityView {
     private ViewCallback callback;
 
     public Layout root() {
-        return BookingEntriesActivityView_.Layout_.build(context);
+        return BookingEntriesView_.Layout_.build(context);
     }
 
     @AfterViews

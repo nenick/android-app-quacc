@@ -19,7 +19,7 @@
         android:theme="@style/AppTheme"
         tools:replace="android:name" >
         <activity
-            android:name=".view.main.MainActivity_"
+            android:name=".activities.start.StartActivity_"
             android:finishOnTaskLaunch="true"
             android:label="@string/app_name"
             android:noHistory="true" >
@@ -33,7 +33,7 @@
             android:label="@string/title_activity_add_accounting"
             android:parentActivityName=".view.accounting_overview.AccountingListActivity_" />
         <activity
-            android:name=".activities.BookingEntriesActivity_"
+            android:name=".activities.bookingentries.BookingEntriesActivity_"
             android:label="@string/title_activity_accounting_list" />
         <activity
             android:name=".view.category.CategoriesActivity_"

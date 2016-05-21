@@ -1,13 +1,12 @@
 package de.nenick.quacc.test;
 
-import android.app.Activity;
 import android.support.v7.app.AppCompatActivity;
 
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
 
 import de.nenick.quacc.R;
-import de.nenick.quacc.view.main.MainActivity_;
+import de.nenick.quacc.activities.start.StartActivity_;
 
 /**
  * Emulates the android launcher for instrumentation tests.
@@ -21,6 +20,6 @@ public class DummyLauncherActivity extends AppCompatActivity {
 
     @Click(R.id.btn_start_app)
     protected void onClick() {
-        MainActivity_.intent(this).start();
+        StartActivity_.intent(this).start();
     }
 }

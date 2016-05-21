@@ -1,4 +1,4 @@
-package de.nenick.quacc.activities;
+package de.nenick.quacc.activities.bookingentries;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -18,11 +18,11 @@ import de.nenick.quacc.view.accounting_edit.EditAccountingActivity_;
 
 @EActivity
 public class BookingEntriesActivity extends AppCompatActivity implements
-        BookingEntriesActivityView.ViewCallback,
+        BookingEntriesView.ViewCallback,
         LoaderCallback<AccountCursor> {
 
     @Bean
-    protected BookingEntriesActivityView view;
+    protected BookingEntriesView view;
 
     @Bean
     protected AccountRepository accountRepository;

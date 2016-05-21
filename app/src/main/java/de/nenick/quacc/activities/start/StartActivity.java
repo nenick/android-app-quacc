@@ -1,23 +1,22 @@
-package de.nenick.quacc.view.main;
+package de.nenick.quacc.activities.start;
 
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 
 import org.androidannotations.annotations.AfterInject;
 import org.androidannotations.annotations.Background;
-import org.androidannotations.annotations.EFragment;
+import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.sharedpreferences.Pref;
 
-import de.nenick.quacc.R;
-import de.nenick.quacc.activities.BookingEntriesActivity_;
+import de.nenick.quacc.activities.bookingentries.BookingEntriesActivity_;
 import de.nenick.quacc.core.initialdata.DatabaseInitialData_;
 import de.nenick.quacc.database.provider.QuAccSQLiteOpenHelper;
 import de.nenick.quacc.settings.QuAccPreferences_;
 import de.nenick.quacc.test.BackgroundThreadCounter;
 
-@EFragment(R.layout.fragment_main)
-public class MainFragment extends Fragment {
+@EActivity
+public class StartActivity extends AppCompatActivity {
 
     @Pref
     protected QuAccPreferences_ pref;
@@ -25,9 +24,8 @@ public class MainFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         BookingEntriesActivity_.intent(this).start();
-        getActivity().finish();
+        finish();
     }
 
     @AfterInject
@@ -42,10 +40,10 @@ public class MainFragment extends Fragment {
         if (pref.isFirstAppStart().get()) {
             pref.isFirstAppStart().put(false);
 
-            SQLiteDatabase database = QuAccSQLiteOpenHelper.getInstance(getContext()).getWritableDatabase();
+            SQLiteDatabase database = QuAccSQLiteOpenHelper.getInstance(this).getWritableDatabase();
             database.beginTransaction();
             try {
-                DatabaseInitialData_.getInstance_(getContext()).insert(database);
+                DatabaseInitialData_.getInstance_(this).insert(database);
                 database.setTransactionSuccessful();
             } finally {
                 database.endTransaction();
