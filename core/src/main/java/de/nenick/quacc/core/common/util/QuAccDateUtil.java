@@ -1,15 +1,25 @@
 package de.nenick.quacc.core.common.util;
 
+import android.support.annotation.NonNull;
+
+import org.androidannotations.annotations.EBean;
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.Locale;
 
+/**
+ * Unifies date time handling.
+ */
+@EBean(scope = EBean.Scope.Singleton)
 public class QuAccDateUtil {
+
+    private TodayProvider todayProvider = new TodayProvider();
+
+    public QuAccDateUtil getInstance() {
+        return QuAccDateUtil_.getInstance_(null);
+    }
 
     public static final DateTimeFormatter defaultPattern = DateTimeFormat.forPattern("dd.MM.yyyy");
 
@@ -29,7 +39,7 @@ public class QuAccDateUtil {
         return new DateTime().monthOfYear().get();
     }
 
-    public static DateTime toDateTime(int day, int month, String year) {
+    public DateTime toDateTime(int day, int month, String year) {
         return toDateTime(day, month, Integer.parseInt(year));
     }
 
@@ -76,7 +86,31 @@ public class QuAccDateUtil {
         return compareResult == -1 || compareResult == 0;
     }
 
-    public static DateTime lastDayOfMonth(DateTime startDate) {
-        return startDate.withDayOfMonth(startDate.dayOfMonth().getMaximumValue());
+    /**
+     * DateTime at time start of the 1. day of given month.
+     */
+    public DateTime firstDayOfMonth(DateTime givenDate) {
+        return givenDate.withDayOfMonth(1).withTimeAtStartOfDay();
+    }
+
+    /**
+     * DateTime at time end of the last day of given month.
+     * <p/>
+     * Last day may be 28, 29, 30 or 31 depending of given month and year.
+     */
+    public DateTime lastDayOfMonth(DateTime givenDate) {
+        DateTime lastDay = givenDate.withDayOfMonth(givenDate.dayOfMonth().getMaximumValue());
+        return lastDay.plusDays(1).withTimeAtStartOfDay().minusMillis(1);
+    }
+
+    @NonNull
+    public DateTime today() {
+        return todayProvider.get();
+    }
+
+    public static class TodayProvider {
+        public DateTime get() {
+            return DateTime.now();
+        }
     }
 }

@@ -31,7 +31,7 @@ public class CreateBookingEntryFunction {
         accountCursor.close();
 
         if(!new DateTime(date).withTimeAtStartOfDay().equals(new DateTime(date))) {
-            throw new IllegalStateException("Not supported to book entry with specific time");
+            throw new IllegalStateException("Not supported to book entry with specific time, use withTimeAtStartOfDay() to remove time");
         }
 
         BookingEntryContentValues values = new BookingEntryContentValues()
