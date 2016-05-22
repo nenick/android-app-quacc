@@ -3,6 +3,7 @@
     <string name="action_confirm">Fertig</string>
     <string name="action_categories">Kategorien</string>
     <string name="action_filter">Filter</string>
+    <string name="date_selector_toggle">Toggle Datum Auswahl</string>
     <string name="action_accounts">Accounts</string>
     <string name="action_template">Templates</string>
     <string name="action_template_speech">Sprach Templates</string>

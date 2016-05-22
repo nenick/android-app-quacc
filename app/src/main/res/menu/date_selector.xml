@@ -1,0 +1,12 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="de.nenick.quacc.view.category.CategoriesActivity">
+
+    <item
+        android:id="@+id/dateSelectorToggle"
+        android:icon="@drawable/ic_date_range_black_24dp"
+        android:title="@string/date_selector_toggle"
+        android:orderInCategory="50"
+        app:showAsAction="ifRoom" />
+</menu>
