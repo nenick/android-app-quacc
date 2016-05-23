@@ -29,7 +29,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".view.accounting_edit.EditAccountingActivity_"
+            android:name=".activities.bookingcreation.EditAccountingActivity_"
             android:label="@string/title_activity_add_accounting"
             android:parentActivityName=".view.accounting_overview.AccountingListActivity_" />
         <activity

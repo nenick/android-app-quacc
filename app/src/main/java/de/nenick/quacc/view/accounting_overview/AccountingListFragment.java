@@ -20,6 +20,7 @@ import org.androidannotations.annotations.OptionsItem;
 import org.joda.time.DateTime;
 
 import de.nenick.quacc.R;
+import de.nenick.quacc.activities.bookingcreation.EditAccountingActivity_;
 import de.nenick.quacc.core.common.util.QuAccDateUtil;
 import de.nenick.quacc.core.i18n.MonthTranslator;
 import de.nenick.quacc.database.account.AccountRepository;
@@ -28,8 +29,6 @@ import de.nenick.quacc.database.provider.account.AccountCursor;
 import de.nenick.quacc.database.provider.bookingentry.BookingEntryCursor;
 import de.nenick.quacc.speechrecognition.hotword.HotwordListener;
 import de.nenick.quacc.speechrecognition.hotword.QuAccHotwordRecognizer;
-import de.nenick.toolscollection.amountparser.AmountParser;
-import de.nenick.quacc.view.accounting_edit.EditAccountingActivity_;
 import de.nenick.quacc.view.accounting_overview.adapter.AccountingPlainAdapter;
 import de.nenick.quacc.view.accounting_overview.adapter.AccountingTreeAdapter;
 import de.nenick.quacc.view.accounting_overview.adapter.FilterRangeAdapter;
@@ -42,6 +41,7 @@ import de.nenick.quacc.view.accounting_overview.grouping.GetGroupingOptionsAsStr
 import de.nenick.quacc.view.accounting_overview.grouping.GroupingOption;
 import de.nenick.quacc.view.mvp.BasePresenterFragment;
 import de.nenick.quacc.view.mvp.BaseView;
+import de.nenick.toolscollection.amountparser.AmountParser;
 
 @EFragment(R.layout.fragment_accounting_list)
 public class AccountingListFragment extends BasePresenterFragment {

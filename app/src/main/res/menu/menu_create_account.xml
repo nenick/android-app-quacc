@@ -1,10 +1,8 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    tools:context="de.nenick.quacc.view.accounting_edit.EditAccountingActivity">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/confirm"
-        android:title="@string/action_confirm"
         android:orderInCategory="100"
+        android:title="@string/action_confirm"
         app:showAsAction="always" />
 </menu>

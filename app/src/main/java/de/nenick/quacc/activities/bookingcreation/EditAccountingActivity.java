@@ -1,7 +1,7 @@
-package de.nenick.quacc.view.accounting_edit;
+package de.nenick.quacc.activities.bookingcreation;
 
 import android.support.v4.app.FragmentManager;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
 import org.androidannotations.annotations.AfterViews;
@@ -9,9 +9,11 @@ import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.Extra;
 
 import de.nenick.quacc.R;
+import de.nenick.quacc.view.accounting_edit.EditAccountingFragment;
+import de.nenick.quacc.view.accounting_edit.EditAccountingFragment_;
 
 @EActivity(R.layout.activity)
-public class EditAccountingActivity extends ActionBarActivity {
+public class EditAccountingActivity extends AppCompatActivity {
 
     public static final String TAG_FRAGMENT = EditAccountingFragment.class.getSimpleName();
 

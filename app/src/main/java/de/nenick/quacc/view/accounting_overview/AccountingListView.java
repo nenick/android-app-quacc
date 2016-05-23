@@ -14,8 +14,11 @@ import org.androidannotations.annotations.EBean;
 import org.androidannotations.annotations.ViewById;
 
 import de.nenick.quacc.R;
-import de.nenick.quacc.view.mvp.BaseView;
 import de.nenick.quacc.view.accounting_overview.adapter.GroupingOptionAdapter;
+import de.nenick.quacc.view.mvp.BaseView;
+
+// TODO grouping options (use plain list instead of booking groups) (maybe ignore it ...)
+// TODO filter options to see all bookings or only for selected month
 
 @EBean
 public class AccountingListView extends BaseView {
