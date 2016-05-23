@@ -1,6 +1,5 @@
 package de.nenick.quacc.test;
 
-import android.Manifest;
 import android.support.annotation.NonNull;
 import android.support.test.InstrumentationRegistry;
 
@@ -10,8 +9,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-import de.nenick.espressomacchiato.testbase.EspressoTestBase;
-import de.nenick.espressomacchiato.tools.EspPermissionsTool;
 import de.nenick.espressomacchiato.tools.EspScreenshotTool;
 
 import static org.junit.Assert.assertEquals;
@@ -52,7 +49,6 @@ public class ReferenceCheck {
     }
 
     public static void check(String pictureName) {
-        EspPermissionsTool.ensurePermissions(EspressoTestBase.currentActivity(), Manifest.permission.WRITE_EXTERNAL_STORAGE);
         download(pictureName);
         String picturePath = EspScreenshotTool.screenshotLocation(pictureName.replace(".png", "")).getAbsolutePath();
         if (!new File(picturePath).exists()) throw new IllegalStateException(pictureName);
