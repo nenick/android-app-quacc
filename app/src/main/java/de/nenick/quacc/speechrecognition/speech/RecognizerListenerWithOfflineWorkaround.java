@@ -85,6 +85,7 @@ public class RecognizerListenerWithOfflineWorkaround implements RecognitionListe
 
     @Override
     public void onBeginningOfSpeech() {
+        latestPartialResults = null;
         wrappedRecognitionListener.onBeginningOfSpeech();
     }
 

@@ -20,10 +20,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-import de.nenick.quacc.speechrecognition.speech.QuAccSpeechRecognizer;
-import de.nenick.quacc.speechrecognition.speech.RecognizerListenerWithOfflineWorkaround;
-import de.nenick.quacc.speechrecognition.speech.SpeechResultListener;
-
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Matchers.any;
@@ -108,7 +104,7 @@ public class QuAccSpeechRecognizerTest {
         thenSpeechRecognitionIsListening();
         whenStopListening();
         thenSpeechRecognitionIsNotListening();
-        verify(_speechRecognizer).stopListening();
+        verify(_speechRecognizer).cancel();
     }
 
     @Test
@@ -118,7 +114,7 @@ public class QuAccSpeechRecognizerTest {
         whenStopListening();
         thenSpeechRecognitionIsNotListening();
         thenSpeechRecognitionIsNotListening();
-        verify(_speechRecognizer).stopListening();
+        verify(_speechRecognizer).cancel();
     }
 
     @Test
@@ -168,7 +164,7 @@ public class QuAccSpeechRecognizerTest {
         verify(speechResultListener).onResults(partialSpeechRecognizerResult);
         reset(speechResultListener);
 
-        recognizerListenerWithOfflineWorkaround.onBeginningOfSpeech();
+        recognizerListenerWithOfflineWorkaround.onReadyForSpeech(null);
 
         recognizerListenerWithOfflineWorkaround.onPartialResults(partialResultBundle);
         recognizerListenerWithOfflineWorkaround.onError(SpeechRecognizer.ERROR_NO_MATCH);

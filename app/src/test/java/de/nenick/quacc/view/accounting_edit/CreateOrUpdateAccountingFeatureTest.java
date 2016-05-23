@@ -1,7 +1,5 @@
 package de.nenick.quacc.view.accounting_edit;
 
-import org.joda.time.DateTimeZone;
-import org.joda.time.tz.UTCProvider;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InjectMocks;
@@ -19,13 +17,14 @@ import de.nenick.quacc.core.bookingentry.direction.BookingDirectionOption;
 import de.nenick.quacc.core.bookinginterval.BookingIntervalOption;
 import de.nenick.quacc.core.common.util.QuAccDateUtil;
 import de.nenick.quacc.database.provider.category.CategoryCursor;
+import de.nenick.quacc.tools.AmountParser;
 import de.nenick.toolscollection.amountparser.AmountFromStringResult;
 import de.nenick.toolscollection.amountparser.AmountFromStringResult.ParseResult;
-import de.nenick.toolscollection.amountparser.ParseValueFromStringFunction;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.BDDMockito.then;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.reset;
 import static org.mockito.Mockito.verify;
 
@@ -35,7 +34,7 @@ public class CreateOrUpdateAccountingFeatureTest {
     EditAccountingView view;
 
     @Mock
-    ParseValueFromStringFunction parseValueFromStringFunction;
+    AmountParser amountParser;
 
     @Mock
     CreateBookingEntryFunction createBookingEntryFunction;
@@ -48,6 +47,8 @@ public class CreateOrUpdateAccountingFeatureTest {
 
     @InjectMocks
     CreateOrUpdateAccountingFeature createOrUpdateAccountingFeature;
+
+    QuAccDateUtil quAccDateUtil = new QuAccDateUtil();
 
     Map<ParseResult, Integer> parsingErrors = new HashMap<>();
 
@@ -65,8 +66,7 @@ public class CreateOrUpdateAccountingFeatureTest {
 
     @Before
     public void setupBase() {
-        DateTimeZone.setProvider(new UTCProvider());
-        date = QuAccDateUtil.toDate(QuAccDateUtil.currentDate());
+        date = QuAccDateUtil.toDate(quAccDateUtil.currentDate());
         endDate = date;
         MockitoAnnotations.initMocks(this);
         givenViewWillReturnProperties();
@@ -98,8 +98,15 @@ public class CreateOrUpdateAccountingFeatureTest {
     @Test
     public void shouldShowValueParsingErrors() throws Exception {
         assertMapContainsAllParsingErrorTypes();
+        CategoryCursor categoryCursor = mock(CategoryCursor.class);
+        given(categoryCursor.getId()).willReturn(42l);
+
         for (Map.Entry<ParseResult, Integer> errorText : parsingErrors.entrySet()) {
             reset(view);
+            given(view.getDate()).willReturn("01.01.2016");
+            given(view.getAccountingInterval()).willReturn(BookingIntervalOption.once.name());
+            given(view.getAccountingCategory()).willReturn(categoryCursor);
+
             givenValueParsResultFailed(errorText.getKey());
             whenCallFeatureForCreate();
             then(view).should().showValueParsingError(errorText.getValue());
@@ -140,13 +147,13 @@ public class CreateOrUpdateAccountingFeatureTest {
 
     private void givenValueParseResultSuccess() {
         valueParseResult = new AmountFromStringResult(value);
-        given(parseValueFromStringFunction.apply(valueString)).willReturn(valueParseResult);
+        given(amountParser.asInteger(valueString)).willReturn(valueParseResult);
     }
 
     private void givenValueParsResultFailed(ParseResult parseResult) {
         given(view.getValue()).willReturn(valueString);
         valueParseResult = new AmountFromStringResult(parseResult);
-        given(parseValueFromStringFunction.apply(valueString)).willReturn(valueParseResult);
+        given(amountParser.asInteger(valueString)).willReturn(valueParseResult);
     }
 
     private void givenParsingErrorMapWithExpectedErrorText() {

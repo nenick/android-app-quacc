@@ -65,6 +65,7 @@ dependencies {
 
     // better time handling
     compile 'net.danlew:android.joda:2.7.2'
+    // dependency to set DateTimeZone.setProvider(new UTCProvider()); global for all tests
     testCompile 'joda-time:joda-time:2.9.3'
 }
 

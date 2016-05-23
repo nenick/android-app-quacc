@@ -29,6 +29,7 @@ import de.nenick.quacc.database.provider.account.AccountCursor;
 import de.nenick.quacc.database.provider.bookingentry.BookingEntryCursor;
 import de.nenick.quacc.speechrecognition.hotword.HotwordListener;
 import de.nenick.quacc.speechrecognition.hotword.QuAccHotwordRecognizer;
+import de.nenick.quacc.tools.AmountParser;
 import de.nenick.quacc.view.accounting_overview.adapter.AccountingPlainAdapter;
 import de.nenick.quacc.view.accounting_overview.adapter.AccountingTreeAdapter;
 import de.nenick.quacc.view.accounting_overview.adapter.FilterRangeAdapter;
@@ -41,7 +42,6 @@ import de.nenick.quacc.view.accounting_overview.grouping.GetGroupingOptionsAsStr
 import de.nenick.quacc.view.accounting_overview.grouping.GroupingOption;
 import de.nenick.quacc.view.mvp.BasePresenterFragment;
 import de.nenick.quacc.view.mvp.BaseView;
-import de.nenick.toolscollection.amountparser.AmountParser;
 
 @EFragment(R.layout.fragment_accounting_list)
 public class AccountingListFragment extends BasePresenterFragment {
@@ -81,6 +81,9 @@ public class AccountingListFragment extends BasePresenterFragment {
 
     @Bean
     QuAccHotwordRecognizer quAccHotwordRecognizer;
+
+    @Bean
+    AmountParser amountParser;
 
     @FragmentArg
     String account;
@@ -123,7 +126,7 @@ public class AccountingListFragment extends BasePresenterFragment {
 
         AccountCursor accountCursor = accountRepository.query(new AccountSpecByName(account));
         accountCursor.moveToFirst();
-        view.setAccountValue(AmountParser.asString(accountCursor.getInitialvalue()));
+        view.setAccountValue(amountParser.asString(accountCursor.getInitialvalue()));
 
         view.accountingListExpandable.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
             @Override

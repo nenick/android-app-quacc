@@ -53,31 +53,52 @@ test:
     # clear logs from emulator
     - adb logcat -c
 
+    ##################################################
+    # app connected checks
+    #
     - ./gradlew app:connectedCheckCustomized
-    - mkdir -p $CIRCLE_TEST_REPORTS/quacc_android_tests/xml
-    - cp -r app/build/outputs/androidTest-results/connected $CIRCLE_TEST_REPORTS/quacc_android_tests/xml
-    - mkdir -p $CIRCLE_TEST_REPORTS/quacc_android_tests/html
-    - cp -r app/build/reports/androidTests/connected $CIRCLE_TEST_REPORTS/quacc_android_tests/html
+    - mkdir -p $CIRCLE_TEST_REPORTS/app_android_tests/xml
+    - cp -r app/build/outputs/androidTest-results/connected $CIRCLE_TEST_REPORTS/app_android_tests/xml
+    - mkdir -p $CIRCLE_TEST_REPORTS/app_android_tests/html
+    - cp -r app/build/reports/androidTests/connected $CIRCLE_TEST_REPORTS/app_android_tests/html
 
     # collect logs from emulator and make them accessable
     - adb logcat -d | grep -v GpsLocationProvider | grep -v MediaProvider | grep -v MetadataRetrieverClient | grep -v BackupManagerService | grep -v ARMAssembler | grep -v Choreographer | grep -v IInputConnectionWrapper | grep -v "I/art" | grep -v ConnectivityService | grep -v "D/PhoneInterfaceManager" | grep -v "I/Email" | grep -v "I/Exchange" | grep -v "E/libEGL" | grep -v "D/gralloc" | grep -v "E/installd" | grep -v "D/ConnectivityManager" | grep -v "D/WIFI" | grep -v "V/Mms" > $CIRCLE_ARTIFACTS/logcat_emulator.txt
 
+    ##################################################
+    # app reference pictures
+    #
     - ./gradlew apppictures:connectedAndroidTest
-    - mkdir -p $CIRCLE_TEST_REPORTS/quacc_pictures_android_tests/xml
-    - cp -r apppictures/build/outputs/androidTest-results/connected $CIRCLE_TEST_REPORTS/quacc_pictures_android_tests/xml
-    - mkdir -p $CIRCLE_TEST_REPORTS/quacc_pictures_android_tests/html
-    - cp -r apppictures/build/reports/androidTests/connected $CIRCLE_TEST_REPORTS/quacc_pictures_android_tests/html
+    - mkdir -p $CIRCLE_TEST_REPORTS/app_pictures_android_tests/xml
+    - cp -r apppictures/build/outputs/androidTest-results/connected $CIRCLE_TEST_REPORTS/app_pictures_android_tests/xml
+    - mkdir -p $CIRCLE_TEST_REPORTS/app_pictures_android_tests/html
+    - cp -r apppictures/build/reports/androidTests/connected $CIRCLE_TEST_REPORTS/app_pictures_android_tests/html
 
     # release memory for following tests
     - kill -9 `ps ax | grep -m 1 "emulator64-arm" | awk '{ print $1 }'`
 
     - mv app/build/outputs/test-screenshots $CIRCLE_TEST_REPORTS/
 
-
-    # Execute Unit Tests
+    ##################################################
+    # app unit tests
+    #
     - ./gradlew app:test
+    - mkdir -p $CIRCLE_TEST_REPORTS/app_tests/xml
+    - cp -r app/build/test-results/debug $CIRCLE_TEST_REPORTS/app_tests/xml
+    - mkdir -p $CIRCLE_TEST_REPORTS/app_tests/html
+    - cp -r app/build/reports/tests/debug $CIRCLE_TEST_REPORTS/app_tests/html
+
     - ./gradlew core:test
+    - mkdir -p $CIRCLE_TEST_REPORTS/core_tests/xml
+    - cp -r core/build/test-results/tests/debug $CIRCLE_TEST_REPORTS/core_tests/xml
+    - mkdir -p $CIRCLE_TEST_REPORTS/core_tests/html
+    - cp -r core/build/reports/tests/debug $CIRCLE_TEST_REPORTS/core_tests/html
+
     - ./gradlew database:test
+    - mkdir -p $CIRCLE_TEST_REPORTS/database_tests/xml
+    - cp -r database/build/test-results/tests/debug $CIRCLE_TEST_REPORTS/database_tests/xml
+    - mkdir -p $CIRCLE_TEST_REPORTS/database_tests/html
+    - cp -r database/build/reports/tests/debug $CIRCLE_TEST_REPORTS/database_tests/html
 
     # Execute Component Tests
     #- ./gradlew apptestsjvm:test
@@ -102,10 +123,6 @@ test:
     - mv app/build/outputs/lint-results-debug.html $CIRCLE_TEST_REPORTS/lint/lint-app-results.html
     - mv core/build/outputs/lint-results-debug.html $CIRCLE_TEST_REPORTS/lint/lint-core-results.html
     - mv database/build/outputs/lint-results-debug.html $CIRCLE_TEST_REPORTS/lint/lint-database-results.html
-
-    #try circleCi proper test amount feature
-    - mkdir $CIRCLE_TEST_REPORTS/junit
-    - find */build/test-results -name "*.xml" -exec cp {} $CIRCLE_TEST_REPORTS/junit/ \;
 
 deployment:
   # Only report code coverage if all tasks are successful

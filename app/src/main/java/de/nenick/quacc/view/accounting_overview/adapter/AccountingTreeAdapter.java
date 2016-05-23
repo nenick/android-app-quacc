@@ -24,8 +24,7 @@ import de.nenick.quacc.core.bookingentry.direction.BookingDirectionOption;
 import de.nenick.quacc.core.common.util.QuAccDateUtil;
 import de.nenick.quacc.core.i18n.AccountingIntervalTranslator;
 import de.nenick.quacc.database.provider.bookingentry.BookingEntryCursor;
-import de.nenick.toolscollection.amountparser.AmountParser;
-import de.nenick.toolscollection.amountparser.ParseValueFromIntegerFunction;
+import de.nenick.quacc.tools.AmountParser;
 
 @EBean
 public class AccountingTreeAdapter extends CursorTreeAdapter implements LoaderManager.LoaderCallbacks<Cursor> {
@@ -38,6 +37,9 @@ public class AccountingTreeAdapter extends CursorTreeAdapter implements LoaderMa
 
     @Bean
     AccountingIntervalTranslator accountingIntervalTranslator;
+
+    @Bean
+    AmountParser amountParser;
 
     protected HashMap<Integer, GroupData> mGroupMap = new HashMap<>();
     private Activity context;
@@ -119,7 +121,7 @@ public class AccountingTreeAdapter extends CursorTreeAdapter implements LoaderMa
         accountingView.setEndDate(QuAccDateUtil.toString(bookingEntryCursor.getDate()));
 
         accountingView.setCategory(bookingEntryCursor.getCategoryName());
-        accountingView.setValue(AmountParser.asString(bookingEntryCursor.getAmount()));
+        accountingView.setValue(amountParser.asString(bookingEntryCursor.getAmount()));
 
         BookingDirectionOption bookingDirectionOption = BookingDirectionOption.valueOf(bookingEntryCursor.getDirection());
         switch (bookingDirectionOption) {
@@ -145,7 +147,7 @@ public class AccountingTreeAdapter extends CursorTreeAdapter implements LoaderMa
         accountingView.setInterval(accountingIntervalTranslator.translate(bookingEntryCursor.getInterval()));
         accountingView.setCategory(bookingEntryCursor.getCategoryName());
         accountingView.setComment(bookingEntryCursor.getComment());
-        accountingView.setValue(AmountParser.asString(bookingEntryCursor.getAmount()));
+        accountingView.setValue(amountParser.asString(bookingEntryCursor.getAmount()));
 
         BookingDirectionOption bookingDirectionOption = BookingDirectionOption.valueOf(bookingEntryCursor.getDirection());
         switch (bookingDirectionOption) {

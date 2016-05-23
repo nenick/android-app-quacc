@@ -52,13 +52,13 @@ public class ParseValueFromStringFunctionTest {
     }
 
     private void parseAndExpect(String input, int expected) {
-        result = ParseValueFromStringFunction.apply(input);
+        result = new ParseValueFromStringFunction().apply(input);
         assertThat(result.report).isEqualTo(ParseResult.Successful);
         assertThat(result.amount).isEqualTo(expected);
     }
 
     private void parseAndExpect(String input, ParseResult expected) {
-        result = ParseValueFromStringFunction.apply(input);
+        result = new ParseValueFromStringFunction().apply(input);
         assertThat(result.report).isEqualTo(expected);
     }
 }

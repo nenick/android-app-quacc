@@ -20,8 +20,7 @@ import de.nenick.quacc.R;
 import de.nenick.quacc.core.bookingentry.direction.BookingDirectionOption;
 import de.nenick.quacc.core.common.util.QuAccDateUtil;
 import de.nenick.quacc.database.bookingentry.CategorySummeryCursor;
-import de.nenick.toolscollection.amountparser.AmountParser;
-import de.nenick.toolscollection.amountparser.ParseValueFromIntegerFunction;
+import de.nenick.quacc.tools.AmountParser;
 
 /**
  * Group for expandable list view.
@@ -58,6 +57,9 @@ class CategorySummeryListItem extends ExpandableCursorTreeAdapter.ListItemHolder
     @ViewById(R.id.indicator)
     ExpandableItemIndicator expandableItemIndicator;
 
+    @Bean
+    AmountParser amountParser;
+
     public static CategorySummeryListItem create(Context context) {
         return CategorySummeryListItem_.getInstance_(context);
     }
@@ -71,7 +73,7 @@ class CategorySummeryListItem extends ExpandableCursorTreeAdapter.ListItemHolder
     public void onBind(CategorySummeryCursor item) {
         date.setText(QuAccDateUtil.toString(item.getDateStart()));
         category.setText(item.getCategoryName());
-        amount.setText(AmountParser.asString(item.getAmount()));
+        amount.setText(amountParser.asString(item.getAmount()));
         endDate.setText(QuAccDateUtil.toString(item.getDateEnd()));
 
         switch (BookingDirectionOption.valueOf(item.getDirection())) {

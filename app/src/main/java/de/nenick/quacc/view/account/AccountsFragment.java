@@ -10,11 +10,11 @@ import de.nenick.quacc.core.account.GetAccountsFunction;
 import de.nenick.quacc.database.account.AccountRepository;
 import de.nenick.quacc.database.account.AccountSpecByName;
 import de.nenick.quacc.database.provider.account.AccountContentValues;
-import de.nenick.toolscollection.amountparser.AmountFromStringResult;
-import de.nenick.toolscollection.amountparser.AmountParser;
+import de.nenick.quacc.database.provider.account.AccountCursor;
+import de.nenick.quacc.tools.AmountParser;
 import de.nenick.quacc.view.mvp.BasePresenterFragment;
 import de.nenick.quacc.view.mvp.BaseView;
-import de.nenick.quacc.database.provider.account.AccountCursor;
+import de.nenick.toolscollection.amountparser.AmountFromStringResult;
 
 @EFragment(R.layout.fragment_accounts)
 public class AccountsFragment extends BasePresenterFragment {
@@ -33,6 +33,9 @@ public class AccountsFragment extends BasePresenterFragment {
     @Bean
     AccountRepository accountRepository;
 
+    @Bean
+    AmountParser amountParser;
+
     @Override
     protected void onViewStart() {
         view.showAccounts(getAccountsFunction.apply());
@@ -40,7 +43,7 @@ public class AccountsFragment extends BasePresenterFragment {
 
     @Click(R.id.button)
     protected void onSave() {
-        AmountFromStringResult apply = AmountParser.asInteger(view.getInitialValue());
+        AmountFromStringResult apply = amountParser.asInteger(view.getInitialValue());
         if(apply.report == AmountFromStringResult.ParseResult.Successful) {
             AccountContentValues account = new AccountContentValues().putInitialvalue(apply.amount);
             AccountSpecByName byName = new AccountSpecByName(view.getAccount());
@@ -52,6 +55,6 @@ public class AccountsFragment extends BasePresenterFragment {
     protected void onAccountSelection(boolean selected, int position) {
         AccountCursor accountByName = accountRepository.query(new AccountSpecByName(view.getAccount()));
         accountByName.moveToFirst();
-        view.setInitialValue(AmountParser.asString(accountByName.getInitialvalue()));
+        view.setInitialValue(amountParser.asString(accountByName.getInitialvalue()));
     }
 }

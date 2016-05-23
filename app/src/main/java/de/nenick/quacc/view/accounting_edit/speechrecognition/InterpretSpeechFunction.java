@@ -6,14 +6,13 @@ import org.androidannotations.annotations.EBean;
 import java.util.ArrayList;
 import java.util.List;
 
-import de.nenick.quacc.core.utils.StringPartUtil;
 import de.nenick.quacc.core.speechinterpreter.RecognizeAccountingIntervalFunction;
 import de.nenick.quacc.core.speechinterpreter.RecognizeAccountingTypeFunction;
 import de.nenick.quacc.core.speechinterpreter.RecognizeCategoryFunction;
 import de.nenick.quacc.core.speechinterpreter.RecognizeValueFunction;
 import de.nenick.quacc.core.speechinterpreter.SpeechResult;
-import de.nenick.toolscollection.amountparser.AmountParser;
-import de.nenick.toolscollection.amountparser.ParseValueFromIntegerFunction;
+import de.nenick.quacc.core.utils.StringPartUtil;
+import de.nenick.quacc.tools.AmountParser;
 import de.nenick.quacc.view.accounting_edit.EditAccountingView;
 
 @EBean
@@ -30,6 +29,9 @@ public class InterpretSpeechFunction {
 
     @Bean
     RecognizeValueFunction recognizeValueFunction;
+
+    @Bean
+    AmountParser amountParser;
 
     public void apply(EditAccountingView view, ArrayList<String> matches) {
         List<RecognitionResult> recognitionResults = new ArrayList<>();
@@ -80,7 +82,7 @@ public class InterpretSpeechFunction {
     private String interpretAccountingValue(String recognisedText, RecognitionResult recognitionResult) {
         RecognizeValueFunction.SpeechValueResult result = recognizeValueFunction.apply(recognisedText);
         if (result != null) {
-            recognitionResult.value = AmountParser.asString(result.value);
+            recognitionResult.value = amountParser.asString(result.value);
             return StringPartUtil.removePartWithLength(recognisedText, result.start, result.length);
         }
         return recognisedText;

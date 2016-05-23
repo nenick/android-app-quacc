@@ -20,7 +20,7 @@ public class ParseValueFromStringFunction {
     private static final int AFTER_COMMA = 1;
     private static final int NO_COMMA_FOUND = -1;
 
-    public static AmountFromStringResult apply(String value) {
+    public AmountFromStringResult apply(String value) {
         value = value.replaceAll(" ", "");
         if (value.isEmpty()) {
             return new AmountFromStringResult(AmountFromStringResult.ParseResult.EmptyInput);

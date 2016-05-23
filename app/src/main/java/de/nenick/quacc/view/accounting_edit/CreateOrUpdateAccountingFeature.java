@@ -12,8 +12,8 @@ import de.nenick.quacc.core.bookingentry.update.UpdateOnceOnlyBookingEntryFuncti
 import de.nenick.quacc.core.bookinginterval.BookingIntervalOption;
 import de.nenick.quacc.core.common.util.QuAccDateUtil;
 import de.nenick.quacc.database.provider.category.CategoryCursor;
+import de.nenick.quacc.tools.AmountParser;
 import de.nenick.toolscollection.amountparser.AmountFromStringResult;
-import de.nenick.toolscollection.amountparser.AmountParser;
 
 @EBean
 public class CreateOrUpdateAccountingFeature {
@@ -27,6 +27,9 @@ public class CreateOrUpdateAccountingFeature {
     @Bean
     UpdateOnceOnlyBookingEntryFunction updateOnceOnlyBookingEntryFunction;
 
+    @Bean
+    AmountParser amountParser;
+
     private long accountingId;
     private String initialInterval;
     EditAccountingView view;
@@ -38,7 +41,7 @@ public class CreateOrUpdateAccountingFeature {
 
         view.closeSoftKeyboard();
 
-        AmountFromStringResult valueResult = AmountParser.asInteger(view.getValue());
+        AmountFromStringResult valueResult = amountParser.asInteger(view.getValue());
         if (valueResult.report != AmountFromStringResult.ParseResult.Successful) {
             showParsingError(valueResult);
             return;

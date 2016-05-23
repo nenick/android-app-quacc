@@ -17,13 +17,13 @@ import de.nenick.quacc.database.bookingentry.BookingEntryRepository;
 import de.nenick.quacc.database.bookingentry.BookingEntrySpecById;
 import de.nenick.quacc.database.provider.bookingentry.BookingEntryCursor;
 import de.nenick.quacc.database.provider.category.CategoryCursor;
+import de.nenick.quacc.tools.AmountParser;
 import de.nenick.quacc.view.accounting_edit.adapter.CategoryAdapter;
 import de.nenick.quacc.view.accounting_edit.speechrecognition.SpeechRecognitionFeature;
 import de.nenick.quacc.view.common.adapter.IntervalAdapter;
 import de.nenick.quacc.view.common.adapter.TypeAdapter;
 import de.nenick.quacc.view.mvp.BasePresenterFragment;
 import de.nenick.quacc.view.mvp.BaseView;
-import de.nenick.toolscollection.amountparser.AmountParser;
 
 @EFragment(R.layout.fragment_create_accounting)
 @OptionsMenu(R.menu.menu_create_account)
@@ -60,6 +60,9 @@ public class EditAccountingFragment extends BasePresenterFragment {
 
     @Bean
     QuAccDateUtil quAccDateUtil;
+
+    @Bean
+    AmountParser amountParser;
 
     @Override
     protected BaseView getBaseView() {
@@ -98,7 +101,7 @@ public class EditAccountingFragment extends BasePresenterFragment {
         view.setAccountingInterval(accountingIntervalInitial);
         view.setAccountingType(accountingCursor.getDirection());
         view.setDate(QuAccDateUtil.toString(accountingCursor.getDate()));
-        view.setValue(AmountParser.asString(accountingCursor.getAmount()));
+        view.setValue(amountParser.asString(accountingCursor.getAmount()));
         view.setComment(accountingCursor.getComment());
         accountingCursor.close();
     }

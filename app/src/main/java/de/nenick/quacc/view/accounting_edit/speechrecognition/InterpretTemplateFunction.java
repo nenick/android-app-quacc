@@ -6,12 +6,10 @@ import org.androidannotations.annotations.EBean;
 import java.util.ArrayList;
 import java.util.List;
 
-
 import de.nenick.quacc.core.speechinterpreter.RecognizeTemplateFunction;
 import de.nenick.quacc.core.speechinterpreter.RecognizeTemplateFunction.SpeechTemplateResult;
 import de.nenick.quacc.database.provider.bookingtemplate.BookingTemplateCursor;
-import de.nenick.toolscollection.amountparser.AmountParser;
-import de.nenick.toolscollection.amountparser.ParseValueFromIntegerFunction;
+import de.nenick.quacc.tools.AmountParser;
 import de.nenick.quacc.view.accounting_edit.EditAccountingView;
 
 @EBean
@@ -19,6 +17,9 @@ public class InterpretTemplateFunction {
 
     @Bean
     RecognizeTemplateFunction recognizeTemplateFunction;
+
+    @Bean
+    AmountParser amountParser;
 
     public boolean apply(EditAccountingView view, ArrayList<String> matches) {
         List<SpeechTemplateResult> speechTemplateResults = searchForTemplateMatches(matches);
@@ -63,7 +64,7 @@ public class InterpretTemplateFunction {
             comment += speechTemplateResult.comment;
         }
         view.setComment(comment);
-        view.setValue(AmountParser.asString(speechTemplateResult.value));
+        view.setValue(amountParser.asString(speechTemplateResult.value));
         bookingTemplateCursor.close();
     }
 
