@@ -10,11 +10,11 @@ import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.InstanceState;
 
+import de.nenick.quacc.activities.bookingcreation.EditAccountingActivity_;
 import de.nenick.quacc.database.LoaderCallback;
 import de.nenick.quacc.database.account.AccountRepository;
 import de.nenick.quacc.database.account.AccountSpecAll;
 import de.nenick.quacc.database.provider.account.AccountCursor;
-import de.nenick.quacc.view.accounting_edit.EditAccountingActivity_;
 
 @EActivity
 public class BookingEntriesActivity extends AppCompatActivity implements
