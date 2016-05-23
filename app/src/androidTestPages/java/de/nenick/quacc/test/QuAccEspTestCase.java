@@ -31,6 +31,8 @@ public abstract class QuAccEspTestCase<A extends Activity> extends EspressoTestB
 
     public EspButton dummyAppLauncher = EspButton.byId(R.id.btn_start_app);
 
+    public QuAccDateUtil quAccDateUtil;
+
     @Before
     public void setupQuAcc() {
         Espresso.registerIdlingResources(BackgroundThreadCounter.instance());
@@ -39,6 +41,7 @@ public abstract class QuAccEspTestCase<A extends Activity> extends EspressoTestB
         QuAccSQLiteOpenHelper.getInstance(InstrumentationRegistry.getTargetContext()).close();
         EspAppDataTool.clearApplicationData();
 
+        quAccDateUtil = QuAccDateUtil_.getInstance_(InstrumentationRegistry.getContext());
         try {
             useFixedDate();
         } catch (Exception e) {
@@ -57,7 +60,7 @@ public abstract class QuAccEspTestCase<A extends Activity> extends EspressoTestB
     protected void useFixedDate() throws NoSuchFieldException, IllegalAccessException {
         Field field = QuAccDateUtil.class.getDeclaredField("todayProvider");
         field.setAccessible(true);
-        field.set(QuAccDateUtil_.getInstance_(InstrumentationRegistry.getContext()), new QuAccDateUtil.TodayProvider() {
+        field.set(quAccDateUtil, new QuAccDateUtil.TodayProvider() {
             @Override
             public DateTime get() {
                 // when changing date, keep circleci emulator config in sync with the given day and year

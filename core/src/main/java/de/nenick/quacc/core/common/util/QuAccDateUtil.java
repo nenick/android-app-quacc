@@ -17,7 +17,7 @@ public class QuAccDateUtil {
 
     private TodayProvider todayProvider = new TodayProvider();
 
-    public QuAccDateUtil getInstance() {
+    public static QuAccDateUtil getInstance() {
         return QuAccDateUtil_.getInstance_(null);
     }
 
@@ -28,7 +28,7 @@ public class QuAccDateUtil {
     }
 
     public static String currentDate() {
-        return new DateTime().toString(defaultPattern);
+        return getInstance().today().toString(defaultPattern);
     }
 
     public static String currentYear() {
