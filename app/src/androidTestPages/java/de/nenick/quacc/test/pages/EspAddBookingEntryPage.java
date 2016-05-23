@@ -11,16 +11,14 @@ import android.widget.DatePicker;
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 
+import de.nenick.espressomacchiato.elements.EspButton;
 import de.nenick.espressomacchiato.elements.EspPage;
 import de.nenick.quacc.R;
 import de.nenick.quacc.database.provider.category.CategoryCursor;
 
 import static android.support.test.espresso.Espresso.onData;
 import static android.support.test.espresso.Espresso.onView;
-import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.action.ViewActions.typeText;
-import static android.support.test.espresso.assertion.ViewAssertions.matches;
-import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withClassName;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
@@ -115,5 +113,15 @@ public class EspAddBookingEntryPage extends EspPage {
 
     public EspressoAddAccountingActionbar actionbar() {
         return new EspressoAddAccountingActionbar();
+    }
+
+    public EspButton endDateCheckbox() {
+        return EspButton.byId(R.id.endDateCheck);
+    }
+
+    public void chooseEndDate(int day, int month, int year) {
+        onView(withId(R.id.endDate)).perform(ViewActions.click());
+        onView(withClassName(is(DatePicker.class.getName()))).perform(setDate(day, month -1, year));
+        onView(withId(android.R.id.button1)).perform(ViewActions.click());
     }
 }

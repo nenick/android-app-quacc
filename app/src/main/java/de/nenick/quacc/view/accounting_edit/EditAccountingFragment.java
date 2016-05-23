@@ -17,14 +17,13 @@ import de.nenick.quacc.database.bookingentry.BookingEntryRepository;
 import de.nenick.quacc.database.bookingentry.BookingEntrySpecById;
 import de.nenick.quacc.database.provider.bookingentry.BookingEntryCursor;
 import de.nenick.quacc.database.provider.category.CategoryCursor;
-import de.nenick.toolscollection.amountparser.AmountParser;
-import de.nenick.toolscollection.amountparser.ParseValueFromIntegerFunction;
 import de.nenick.quacc.view.accounting_edit.adapter.CategoryAdapter;
 import de.nenick.quacc.view.accounting_edit.speechrecognition.SpeechRecognitionFeature;
 import de.nenick.quacc.view.common.adapter.IntervalAdapter;
 import de.nenick.quacc.view.common.adapter.TypeAdapter;
 import de.nenick.quacc.view.mvp.BasePresenterFragment;
 import de.nenick.quacc.view.mvp.BaseView;
+import de.nenick.toolscollection.amountparser.AmountParser;
 
 @EFragment(R.layout.fragment_create_accounting)
 @OptionsMenu(R.menu.menu_create_account)
@@ -59,6 +58,9 @@ public class EditAccountingFragment extends BasePresenterFragment {
     @Bean
     CreateOrUpdateAccountingFeature createOrUpdateAccountingFeature;
 
+    @Bean
+    QuAccDateUtil quAccDateUtil;
+
     @Override
     protected BaseView getBaseView() {
         return view;
@@ -68,8 +70,8 @@ public class EditAccountingFragment extends BasePresenterFragment {
     protected void onViewStart() {
         speechRecognitionFeature.setView(view);
 
-        view.setDate(QuAccDateUtil.currentDate());
-        view.setEndDate(QuAccDateUtil.currentDate());
+        view.setDate(quAccDateUtil.currentDate());
+        view.setEndDate(quAccDateUtil.currentDate());
         view.hideEndDate();
 
         view.setAccounts(getAccountsFunction.apply());

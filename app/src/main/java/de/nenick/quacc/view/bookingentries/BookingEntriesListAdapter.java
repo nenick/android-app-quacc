@@ -11,38 +11,47 @@ import org.androidannotations.annotations.EBean;
 import org.joda.time.DateTime;
 
 import java.util.Date;
-import java.util.HashMap;
 
 import de.nenick.expandablerecyclerview.ExpandableCursorTreeAdapter;
+import de.nenick.quacc.core.bookingentry.creation.CreateAccountingFromIntervalsFunction;
 import de.nenick.quacc.database.LoaderCallback;
 import de.nenick.quacc.database.account.AccountRepository;
 import de.nenick.quacc.database.bookingentry.BookingEntryRepository;
 import de.nenick.quacc.database.bookingentry.BookingEntrySpecCategoryEntriesByRange;
 import de.nenick.quacc.database.bookingentry.BookingEntrySpecCategorySummeryByRange;
 import de.nenick.quacc.database.bookingentry.CategorySummeryCursor;
+import de.nenick.quacc.database.bookinginterval.BookingIntervalRepository;
+import de.nenick.quacc.database.bookinginterval.BookingIntervalSpecAll;
 import de.nenick.quacc.database.provider.bookingentry.BookingEntryCursor;
+import de.nenick.quacc.database.provider.bookinginterval.BookingIntervalCursor;
 
 @EBean
 class BookingEntriesListAdapter extends ExpandableCursorTreeAdapter<CategorySummeryListItem, BookingEntryListItem> {
 
-/*
-    @Bean
-    GetAccountingByGroupFunction getAccountingByGroupFunction;
+    /*
+        @Bean
+        GetAccountingByGroupFunction getAccountingByGroupFunction;
 
-    @Bean
-    GetGroupsFunction getGroupsFunction;
+        @Bean
+        GetGroupsFunction getGroupsFunction;
 
-    @Bean
-    AccountingIntervalTranslator accountingIntervalTranslator;
+        @Bean
+        AccountingIntervalTranslator accountingIntervalTranslator;
 
-    @Bean
-    ParseValueFromIntegerFunction parseValueFromIntegerFunction;
-*/
+        @Bean
+        ParseValueFromIntegerFunction parseValueFromIntegerFunction;
+    */
     @Bean
     AccountRepository accountRepository;
 
     @Bean
     BookingEntryRepository bookingEntryRepository;
+
+    @Bean
+    BookingIntervalRepository bookingIntervalRepository;
+
+    @Bean
+    protected CreateAccountingFromIntervalsFunction createAccountingFromIntervalsFunction;
 
     private long account;
 
@@ -50,8 +59,16 @@ class BookingEntriesListAdapter extends ExpandableCursorTreeAdapter<CategorySumm
         super(context);
     }
 
-    public void update(long account, DateTime startDate, DateTime endDate) {
+    public void update(final long account, DateTime startDate, final DateTime endDate) {
         this.account = account;
+
+        bookingIntervalRepository.loader(433, new BookingIntervalSpecAll(), new LoaderCallback<BookingIntervalCursor>() {
+            @Override
+            public void onLoadFinished(@Nullable BookingIntervalCursor cursor) {
+                createAccountingFromIntervalsFunction.apply(account, endDate);
+            }
+        });
+
         bookingEntryRepository.loader(432, new BookingEntrySpecCategorySummeryByRange(account, startDate.toDate(), endDate.toDate()), new LoaderCallback<BookingEntryCursor>() {
             @Override
             public void onLoadFinished(@Nullable BookingEntryCursor cursor) {
@@ -70,7 +87,7 @@ class BookingEntriesListAdapter extends ExpandableCursorTreeAdapter<CategorySumm
         Date endDate = categorySummeryCursor.getDateEnd();
 
         BookingEntrySpecCategoryEntriesByRange specification = new BookingEntrySpecCategoryEntriesByRange(account, startDate, endDate, categoryId, type);
-        bookingEntryRepository.loader(1000 + (int)categorySummeryCursor.getId(), specification, new LoaderCallback<BookingEntryCursor>() {
+        bookingEntryRepository.loader(1000 + (int) categorySummeryCursor.getId(), specification, new LoaderCallback<BookingEntryCursor>() {
             @Override
             public void onLoadFinished(@Nullable BookingEntryCursor cursor) {
                 Log.e("grouppos", "" + groupPosition);

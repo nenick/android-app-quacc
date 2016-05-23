@@ -8,6 +8,7 @@ import java.util.Date;
 import de.nenick.quacc.database.provider.bookingentry.BookingEntryColumns;
 import de.nenick.quacc.database.provider.bookingentry.BookingEntryCursor;
 
+// TODO test for failure when switched DATE / MIN_DATE
 public class CategorySummeryCursor extends BookingEntryCursor {
 
     public static String MIN_DATE = "minDate";
@@ -22,7 +23,7 @@ public class CategorySummeryCursor extends BookingEntryCursor {
      */
     @NonNull
     public Date getDateStart() {
-        Date res = getDateOrNull(BookingEntryColumns.DATE);
+        Date res = getDateOrNull(MIN_DATE);
         if (res == null)
             throw new NullPointerException("The value of 'date' in the database was null, which is not allowed according to the model definition");
         return res;
@@ -34,7 +35,7 @@ public class CategorySummeryCursor extends BookingEntryCursor {
      */
     @NonNull
     public Date getDateEnd() {
-        Date res = getDateOrNull(MIN_DATE);
+        Date res = getDateOrNull(BookingEntryColumns.DATE);
         if (res == null)
             throw new NullPointerException("The value of 'date' in the database was null, which is not allowed according to the model definition");
         return res;

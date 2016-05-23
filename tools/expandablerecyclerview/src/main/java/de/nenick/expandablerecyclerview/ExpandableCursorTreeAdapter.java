@@ -82,6 +82,7 @@ public abstract class ExpandableCursorTreeAdapter<GVH extends ExpandableCursorTr
 
     public void setGroupCursor(Cursor cursor) {
         dataSource.setGroupCursor(cursor);
+        dataSource.notifyDataSetChanged(true);
     }
 
     @Override

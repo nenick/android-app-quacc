@@ -27,8 +27,8 @@ public class QuAccDateUtil {
         return new DateTime();
     }
 
-    public static String currentDate() {
-        return getInstance().today().toString(defaultPattern);
+    public String currentDate() {
+        return today().toString(defaultPattern);
     }
 
     public static String currentYear() {

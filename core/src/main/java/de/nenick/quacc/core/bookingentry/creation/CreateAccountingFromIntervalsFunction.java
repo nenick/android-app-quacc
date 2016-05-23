@@ -26,11 +26,16 @@ public class CreateAccountingFromIntervalsFunction {
     public void apply(String accountName, DateTime updateUntil) {
         AccountCursor account = accountRepository.query(new AccountSpecByName(accountName));
         account.moveToFirst();
+        long accountId = account.getId();
+        account.close();
 
-        BookingIntervalCursor intervalCursor = bookingIntervalRepository.query(new BookingIntervalSpecNeedUpdate(account.getId(), updateUntil.toDate()));
+        apply(accountId, updateUntil);
+    }
+
+    public void apply(long accountId, DateTime updateUntil) {
+        BookingIntervalCursor intervalCursor = bookingIntervalRepository.query(new BookingIntervalSpecNeedUpdate(accountId, updateUntil.toDate()));
         while (intervalCursor.moveToNext()) {
             createBookingEntryFromIntervalFunction.apply(intervalCursor, updateUntil);
         }
-        account.close();
     }
 }

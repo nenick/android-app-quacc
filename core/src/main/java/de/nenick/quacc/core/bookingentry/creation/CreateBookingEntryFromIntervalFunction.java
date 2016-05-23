@@ -75,11 +75,11 @@ public class CreateBookingEntryFromIntervalFunction {
     private void createAccountingForNextDate() {
         long bookingEntryId = createBookingIntervalEntryFunction.apply(intervalCursor, nextDate);
         if (existChangeForNextDate()) {
-            if(intervalChangeCursor.getFollowUp()) {
-                if(intervalChangeCursor.getComment() != null) {
+            if (intervalChangeCursor.getFollowUp()) {
+                if (intervalChangeCursor.getComment() != null) {
                     followUpChanges.comment = intervalChangeCursor.getComment();
                 }
-                if(intervalChangeCursor.getAmount() != null) {
+                if (intervalChangeCursor.getAmount() != null) {
                     followUpChanges.amount = intervalChangeCursor.getAmount();
                 }
             }
@@ -113,14 +113,15 @@ public class CreateBookingEntryFromIntervalFunction {
     }
 
     private void markIntervalAsUpdatedUntilGivenDate() {
-        BookingIntervalContentValues values = new BookingIntervalContentValues().putAmount(followUpChanges.amount)
-            .putDateLast(lastDate)
+        BookingIntervalContentValues values = new BookingIntervalContentValues()
+                .putDateLast(lastDate)
                 .putDateUpdatedUntil(updateUntil.toDate());
-        bookingIntervalRepository.update(values, new BookingIntervalSpecById(intervalChangeCursor.getId()));
+        bookingIntervalRepository.update(values, new BookingIntervalSpecById(intervalCursor.getId()));
     }
 
     private boolean isNextAccountingDateInRangeOfUpdateTarget() {
-        return QuAccDateUtil.isGreaterEq(nextDate, updateUntil);
+        return QuAccDateUtil.isGreaterEq(nextDate, updateUntil) &&
+                (intervalCursor.getDateEnd().equals(CreateIntervalFunction.NO_DATE_GIVEN) || QuAccDateUtil.isGreaterEq(nextDate, new DateTime(intervalCursor.getDateEnd())));
     }
 
     private void queryAllChangesForGivenInterval() {
@@ -180,14 +181,14 @@ public class CreateBookingEntryFromIntervalFunction {
     }
 
     private void collectFollowUpChangesUntilLastDate() {
-        BookingIntervalChangeCursor allForIntervalUntil = bookingIntervalChangeRepository.query(new BookingIntervalChangeSpecByIntervalIdUntilDate(intervalChangeCursor.getId(), lastDate));
+        BookingIntervalChangeCursor allForIntervalUntil = bookingIntervalChangeRepository.query(new BookingIntervalChangeSpecByIntervalIdUntilDate(intervalCursor.getId(), lastDate));
 
         while (allForIntervalUntil.moveToNext()) {
-            if(allForIntervalUntil.getFollowUp()) {
-                if(intervalChangeCursor.getComment() != null) {
+            if (allForIntervalUntil.getFollowUp()) {
+                if (intervalChangeCursor.getComment() != null) {
                     followUpChanges.comment = intervalChangeCursor.getComment();
                 }
-                if(intervalChangeCursor.getAmount() != null) {
+                if (intervalChangeCursor.getAmount() != null) {
                     followUpChanges.amount = intervalChangeCursor.getAmount();
                 }
             }
