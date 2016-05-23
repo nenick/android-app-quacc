@@ -1,19 +1,12 @@
 package de.nenick.quacc.test.requirements.bookingentriesactivity;
 
-import android.support.design.widget.AppBarLayout;
-import android.support.design.widget.CollapsingToolbarLayout;
-
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import de.nenick.espressomacchiato.elements.EspDevice;
 import de.nenick.espressomacchiato.elements.EspPage;
-import de.nenick.espressomacchiato.elements.EspView;
-import de.nenick.espressomacchiato.elements.support.EspRecyclerView;
 import de.nenick.quacc.R;
-import de.nenick.quacc.core.bookingentry.direction.BookingDirectionOption;
 import de.nenick.quacc.test.DummyLauncherActivity_;
 import de.nenick.quacc.test.QuAccEspTestCase;
 import de.nenick.quacc.test.data.TestData;
@@ -76,18 +69,35 @@ public class RotateSpec extends QuAccEspTestCase<DummyLauncherActivity_> {
     @Test
     public void testToolbarState() {
         // show extended toolbar
-        EspView.byId(R.id.report).assertIsDisplayedOnScreen();
+        bookingEntriesPage.toolbar().report().assertIsDisplayedOnScreen();
 
         // still showing after rotation
         device.rotateToLandscape();
-        EspView.byId(R.id.report).assertIsDisplayedOnScreen();
+        bookingEntriesPage.toolbar().report().assertIsDisplayedOnScreen();
 
         // hide extended toolbar
         EspPage.byId(R.id.activity_booking_entries).swipeUp();
-        EspView.byId(R.id.report).assertIsHidden();
+        bookingEntriesPage.toolbar().report().assertIsHidden();
 
         // still hidden after rotation
         device.rotateToPortrait();
-        EspView.byId(R.id.report).assertIsHidden();
+        bookingEntriesPage.toolbar().report().assertIsHidden();
+    }
+
+    @Test
+    public void testSwitchDateState() {
+        TestData.bookingEntry().create();
+        bookingEntriesPage.list().assertItemCountIs(1);
+        bookingEntriesPage.switchDate().assertIsHidden();
+
+        bookingEntriesPage.toolbar().switchDateToggle().click();
+        bookingEntriesPage.switchDate().assertIsDisplayedOnScreen();
+
+        bookingEntriesPage.switchDate().monthUp().click();
+        bookingEntriesPage.list().assertItemCountIs(0);
+
+        device.rotateToLandscape();
+        bookingEntriesPage.switchDate().assertIsDisplayedOnScreen();
+        bookingEntriesPage.list().assertItemCountIs(0);
     }
 }

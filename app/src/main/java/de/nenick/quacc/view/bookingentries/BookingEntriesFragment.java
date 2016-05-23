@@ -7,9 +7,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import org.androidannotations.annotations.AfterInject;
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EFragment;
+import org.androidannotations.annotations.InstanceState;
 import org.androidannotations.annotations.OptionsItem;
 import org.androidannotations.annotations.OptionsMenu;
 import org.joda.time.DateTime;
@@ -34,18 +36,33 @@ public class BookingEntriesFragment extends Fragment implements BookingEntriesVi
     @Bean
     protected MonthTranslator monthTranslator;
 
-    private DateTime selectedDate;
+    @InstanceState
+    protected boolean switchDateExpanded;
+
+    @InstanceState
+    protected DateTime selectedDate;
+
     private long account;
+
+    @AfterInject
+    protected void onAfterInjectBeans() {
+        if(selectedDate == null) {
+            // else it was restored from instance state
+            selectedDate = quAccDateUtil.today();
+        }
+        view.setViewCallback(this);
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        selectedDate = quAccDateUtil.today();
-        view.setViewCallback(this);
         return view.root();
     }
 
     @AfterViews
     void onAfterViewsCreated() {
+        if(switchDateExpanded) {
+            view.toggleDateSelector();
+        }
         view.setAdapter(adapter);
         updateSelectedDateText();
     }
@@ -58,6 +75,7 @@ public class BookingEntriesFragment extends Fragment implements BookingEntriesVi
 
     @OptionsItem(R.id.dateSelectorToggle)
     public void onClickDateSelectorToggle() {
+        switchDateExpanded = !switchDateExpanded;
         view.toggleDateSelector();
     }
 

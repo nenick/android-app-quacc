@@ -43,6 +43,10 @@ public class EspBookingEntriesPage extends EspPage {
         public EspButton switchDateToggle() {
             return EspButton.byId(R.id.dateSelectorToggle);
         }
+
+        public EspView report() {
+            return EspView.byId(R.id.report);
+        }
     }
 
     public static class QuAccSwitchDate extends EspView {
