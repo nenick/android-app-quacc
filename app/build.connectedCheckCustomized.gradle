@@ -22,8 +22,8 @@ import com.android.builder.internal.testing.CustomTestRunListener
 import com.android.ddmlib.AndroidDebugBridge
 import com.android.ddmlib.IDevice
 import com.android.ddmlib.testrunner.RemoteAndroidTestRunner
-import com.android.utils.ILogger
 import com.android.ddmlib.testrunner.TestRunResult
+import com.android.utils.ILogger
 
 task connectedCheckRunTests << {
     def applicationId = "de.nenick.quacc"
@@ -183,6 +183,36 @@ task jacocoTestReportAndroid(type: JacocoReport) {
     sourceDirectories = files(coverageSourceDirs)
     additionalSourceDirs = files(coverageSourceDirs)
     executionData = files('build/outputs/code-coverage/connected/coverage.ec')
+
+    // fix issue with double $$ at generate report task
+    doFirst {
+        applyDollarWorkaround('app/build/intermediates/classes/')
+    }
+    // avoid some side effects through revert renaming
+    doLast {
+        revertDollarWorkaround('app/build/intermediates/classes/')
+    }
+}
+
+def applyDollarWorkaround(String pathWithDaggerClasses) {
+    def filePath = new File(pathWithDaggerClasses)
+    if (filePath.exists()) {
+        filePath.eachFileRecurse { file ->
+            if (file.name.contains('$$')) {
+                file.renameTo(file.path.replace('$$', '$'))
+            }
+        }
+    }
+}
+def revertDollarWorkaround(String pathWithDaggerClasses) {
+    def filePath = new File(pathWithDaggerClasses)
+    if (filePath.exists()) {
+        filePath.eachFileRecurse { file ->
+            if (file.name.contains('$Impl')) {
+                file.renameTo(file.path.replace('$Impl', '$$Impl'))
+            }
+        }
+    }
 }
 
 task connectedCheckCustomized(dependsOn: [tasks.connectedCheckRunTests, tasks.jacocoTestReportAndroid])
