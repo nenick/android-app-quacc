@@ -18,9 +18,7 @@ import static org.junit.Assert.assertEquals;
 
 public class ReferencePicuture {
 
-    public static final String screenshotUrl = "https://circle-artifacts.com/gh/nenick/QuAcc/240/artifacts/0/tmp/circle-junit.f046x12/test-screenshots/";
-
-    private static final double COMPARE_DELTA_DATE_CHANGE = 0.4;
+    public static final String screenshotUrl = "https://circle-artifacts.com/gh/nenick/QuAcc/243/artifacts/0/tmp/circle-junit.joMmG5P/test-screenshots/";
 
     public static void download(String name) {
         try {
@@ -53,10 +51,6 @@ public class ReferencePicuture {
         return InstrumentationRegistry.getTargetContext().getFilesDir().toString() + "/" + name + ".png";
     }
 
-    public static void checkWithoutError(String pictureName) {
-        check(pictureName, false);
-    }
-
     public static void check(String pictureName) {
         check(pictureName, true);
     }
@@ -73,7 +67,7 @@ public class ReferencePicuture {
                 EspScreenshotTool.screenshotLocation(pictureName).getAbsolutePath());
 
         if(throwError) {
-            assertEquals(100.0, percentage, EspScreenshotTool.COMPARE_DELTA_TIME_CHANGE + COMPARE_DELTA_DATE_CHANGE);
+            assertEquals(100.0, percentage, EspScreenshotTool.COMPARE_DELTA_TIME_CHANGE);
         }
     }
 }
