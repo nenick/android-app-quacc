@@ -15,28 +15,45 @@ import org.androidannotations.annotations.OptionsMenu;
 import org.joda.time.DateTime;
 
 import de.nenick.quacc.R;
+import de.nenick.quacc.core.common.util.QuAccDateUtil;
+import de.nenick.quacc.core.i18n.MonthTranslator;
 
 @EFragment
 @OptionsMenu(R.menu.date_selector)
-public class BookingEntriesFragment extends Fragment {
-
-    BookingEntriesView view;
+public class BookingEntriesFragment extends Fragment implements BookingEntriesView.ViewCallback {
 
     @Bean
-    BookingEntriesListAdapter adapter;
+    protected BookingEntriesView view;
+
+    @Bean
+    protected BookingEntriesListAdapter adapter;
+
+    @Bean
+    protected QuAccDateUtil quAccDateUtil;
+
+    @Bean
+    protected MonthTranslator monthTranslator;
+
+    private DateTime selectedDate;
+    private long account;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return view = BookingEntriesView_.build(inflater.getContext(), null);
+        selectedDate = quAccDateUtil.today();
+        view.setViewCallback(this);
+        return view.root();
     }
 
     @AfterViews
     void onAfterViewsCreated() {
         view.setAdapter(adapter);
+        updateSelectedDateText();
     }
 
     public void setAccount(long account) {
-        adapter.update(account, new DateTime(0), new DateTime());
+        this.account = account;
+        updateSelectedDateText();
+        updateBookingList();
     }
 
     @OptionsItem(R.id.dateSelectorToggle)
@@ -44,4 +61,43 @@ public class BookingEntriesFragment extends Fragment {
         view.toggleDateSelector();
     }
 
+    @Override
+    public void onClickMonthUp() {
+        selectedDate = selectedDate.plusMonths(1);
+        updateSelectedDateText();
+        updateBookingList();
+    }
+
+    @Override
+    public void onClickMonthDown() {
+        selectedDate = selectedDate.minusMonths(1);
+        updateSelectedDateText();
+        updateBookingList();
+    }
+
+    @Override
+    public void onClickYearUp() {
+        selectedDate = selectedDate.plusYears(1);
+        updateSelectedDateText();
+        updateBookingList();
+    }
+
+    @Override
+    public void onClickYearDown() {
+        selectedDate = selectedDate.minusYears(1);
+        updateSelectedDateText();
+        updateBookingList();
+    }
+
+    private void updateSelectedDateText() {
+        int month = selectedDate.getMonthOfYear();
+        view.setMonth(monthTranslator.translate(month));
+
+        int year = selectedDate.getYear();
+        view.setYear(String.valueOf(year));
+    }
+
+    private void updateBookingList() {
+        adapter.update(account, quAccDateUtil.firstDayOfMonth(selectedDate), quAccDateUtil.lastDayOfMonth(selectedDate));
+    }
 }

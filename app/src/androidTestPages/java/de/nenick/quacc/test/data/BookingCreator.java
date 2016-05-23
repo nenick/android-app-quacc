@@ -9,6 +9,7 @@ import java.util.Date;
 import de.nenick.quacc.core.bookingentry.creation.CreateBookingEntryFunction_;
 import de.nenick.quacc.core.bookingentry.direction.BookingDirectionOption;
 import de.nenick.quacc.core.bookinginterval.BookingIntervalOption;
+import de.nenick.quacc.core.common.util.QuAccDateUtil_;
 
 public class BookingCreator {
 
@@ -16,7 +17,7 @@ public class BookingCreator {
     private BookingDirectionOption direction = BookingDirectionOption.outgoing;
     private BookingIntervalOption interval = BookingIntervalOption.once;
     private TestData.Category category = TestData.Category.Allgemein;
-    private Date date = DateTime.now().withTimeAtStartOfDay().toDate();
+    private Date date = QuAccDateUtil_.getInstance_(InstrumentationRegistry.getContext()).today().withTimeAtStartOfDay().toDate();
     private int amount = 40;
     private String comment = "dummy entry";
 

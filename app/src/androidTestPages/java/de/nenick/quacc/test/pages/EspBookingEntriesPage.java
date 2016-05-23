@@ -4,6 +4,7 @@ package de.nenick.quacc.test.pages;
 import de.nenick.espressomacchiato.elements.EspButton;
 import de.nenick.espressomacchiato.elements.EspPage;
 import de.nenick.espressomacchiato.elements.EspTextView;
+import de.nenick.espressomacchiato.elements.EspView;
 import de.nenick.espressomacchiato.elements.support.EspRecyclerView;
 import de.nenick.espressomacchiato.elements.support.EspRecyclerViewItem;
 import de.nenick.quacc.R;
@@ -27,6 +28,52 @@ public class EspBookingEntriesPage extends EspPage {
 
     public EspButton addButton() {
         return EspButton.byId(R.id.btn_add_booking);
+    }
+
+    public QuAccSwitchDate switchDate() {
+        return new QuAccSwitchDate(EspView.byId(R.id.bookingDateSelectorLayout));
+    }
+
+    public QuAccToolbar toolbar() {
+        return new QuAccToolbar();
+    }
+
+    public static class QuAccToolbar {
+
+        public EspButton switchDateToggle() {
+            return EspButton.byId(R.id.dateSelectorToggle);
+        }
+    }
+
+    public static class QuAccSwitchDate extends EspView {
+
+        public QuAccSwitchDate(EspView template) {
+            super(template);
+        }
+
+        public EspTextView month() {
+            return EspTextView.byId(R.id.month);
+        }
+
+        public EspTextView monthDown() {
+            return EspTextView.byId(R.id.monthDown);
+        }
+
+        public EspTextView monthUp() {
+            return EspTextView.byId(R.id.monthUp);
+        }
+
+        public EspTextView year() {
+            return EspTextView.byId(R.id.year);
+        }
+
+        public EspTextView yearDown() {
+            return EspTextView.byId(R.id.yearDown);
+        }
+
+        public EspTextView yearUp() {
+            return EspTextView.byId(R.id.yearUp);
+        }
     }
 
     public static class EspBookingList extends EspRecyclerView {
