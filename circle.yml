@@ -54,9 +54,19 @@ test:
     - adb logcat -c
 
     - ./gradlew app:connectedCheckCustomized
+    - mkdir -p $CIRCLE_TEST_REPORTS/quacc_android_tests/xml
+    - cp -r app/build/outputs/androidTest-results/connected $CIRCLE_TEST_REPORTS/quacc_android_tests/xml
+    - mkdir -p $CIRCLE_TEST_REPORTS/quacc_android_tests/html
+    - cp -r app/build/reports/androidTests/connected $CIRCLE_TEST_REPORTS/quacc_android_tests/html
 
     # collect logs from emulator and make them accessable
     - adb logcat -d | grep -v GpsLocationProvider | grep -v MediaProvider | grep -v MetadataRetrieverClient | grep -v BackupManagerService | grep -v ARMAssembler | grep -v Choreographer | grep -v IInputConnectionWrapper | grep -v "I/art" | grep -v ConnectivityService | grep -v "D/PhoneInterfaceManager" | grep -v "I/Email" | grep -v "I/Exchange" | grep -v "E/libEGL" | grep -v "D/gralloc" | grep -v "E/installd" | grep -v "D/ConnectivityManager" | grep -v "D/WIFI" | grep -v "V/Mms" > $CIRCLE_ARTIFACTS/logcat_emulator.txt
+
+    - ./gradlew apppictures:connectedAndroidTest
+    - mkdir -p $CIRCLE_TEST_REPORTS/quacc_pictures_android_tests/xml
+    - cp -r apppictures/build/outputs/androidTest-results/connected $CIRCLE_TEST_REPORTS/quacc_pictures_android_tests/xml
+    - mkdir -p $CIRCLE_TEST_REPORTS/quacc_pictures_android_tests/html
+    - cp -r apppictures/build/reports/androidTests/connected $CIRCLE_TEST_REPORTS/quacc_pictures_android_tests/html
 
     # release memory for following tests
     - kill -9 `ps ax | grep -m 1 "emulator64-arm" | awk '{ print $1 }'`

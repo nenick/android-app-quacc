@@ -35,6 +35,6 @@ public class BookingEntriesListToolbarSpec extends QuAccEspTestCase<DummyLaunche
         // toolbar extra information are gone
         EspView.byId(R.id.report).assertIsHidden();
 
-        ReferencePicuture.check("booking list toolbar collapsed");
+        ReferencePicuture.take("booking list toolbar collapsed");
     }
 }

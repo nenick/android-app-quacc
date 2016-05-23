@@ -32,7 +32,7 @@ public class AccountSwitchSpec extends QuAccEspTestCase<DummyLauncherActivity_> 
         bookingEntriesPage.drawer().accountBar().assertIsDisplayedOnScreen();
         bookingEntriesPage.drawer().accountKreditkarte().assertIsDisplayedOnScreen();
 
-        ReferencePicuture.check("open drawer");
+        ReferencePicuture.take("open drawer");
 
         // initial account is selected
         bookingEntriesPage.drawer().accountGirokonto().assertIsSelected();

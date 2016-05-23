@@ -1,0 +1,25 @@
+buildscript {
+    repositories {
+        jcenter()
+    }
+}
+
+apply plugin: 'com.android.test'
+
+android {
+    compileSdkVersion 23
+    buildToolsVersion '23.0.3'
+
+    targetProjectPath ':app'
+    targetVariant 'debug'
+
+    defaultConfig {
+        minSdkVersion 21
+        testApplicationId 'de.nenick.quacc.test'
+        testInstrumentationRunner 'android.support.test.runner.AndroidJUnitRunner'
+    }
+}
+
+dependencies {
+    compile project(':espresso-macchiato')
+}

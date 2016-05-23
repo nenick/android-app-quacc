@@ -23,7 +23,7 @@ public class BookingEntriesDateSwitchSpec extends QuAccEspTestCase<DummyLauncher
     public void testSwitchDate() {
         bookingEntriesPage.toolbar().switchDateToggle().click();
 
-        ReferencePicuture.check("date switch expanded");
+        ReferencePicuture.take("date switch expanded");
 
         TestData.bookingEntry().create();
         EspWait.forDelay(1000);

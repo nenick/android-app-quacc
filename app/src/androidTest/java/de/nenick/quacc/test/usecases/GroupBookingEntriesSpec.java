@@ -33,7 +33,7 @@ public class GroupBookingEntriesSpec extends QuAccEspTestCase<DummyLauncherActiv
         // booking entries are grouped
         bookingEntriesPage.list().assertItemCountIs(2);
 
-        ReferencePicuture.check("booking groups closed");
+        ReferencePicuture.take("booking groups closed");
 
         // show booking entries after expanding first group
         bookingEntriesPage.list().itemByVisibleIndex(0).click();
@@ -43,6 +43,6 @@ public class GroupBookingEntriesSpec extends QuAccEspTestCase<DummyLauncherActiv
         bookingEntriesPage.list().itemByVisibleIndex(3).click();
         bookingEntriesPage.list().assertItemCountIs(5);
 
-        ReferencePicuture.check("booking groups opened");
+        ReferencePicuture.take("booking groups opened");
     }
 }

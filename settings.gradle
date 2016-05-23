@@ -1,5 +1,7 @@
 include ':app', ':database', ':core'
 
+include ':apppictures'
+
 include ':tools:robolectricpages'
 include ':tools:toolscollection'
 include ':tools:speechrecognition'

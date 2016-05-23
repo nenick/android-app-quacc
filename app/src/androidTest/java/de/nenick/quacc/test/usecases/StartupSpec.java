@@ -30,7 +30,7 @@ public class StartupSpec extends QuAccEspTestCase<DummyLauncherActivity_> {
         // has no booking entries
         bookingEntriesPage.list().assertItemCountIs(0);
 
-        ReferencePicuture.check("initial startup");
+        ReferencePicuture.take("initial startup");
 
         // should close app with back press
         device.clickBackButton();

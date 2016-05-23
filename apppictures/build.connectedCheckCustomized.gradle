@@ -22,8 +22,8 @@ import com.android.builder.internal.testing.CustomTestRunListener
 import com.android.ddmlib.AndroidDebugBridge
 import com.android.ddmlib.IDevice
 import com.android.ddmlib.testrunner.RemoteAndroidTestRunner
-import com.android.utils.ILogger
 import com.android.ddmlib.testrunner.TestRunResult
+import com.android.utils.ILogger
 
 task connectedCheckRunTests << {
     def applicationId = "de.nenick.quacc"
