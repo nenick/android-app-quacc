@@ -47,7 +47,7 @@ test:
     - sleep 60
 
     # fixed date for testing (leap-year)
-    - adb shell date -u "050113002016.00"
+    - adb shell date -u "042513102016.00"
     - adb shell input keyevent 82
 
     # clear logs from emulator
