@@ -15,7 +15,7 @@ public class BookIntervalDailySpec extends QuAccEspTestCase<DummyLauncherActivit
 
     @Before
     public void setup() {
-        dummyAppLauncher.click();
+        launcherPage.clickStartApp();
     }
 
     @Test

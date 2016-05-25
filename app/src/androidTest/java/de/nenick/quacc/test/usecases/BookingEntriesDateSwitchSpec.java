@@ -16,7 +16,7 @@ public class BookingEntriesDateSwitchSpec extends QuAccEspTestCase<DummyLauncher
 
     @Before
     public void setup() {
-        dummyAppLauncher.click();
+        launcherPage.clickStartApp();
     }
 
     @Test

@@ -16,7 +16,7 @@ public class BookOutgoingSpec extends QuAccEspTestCase<DummyLauncherActivity_> {
 
     @Before
     public void setup() {
-        dummyAppLauncher.click();
+        launcherPage.clickStartApp();
     }
 
     @Test

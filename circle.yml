@@ -90,13 +90,13 @@ test:
 
     - ./gradlew core:test
     - mkdir -p $CIRCLE_TEST_REPORTS/core_tests/xml
-    - cp -r core/build/test-results/tests/debug $CIRCLE_TEST_REPORTS/core_tests/xml
+    - cp -r core/build/test-results/debug $CIRCLE_TEST_REPORTS/core_tests/xml
     - mkdir -p $CIRCLE_TEST_REPORTS/core_tests/html
     - cp -r core/build/reports/tests/debug $CIRCLE_TEST_REPORTS/core_tests/html
 
     - ./gradlew database:test
     - mkdir -p $CIRCLE_TEST_REPORTS/database_tests/xml
-    - cp -r database/build/test-results/tests/debug $CIRCLE_TEST_REPORTS/database_tests/xml
+    - cp -r database/build/test-results/debug $CIRCLE_TEST_REPORTS/database_tests/xml
     - mkdir -p $CIRCLE_TEST_REPORTS/database_tests/html
     - cp -r database/build/reports/tests/debug $CIRCLE_TEST_REPORTS/database_tests/html
 
@@ -108,14 +108,6 @@ test:
 
     # Check dependency versions
     - ./gradlew app:versionEyeUpdate
-
-    # copy test results
-    - mv app/build/reports/tests/debug $CIRCLE_TEST_REPORTS/appUnitTests
-    - mv core/build/reports/tests/debug $CIRCLE_TEST_REPORTS/coreUnitTests
-    - mv database/build/reports/tests/debug $CIRCLE_TEST_REPORTS/databaseUnitTests
-    - mv apptests/build/tests/debug $CIRCLE_TEST_REPORTS/apptests
-    - mv app/build/reports/androidTests/connected $CIRCLE_TEST_REPORTS/androidTests
-    - mv build/reports/jacoco/test/html $CIRCLE_TEST_REPORTS/codeCoverageReport
 
     # copy lint report
     - mkdir $CIRCLE_TEST_REPORTS/Lint

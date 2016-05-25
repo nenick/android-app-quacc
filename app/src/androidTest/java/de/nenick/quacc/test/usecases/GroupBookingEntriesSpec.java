@@ -18,7 +18,7 @@ public class GroupBookingEntriesSpec extends QuAccEspTestCase<DummyLauncherActiv
 
     @Before
     public void setup() {
-        dummyAppLauncher.click();
+        launcherPage.clickStartApp();
     }
 
     @Test

@@ -46,7 +46,7 @@ public class BookingEntriesFragment extends Fragment implements BookingEntriesVi
 
     @AfterInject
     protected void onAfterInjectBeans() {
-        if(selectedDate == null) {
+        if (selectedDate == null) {
             // else it was restored from instance state
             selectedDate = quAccDateUtil.today();
         }
@@ -60,7 +60,7 @@ public class BookingEntriesFragment extends Fragment implements BookingEntriesVi
 
     @AfterViews
     void onAfterViewsCreated() {
-        if(switchDateExpanded) {
+        if (switchDateExpanded) {
             view.toggleDateSelector();
         }
         view.setAdapter(adapter);

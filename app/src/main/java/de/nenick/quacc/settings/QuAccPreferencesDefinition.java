@@ -6,7 +6,15 @@ import de.devland.esperandro.annotations.SharedPreferences;
 @SharedPreferences
 interface QuAccPreferencesDefinition {
 
-    @Default(ofBoolean = true)
-    boolean isFirstAppStart();
-    void isFirstAppStart(boolean value);
+    @Default(ofBoolean = false)
+    boolean initialDatabaseContentStored();
+    void initialDatabaseContentStored(boolean value);
+
+    @Default(ofBoolean = false)
+    boolean initialAskedForSpeechRecognition();
+    void initialAskedForSpeechRecognition(boolean value);
+
+    @Default(ofBoolean = false)
+    boolean activateSpeechRecognition();
+    void activateSpeechRecognition(boolean value);
 }

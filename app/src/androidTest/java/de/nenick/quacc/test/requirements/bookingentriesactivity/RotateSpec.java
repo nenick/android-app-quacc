@@ -19,7 +19,7 @@ public class RotateSpec extends QuAccEspTestCase<DummyLauncherActivity_> {
 
     @Before
     public void setup() {
-        dummyAppLauncher.click();
+        launcherPage.clickStartApp();
     }
 
     @After

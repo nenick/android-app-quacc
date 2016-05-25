@@ -35,16 +35,16 @@ public class StartActivityTest {
 
     @Test
     public void testInitialData() {
-        when(preferences.isFirstAppStart()).thenReturn(true);
-        startActivity.onAfterInject();
+        when(preferences.initialDatabaseContentStored()).thenReturn(true);
+        startActivity.onAfterInjectBeans();
         verify(databaseInitialData).insert(any(SQLiteDatabase.class));
-        verify(preferences).isFirstAppStart(false);
+        verify(preferences).initialDatabaseContentStored(false);
     }
 
     @Test
     public void testInitialDataSkipIfAlreadyDone() {
-        when(preferences.isFirstAppStart()).thenReturn(false);
-        startActivity.onAfterInject();
+        when(preferences.initialDatabaseContentStored()).thenReturn(false);
+        startActivity.onAfterInjectBeans();
         verify(databaseInitialData, never()).insert(any(SQLiteDatabase.class));
     }
 }

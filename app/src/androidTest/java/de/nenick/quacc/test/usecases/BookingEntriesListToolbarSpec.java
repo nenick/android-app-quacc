@@ -18,7 +18,7 @@ public class BookingEntriesListToolbarSpec extends QuAccEspTestCase<DummyLaunche
 
     @Before
     public void setup() {
-        dummyAppLauncher.click();
+        launcherPage.clickStartApp();
     }
 
     @Test

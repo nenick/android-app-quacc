@@ -3,11 +3,11 @@ package de.nenick.quacc.test.usecases;
 import org.junit.Before;
 import org.junit.Test;
 
+import de.nenick.quacc.R;
 import de.nenick.quacc.test.DummyLauncherActivity_;
 import de.nenick.quacc.test.QuAccEspTestCase;
 import de.nenick.quacc.test.pages.EspAddBookingEntryPage;
 import de.nenick.quacc.test.pages.EspBookingEntriesPage;
-import de.nenick.quacc.R;
 
 public class BookIncomingSpec extends QuAccEspTestCase<DummyLauncherActivity_> {
 
@@ -16,7 +16,7 @@ public class BookIncomingSpec extends QuAccEspTestCase<DummyLauncherActivity_> {
 
     @Before
     public void setup() {
-        dummyAppLauncher.click();
+        launcherPage.clickStartApp();
     }
 
     @Test

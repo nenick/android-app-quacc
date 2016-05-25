@@ -11,13 +11,13 @@ import org.junit.Rule;
 
 import java.lang.reflect.Field;
 
-import de.nenick.espressomacchiato.elements.EspButton;
 import de.nenick.espressomacchiato.testbase.EspressoTestBase;
 import de.nenick.espressomacchiato.tools.EspAppDataTool;
-import de.nenick.quacc.R;
 import de.nenick.quacc.core.common.util.QuAccDateUtil;
 import de.nenick.quacc.core.common.util.QuAccDateUtil_;
 import de.nenick.quacc.database.provider.QuAccSQLiteOpenHelper;
+import de.nenick.quacc.settings.QuAccPreferences_;
+import de.nenick.quacc.test.pages.EspDummyLauncherPage;
 
 public abstract class QuAccEspTestCase<A extends Activity> extends EspressoTestBase<A> {
 
@@ -29,7 +29,7 @@ public abstract class QuAccEspTestCase<A extends Activity> extends EspressoTestB
         return activityTestRule.getActivity();
     }
 
-    public EspButton dummyAppLauncher = EspButton.byId(R.id.btn_start_app);
+    public EspDummyLauncherPage launcherPage = new EspDummyLauncherPage();
 
     public QuAccDateUtil quAccDateUtil;
 
@@ -40,6 +40,7 @@ public abstract class QuAccEspTestCase<A extends Activity> extends EspressoTestB
         // clear application data
         QuAccSQLiteOpenHelper.getInstance(InstrumentationRegistry.getTargetContext()).close();
         EspAppDataTool.clearApplicationData();
+        QuAccPreferences_.getInstance_(InstrumentationRegistry.getTargetContext()).initialAskedForSpeechRecognition(true);
 
         quAccDateUtil = QuAccDateUtil_.getInstance_(InstrumentationRegistry.getContext());
         try {

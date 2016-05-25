@@ -1,28 +1,36 @@
 package de.nenick.quacc.test.usecases;
 
-import org.junit.Before;
+import android.support.test.InstrumentationRegistry;
+
 import org.junit.Test;
 
 import de.nenick.espressomacchiato.elements.EspDevice;
+import de.nenick.espressomacchiato.tools.EspPermissionsTool;
+import de.nenick.quacc.settings.QuAccPreferences_;
 import de.nenick.quacc.test.DummyLauncherActivity_;
 import de.nenick.quacc.test.QuAccEspTestCase;
 import de.nenick.quacc.test.ReferencePicuture;
 import de.nenick.quacc.test.pages.EspBookingEntriesPage;
-import de.nenick.quacc.test.pages.EspDummyLauncherPage;
+import de.nenick.quacc.test.pages.QuAccStartPage;
+
+import static junit.framework.Assert.assertEquals;
 
 public class StartupSpec extends QuAccEspTestCase<DummyLauncherActivity_> {
 
+    QuAccStartPage startPage = new QuAccStartPage();
     EspBookingEntriesPage bookingEntriesPage = new EspBookingEntriesPage();
-    EspDummyLauncherPage launcherPage = new EspDummyLauncherPage();
     EspDevice device = EspDevice.root();
-
-    @Before
-    public void setup() {
-        dummyAppLauncher.click();
-    }
 
     @Test
     public void testInitialOpenAndCloseApplication() {
+        EspPermissionsTool.resetAllPermission();
+        QuAccPreferences_.getInstance_(InstrumentationRegistry.getTargetContext()).initialAskedForSpeechRecognition(false);
+        launcherPage.clickStartApp();
+
+        // allow speech recognition
+        startPage.speechRecognitionDialog().confirmButton().click();
+        startPage.permissionDialog().allow();
+
         // should start with closed drawer
         bookingEntriesPage.assertIsVisible();
         bookingEntriesPage.drawer().assertIsHidden();
@@ -35,5 +43,7 @@ public class StartupSpec extends QuAccEspTestCase<DummyLauncherActivity_> {
         // should close app with back press
         device.clickBackButton();
         launcherPage.assertIsVisible();
+
+        assertEquals(true, QuAccPreferences_.getInstance_(InstrumentationRegistry.getTargetContext()).activateSpeechRecognition());
     }
 }
