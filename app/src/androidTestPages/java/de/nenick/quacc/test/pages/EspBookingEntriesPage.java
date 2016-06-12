@@ -83,7 +83,7 @@ public class EspBookingEntriesPage extends EspPage {
     public static class EspBookingList extends EspRecyclerView {
 
         public EspBookingList(EspRecyclerView base) {
-            super(base.resourceId());
+            super(base);
         }
 
         @Override
