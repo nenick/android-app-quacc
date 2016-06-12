@@ -1,16 +1,16 @@
 <resources>
 
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <!-- for actionbar -->
         <item name="colorPrimary">@color/primary</item>
-        <!-- for fields text: textView, spinner -->
-        <item name="android:textColor">@color/primaryText</item>
-        <!-- for fields text: editText -->
-        <item name="android:textColorPrimary">@color/primaryText</item>
-        <!-- for cursor, line, arrow of current active elements -->
         <item name="colorAccent">@color/primary</item>
-        <!-- for full view background -->
+
+        <item name="android:textColor">@color/primaryText</item>
+        <item name="android:textColorPrimary">@color/primaryText</item>
+
         <item name="android:windowBackground">@color/windowBackground</item>
+    </style>
+
+    <style name="AppThemeTranslucent" parent="AppTheme">
         <item name="android:windowTranslucentStatus">true</item>
     </style>
 

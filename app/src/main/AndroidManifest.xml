@@ -33,6 +33,7 @@
             android:parentActivityName=".view.accounting_overview.AccountingListActivity_" />
         <activity
             android:name=".activities.bookingentries.BookingEntriesActivity_"
+            android:theme="@style/AppThemeTranslucent"
             android:label="@string/title_activity_accounting_list" />
         <activity
             android:name=".view.category.CategoriesActivity_"
