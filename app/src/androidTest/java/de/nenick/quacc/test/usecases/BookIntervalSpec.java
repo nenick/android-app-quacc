@@ -8,7 +8,7 @@ import de.nenick.quacc.test.QuAccEspTestCase;
 import de.nenick.quacc.test.pages.EspAddBookingEntryPage;
 import de.nenick.quacc.test.pages.EspBookingEntriesPage;
 
-public class BookIntervalDailySpec extends QuAccEspTestCase<DummyLauncherActivity_> {
+public class BookIntervalSpec extends QuAccEspTestCase<DummyLauncherActivity_> {
 
     EspBookingEntriesPage bookingEntriesPage = new EspBookingEntriesPage();
     EspAddBookingEntryPage addBookingEntryPage = new EspAddBookingEntryPage();
