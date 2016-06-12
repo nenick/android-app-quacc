@@ -1,4 +1,4 @@
-package de.nenick.expandablerecyclerview;
+package de.nenick.expandablerecyclerview.indicator;
 
 import android.annotation.TargetApi;
 import android.content.Context;
@@ -12,7 +12,7 @@ import android.widget.ImageView;
 import de.nenick.expandablerecyclerview.R;
 
 @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-class ExpandableItemIndicatorImplAnim extends ExpandableItemIndicator.Impl {
+class WithAnimationImpl extends ExpandableItemIndicator.Impl {
     private ImageView mImageView;
     private int mColor;
 

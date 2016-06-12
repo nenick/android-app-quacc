@@ -2,7 +2,7 @@ package de.nenick.quacc.view.bookingentries;
 
 import android.content.Context;
 import android.view.View;
-import android.widget.RelativeLayout;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import org.androidannotations.annotations.Bean;
@@ -26,7 +26,7 @@ import de.nenick.quacc.tools.AmountParser;
 class BookingEntryListItem extends ExpandableCursorTreeAdapter.ListItemHolder<BookingEntryCursor> {
 
     @EViewGroup(R.layout.item_accounting_child)
-    static class ListItemView extends RelativeLayout {
+    protected static class ListItemView extends FrameLayout {
         ListItemView(Context context) {
             super(context);
         }

@@ -1,4 +1,4 @@
-package de.nenick.expandablerecyclerview;
+package de.nenick.expandablerecyclerview.indicator;
 
 import android.content.Context;
 import android.os.Build;
@@ -34,9 +34,9 @@ public class ExpandableItemIndicator extends FrameLayout {
     protected void onInit(Context context, AttributeSet attrs, int defStyleAttr) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             // NOTE: VectorDrawable only supports API level 21 or later
-            mImpl = new ExpandableItemIndicatorImplAnim();
+            mImpl = new WithAnimationImpl();
         } else {
-            mImpl = new ExpandableItemIndicatorImplNoAnim();
+            mImpl = new NoAnimationImpl();
         }
         mImpl.onInit(context, attrs, defStyleAttr, this);
     }

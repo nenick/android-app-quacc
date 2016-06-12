@@ -2,7 +2,7 @@ apply plugin: 'com.android.library'
 
 android {
     compileSdkVersion 23
-    buildToolsVersion "23.0.2"
+    buildToolsVersion "23.0.3"
 
     defaultConfig {
         minSdkVersion 21
@@ -19,7 +19,7 @@ android {
 }
 
 dependencies {
-    compile('com.h6ah4i.android.widget.advrecyclerview:advrecyclerview:0.8.6@aar') {
+    compile('com.h6ah4i.android.widget.advrecyclerview:advrecyclerview:0.9.1@aar') {
         transitive = true
     }
 }

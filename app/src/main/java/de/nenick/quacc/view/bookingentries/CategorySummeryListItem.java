@@ -2,7 +2,7 @@ package de.nenick.quacc.view.bookingentries;
 
 import android.content.Context;
 import android.view.View;
-import android.widget.RelativeLayout;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.h6ah4i.android.widget.advrecyclerview.expandable.ExpandableItemConstants;
@@ -15,7 +15,7 @@ import org.androidannotations.api.view.HasViews;
 import org.androidannotations.api.view.OnViewChangedListener;
 
 import de.nenick.expandablerecyclerview.ExpandableCursorTreeAdapter;
-import de.nenick.expandablerecyclerview.ExpandableItemIndicator;
+import de.nenick.expandablerecyclerview.indicator.ExpandableItemIndicator;
 import de.nenick.quacc.R;
 import de.nenick.quacc.core.bookingentry.direction.BookingDirectionOption;
 import de.nenick.quacc.core.common.util.QuAccDateUtil;
@@ -29,7 +29,7 @@ import de.nenick.quacc.tools.AmountParser;
 class CategorySummeryListItem extends ExpandableCursorTreeAdapter.ListItemHolder<CategorySummeryCursor> {
 
     @EViewGroup(R.layout.item_accounting_group)
-    static class ListItemView extends RelativeLayout {
+    protected static class ListItemView extends FrameLayout {
         ListItemView(Context context) {
             super(context);
         }
@@ -71,6 +71,9 @@ class CategorySummeryListItem extends ExpandableCursorTreeAdapter.ListItemHolder
 
     @Override
     public void onBind(CategorySummeryCursor item) {
+        syncExpansionIndicator();
+        itemView.setClickable(true);
+
         date.setText(QuAccDateUtil.toString(item.getDateStart()));
         category.setText(item.getCategoryName());
         amount.setText(amountParser.asString(item.getAmount()));
@@ -89,31 +92,13 @@ class CategorySummeryListItem extends ExpandableCursorTreeAdapter.ListItemHolder
             default:
                 throw new IllegalStateException("Not supported type: " + BookingDirectionOption.valueOf(item.getDirection()));
         }
-
-        enableExpansionSupport();
     }
 
-    private void enableExpansionSupport() {
-        // mark as clickable
-        itemView.setClickable(true);
-
-        // set background resource (target view ID: container)
+    private void syncExpansionIndicator() {
         final int expandState = getExpandStateFlags();
-
         if ((expandState & ExpandableItemConstants.STATE_FLAG_IS_UPDATED) != 0) {
-            int bgResId;
-            boolean isExpanded;
+            boolean isExpanded = (expandState & ExpandableItemConstants.STATE_FLAG_IS_EXPANDED) != 0;
             boolean animateIndicator = ((expandState & ExpandableItemConstants.STATE_FLAG_HAS_EXPANDED_STATE_CHANGED) != 0);
-
-            if ((expandState & ExpandableItemConstants.STATE_FLAG_IS_EXPANDED) != 0) {
-                //bgResId = R.drawable.bg_group_item_expanded_state;
-                isExpanded = true;
-            } else {
-                //bgResId = R.drawable.bg_group_item_normal_state;
-                isExpanded = false;
-            }
-
-            //holder.mContainer.setBackgroundResource(bgResId);
             expandableItemIndicator.setExpandedState(isExpanded, animateIndicator);
         }
     }

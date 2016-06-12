@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Expandable Recycler View</string>
+    <string name="collapse_expand">Collapse/Expand</string>
 </resources>

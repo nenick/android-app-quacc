@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <merge xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+       xmlns:tools="http://schemas.android.com/tools"
+       android:layout_width="match_parent"
+       android:layout_height="match_parent"
+       tools:showIn="@layout/sample_widget_expandable_item_indicator">
 
     <ImageView
         android:id="@+id/image_view"
@@ -10,6 +12,7 @@
         android:layout_gravity="center"
         android:background="@null"
         android:scaleType="center"
-        android:src="@android:drawable/arrow_down_float"/>
+        android:contentDescription="@string/collapse_expand"
+        android:src="@drawable/ic_expand_less_to_expand_more"/>
 
 </merge>

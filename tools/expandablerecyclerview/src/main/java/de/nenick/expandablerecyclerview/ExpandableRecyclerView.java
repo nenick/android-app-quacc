@@ -1,8 +1,6 @@
 package de.nenick.expandablerecyclerview;
 
 import android.content.Context;
-import android.os.Bundle;
-import android.os.Parcel;
 import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
@@ -12,13 +10,14 @@ import android.util.AttributeSet;
 import com.h6ah4i.android.widget.advrecyclerview.animator.GeneralItemAnimator;
 import com.h6ah4i.android.widget.advrecyclerview.animator.RefactoredDefaultItemAnimator;
 import com.h6ah4i.android.widget.advrecyclerview.expandable.RecyclerViewExpandableItemManager;
-import com.h6ah4i.android.widget.advrecyclerview.utils.WrapperAdapterUtils;
+
+import de.nenick.expandablerecyclerview.parcel.SavedRecyclerViewState;
 
 public class ExpandableRecyclerView extends RecyclerView implements RecyclerViewExpandableItemManager.OnGroupCollapseListener,
         RecyclerViewExpandableItemManager.OnGroupExpandListener {
 
     private RecyclerViewExpandableItemManager recyclerViewExpandableItemManager;
-    private Adapter adapter;
+    private Parcelable pendingSavedState;
 
     public ExpandableRecyclerView(Context context) {
         super(context);
@@ -37,14 +36,18 @@ public class ExpandableRecyclerView extends RecyclerView implements RecyclerView
 
     @Override
     public void setAdapter(Adapter adapter) {
-        if(adapter != null) {
+        if (adapter != null) {
             // wrap to support expanding adapter
             adapter = recyclerViewExpandableItemManager.createWrappedAdapter(adapter);
             recyclerViewExpandableItemManager.attachRecyclerView(this);
         }
-        this.adapter = adapter;
         super.setAdapter(adapter);
-        recyclerViewExpandableItemManager.restoreState(eimSavedState);
+
+        // restore RecyclerView state after all initialisation is done
+        if(pendingSavedState != null) {
+            recyclerViewExpandableItemManager.restoreState(pendingSavedState);
+            pendingSavedState = null;
+        }
     }
 
     private void initExpansionTools() {
@@ -64,61 +67,18 @@ public class ExpandableRecyclerView extends RecyclerView implements RecyclerView
         recyclerViewExpandableItemManager.setOnGroupCollapseListener(this);
     }
 
-    Parcelable eimSavedState;
-
     @Override
     protected void onRestoreInstanceState(Parcelable state) {
-        SavedState savedState = (SavedState) state;
-
-        eimSavedState = savedState.expansionState;
-
-        super.onRestoreInstanceState(savedState.getSuperState());
-
+        SavedRecyclerViewState savedRecyclerViewState = (SavedRecyclerViewState) state;
+        pendingSavedState = savedRecyclerViewState.getExpansionState();
+        super.onRestoreInstanceState(savedRecyclerViewState.getSuperState());
     }
 
     @Override
     protected Parcelable onSaveInstanceState() {
         Parcelable superState = super.onSaveInstanceState();
-        SavedState savedState = new SavedState(superState, recyclerViewExpandableItemManager);
-
-        Parcelable expansionState = recyclerViewExpandableItemManager.getSavedState();
-        savedState.expansionState = expansionState;
-
-        return savedState;
-    }
-
-    static class SavedState extends BaseSavedState {
-
-        private RecyclerViewExpandableItemManager recyclerViewExpandableItemManager;
-        public Parcelable expansionState;
-
-        public SavedState(Parcelable superState, RecyclerViewExpandableItemManager recyclerViewExpandableItemManager) {
-            super(superState);
-            this.recyclerViewExpandableItemManager = recyclerViewExpandableItemManager;
-        }
-
-        private SavedState(Parcel in) {
-            super(in);
-            expansionState = in.readParcelable(getClass().getClassLoader());
-        }
-
-        @Override
-        public void writeToParcel(Parcel out, int flags) {
-            super.writeToParcel(out, flags);
-            out.writeParcelable(recyclerViewExpandableItemManager.getSavedState(), 0);
-        }
-
-        public static final Parcelable.Creator<SavedState> CREATOR = new Parcelable.Creator<SavedState>() {
-            @Override
-            public SavedState createFromParcel(Parcel in) {
-                return new SavedState(in);
-            }
-
-            @Override
-            public SavedState[] newArray(int size) {
-                return new SavedState[size];
-            }
-        };
+        Parcelable expandableState = recyclerViewExpandableItemManager.getSavedState();
+        return new SavedRecyclerViewState(superState, expandableState);
     }
 
     @Override

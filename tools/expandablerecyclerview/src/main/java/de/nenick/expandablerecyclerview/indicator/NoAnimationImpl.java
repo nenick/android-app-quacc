@@ -1,4 +1,4 @@
-package de.nenick.expandablerecyclerview;
+package de.nenick.expandablerecyclerview.indicator;
 
 import android.content.Context;
 import android.util.AttributeSet;
@@ -8,7 +8,7 @@ import android.widget.ImageView;
 
 import de.nenick.expandablerecyclerview.R;
 
-class ExpandableItemIndicatorImplNoAnim extends ExpandableItemIndicator.Impl {
+class NoAnimationImpl extends ExpandableItemIndicator.Impl {
     private ImageView mImageView;
 
     @Override
