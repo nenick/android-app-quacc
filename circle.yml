@@ -10,10 +10,10 @@ machine:
 
 dependencies:
   pre:
-    # workaround for "failed to find Build Tools revision 23.0.2"
+    # workaround for "failed to find Build Tools revision xx"
     # https://discuss.circleci.com/t/android-build-tools-23-0-2-not-available/455/3
     - echo y | android update sdk --no-ui --all --filter tool #,extra-android-m2repository,extra-android-support,extra-google-google_play_services,extra-google-m2repository,android-23
-    - echo y | android update sdk --no-ui --all --filter build-tools-23.0.3
+    - echo y | android update sdk --no-ui --all --filter build-tools-23.0.3,build-tools-23.4.0
 
     # create android v23 emulator
     - echo no | android create avd -n my-android23 -t $(android list targets | grep android-23 | cut -d" " -f2) -c 512M --abi default/armeabi-v7a
