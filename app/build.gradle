@@ -76,7 +76,7 @@ dependencies {
     apt 'de.devland.esperandro:esperandro:2.2.0'
 
     // backward compatibility
-    compile 'com.android.support:design:23.3.0'
+    compile 'com.android.support:design:23.4.0'
 
     // style support
     compile 'com.melnykov:floatingactionbutton:1.2.0'
