@@ -17,10 +17,6 @@ import java.util.Locale;
 
 /**
  * Wrapper for the android speech recognition.
- * <p>
- * Works online and offline but offline it reports only one variant.
- * <p>
- * Add possibility to check if speech recognition is listening.
  */
 @EBean
 public class QuAccSpeechRecognizer {
@@ -33,12 +29,15 @@ public class QuAccSpeechRecognizer {
 
     private Intent speechRecognizerIntent;
     private boolean isListening;
+    private boolean supported;
 
     @AfterInject
     protected void afterInject() {
         speechRecognizer = SpeechRecognizer.createSpeechRecognizer(context);
         speechRecognizerIntent = new Intent();
         setSpeechRecognitionIntentValues();
+
+        supported = isSpeechRecognitionAvailable();
     }
 
     public void setSpeechResultListener(final SpeechResultListener speechResultListener) {
@@ -63,14 +62,14 @@ public class QuAccSpeechRecognizer {
     }
 
     public void startListening() {
-        if (!isListening) {
+        if (!isListening && supported) {
             isListening = true;
             speechRecognizer.startListening(speechRecognizerIntent);
         }
     }
 
     public void stopListening() {
-        if (isListening) {
+        if (isListening && supported) {
             isListening = false;
             speechRecognizer.cancel();
         }
@@ -84,7 +83,9 @@ public class QuAccSpeechRecognizer {
     }
 
     public void destroy() {
-        speechRecognizer.destroy();
+        if(supported) {
+            speechRecognizer.destroy();
+        }
     }
 
     public boolean isListening() {
