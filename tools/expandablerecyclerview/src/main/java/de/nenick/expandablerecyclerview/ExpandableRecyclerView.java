@@ -36,7 +36,7 @@ public class ExpandableRecyclerView extends RecyclerView implements RecyclerView
 
     @Override
     public void setAdapter(Adapter adapter) {
-        if (adapter != null) {
+        if (adapter != null && !isInEditMode()) {
             // wrap to support expanding adapter
             adapter = recyclerViewExpandableItemManager.createWrappedAdapter(adapter);
             recyclerViewExpandableItemManager.attachRecyclerView(this);
