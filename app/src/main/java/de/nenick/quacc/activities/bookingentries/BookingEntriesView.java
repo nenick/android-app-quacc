@@ -16,12 +16,15 @@ import org.androidannotations.annotations.FragmentById;
 import org.androidannotations.annotations.RootContext;
 import org.androidannotations.annotations.ViewById;
 
+import de.nenick.androidannotations.plugin.mvp.EMvpView;
+import de.nenick.androidannotations.plugin.mvp.MvpCallback;
 import de.nenick.quacc.R;
 import de.nenick.quacc.database.provider.account.AccountCursor;
 import de.nenick.quacc.view.bookingentries.BookingEntriesFragment;
 import de.nenick.quacc.view.drawer.AccountNavigationDrawer;
 
 @EBean
+@EMvpView
 public class BookingEntriesView {
 
     public interface ViewCallback {
@@ -29,21 +32,14 @@ public class BookingEntriesView {
         void onClickNewBookingEntry();
     }
 
-    @EViewGroup(R.layout.activity_booking_entries)
-    public static class Layout extends FrameLayout {
-        public Layout(Context context) {
-            super(context);
-        }
-    }
-
     @RootContext
     protected AppCompatActivity context;
 
     @FragmentById(R.id.fragment_booking_entries)
-    protected BookingEntriesFragment bookingEntries;
+    BookingEntriesFragment bookingEntries;
 
     @ViewById(R.id.navigation_drawer)
-    protected AccountNavigationDrawer accountNavigationDrawer;
+    AccountNavigationDrawer accountNavigationDrawer;
 
     @ViewById(R.id.activity_booking_entries)
     protected DrawerLayout drawer;
@@ -51,11 +47,8 @@ public class BookingEntriesView {
     @ViewById(R.id.toolbar)
     protected Toolbar toolbar;
 
-    private ViewCallback callback;
-
-    public Layout root() {
-        return BookingEntriesView_.Layout_.build(context);
-    }
+    @MvpCallback
+    ViewCallback callback;
 
     @AfterViews
     protected void onAfterViewsCreated() {
@@ -75,7 +68,7 @@ public class BookingEntriesView {
     }
 
     @Click(R.id.btn_add_booking)
-    protected void onClickNewBookingEntry() {
+    void onClickNewBookingEntry() {
         callback.onClickNewBookingEntry();
     }
 
@@ -83,12 +76,12 @@ public class BookingEntriesView {
         this.callback = callback;
     }
 
-    public void showAccountContent(long accountId) {
+    void showAccountContent(long accountId) {
         bookingEntries.setAccount(accountId);
         accountNavigationDrawer.selectAccount(accountId);
     }
 
-    public void showAccounts(AccountCursor cursor) {
+    void showAccounts(AccountCursor cursor) {
         accountNavigationDrawer.bindAccounts(cursor);
     }
 }

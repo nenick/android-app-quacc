@@ -8,6 +8,7 @@ import org.androidannotations.annotations.ItemSelect;
 import org.androidannotations.annotations.OptionsItem;
 import org.androidannotations.annotations.OptionsMenu;
 
+import de.nenick.androidannotations.plugin.mvp.EMvpPresenter;
 import de.nenick.quacc.R;
 import de.nenick.quacc.core.account.GetAccountsFunction;
 import de.nenick.quacc.core.bookingentry.direction.BookingDirectionOption;
@@ -25,12 +26,12 @@ import de.nenick.quacc.view.common.adapter.TypeAdapter;
 import de.nenick.quacc.view.mvp.BasePresenterFragment;
 import de.nenick.quacc.view.mvp.BaseView;
 
+@EMvpPresenter
 @EFragment(R.layout.fragment_create_accounting)
 @OptionsMenu(R.menu.menu_create_account)
 public class EditAccountingFragment extends BasePresenterFragment {
 
-    @FragmentArg
-    long bookingEntryId;
+    private long bookingEntryId;
 
     String accountingIntervalInitial;
 
@@ -67,6 +68,10 @@ public class EditAccountingFragment extends BasePresenterFragment {
     @Override
     protected BaseView getBaseView() {
         return view;
+    }
+
+    public void setBookingEntryId(long bookingEntryId) {
+        this.bookingEntryId = bookingEntryId;
     }
 
     @Override

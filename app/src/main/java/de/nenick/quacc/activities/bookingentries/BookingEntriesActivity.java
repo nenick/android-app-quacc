@@ -14,6 +14,9 @@ import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.InstanceState;
 
+import de.nenick.androidannotations.plugin.mvp.EMvpPresenter;
+import de.nenick.androidannotations.plugin.mvp.MvpView;
+import de.nenick.quacc.R;
 import de.nenick.quacc.activities.bookingcreation.EditAccountingActivity_;
 import de.nenick.quacc.database.LoaderCallback;
 import de.nenick.quacc.database.account.AccountRepository;
@@ -22,12 +25,13 @@ import de.nenick.quacc.database.provider.account.AccountCursor;
 import de.nenick.quacc.speechrecognition.hotword.HotwordListener;
 import de.nenick.quacc.speechrecognition.hotword.QuAccHotwordRecognizer;
 
-@EActivity
+@EMvpPresenter
+@EActivity(R.layout.activity_booking_entries)
 public class BookingEntriesActivity extends AppCompatActivity implements
         BookingEntriesView.ViewCallback,
         LoaderCallback<AccountCursor> {
 
-    @Bean
+    @MvpView
     protected BookingEntriesView view;
 
     @Bean
@@ -40,12 +44,6 @@ public class BookingEntriesActivity extends AppCompatActivity implements
     protected long lastSelectedAccountId;
 
     private boolean needInitialAccountSelection = true;
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(view.root());
-    }
 
     @AfterInject
     protected void onAfterInjectBeans() {

@@ -15,12 +15,14 @@ import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.Transactional;
 
+import de.nenick.androidannotations.plugin.mvp.EMvpPresenter;
 import de.nenick.quacc.activities.bookingentries.BookingEntriesActivity_;
 import de.nenick.quacc.core.initialdata.DatabaseInitialData;
 import de.nenick.quacc.database.provider.QuAccSQLiteOpenHelper;
 import de.nenick.quacc.settings.QuAccPreferences;
 import de.nenick.quacc.test.BackgroundThreadCounter;
 
+@EMvpPresenter
 @EActivity
 public class StartActivity extends AppCompatActivity {
 
@@ -33,7 +35,7 @@ public class StartActivity extends AppCompatActivity {
     @Bean
     protected DatabaseInitialData databaseInitialData;
 
-    private SpeechRecognitionDialogFragment speechDialog;
+    private SpeechRecognitionDialog speechDialog;
 
     @AfterInject
     protected void onAfterInjectBeans() {
@@ -107,9 +109,9 @@ public class StartActivity extends AppCompatActivity {
 
     private void askUserForSpeechRecognition() {
         FragmentManager supportFragmentManager = getSupportFragmentManager();
-        speechDialog = (SpeechRecognitionDialogFragment) supportFragmentManager.findFragmentByTag(TAG_SPEECH_RECOGNITION_DIALOG);
+        speechDialog = (SpeechRecognitionDialog) supportFragmentManager.findFragmentByTag(TAG_SPEECH_RECOGNITION_DIALOG);
         if (speechDialog == null) {
-            speechDialog = new SpeechRecognitionDialogFragment();
+            speechDialog = new SpeechRecognitionDialog();
             speechDialog.show(supportFragmentManager, TAG_SPEECH_RECOGNITION_DIALOG);
             supportFragmentManager.executePendingTransactions();
         }

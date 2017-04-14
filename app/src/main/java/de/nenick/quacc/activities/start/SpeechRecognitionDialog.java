@@ -7,7 +7,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
 
-public class SpeechRecognitionDialogFragment extends DialogFragment {
+public class SpeechRecognitionDialog extends DialogFragment {
 
     private StartActivity activity;
 

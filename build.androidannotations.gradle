@@ -2,7 +2,19 @@
 //    maven { url 'https://oss.sonatype.org/content/repositories/snapshots' }
 //}
 
+repositories {
+    maven {
+        url "http://dl.bintray.com/nenick/maven"
+    }
+}
+
+def AndroidAnnotations = "4.3.0"
+def AndroidAnnotationsMvp = "1.0.0"
+
 dependencies {
-    compile "org.androidannotations:androidannotations-api:4.0.0"
-    apt "org.androidannotations:androidannotations:4.0.0"
+    compile "org.androidannotations:androidannotations-api:$AndroidAnnotations"
+    apt "org.androidannotations:androidannotations:$AndroidAnnotations"
+
+    apt "de.nenick:androidannotations-mvp:$AndroidAnnotationsMvp"
+    compile "de.nenick:androidannotations-mvp-api:$AndroidAnnotationsMvp"
 }

@@ -8,10 +8,15 @@ import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.Extra;
 
+import de.nenick.androidannotations.plugin.mvp.ActivityLauncher;
+import de.nenick.androidannotations.plugin.mvp.EMvpPresenter;
+import de.nenick.androidannotations.plugin.mvp.MvpActivity;
+import de.nenick.androidannotations.plugin.mvp.MvpFragment;
 import de.nenick.quacc.R;
 import de.nenick.quacc.view.accounting_edit.EditAccountingFragment;
 import de.nenick.quacc.view.accounting_edit.EditAccountingFragment_;
 
+@EMvpPresenter
 @EActivity(R.layout.activity)
 public class EditAccountingActivity extends AppCompatActivity {
 
@@ -19,6 +24,9 @@ public class EditAccountingActivity extends AppCompatActivity {
 
     @Extra
     long bookingEntryId;
+
+    @MvpFragment
+    EditAccountingFragment editAccountingFragment;
 
     @AfterViews
     protected void onAfterViews() {
@@ -32,7 +40,8 @@ public class EditAccountingActivity extends AppCompatActivity {
         // If the Fragment is non-null, then it is currently being
         // retained across a configuration change.
         if (fragmentManager.findFragmentByTag(TAG_FRAGMENT) == null) {
-            fragmentManager.beginTransaction().add(R.id.container, EditAccountingFragment_.builder().bookingEntryId(bookingEntryId).build(), TAG_FRAGMENT).commit();
+            editAccountingFragment.setBookingEntryId(bookingEntryId);
+            fragmentManager.beginTransaction().add(R.id.container, editAccountingFragment, TAG_FRAGMENT).commit();
         }
     }
 }
