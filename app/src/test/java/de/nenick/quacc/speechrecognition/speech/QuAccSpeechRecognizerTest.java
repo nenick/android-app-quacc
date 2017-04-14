@@ -49,7 +49,7 @@ public class QuAccSpeechRecognizerTest {
     @Captor
     ArgumentCaptor<RecognizerListenerWithOfflineWorkaround> recognitionListenerWrapperArgumentCaptor;
 
-    RecognizerListenerWithOfflineWorkaround recognizerListenerWithOfflineWorkaround;
+    private RecognizerListenerWithOfflineWorkaround recognizerListenerWithOfflineWorkaround;
 
     @Mock
     Bundle resultBundle;
@@ -57,12 +57,11 @@ public class QuAccSpeechRecognizerTest {
     @Mock
     Bundle partialResultBundle;
 
-    ArrayList<String> partialSpeechRecognizerLastPart;
-    ArrayList<String> partialSpeechRecognizerResult;
-    ArrayList<String> speechRecognitionResult;
-    String packageName = "de.nenick";
+    private ArrayList<String> partialSpeechRecognizerResult;
+    private ArrayList<String> speechRecognitionResult;
+    private String packageName = "de.nenick";
 
-    List<ResolveInfo> activitiesForSpeechRecognition = new ArrayList<>();
+    private List<ResolveInfo> activitiesForSpeechRecognition = new ArrayList<>();
 
     @Mock
     PackageManager packageManager;
@@ -75,7 +74,7 @@ public class QuAccSpeechRecognizerTest {
         initialiseListener();
         given(context.getPackageName()).willReturn(packageName);
         given(context.getPackageManager()).willReturn(packageManager);
-        given(packageManager.queryIntentActivities(any(Intent.class), anyInt())).willReturn(activitiesForSpeechRecognition);
+        given(packageManager.queryIntentActivities(any(Intent.class), 0)).willReturn(activitiesForSpeechRecognition);
     }
 
     @Test
@@ -191,6 +190,7 @@ public class QuAccSpeechRecognizerTest {
 
     @Test
     public void shouldDestroySpeechRecognizer() {
+        givenSpeechRecognitionIsSupported();
         quAccSpeechRecognizer.destroy();
         verify(_speechRecognizer).destroy();
     }
@@ -210,7 +210,7 @@ public class QuAccSpeechRecognizerTest {
     private void createPartialResultBundle() {
         partialSpeechRecognizerResult = new ArrayList<>();
         partialSpeechRecognizerResult.add("Some partial");
-        partialSpeechRecognizerLastPart = new ArrayList<>();
+        ArrayList<String> partialSpeechRecognizerLastPart = new ArrayList<>();
         partialSpeechRecognizerLastPart.add("text");
         given(partialResultBundle.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION)).willReturn(partialSpeechRecognizerResult);
         given(partialResultBundle.getStringArrayList("android.speech.extra.UNSTABLE_TEXT")).willReturn(partialSpeechRecognizerLastPart);
@@ -231,7 +231,14 @@ public class QuAccSpeechRecognizerTest {
     }
 
     private void whenStartListening() {
+        givenSpeechRecognitionIsSupported();
         quAccSpeechRecognizer.startListening();
+    }
+
+    private void givenSpeechRecognitionIsSupported() {
+        activitiesForSpeechRecognition.add(mock(ResolveInfo.class));
+        quAccSpeechRecognizer.afterInject();
+        quAccSpeechRecognizer.speechRecognizer = _speechRecognizer;
     }
 
     private void whenStopListening() {
@@ -249,7 +256,7 @@ public class QuAccSpeechRecognizerTest {
     }
 
     private void thenUseGermanAsDefaultLanguage() {
-        verify(speechRecognizerIntent).putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.GERMAN);
+        verify(speechRecognizerIntent).putExtra(RecognizerIntent.EXTRA_LANGUAGE, "de_DE");
     }
 
     private void thenSetPackageNameFromApp() {
