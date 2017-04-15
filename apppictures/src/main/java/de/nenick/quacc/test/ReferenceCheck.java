@@ -15,7 +15,7 @@ import static org.junit.Assert.assertEquals;
 
 public class ReferenceCheck {
 
-    public static final String screenshotUrl = "https://circle-artifacts.com/gh/nenick/QuAcc/243/artifacts/0/tmp/circle-junit.joMmG5P/test-screenshots/";
+    public static final String screenshotUrl = "https://circle-artifacts.com/gh/nenick/QuAcc/259/artifacts/0/tmp/circle-junit.joMmG5P/test-screenshots/";
 
     public static void download(String name) {
         try {
